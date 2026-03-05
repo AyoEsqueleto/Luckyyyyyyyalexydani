@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucky Base</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:#ffffff;
+color:#1a1a1a;
+}
+
+/* NAVBAR */
+
+header{
+position:fixed;
+top:0;
+width:100%;
+background:white;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 8%;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+z-index:1000;
+}
+
+.logo{
+font-size:26px;
+font-weight:600;
+color:#1565ff;
+}
+
+nav a{
+margin-left:30px;
+text-decoration:none;
+color:#333;
+font-weight:500;
+position:relative;
+}
+
+nav a::after{
+content:"";
+position:absolute;
+bottom:-5px;
+left:0;
+width:0%;
+height:2px;
+background:#1565ff;
+transition:0.3s;
+}
+
+nav a:hover::after{
+width:100%;
+}
+
+/* HERO */
+
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+color:white;
+
+background:linear-gradient(-45deg,#1565ff,#4f8cff,#1e40ff,#2a6bff);
+background-size:400% 400%;
+
+animation:gradientMove 10s ease infinite;
+}
+
+@keyframes gradientMove{
+
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+
+}
+
+.hero h1{
+font-size:70px;
+margin-bottom:20px;
+animation:fadeUp 1s ease;
+}
+
+.hero p{
+max-width:600px;
+font-size:20px;
+margin-bottom:30px;
+animation:fadeUp 1.3s ease;
+}
+
+.hero button{
+padding:15px 40px;
+border:none;
+border-radius:30px;
+background:white;
+color:#1565ff;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+animation:fadeUp 1.6s ease;
+}
+
+.hero button:hover{
+transform:scale(1.1);
+}
+
+
+/* SECTIONS */
+
+section{
+padding:110px 8%;
+}
+
+
+/* SERVICES */
+
+.services{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:35px;
+margin-top:50px;
+}
+
+.card{
+padding:35px;
+border-radius:12px;
+background:white;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+transition:0.4s;
+opacity:0;
+transform:translateY(40px);
+}
+
+.card.show{
+opacity:1;
+transform:translateY(0);
+}
+
+.card:hover{
+transform:translateY(-12px);
+box-shadow:0 20px 40px rgba(0,0,0,0.12);
+}
+
+.card h3{
+color:#1565ff;
+margin-bottom:10px;
+}
+
+/* ABOUT */
+
+.about{
+display:flex;
+flex-wrap:wrap;
+align-items:center;
+gap:50px;
+}
+
+.about img{
+width:420px;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+.about-text{
+flex:1;
+}
+
+/* CONTACT */
+
+.contact-box{
+max-width:600px;
+margin:auto;
+margin-top:40px;
+}
+
+input,textarea{
+
+width:100%;
+padding:14px;
+margin-bottom:15px;
+border-radius:6px;
+border:1px solid #ddd;
+font-size:15px;
+
+}
+
+button.submit{
+
+background:#1565ff;
+color:white;
+border:none;
+padding:14px 30px;
+border-radius:6px;
+cursor:pointer;
+transition:0.3s;
+
+}
+
+button.submit:hover{
+background:#0e49c9;
+}
+
+/* FOOTER */
+
+footer{
+background:#1565ff;
+color:white;
+text-align:center;
+padding:35px;
+margin-top:80px;
+}
+
+/* BACK TO TOP */
+
+#topBtn{
+
+position:fixed;
+bottom:30px;
+right:30px;
+background:#1565ff;
+color:white;
+border:none;
+padding:12px 16px;
+border-radius:50%;
+font-size:18px;
+cursor:pointer;
+display:none;
+
+}
+
+/* ANIMATION */
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(40px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:45px;
+}
+
+header{
+flex-direction:column;
+gap:10px;
+}
+
+.about img{
+width:100%;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">Lucky Base</div>
+
+<nav>
+
+<a href="#inicio">Inicio</a>
+<a href="#servicios">Servicios</a>
+<a href="#about">Nosotros</a>
+<a href="#contacto">Contacto</a>
+<a href="#quehacemos">Qué hacemos</a>
+<a href="#reventa">Reventa</a>
+
+</nav>
+
+</header>
+
+<section class="hero" id="inicio">
+
+<h1>Lucky Base</h1>
+
+<p>
+Soluciones digitales modernas para empresas que quieren destacar en internet.
+</p>
+
+<button onclick="scrollToServices()">Explorar</button>
+
+</section>
+<section id="quehacemos">
+
+<h2 style="text-align:center">Qué hacemos en Lucky Base</h2>
+
+<div class="services">
+
+<div class="card">
+<h3>Automatizaciones</h3>
+<p>
+Creamos automatizaciones para empresas: bots, integraciones entre apps
+y sistemas que ahorran tiempo en tareas repetitivas.
+</p>
+</div>
+
+<div class="card">
+<h3>Creación de páginas web</h3>
+<p>
+Diseñamos páginas web modernas, rápidas y optimizadas
+para empresas, marcas y proyectos digitales.
+</p>
+</div>
+
+<div class="card">
+<h3>Proyectos digitales</h3>
+<p>
+Desarrollamos ideas digitales desde cero, lanzando productos,
+herramientas online y proyectos en internet.
+</p>
+</div>
+
+</div>
+
+</section>
+
+
+<section id="servicios">
+
+<h2>Nuestros Servicios</h2>
+
+<div class="services">
+
+<div class="card">
+<h3>Desarrollo Web</h3>
+<p>Webs modernas, rápidas y optimizadas para negocios.</p>
+</div>
+
+<div class="card">
+<h3>Diseño UI/UX</h3>
+<p>Experiencias digitales elegantes y funcionales.</p>
+</div>
+
+<div class="card">
+<h3>Marketing Digital</h3>
+<p>Estrategias para crecer en internet.</p>
+</div>
+
+<div class="card">
+<h3>Branding</h3>
+<p>Identidad visual fuerte para tu empresa.</p>
+</div>
+
+</div>
+
+</section>
+<section id="reventa">
+
+<h2 style="text-align:center;margin-bottom:30px;">Reventa de ropa</h2>
+
+<p style="text-align:center;max-width:700px;margin:auto;margin-bottom:40px;">
+En Lucky Base también desarrollamos proyectos de reventa de ropa.
+Buscamos oportunidades en el mercado y vendemos productos en plataformas
+de segunda mano.
+</p>
+
+<div class="services">
+
+<div class="card" style="text-align:center">
+
+<img src="https://play-lh.googleusercontent.com/uykj6t0svCeUYDUEG1osUlslAhb3aFQNzPrbKibBv5cZDH_ZdjiwVWsrQFt_pXUdbYw" style="width:150px;margin-bottom:20px;">
+
+<h3>Wallapop</h3>
+
+<p>
+Compramos y revendemos productos aprovechando oportunidades
+en el mercado local.
+</p>
+
+</div>
+
+<div class="card" style="text-align:center">
+
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHeBXcXSaIbpJd0DMZ4kWSx_DvR40eDhsHfA&s" style="width:150px;margin-bottom:20px;">
+
+<h3>Vinted</h3>
+
+<p>
+Vendemos ropa y accesorios gestionando publicaciones,
+envíos y clientes.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section id="about">
+
+<div class="about">
+
+<img src="https://images.unsplash.com/photo-1552664730-d307ca884978">
+
+<div class="about-text">
+
+<h2>Sobre Lucky Base</h2>
+
+<p>
+Lucky Base es una empresa enfocada en crear soluciones digitales
+innovadoras para empresas modernas.
+</p>
+
+<br>
+
+<p>
+Combinamos tecnología, diseño y estrategia para crear proyectos
+impactantes.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="contacto">
+
+<h2 style="text-align:center">Contacto</h2>
+
+<div class="contact-box">
+
+<form action="https://formspree.io/f/mqeyzdyz" method="POST">
+
+<input type="text" name="nombre" placeholder="Nombre" required>
+
+<input type="email" name="email" placeholder="Email" required>
+
+<textarea name="mensaje" rows="5" placeholder="Mensaje" required></textarea>
+
+<button class="submit" type="submit">Enviar mensaje</button>
+
+</form>
+
+</div>
+
+
+</section>
+
+<footer>
+
+<p>© 2026 Lucky Base — Todos los derechos reservados</p>
+
+</footer>
+
+<button id="topBtn" onclick="topFunction()">↑</button>
+
+<script>
+
+/* SCROLL ANIMATION */
+
+const cards=document.querySelectorAll(".card")
+
+window.addEventListener("scroll",()=>{
+
+cards.forEach(card=>{
+
+const cardTop=card.getBoundingClientRect().top
+
+if(cardTop<window.innerHeight-100){
+
+card.classList.add("show")
+
+}
+
+})
+
+})
+
+/* SCROLL BUTTON */
+
+const btn=document.getElementById("topBtn")
+
+window.onscroll=function(){
+
+if(document.body.scrollTop>400||document.documentElement.scrollTop>400){
+
+btn.style.display="block"
+
+}else{
+
+btn.style.display="none"
+
+}
+
+}
+
+function topFunction(){
+
+document.body.scrollTop=0
+document.documentElement.scrollTop=0
+
+}
+
+function scrollToServices(){
+
+document.getElementById("servicios").scrollIntoView()
+
+}
+
+</script>
+
+</body>
+</html>
