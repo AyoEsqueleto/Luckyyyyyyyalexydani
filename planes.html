@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planes | LuckyBase</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon.png" type="image/png">
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:#ffffff;
+color:#1a1a1a;
+}
+
+header{
+position:fixed;
+top:0;
+width:100%;
+background:white;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 8%;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+z-index:1000;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.logo img{
+height:56px;
+width:auto;
+display:block;
+}
+
+nav a{
+margin-left:30px;
+text-decoration:none;
+color:#333;
+font-weight:500;
+position:relative;
+}
+
+nav a::after{
+content:"";
+position:absolute;
+bottom:-5px;
+left:0;
+width:0%;
+height:2px;
+background:#1565ff;
+transition:0.3s;
+}
+
+nav a:hover::after{
+width:100%;
+}
+
+.theme-toggle{
+margin-left:20px;
+width:40px;
+height:40px;
+padding:0;
+border:1px solid #d1d5db;
+border-radius:50%;
+background:#fff;
+color:#1f2937;
+cursor:pointer;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+transition:0.3s;
+}
+
+.theme-toggle:hover{
+background:#f3f4f6;
+}
+
+.theme-toggle svg{
+width:20px;
+height:20px;
+display:block;
+}
+
+.hero{
+height:55vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+color:white;
+background:linear-gradient(-45deg,#1565ff,#4f8cff,#1e40ff,#2a6bff);
+background-size:400% 400%;
+animation:gradientMove 10s ease infinite;
+}
+
+@keyframes gradientMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.hero h1{
+font-size:58px;
+margin-bottom:14px;
+}
+
+.hero p{
+max-width:760px;
+font-size:19px;
+}
+
+section{
+padding:95px 8%;
+}
+
+.services{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+margin-top:35px;
+}
+
+.card{
+padding:35px;
+border-radius:12px;
+background:white;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+position:relative;
+}
+
+.card h3{
+color:#1565ff;
+margin-bottom:12px;
+}
+
+.price{
+font-size:28px;
+font-weight:700;
+margin:8px 0 14px;
+color:#0f172a;
+}
+
+.card ul{
+padding-left:18px;
+line-height:1.7;
+color:#4b5563;
+}
+
+.cta{
+display:inline-block;
+margin-top:20px;
+padding:10px 18px;
+border-radius:8px;
+background:#1565ff;
+color:#fff;
+text-decoration:none;
+font-weight:600;
+}
+
+.premium-card{
+border:2px solid #d4a017;
+background:linear-gradient(180deg,#fffdf5,#fff7dd);
+}
+
+.premium-badge{
+position:absolute;
+top:14px;
+right:14px;
+background:#d4a017;
+color:#fff;
+font-size:11px;
+font-weight:700;
+letter-spacing:0.8px;
+padding:6px 10px;
+border-radius:999px;
+}
+
+footer{
+background:#1565ff;
+color:white;
+text-align:center;
+padding:35px;
+margin-top:80px;
+}
+
+.footer-copy{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+}
+
+.footer-copy img{
+width:30px;
+height:30px;
+object-fit:contain;
+display:block;
+}
+
+.footer-instagram{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+width:34px;
+height:34px;
+margin-top:12px;
+border-radius:50%;
+background:#fff;
+color:#1565ff;
+text-decoration:none;
+transition:0.3s;
+}
+
+.footer-instagram:hover{
+transform:scale(1.08);
+background:#f3f6ff;
+}
+
+.footer-instagram svg{
+width:18px;
+height:18px;
+display:block;
+}
+
+#topBtn{
+position:fixed;
+bottom:30px;
+right:30px;
+width:52px;
+height:52px;
+background:linear-gradient(135deg,#1565ff,#0e49c9);
+color:white;
+border:none;
+border-radius:50%;
+font-size:22px;
+font-weight:600;
+line-height:1;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 10px 24px rgba(21,101,255,0.35);
+opacity:0;
+visibility:hidden;
+transform:translateY(12px) scale(0.9);
+transition:opacity 0.25s ease,transform 0.25s ease,box-shadow 0.25s ease;
+}
+
+#topBtn.show{
+opacity:1;
+visibility:visible;
+transform:translateY(0) scale(1);
+}
+
+#topBtn:hover{
+transform:translateY(-3px) scale(1.05);
+box-shadow:0 14px 28px rgba(21,101,255,0.45);
+}
+
+body.dark-mode{
+background:#0f172a;
+color:#e2e8f0;
+}
+
+body.dark-mode header{
+background:#111827;
+box-shadow:0 5px 20px rgba(0,0,0,0.35);
+}
+
+body.dark-mode nav a{
+color:#e5e7eb;
+}
+
+body.dark-mode .theme-toggle{
+background:#1f2937;
+border-color:#374151;
+color:#f9fafb;
+}
+
+body.dark-mode .theme-toggle:hover{
+background:#374151;
+}
+
+body.dark-mode .card{
+background:#1e293b;
+color:#e2e8f0;
+box-shadow:0 10px 30px rgba(0,0,0,0.35);
+}
+
+body.dark-mode .premium-card{
+background:linear-gradient(180deg,#3b2f0f,#2a2312);
+border-color:#eab308;
+}
+
+body.dark-mode .premium-badge{
+background:#eab308;
+color:#1f2937;
+}
+
+body.dark-mode .card h3{
+color:#93c5fd;
+}
+
+body.dark-mode .price{
+color:#f8fafc;
+}
+
+body.dark-mode .card ul{
+color:#cbd5e1;
+}
+
+body.dark-mode footer{
+background:#0b1220;
+}
+
+body.dark-mode #topBtn{
+background:linear-gradient(135deg,#3b82f6,#2563eb);
+}
+
+@media(max-width:768px){
+header{
+flex-direction:column;
+gap:10px;
+}
+
+.theme-toggle{
+margin-left:0;
+}
+
+.logo img{
+height:34px;
+}
+
+.hero{
+height:48vh;
+}
+
+.hero h1{
+font-size:40px;
+}
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">
+<img src="LUCKYBASE logo letras.png" alt="Logo Lucky Base">
+</div>
+
+<nav>
+<a href="index.html#inicio">Inicio</a>
+<a href="index.html#quehacemos">Qué hacemos</a>
+<a href="index.html#servicios">Servicios</a>
+<a href="planes.html">Planes</a>
+<a href="index.html#reventa">Reventa</a>
+<a href="index.html#about">Nosotros</a>
+<a href="index.html#faq">FAQ</a>
+<a href="index.html#contacto">Contacto</a>
+</nav>
+
+<button id="themeToggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema"></button>
+</header>
+
+<section class="hero">
+<h1>Planes LuckyBase</h1>
+<p>Elige el plan que mejor encaja con tu negocio en automatizaciones y desarrollo web.</p>
+</section>
+
+<section>
+<h2 style="text-align:center">Planes de Automatizaciones</h2>
+<div class="services">
+<div class="card">
+<h3>Plan Básico</h3>
+<ul>
+<li>1 automatización simple</li>
+<li>Integración con 1 herramienta</li>
+<li>Soporte por email</li>
+<li>1 revisión mensual</li>
+</ul>
+<a class="cta" href="index.html#contacto">Solicitar plan</a>
+</div>
+<div class="card">
+<h3>Plan Pro </h3>
+<ul>
+<li>Hasta 3 automatizaciones</li>
+<li>Integraciones entre plataformas</li>
+<li>Optimización de procesos</li>
+<li>Soporte prioritario</li>
+</ul>
+<a class="cta" href="index.html#contacto">Solicitar plan</a>
+</div>
+<div class="card premium-card">
+<span class="premium-badge">PREMIUM</span>
+<h3>Plan Lucky</h3>
+<ul>
+<li>Automatizaciones avanzadas</li>
+<li>Panel de seguimiento</li>
+<li>Mantenimiento continuo</li>
+<li>Consultoría mensual</li>
+</ul>
+<a class="cta" href="index.html#contacto">Solicitar plan</a>
+</div>
+</div>
+</section>
+
+<section>
+<h2 style="text-align:center">Planes de Páginas Web</h2>
+<div class="services">
+<div class="card">
+<h3>LuckyWeb Basic</h3>
+<ul>
+<li>Diseño responsive</li>
+<li>Hasta 5 secciones</li>
+<li>Formulario de contacto</li>
+<li>Entrega en 5-7 días</li>
+</ul>
+<a class="cta" href="index.html#contacto">Solicitar plan</a>
+</div>
+<div class="card">
+<h3>LuckyWeb Corporativa</h3>
+<ul>
+<li>Hasta 6 páginas internas</li>
+<li>Diseño personalizado</li>
+<li>SEO básico on-page</li>
+<li>Integraciones básicas</li>
+</ul>
+<a class="cta" href="index.html#contacto">Solicitar plan</a>
+</div>
+<div class="card premium-card">
+<span class="premium-badge">PREMIUM</span>
+<h3>LuckyWeb Ecommerce</h3>
+<ul>
+<li>Tienda online completa</li>
+<li>Pasarela de pago</li>
+<li>Carga inicial de productos</li>
+<li>Formación básica de uso</li>
+</ul>
+<a class="cta" href="index.html#contacto">Solicitar plan</a>
+</div>
+</div>
+</section>
+
+<footer>
+<p class="footer-copy">
+<img id="footerLogo" src="logoluckyblancosinfondo.png" alt="Logo Lucky Base">
+<span>© 2026 Lucky Base — Todos los derechos reservados</span>
+</p>
+
+<a class="footer-instagram" href="https://www.instagram.com/luckybaseofficial/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Lucky Base">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+<rect x="2.5" y="2.5" width="19" height="19" rx="5"></rect>
+<circle cx="12" cy="12" r="4.5"></circle>
+<circle cx="18" cy="6" r="1.2" fill="currentColor" stroke="none"></circle>
+</svg>
+</a>
+</footer>
+
+<button id="topBtn" onclick="topFunction()" aria-label="Subir arriba" title="Subir arriba">↑</button>
+
+<script>
+const btn=document.getElementById("topBtn")
+const themeToggle=document.getElementById("themeToggle")
+const footerLogo=document.getElementById("footerLogo")
+const sunIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="5"></line><line x1="12" y1="19" x2="12" y2="22"></line><line x1="2" y1="12" x2="5" y2="12"></line><line x1="19" y1="12" x2="22" y2="12"></line><line x1="4.9" y1="4.9" x2="7" y2="7"></line><line x1="17" y1="17" x2="19.1" y2="19.1"></line><line x1="17" y1="7" x2="19.1" y2="4.9"></line><line x1="4.9" y1="19.1" x2="7" y2="17"></line></svg>'
+const moonIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8z"></path></svg>'
+
+window.onscroll=function(){
+if(document.body.scrollTop>400||document.documentElement.scrollTop>400){
+btn.classList.add("show")
+}else{
+btn.classList.remove("show")
+}
+}
+
+function topFunction(){
+document.body.scrollTop=0
+document.documentElement.scrollTop=0
+}
+
+function updateThemeLabel(){
+const isDarkMode=document.body.classList.contains("dark-mode")
+if(themeToggle){
+themeToggle.innerHTML=isDarkMode?moonIcon:sunIcon
+themeToggle.setAttribute("aria-label",isDarkMode?"Modo oscuro":"Modo claro")
+themeToggle.setAttribute("title",isDarkMode?"Modo oscuro":"Modo claro")
+}
+if(footerLogo){
+footerLogo.src=isDarkMode?"logoluckyazulsinfondo.png":"logoluckyblancosinfondo.png"
+}
+}
+
+if(localStorage.getItem("theme")==="dark"){
+document.body.classList.add("dark-mode")
+}
+updateThemeLabel()
+
+if(themeToggle){
+themeToggle.addEventListener("click",()=>{
+document.body.classList.toggle("dark-mode")
+const currentTheme=document.body.classList.contains("dark-mode")?"dark":"light"
+localStorage.setItem("theme",currentTheme)
+updateThemeLabel()
+})
+}
+</script>
+</body>
+</html>
