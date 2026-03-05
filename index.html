@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lucky Base</title>
+<title>LuckyBase</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="icon" href="favicon.png" type="image/png">
@@ -41,6 +41,15 @@ z-index:1000;
 font-size:26px;
 font-weight:600;
 color:#1565ff;
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.logo img{
+height:56px;
+width:auto;
+display:block;
 }
 
 nav a{
@@ -64,6 +73,32 @@ transition:0.3s;
 
 nav a:hover::after{
 width:100%;
+}
+
+.theme-toggle{
+margin-left:20px;
+width:40px;
+height:40px;
+padding:0;
+border:1px solid #d1d5db;
+border-radius:50%;
+background:#fff;
+color:#1f2937;
+cursor:pointer;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+transition:0.3s;
+}
+
+.theme-toggle:hover{
+background:#f3f4f6;
+}
+
+.theme-toggle svg{
+width:20px;
+height:20px;
+display:block;
 }
 
 /* HERO */
@@ -157,6 +192,22 @@ transform:translateY(-12px);
 box-shadow:0 20px 40px rgba(0,0,0,0.12);
 }
 
+.platform-btn{
+display:inline-block;
+margin-top:16px;
+padding:10px 18px;
+border-radius:8px;
+background:#1565ff;
+color:#fff;
+text-decoration:none;
+font-weight:600;
+transition:0.3s;
+}
+
+.platform-btn:hover{
+background:#0e49c9;
+}
+
 .card h3{
 color:#1565ff;
 margin-bottom:10px;
@@ -216,6 +267,44 @@ button.submit:hover{
 background:#0e49c9;
 }
 
+.contact-note{
+text-align:center;
+margin-top:12px;
+color:#4b5563;
+font-size:14px;
+}
+
+.terms-check{
+display:flex;
+align-items:flex-start;
+gap:10px;
+margin-bottom:15px;
+font-size:14px;
+color:#333;
+}
+
+.terms-check input{
+margin-top:3px;
+width:auto;
+}
+
+.terms-check a{
+color:#1565ff;
+text-decoration:none;
+font-weight:600;
+}
+
+.terms-check a:hover{
+text-decoration:underline;
+}
+
+.form-status{
+margin-top:12px;
+font-size:14px;
+text-align:center;
+min-height:20px;
+}
+
 /* FOOTER */
 
 footer{
@@ -226,6 +315,45 @@ padding:35px;
 margin-top:80px;
 }
 
+.footer-instagram{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+width:34px;
+height:34px;
+margin-top:12px;
+border-radius:50%;
+background:#fff;
+color:#1565ff;
+text-decoration:none;
+transition:0.3s;
+}
+
+.footer-instagram:hover{
+transform:scale(1.08);
+background:#f3f6ff;
+}
+
+.footer-instagram svg{
+width:18px;
+height:18px;
+display:block;
+}
+
+.footer-copy{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+}
+
+.footer-copy img{
+width:30px;
+height:30px;
+object-fit:contain;
+display:block;
+}
+
 /* BACK TO TOP */
 
 #topBtn{
@@ -233,15 +361,99 @@ margin-top:80px;
 position:fixed;
 bottom:30px;
 right:30px;
-background:#1565ff;
+width:52px;
+height:52px;
+background:linear-gradient(135deg,#1565ff,#0e49c9);
 color:white;
 border:none;
-padding:12px 16px;
 border-radius:50%;
-font-size:18px;
+font-size:22px;
+font-weight:600;
+line-height:1;
 cursor:pointer;
-display:none;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 10px 24px rgba(21,101,255,0.35);
+opacity:0;
+visibility:hidden;
+transform:translateY(12px) scale(0.9);
+transition:opacity 0.25s ease,transform 0.25s ease,box-shadow 0.25s ease;
 
+}
+
+#topBtn.show{
+opacity:1;
+visibility:visible;
+transform:translateY(0) scale(1);
+}
+
+#topBtn:hover{
+transform:translateY(-3px) scale(1.05);
+box-shadow:0 14px 28px rgba(21,101,255,0.45);
+}
+
+#topBtn:active{
+transform:translateY(0) scale(0.98);
+}
+
+body.dark-mode{
+background:#0f172a;
+color:#e2e8f0;
+}
+
+body.dark-mode header{
+background:#111827;
+box-shadow:0 5px 20px rgba(0,0,0,0.35);
+}
+
+body.dark-mode nav a{
+color:#e5e7eb;
+}
+
+body.dark-mode .theme-toggle{
+background:#1f2937;
+border-color:#374151;
+color:#f9fafb;
+}
+
+body.dark-mode .theme-toggle:hover{
+background:#374151;
+}
+
+body.dark-mode .card,
+body.dark-mode .contact-box,
+body.dark-mode .container{
+background:#1e293b;
+color:#e2e8f0;
+box-shadow:0 10px 30px rgba(0,0,0,0.35);
+}
+
+body.dark-mode .card h3,
+body.dark-mode .about-text h2,
+body.dark-mode .terms-check a{
+color:#93c5fd;
+}
+
+body.dark-mode input,
+body.dark-mode textarea{
+background:#0f172a;
+border-color:#334155;
+color:#e2e8f0;
+}
+
+body.dark-mode .contact-note,
+body.dark-mode .terms-check{
+color:#cbd5e1;
+}
+
+body.dark-mode footer{
+background:#0b1220;
+}
+
+body.dark-mode #topBtn{
+background:linear-gradient(135deg,#3b82f6,#2563eb);
+box-shadow:0 10px 24px rgba(37,99,235,0.4);
 }
 
 /* ANIMATION */
@@ -273,8 +485,16 @@ flex-direction:column;
 gap:10px;
 }
 
+.theme-toggle{
+margin-left:0;
+}
+
+.logo img{
+height: 34px;
+}
+
 .about img{
-width:100%;
+width:85%;
 }
 
 }
@@ -286,24 +506,28 @@ width:100%;
 
 <header>
 
-<div class="logo">Lucky Base</div>
+<div class="logo">
+<img src="LUCKYBASE logo letras.png" alt="Logo Lucky Base">
+</div>
 
 <nav>
 
 <a href="#inicio">Inicio</a>
+<a href="#quehacemos">Qué hacemos</a>
 <a href="#servicios">Servicios</a>
+<a href="#reventa">Reventa</a>
 <a href="#about">Nosotros</a>
 <a href="#contacto">Contacto</a>
-<a href="#quehacemos">Qué hacemos</a>
-<a href="#reventa">Reventa</a>
 
 </nav>
+
+<button id="themeToggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema"></button>
 
 </header>
 
 <section class="hero" id="inicio">
 
-<h1>Lucky Base</h1>
+<h1>LuckyBase</h1>
 
 <p>
 Soluciones digitales modernas para empresas que quieren destacar en internet.
@@ -314,7 +538,7 @@ Soluciones digitales modernas para empresas que quieren destacar en internet.
 </section>
 <section id="quehacemos">
 
-<h2 style="text-align:center">Qué hacemos en Lucky Base</h2>
+<h2 style="text-align:center">Qué hacemos en LuckyBase</h2>
 
 <div class="services">
 
@@ -381,7 +605,7 @@ herramientas online y proyectos en internet.
 <h2 style="text-align:center;margin-bottom:30px;">Reventa de ropa</h2>
 
 <p style="text-align:center;max-width:700px;margin:auto;margin-bottom:40px;">
-En Lucky Base también desarrollamos proyectos de reventa de ropa.
+En LuckyBase también desarrollamos proyectos de reventa de ropa.
 Buscamos oportunidades en el mercado y vendemos productos en plataformas
 de segunda mano.
 </p>
@@ -399,6 +623,8 @@ Compramos y revendemos productos aprovechando oportunidades
 en el mercado local.
 </p>
 
+<a class="platform-btn" href="https://es.wallapop.com/" target="_blank" rel="noopener noreferrer">Ir a Wallapop</a>
+
 </div>
 
 <div class="card" style="text-align:center">
@@ -411,6 +637,8 @@ en el mercado local.
 Vendemos ropa y accesorios gestionando publicaciones,
 envíos y clientes.
 </p>
+
+<a class="platform-btn" href="https://www.vinted.es/" target="_blank" rel="noopener noreferrer">Ir a Vinted</a>
 
 </div>
 
@@ -427,10 +655,10 @@ envíos y clientes.
 
 <div class="about-text">
 
-<h2>Sobre Lucky Base</h2>
+<h2>Sobre LuckyBase</h2>
 
 <p>
-Lucky Base es una empresa enfocada en crear soluciones digitales
+LuckyBase es una empresa enfocada en crear soluciones digitales
 innovadoras para empresas modernas.
 </p>
 
@@ -451,9 +679,11 @@ impactantes.
 
 <h2 style="text-align:center">Contacto</h2>
 
+<p class="contact-note">Plazo de respuesta estimado: 24 horas.</p>
+
 <div class="contact-box">
 
-<form action="https://formspree.io/f/mqeyzdyz" method="POST">
+<form id="contactForm" action="https://formspree.io/f/mqeyzdyz" method="POST">
 
 <input type="text" name="nombre" placeholder="Nombre" required>
 
@@ -461,9 +691,16 @@ impactantes.
 
 <textarea name="mensaje" rows="5" placeholder="Mensaje" required></textarea>
 
+<label class="terms-check">
+<input type="checkbox" name="terms" required>
+<span>He leído y acepto los <a href="terminos-condiciones.html" target="_blank" rel="noopener noreferrer">términos y condiciones</a>.</span>
+</label>
+
 <button class="submit" type="submit">Enviar mensaje</button>
 
 </form>
+
+<p id="formStatus" class="form-status" aria-live="polite"></p>
 
 </div>
 
@@ -472,11 +709,22 @@ impactantes.
 
 <footer>
 
-<p>© 2026 Lucky Base — Todos los derechos reservados</p>
+<p class="footer-copy">
+<img id="footerLogo" src="logoluckyblancosinfondo.png" alt="Logo Lucky Base">
+<span>© 2026 Lucky Base — Todos los derechos reservados</span>
+</p>
+
+<a class="footer-instagram" href="https://www.instagram.com/luckybaseofficial/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Lucky Base">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+<rect x="2.5" y="2.5" width="19" height="19" rx="5"></rect>
+<circle cx="12" cy="12" r="4.5"></circle>
+<circle cx="18" cy="6" r="1.2" fill="currentColor" stroke="none"></circle>
+</svg>
+</a>
 
 </footer>
 
-<button id="topBtn" onclick="topFunction()">↑</button>
+<button id="topBtn" onclick="topFunction()" aria-label="Subir arriba" title="Subir arriba">↑</button>
 
 <script>
 
@@ -508,11 +756,11 @@ window.onscroll=function(){
 
 if(document.body.scrollTop>400||document.documentElement.scrollTop>400){
 
-btn.style.display="block"
+btn.classList.add("show")
 
 }else{
 
-btn.style.display="none"
+btn.classList.remove("show")
 
 }
 
@@ -529,6 +777,78 @@ function scrollToServices(){
 
 document.getElementById("servicios").scrollIntoView()
 
+}
+
+const contactForm=document.getElementById("contactForm")
+const formStatus=document.getElementById("formStatus")
+const termsCheckbox=document.querySelector('input[name="terms"]')
+const themeToggle=document.getElementById("themeToggle")
+const footerLogo=document.getElementById("footerLogo")
+const sunIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="5"></line><line x1="12" y1="19" x2="12" y2="22"></line><line x1="2" y1="12" x2="5" y2="12"></line><line x1="19" y1="12" x2="22" y2="12"></line><line x1="4.9" y1="4.9" x2="7" y2="7"></line><line x1="17" y1="17" x2="19.1" y2="19.1"></line><line x1="17" y1="7" x2="19.1" y2="4.9"></line><line x1="4.9" y1="19.1" x2="7" y2="17"></line></svg>'
+const moonIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8z"></path></svg>'
+
+function updateThemeLabel(){
+const isDarkMode=document.body.classList.contains("dark-mode")
+if(themeToggle){
+themeToggle.innerHTML=isDarkMode?moonIcon:sunIcon
+themeToggle.setAttribute("aria-label",isDarkMode?"Modo oscuro":"Modo claro")
+themeToggle.setAttribute("title",isDarkMode?"Modo oscuro":"Modo claro")
+}
+if(footerLogo){
+footerLogo.src=isDarkMode?"logoluckyazulsinfondo.png":"logoluckyblancosinfondo.png"
+}
+}
+
+if(localStorage.getItem("theme")==="dark"){
+document.body.classList.add("dark-mode")
+}
+updateThemeLabel()
+
+if(themeToggle){
+themeToggle.addEventListener("click",()=>{
+document.body.classList.toggle("dark-mode")
+const currentTheme=document.body.classList.contains("dark-mode")?"dark":"light"
+localStorage.setItem("theme",currentTheme)
+updateThemeLabel()
+})
+}
+
+if(termsCheckbox){
+termsCheckbox.addEventListener("invalid",()=>{
+termsCheckbox.setCustomValidity("Acepta los términos y condiciones")
+})
+
+termsCheckbox.addEventListener("change",()=>{
+termsCheckbox.setCustomValidity("")
+})
+}
+
+if(contactForm){
+contactForm.addEventListener("submit",async(event)=>{
+event.preventDefault()
+
+const data=new FormData(contactForm)
+
+try{
+const response=await fetch(contactForm.action,{
+method:"POST",
+body:data,
+headers:{Accept:"application/json"}
+})
+
+if(response.ok){
+contactForm.reset()
+formStatus.textContent="Mensaje enviado correctamente."
+formStatus.style.color="#15803d"
+}else{
+formStatus.textContent="No se pudo enviar. Inténtalo de nuevo."
+formStatus.style.color="#b91c1c"
+}
+}catch(error){
+formStatus.textContent="Error de conexión. Inténtalo de nuevo."
+formStatus.style.color="#b91c1c"
+}
+})
 }
 
 </script>
