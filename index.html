@@ -30,11 +30,56 @@ background:#ffffff;
 color:#1a1a1a;
 }
 
+.discord-banner{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+background:linear-gradient(90deg,#5865F2,#4752C4,#5865F2);
+background-size:200% 200%;
+animation:discordFlow 7s ease infinite;
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:12px;
+padding:10px 14px;
+z-index:1100;
+box-shadow:0 8px 20px rgba(71,82,196,0.3);
+}
+
+.discord-dot{
+width:10px;
+height:10px;
+border-radius:50%;
+background:#22c55e;
+animation:discordPulse 1.3s ease-in-out infinite;
+}
+
+.discord-banner span{
+font-weight:600;
+font-size:14px;
+}
+
+.discord-banner a{
+background:#fff;
+color:#4752C4;
+text-decoration:none;
+font-weight:700;
+font-size:13px;
+padding:7px 14px;
+border-radius:999px;
+}
+
+.discord-banner a:hover{
+background:#eef2ff;
+}
+
 /* NAVBAR */
 
 header{
 position:fixed;
-top:0;
+top:52px;
 width:100%;
 background:white;
 display:flex;
@@ -678,6 +723,17 @@ transform:translateY(0);
 
 }
 
+@keyframes discordFlow{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+@keyframes discordPulse{
+0%,100%{transform:scale(1);opacity:1;}
+50%{transform:scale(1.25);opacity:0.7;}
+}
+
 /* MOBILE */
 
 @media(max-width:768px){
@@ -689,6 +745,12 @@ font-size:45px;
 header{
 flex-direction:column;
 gap:10px;
+}
+
+.discord-banner{
+flex-wrap:wrap;
+text-align:center;
+padding:10px;
 }
 
 .theme-toggle{
@@ -721,6 +783,12 @@ margin-top:12px;
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K96JRDLJ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+
+<div class="discord-banner">
+<span class="discord-dot"></span>
+<span>Nuevo servidor de Discord disponible</span>
+<a href="https://discord.gg/GYJN7kEwU2" target="_blank" rel="noopener noreferrer">Unirme</a>
+</div>
 
 <header>
 
