@@ -13,8 +13,9 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-K96JRDLJ');</script>
+<script src="https://app.termly.io/resource-blocker/b67905d0-e597-4cc6-8085-08908b2ef547?autoBlock=on"></script>
 <!-- End Google Tag Manager -->
-
+ 
 <style>
 *{
 margin:0;
@@ -204,6 +205,7 @@ color:white;
 text-align:center;
 padding:35px;
 margin-top:80px;
+position:relative;
 }
 
 .footer-copy{
@@ -226,7 +228,6 @@ align-items:center;
 justify-content:center;
 width:34px;
 height:34px;
-margin-top:12px;
 border-radius:50%;
 background:#fff;
 color:#1565ff;
@@ -243,6 +244,32 @@ background:#f3f6ff;
 width:18px;
 height:18px;
 display:block;
+}
+
+.footer-preferences{
+display:inline-block;
+padding:6px 10px;
+border-radius:8px;
+background:#fff;
+color:#1565ff;
+text-decoration:none;
+font-size:12px;
+font-weight:600;
+transition:0.3s;
+position:absolute;
+right:35px;
+bottom:35px;
+}
+
+.footer-preferences:hover{
+background:#f3f6ff;
+}
+
+.footer-socials{
+display:flex;
+justify-content:center;
+gap:10px;
+margin-top:12px;
 }
 
 #topBtn{
@@ -336,6 +363,11 @@ body.dark-mode footer{
 background:#0b1220;
 }
 
+body.dark-mode .footer-preferences{
+background:#1e293b;
+color:#93c5fd;
+}
+
 body.dark-mode #topBtn{
 background:linear-gradient(135deg,#3b82f6,#2563eb);
 }
@@ -360,6 +392,11 @@ height:48vh;
 
 .hero h1{
 font-size:40px;
+}
+
+.footer-preferences{
+position:static;
+margin-top:12px;
 }
 }
 </style>
@@ -476,6 +513,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <span>© 2026 Lucky Base — Todos los derechos reservados</span>
 </p>
 
+<div class="footer-socials">
 <a class="footer-instagram" href="https://www.instagram.com/luckybaseofficial/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Lucky Base">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
 <rect x="2.5" y="2.5" width="19" height="19" rx="5"></rect>
@@ -483,6 +521,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <circle cx="18" cy="6" r="1.2" fill="currentColor" stroke="none"></circle>
 </svg>
 </a>
+</div>
+
+<a href="#" class="footer-preferences termly-display-preferences">Cambiar mis preferencias</a>
 </footer>
 
 <button id="topBtn" onclick="topFunction()" aria-label="Subir arriba" title="Subir arriba">↑</button>
