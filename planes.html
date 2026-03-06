@@ -104,6 +104,71 @@ height:20px;
 display:block;
 }
 
+.notice-overlay{
+position:fixed;
+inset:0;
+background:rgba(15,23,42,0.55);
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:2000;
+opacity:0;
+visibility:hidden;
+transition:opacity 0.25s ease,visibility 0.25s ease;
+}
+
+.notice-modal{
+max-width:520px;
+width:100%;
+background:#fff;
+border-radius:14px;
+padding:24px;
+box-shadow:0 20px 45px rgba(0,0,0,0.25);
+text-align:center;
+transform:translateY(10px) scale(0.97);
+transition:transform 0.25s ease;
+}
+
+.notice-overlay.is-visible{
+opacity:1;
+visibility:visible;
+}
+
+.notice-overlay.is-visible .notice-modal{
+transform:translateY(0) scale(1);
+}
+
+.notice-overlay.is-hiding{
+opacity:0;
+visibility:hidden;
+}
+
+.notice-overlay.is-hiding .notice-modal{
+transform:translateY(10px) scale(0.97);
+}
+
+.notice-modal h3{
+color:#1565ff;
+margin-bottom:10px;
+font-size:26px;
+}
+
+.notice-modal p{
+color:#334155;
+margin-bottom:18px;
+}
+
+.notice-close{
+border:none;
+background:#1565ff;
+color:#fff;
+padding:10px 18px;
+border-radius:8px;
+font-weight:600;
+cursor:pointer;
+}
+
 .hero{
 height:55vh;
 display:flex;
@@ -331,6 +396,19 @@ body.dark-mode .theme-toggle:hover{
 background:#374151;
 }
 
+body.dark-mode .notice-modal{
+background:#1e293b;
+color:#e2e8f0;
+}
+
+body.dark-mode .notice-modal h3{
+color:#93c5fd;
+}
+
+body.dark-mode .notice-modal p{
+color:#cbd5e1;
+}
+
 body.dark-mode .card{
 background:#1e293b;
 color:#e2e8f0;
@@ -427,6 +505,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <button id="themeToggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema"></button>
 </header>
+
+<div id="automationNotice" class="notice-overlay is-visible">
+<div class="notice-modal">
+<h3>Aviso importante</h3>
+<p>El servicio de automatizaciones no está disponible temporalmente.</p>
+<button id="closeAutomationNotice" class="notice-close" type="button">Entendido</button>
+</div>
+</div>
 
 <section class="hero">
 <h1>Planes LuckyBase</h1>
@@ -532,6 +618,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 const btn=document.getElementById("topBtn")
 const themeToggle=document.getElementById("themeToggle")
 const footerLogo=document.getElementById("footerLogo")
+const automationNotice=document.getElementById("automationNotice")
+const closeAutomationNotice=document.getElementById("closeAutomationNotice")
 const sunIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="5"></line><line x1="12" y1="19" x2="12" y2="22"></line><line x1="2" y1="12" x2="5" y2="12"></line><line x1="19" y1="12" x2="22" y2="12"></line><line x1="4.9" y1="4.9" x2="7" y2="7"></line><line x1="17" y1="17" x2="19.1" y2="19.1"></line><line x1="17" y1="7" x2="19.1" y2="4.9"></line><line x1="4.9" y1="19.1" x2="7" y2="17"></line></svg>'
 const moonIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8z"></path></svg>'
 
@@ -571,6 +659,16 @@ document.body.classList.toggle("dark-mode")
 const currentTheme=document.body.classList.contains("dark-mode")?"dark":"light"
 localStorage.setItem("theme",currentTheme)
 updateThemeLabel()
+})
+}
+
+if(closeAutomationNotice&&automationNotice){
+closeAutomationNotice.addEventListener("click",()=>{
+automationNotice.classList.remove("is-visible")
+automationNotice.classList.add("is-hiding")
+setTimeout(()=>{
+automationNotice.style.display="none"
+},260)
 })
 }
 </script>
