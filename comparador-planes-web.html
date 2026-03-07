@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comparador Web | LuckyBase</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon.png" type="image/png">
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#f7f9ff;
+color:#111827;
+padding-top:110px;
+}
+
+header{
+position:fixed;
+top:0;
+width:100%;
+background:#ffffff;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 8%;
+box-shadow:0 5px 20px rgba(0,0,0,0.06);
+z-index:1000;
+}
+
+.logo img{
+height:54px;
+width:auto;
+display:block;
+}
+
+nav{
+display:flex;
+align-items:center;
+gap:24px;
+}
+
+nav a{
+text-decoration:none;
+color:#374151;
+font-weight:500;
+}
+
+.theme-toggle{
+width:40px;
+height:40px;
+padding:0;
+border:1px solid #d1d5db;
+border-radius:50%;
+background:#fff;
+color:#1f2937;
+cursor:pointer;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+transition:0.3s;
+}
+
+.theme-toggle:hover{
+background:#f3f4f6;
+}
+
+.theme-toggle svg{
+width:20px;
+height:20px;
+display:block;
+}
+
+.hero{
+padding:72px 8% 36px;
+background:linear-gradient(120deg,#1565ff 0%,#3b82f6 55%,#60a5fa 100%);
+color:#fff;
+}
+
+.hero h1{
+font-size:44px;
+line-height:1.1;
+margin-bottom:12px;
+}
+
+.hero p{
+max-width:760px;
+font-size:18px;
+opacity:0.96;
+}
+
+.main{
+padding:38px 8% 78px;
+}
+
+.controls{
+background:#ffffff;
+border-radius:14px;
+padding:24px;
+box-shadow:0 10px 30px rgba(15,23,42,0.08);
+display:grid;
+grid-template-columns:repeat(2,minmax(220px,1fr));
+gap:16px 18px;
+align-items:end;
+margin-bottom:24px;
+}
+
+.field{
+display:flex;
+flex-direction:column;
+gap:8px;
+}
+
+.field label{
+font-size:14px;
+font-weight:600;
+color:#334155;
+}
+
+select{
+height:44px;
+padding:0 12px;
+border:1px solid #d1d5db;
+border-radius:10px;
+background:#fff;
+color:#111827;
+font-size:15px;
+}
+
+.checkbox-line{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:14px;
+font-weight:500;
+color:#334155;
+}
+
+.status{
+grid-column:1 / -1;
+font-size:14px;
+font-weight:600;
+color:#2563eb;
+}
+
+.table-wrap{
+background:#fff;
+border-radius:14px;
+box-shadow:0 10px 30px rgba(15,23,42,0.08);
+overflow:auto;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+min-width:680px;
+}
+
+thead th{
+text-align:left;
+padding:16px;
+background:#eff6ff;
+color:#1e3a8a;
+font-size:14px;
+font-weight:700;
+border-bottom:1px solid #dbeafe;
+}
+
+tbody td{
+padding:14px 16px;
+border-bottom:1px solid #eef2ff;
+font-size:14px;
+}
+
+tbody tr:last-child td{
+border-bottom:none;
+}
+
+td.label{
+font-weight:600;
+color:#334155;
+width:34%;
+}
+
+td.value{
+color:#111827;
+}
+
+.win{
+background:#ecfdf5;
+color:#065f46;
+font-weight:600;
+}
+
+.muted{
+color:#64748b;
+}
+
+.actions{
+margin-top:18px;
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.btn{
+display:inline-block;
+padding:10px 16px;
+border-radius:8px;
+text-decoration:none;
+font-weight:600;
+border:none;
+cursor:pointer;
+}
+
+.btn-primary{
+background:#1565ff;
+color:#fff;
+}
+
+.btn-secondary{
+background:#e5edff;
+color:#1e40af;
+}
+
+footer{
+background:#1565ff;
+color:white;
+text-align:center;
+padding:35px;
+margin-top:80px;
+position:relative;
+}
+
+.footer-instagram{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+width:34px;
+height:34px;
+border-radius:50%;
+background:#fff;
+color:#1565ff;
+text-decoration:none;
+transition:0.3s;
+}
+
+.footer-instagram:hover{
+transform:scale(1.08);
+background:#f3f6ff;
+}
+
+.footer-instagram svg{
+width:18px;
+height:18px;
+display:block;
+}
+
+.footer-copy{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+}
+
+.footer-copy img{
+width:30px;
+height:30px;
+object-fit:contain;
+display:block;
+}
+
+.footer-preferences{
+display:inline-block;
+padding:6px 10px;
+border-radius:8px;
+background:#fff;
+color:#1565ff;
+text-decoration:none;
+font-size:12px;
+font-weight:600;
+transition:0.3s;
+position:absolute;
+right:35px;
+bottom:35px;
+}
+
+.footer-preferences:hover{
+background:#f3f6ff;
+}
+
+.footer-socials{
+display:flex;
+justify-content:center;
+gap:10px;
+margin-top:12px;
+}
+
+.footer-legal{
+margin-top:10px;
+}
+
+.footer-legal a{
+color:#dbeafe;
+font-size:13px;
+text-decoration:none;
+}
+
+.footer-legal a:hover{
+text-decoration:underline;
+}
+
+body.dark-mode{
+background:#0f172a;
+color:#e5e7eb;
+}
+
+body.dark-mode header{
+background:#111827;
+box-shadow:0 5px 20px rgba(0,0,0,0.3);
+}
+
+body.dark-mode nav a{
+color:#e5e7eb;
+}
+
+body.dark-mode .theme-toggle{
+background:#1f2937;
+border-color:#374151;
+color:#f9fafb;
+}
+
+body.dark-mode .theme-toggle:hover{
+background:#374151;
+}
+
+body.dark-mode .controls,
+body.dark-mode .table-wrap{
+background:#1e293b;
+box-shadow:0 10px 30px rgba(0,0,0,0.35);
+}
+
+body.dark-mode .field label,
+body.dark-mode .checkbox-line,
+body.dark-mode td.label{
+color:#cbd5e1;
+}
+
+body.dark-mode select{
+background:#0f172a;
+color:#e2e8f0;
+border-color:#334155;
+}
+
+body.dark-mode thead th{
+background:#1e3a8a;
+color:#dbeafe;
+border-bottom-color:#1d4ed8;
+}
+
+body.dark-mode tbody td{
+border-bottom-color:#334155;
+}
+
+body.dark-mode td.value{
+color:#f8fafc;
+}
+
+body.dark-mode .win{
+background:#064e3b;
+color:#bbf7d0;
+}
+
+body.dark-mode .muted{
+color:#94a3b8;
+}
+
+body.dark-mode .btn-secondary{
+background:#1e3a8a;
+color:#dbeafe;
+}
+
+body.dark-mode footer{
+background:#0b1220;
+}
+
+body.dark-mode .footer-preferences{
+background:#1e293b;
+color:#93c5fd;
+}
+
+@media(max-width:900px){
+header{
+padding:12px 5%;
+flex-direction:column;
+gap:10px;
+}
+
+body{
+padding-top:165px;
+}
+
+nav{
+gap:14px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.hero{
+padding:46px 5% 28px;
+}
+
+.hero h1{
+font-size:34px;
+}
+
+.hero p{
+font-size:16px;
+}
+
+.main{
+padding:24px 5% 60px;
+}
+
+.controls{
+grid-template-columns:1fr;
+padding:18px;
+}
+
+.footer-preferences{
+position:static;
+margin-top:12px;
+}
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">
+<img src="LUCKYBASE logo letras.png" alt="Logo Lucky Base">
+</div>
+<nav>
+<a href="index.html">Inicio</a>
+<a href="planes.html">Planes</a>
+<a href="index.html#contacto">Contacto</a>
+</nav>
+<button id="themeToggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema"></button>
+</header>
+
+<section class="hero">
+<h1>Comparador de planes LuckyWeb</h1>
+<p>Selecciona dos planes y revisa diferencias clave para decidir más rápido: alcance, SEO, ecommerce, integraciones y tiempos de entrega.</p>
+</section>
+
+<main class="main">
+<section class="controls">
+<div class="field">
+<label for="planA">Plan A</label>
+<select id="planA">
+<option value="basic">LuckyWeb Basic</option>
+<option value="corporativa">LuckyWeb Corporativa</option>
+<option value="ecommerce">LuckyWeb Ecommerce</option>
+</select>
+</div>
+<div class="field">
+<label for="planB">Plan B</label>
+<select id="planB">
+<option value="basic">LuckyWeb Basic</option>
+<option value="corporativa" selected>LuckyWeb Corporativa</option>
+<option value="ecommerce">LuckyWeb Ecommerce</option>
+</select>
+</div>
+<label class="checkbox-line" for="onlyDiffs">
+<input id="onlyDiffs" type="checkbox">
+Mostrar solo diferencias
+</label>
+<p id="status" class="status">Comparando LuckyWeb Basic vs LuckyWeb Corporativa</p>
+</section>
+
+<section class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Característica</th>
+<th id="headA">Plan A</th>
+<th id="headB">Plan B</th>
+</tr>
+</thead>
+<tbody id="comparisonBody"></tbody>
+</table>
+</section>
+
+<div class="actions">
+<a class="btn btn-primary" href="index.html#contacto">Solicitar asesoría</a>
+<a class="btn btn-secondary" href="planes.html">Volver a planes</a>
+</div>
+</main>
+
+<footer>
+<p class="footer-copy">
+<img src="logoluckyblancosinfondo.png" alt="Logo Lucky Base">
+<span>© 2026 LuckyBase — Todos los derechos reservados</span>
+</p>
+
+<div class="footer-socials">
+<a class="footer-instagram" href="https://www.instagram.com/luckybaseofficial/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Lucky Base">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+<rect x="2.5" y="2.5" width="19" height="19" rx="5"></rect>
+<circle cx="12" cy="12" r="4.5"></circle>
+<circle cx="18" cy="6" r="1.2" fill="currentColor" stroke="none"></circle>
+</svg>
+</a>
+
+<a class="footer-instagram" href="https://www.tiktok.com/@luckybaseofficial" target="_blank" rel="noopener noreferrer" aria-label="TikTok Lucky Base">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+<path d="M14.5 3c.4 1.8 1.8 3.2 3.5 3.7v2.6c-1.4 0-2.7-.4-3.8-1.2v6.5c0 3.3-2.7 5.9-6 5.9s-6-2.6-6-5.9 2.7-5.9 6-5.9c.3 0 .7 0 1 .1v2.8c-.3-.1-.6-.2-1-.2-1.7 0-3.1 1.4-3.1 3.1s1.4 3.1 3.1 3.1 3.1-1.4 3.1-3.1V3h3.2z"></path>
+</svg>
+</a>
+</div>
+
+<a href="#" class="footer-preferences termly-display-preferences">Cambiar mis preferencias</a>
+
+<div class="footer-legal">
+<a href="privacy-policy.html">Política de Privacidad</a>
+</div>
+</footer>
+
+<script>
+const plans={
+basic:{
+name:"LuckyWeb Basic",
+values:{
+proyecto:"Web informativa esencial",
+estructura:"Hasta 5 secciones",
+responsive:true,
+disenoPersonalizado:false,
+seo:false,
+integraciones:false,
+ecommerce:false,
+pasarelaPago:false,
+productosIniciales:0,
+formacion:false,
+entregaDias:6,
+soporte:"Email (básico)"
+}
+},
+corporativa:{
+name:"LuckyWeb Corporativa",
+values:{
+proyecto:"Web corporativa completa",
+estructura:"Hasta 6 páginas internas",
+responsive:true,
+disenoPersonalizado:true,
+seo:true,
+integraciones:true,
+ecommerce:false,
+pasarelaPago:false,
+productosIniciales:0,
+formacion:false,
+entregaDias:10,
+soporte:"Prioritario"
+}
+},
+ecommerce:{
+name:"LuckyWeb Ecommerce",
+values:{
+proyecto:"Tienda online completa",
+estructura:"Catálogo + checkout + páginas legales",
+responsive:true,
+disenoPersonalizado:true,
+seo:true,
+integraciones:true,
+ecommerce:true,
+pasarelaPago:true,
+productosIniciales:20,
+formacion:true,
+entregaDias:14,
+soporte:"Prioritario + guía de uso"
+}
+}
+}
+
+const rows=[
+{key:"proyecto",label:"Tipo de proyecto",type:"text"},
+{key:"estructura",label:"Estructura incluida",type:"text"},
+{key:"responsive",label:"Diseño responsive",type:"boolean"},
+{key:"disenoPersonalizado",label:"Diseño personalizado",type:"boolean"},
+{key:"seo",label:"SEO básico on-page",type:"boolean"},
+{key:"integraciones",label:"Integraciones básicas",type:"boolean"},
+{key:"ecommerce",label:"Módulo ecommerce",type:"boolean"},
+{key:"pasarelaPago",label:"Pasarela de pago",type:"boolean"},
+{key:"productosIniciales",label:"Carga inicial de productos",type:"number_high"},
+{key:"formacion",label:"Formación de uso",type:"boolean"},
+{key:"entregaDias",label:"Tiempo de entrega estimado",type:"number_low"},
+{key:"soporte",label:"Soporte post-entrega",type:"text"}
+]
+
+const planASelect=document.getElementById("planA")
+const planBSelect=document.getElementById("planB")
+const onlyDiffs=document.getElementById("onlyDiffs")
+const headA=document.getElementById("headA")
+const headB=document.getElementById("headB")
+const body=document.getElementById("comparisonBody")
+const status=document.getElementById("status")
+const themeToggle=document.getElementById("themeToggle")
+const sunIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="5"></line><line x1="12" y1="19" x2="12" y2="22"></line><line x1="2" y1="12" x2="5" y2="12"></line><line x1="19" y1="12" x2="22" y2="12"></line><line x1="4.9" y1="4.9" x2="7" y2="7"></line><line x1="17" y1="17" x2="19.1" y2="19.1"></line><line x1="17" y1="7" x2="19.1" y2="4.9"></line><line x1="4.9" y1="19.1" x2="7" y2="17"></line></svg>'
+const moonIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8z"></path></svg>'
+
+function boolLabel(value){
+return value ? "Incluido" : "No incluido"
+}
+
+function fmt(row,value){
+if(row.type==="boolean"){
+return boolLabel(value)
+}
+if(row.key==="entregaDias"){
+return "Aprox. "+value+" días"
+}
+if(row.key==="productosIniciales"&&value===0){
+return "No incluido"
+}
+if(row.key==="productosIniciales"){
+return value+" productos"
+}
+return String(value)
+}
+
+function betterClass(row,a,b,forA){
+if(row.type==="number_high"){
+if(a===b){return ""}
+return forA ? (a>b?"win":"") : (b>a?"win":"")
+}
+if(row.type==="number_low"){
+if(a===b){return ""}
+return forA ? (a<b?"win":"") : (b<a?"win":"")
+}
+if(row.type==="boolean"){
+if(a===b){return ""}
+return forA ? (a?"win":"") : (b?"win":"")
+}
+return ""
+}
+
+function isDifferent(row,a,b){
+if(row.type==="text"){
+return String(a)!==String(b)
+}
+return a!==b
+}
+
+function render(){
+const planA=plans[planASelect.value]
+const planB=plans[planBSelect.value]
+headA.textContent=planA.name
+headB.textContent=planB.name
+status.textContent="Comparando "+planA.name+" vs "+planB.name
+
+if(planASelect.value===planBSelect.value){
+status.textContent="Selecciona dos planes distintos para una comparación útil."
+}
+
+body.innerHTML=""
+
+rows.forEach((row)=>{
+const aValue=planA.values[row.key]
+const bValue=planB.values[row.key]
+const different=isDifferent(row,aValue,bValue)
+
+if(onlyDiffs.checked&&!different){
+return
+}
+
+const tr=document.createElement("tr")
+if(!different){
+tr.classList.add("muted")
+}
+
+const tdLabel=document.createElement("td")
+tdLabel.className="label"
+tdLabel.textContent=row.label
+
+const tdA=document.createElement("td")
+tdA.className="value "+betterClass(row,aValue,bValue,true)
+tdA.textContent=fmt(row,aValue)
+
+const tdB=document.createElement("td")
+tdB.className="value "+betterClass(row,aValue,bValue,false)
+tdB.textContent=fmt(row,bValue)
+
+tr.appendChild(tdLabel)
+tr.appendChild(tdA)
+tr.appendChild(tdB)
+body.appendChild(tr)
+})
+}
+
+function updateThemeLabel(){
+const isDarkMode=document.body.classList.contains("dark-mode")
+themeToggle.innerHTML=isDarkMode?moonIcon:sunIcon
+themeToggle.setAttribute("aria-label",isDarkMode?"Modo oscuro":"Modo claro")
+themeToggle.setAttribute("title",isDarkMode?"Modo oscuro":"Modo claro")
+}
+
+themeToggle.addEventListener("click",()=>{
+document.body.classList.toggle("dark-mode")
+const isDarkMode=document.body.classList.contains("dark-mode")
+localStorage.setItem("theme",isDarkMode?"dark":"light")
+updateThemeLabel()
+})
+
+planASelect.addEventListener("change",render)
+planBSelect.addEventListener("change",render)
+onlyDiffs.addEventListener("change",render)
+
+const savedTheme=localStorage.getItem("theme")
+if(savedTheme==="dark"){
+document.body.classList.add("dark-mode")
+}
+updateThemeLabel()
+render()
+</script>
+</body>
+</html>
