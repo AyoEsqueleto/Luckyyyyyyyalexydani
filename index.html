@@ -168,11 +168,109 @@ justify-content:center;
 align-items:center;
 text-align:center;
 color:white;
-
 background:linear-gradient(-45deg,#1565ff,#4f8cff,#1e40ff,#2a6bff);
 background-size:400% 400%;
-
+position:relative;
+overflow:hidden;
+isolation:isolate;
 animation:gradientMove 10s ease infinite;
+}
+
+.hero::after{
+content:"";
+position:absolute;
+inset:auto -15% -35% -15%;
+height:340px;
+background:radial-gradient(ellipse at center,rgba(255,255,255,0.35),rgba(255,255,255,0));
+z-index:0;
+pointer-events:none;
+}
+
+.hero-orb{
+position:absolute;
+border-radius:50%;
+pointer-events:none;
+mix-blend-mode:screen;
+opacity:0.55;
+filter:blur(0.5px);
+z-index:0;
+}
+
+.hero-orb.orb-a{
+width:340px;
+height:340px;
+top:16%;
+left:10%;
+background:radial-gradient(circle at 35% 35%,rgba(191,219,254,0.95),rgba(59,130,246,0));
+}
+
+.hero-orb.orb-b{
+width:430px;
+height:430px;
+right:8%;
+top:18%;
+background:radial-gradient(circle at 50% 50%,rgba(167,243,208,0.45),rgba(37,99,235,0));
+}
+
+.hero-orb.orb-c{
+width:290px;
+height:290px;
+left:52%;
+bottom:8%;
+background:radial-gradient(circle at 45% 40%,rgba(255,255,255,0.6),rgba(37,99,235,0));
+}
+
+.hero-grid{
+position:absolute;
+inset:0;
+background-image:linear-gradient(rgba(255,255,255,0.14) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.14) 1px,transparent 1px);
+background-size:42px 42px;
+mask-image:radial-gradient(circle at center,rgba(0,0,0,0.9),rgba(0,0,0,0));
+z-index:0;
+opacity:0.35;
+}
+
+.hero-content{
+position:relative;
+z-index:2;
+transition:transform 0.2s linear,opacity 0.2s linear;
+will-change:transform,opacity;
+}
+
+.hero-metrics{
+position:absolute;
+left:50%;
+bottom:8%;
+transform:translateX(-50%);
+display:grid;
+grid-template-columns:repeat(3,minmax(140px,1fr));
+gap:12px;
+width:min(760px,90%);
+z-index:2;
+transition:transform 0.2s linear,opacity 0.2s linear;
+will-change:transform,opacity;
+}
+
+.metric{
+background:rgba(255,255,255,0.17);
+border:1px solid rgba(255,255,255,0.28);
+backdrop-filter:blur(10px);
+padding:14px 12px;
+border-radius:14px;
+text-align:left;
+box-shadow:0 8px 20px rgba(7,35,105,0.2);
+}
+
+.metric strong{
+display:block;
+font-size:22px;
+line-height:1;
+margin-bottom:6px;
+}
+
+.metric span{
+font-size:13px;
+opacity:0.95;
 }
 
 @keyframes gradientMove{
@@ -187,6 +285,31 @@ animation:gradientMove 10s ease infinite;
 font-size:70px;
 margin-bottom:20px;
 animation:fadeUp 1s ease;
+display:flex;
+justify-content:center;
+}
+
+.brand-title{
+display:inline-flex;
+align-items:baseline;
+gap:5px;
+line-height:1;
+justify-content:center;
+}
+
+.brand-static{
+display:inline-block;
+}
+
+.brand-dynamic{
+display:inline-block;
+color:#dbeafe;
+}
+
+.brand-dynamic.base-highlight{
+color:#ffffff;
+text-shadow:0 0 18px rgba(255,255,255,0.5);
+font-weight:700;
 }
 
 .hero p{
@@ -235,13 +358,6 @@ border-radius:12px;
 background:white;
 box-shadow:0 10px 30px rgba(0,0,0,0.08);
 transition:0.4s;
-opacity:0;
-transform:translateY(40px);
-}
-
-.card.show{
-opacity:1;
-transform:translateY(0);
 }
 
 .card:hover{
@@ -804,6 +920,39 @@ background:#1e293b;
 color:#93c5fd;
 }
 
+body.dark-mode .hero-grid{
+opacity:0.22;
+}
+
+body.dark-mode .metric{
+background:rgba(15,23,42,0.42);
+border-color:rgba(191,219,254,0.35);
+box-shadow:0 10px 24px rgba(2,6,23,0.4);
+}
+
+.reveal-item{
+opacity:0;
+transform:translateY(40px);
+filter:blur(2px);
+transition:opacity 0.7s ease,transform 0.7s cubic-bezier(0.2,0.7,0.2,1),filter 0.7s ease;
+transition-delay:var(--delay,0ms);
+will-change:transform,opacity,filter;
+}
+
+.reveal-item.reveal-left{
+transform:translate(-42px,20px);
+}
+
+.reveal-item.reveal-right{
+transform:translate(42px,20px);
+}
+
+.reveal-item.is-visible{
+opacity:1;
+transform:translate(0,0);
+filter:blur(0);
+}
+
 /* ANIMATION */
 
 @keyframes fadeUp{
@@ -881,8 +1030,55 @@ min-height:100vh;
 padding:190px 5% 85px;
 }
 
+.hero-content{
+width:100%;
+}
+
+.hero-metrics{
+position:relative;
+left:auto;
+bottom:auto;
+transform:none;
+width:100%;
+margin-top:28px;
+grid-template-columns:1fr;
+}
+
+.metric{
+text-align:center;
+}
+
+.hero-orb.orb-a{
+width:210px;
+height:210px;
+top:10%;
+left:-10%;
+}
+
+.hero-orb.orb-b{
+width:250px;
+height:250px;
+right:-14%;
+top:18%;
+}
+
+.hero-orb.orb-c{
+width:180px;
+height:180px;
+left:46%;
+bottom:22%;
+}
+
 .hero h1{
 font-size:38px;
+}
+
+.brand-title{
+gap:3px;
+}
+
+.brand-dynamic{
+text-align:center;
 }
 
 .hero p{
@@ -988,14 +1184,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </header>
 
 <section class="hero" id="inicio">
+<div class="hero-orb orb-a" data-parallax="0.18"></div>
+<div class="hero-orb orb-b" data-parallax="0.28"></div>
+<div class="hero-orb orb-c" data-parallax="0.12"></div>
+<div class="hero-grid"></div>
 
-<h1>LuckyBase</h1>
-
+<div class="hero-content">
+<h1 id="brandTitle" class="brand-title">
+<span class="brand-static">Lucky</span>
+<span id="brandDynamic" class="brand-dynamic base-highlight">Base</span>
+</h1>
 <p>
 Soluciones digitales modernas para empresas que quieren destacar en internet.
 </p>
-
 <button onclick="scrollToServices()">Explorar</button>
+</div>
+
+<div class="hero-metrics">
+<div class="metric">
+<strong>24h</strong>
+<span>Plazo medio de respuesta</span>
+</div>
+<div class="metric">
+<strong>Desarrollo Web</strong>
+<span>Desarrollo Web personalizado para cada cliente de LuckyBase</span>
+</div>
+<div class="metric">
+<strong>100%</strong>
+<span>Enfoque en conversión y rendimiento</span>
+</div>
+</div>
 
 </section>
 <section id="quehacemos">
@@ -1276,26 +1494,117 @@ impactantes.
 <button id="topBtn" onclick="topFunction()" aria-label="Subir arriba" title="Subir arriba">↑</button>
 
 <script>
+const hero=document.getElementById("inicio")
+const heroContent=document.querySelector(".hero-content")
+const heroMetrics=document.querySelector(".hero-metrics")
+const parallaxOrbs=document.querySelectorAll(".hero-orb[data-parallax]")
+const brandTitle=document.getElementById("brandTitle")
+const brandDynamic=document.getElementById("brandDynamic")
+const prefersReducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches
 
-/* SCROLL ANIMATION */
-
-const cards=document.querySelectorAll(".card")
-
-window.addEventListener("scroll",()=>{
-
-cards.forEach(card=>{
-
-const cardTop=card.getBoundingClientRect().top
-
-if(cardTop<window.innerHeight-100){
-
-card.classList.add("show")
-
+function sleep(ms){
+return new Promise((resolve)=>window.setTimeout(resolve,ms))
 }
 
+async function runBrandLoop(){
+if(!brandTitle||!brandDynamic) return
+const words=["Base","Web","Creative","Design","IA"]
+let index=0
+
+while(true){
+const target=words[index]
+brandDynamic.classList.toggle("base-highlight",target==="Base")
+brandTitle.setAttribute("aria-label","Lucky"+target)
+
+if(prefersReducedMotion){
+brandDynamic.textContent=target
+await sleep(1400)
+}else{
+for(let i=1;i<=target.length;i++){
+brandDynamic.textContent=target.slice(0,i)
+await sleep(85)
+}
+await sleep(target==="Base"?1050:850)
+for(let i=target.length-1;i>=0;i--){
+brandDynamic.textContent=target.slice(0,i)
+await sleep(55)
+}
+await sleep(170)
+}
+
+index=(index+1)%words.length
+}
+}
+
+runBrandLoop()
+
+const revealTargets=[
+...document.querySelectorAll("section h2"),
+...document.querySelectorAll(".card"),
+...document.querySelectorAll(".plans-cta,.about img,.about-text,.faq-item,.contact-note,.contact-box,.metric")
+]
+
+revealTargets.forEach((el,index)=>{
+el.classList.add("reveal-item")
+el.style.setProperty("--delay",`${(index%6)*60}ms`)
+if(el.matches(".about img")){
+el.classList.add("reveal-left")
+}
+if(el.matches(".about-text")){
+el.classList.add("reveal-right")
+}
 })
 
+if(prefersReducedMotion||!("IntersectionObserver" in window)){
+revealTargets.forEach((el)=>el.classList.add("is-visible"))
+}else{
+const revealObserver=new IntersectionObserver((entries,observer)=>{
+entries.forEach((entry)=>{
+if(entry.isIntersecting){
+entry.target.classList.add("is-visible")
+observer.unobserve(entry.target)
+}
 })
+},{threshold:0.18,rootMargin:"0px 0px -8% 0px"})
+
+revealTargets.forEach((el)=>revealObserver.observe(el))
+}
+
+let lastKnownScrollY=0
+let ticking=false
+
+function applyHeroParallax(){
+if(!hero||!heroContent||prefersReducedMotion) return
+const scrollY=lastKnownScrollY
+const progress=Math.min(scrollY/560,1)
+
+heroContent.style.transform=`translate3d(0,${progress*42}px,0) scale(${1-progress*0.09})`
+heroContent.style.opacity=String(1-progress*0.72)
+
+if(heroMetrics){
+const mobileView=window.innerWidth<=768
+heroMetrics.style.transform=mobileView?`translate3d(0,${progress*24}px,0)`:`translate3d(-50%,${progress*70}px,0)`
+heroMetrics.style.opacity=String(1-progress*0.82)
+}
+
+parallaxOrbs.forEach((orb)=>{
+const speed=Number(orb.dataset.parallax||0)
+orb.style.transform=`translate3d(0,${scrollY*speed}px,0)`
+})
+}
+
+function requestVisualTick(){
+lastKnownScrollY=window.scrollY||window.pageYOffset||0
+if(ticking) return
+ticking=true
+window.requestAnimationFrame(()=>{
+applyHeroParallax()
+ticking=false
+})
+}
+
+window.addEventListener("scroll",requestVisualTick,{passive:true})
+requestVisualTick()
 
 /* SCROLL BUTTON */
 
@@ -1303,7 +1612,7 @@ const btn=document.getElementById("topBtn")
 const helpBtn=document.getElementById("helpBtn")
 const helpMsg=document.getElementById("helpMsg")
 
-window.onscroll=function(){
+function updateFloatingButtons(){
 
 if(document.body.scrollTop>400||document.documentElement.scrollTop>400){
 
@@ -1320,6 +1629,9 @@ if(helpMsg) helpMsg.classList.remove("show")
 
 }
 
+window.addEventListener("scroll",updateFloatingButtons,{passive:true})
+updateFloatingButtons()
+
 function topFunction(){
 
 document.body.scrollTop=0
@@ -1329,7 +1641,7 @@ document.documentElement.scrollTop=0
 
 function scrollToServices(){
 
-document.getElementById("servicios").scrollIntoView()
+document.getElementById("servicios").scrollIntoView({behavior:"smooth"})
 
 }
 
