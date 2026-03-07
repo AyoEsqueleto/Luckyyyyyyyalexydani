@@ -360,33 +360,62 @@ color:#4b5563;
 max-width:600px;
 margin:auto;
 margin-top:40px;
+padding:28px;
+border-radius:16px;
+background:linear-gradient(180deg,#ffffff,#f8fbff);
+box-shadow:0 20px 45px rgba(21,101,255,0.12);
+border:1px solid #dbeafe;
 }
 
-input,textarea{
+.contact-box form{
+display:grid;
+gap:14px;
+}
+
+.contact-box input,
+.contact-box textarea{
 
 width:100%;
 padding:14px;
-margin-bottom:15px;
-border-radius:6px;
-border:1px solid #ddd;
+border-radius:10px;
+border:1px solid #d5def0;
 font-size:15px;
+background:#f8fbff;
+transition:border-color 0.25s ease,box-shadow 0.25s ease,background 0.25s ease;
+margin:0;
+}
 
+.contact-box textarea{
+resize:vertical;
+min-height:120px;
+max-height:320px;
+}
+
+.contact-box input:focus,
+.contact-box textarea:focus{
+outline:none;
+border-color:#3b82f6;
+background:#fff;
+box-shadow:0 0 0 4px rgba(59,130,246,0.14);
 }
 
 button.submit{
 
-background:#1565ff;
+background:linear-gradient(135deg,#1565ff,#0e49c9);
 color:white;
 border:none;
 padding:14px 30px;
-border-radius:6px;
+border-radius:10px;
 cursor:pointer;
-transition:0.3s;
+transition:transform 0.25s ease,box-shadow 0.25s ease;
+font-weight:600;
+letter-spacing:0.2px;
 
 }
 
 button.submit:hover{
-background:#0e49c9;
+transform:translateY(-2px);
+box-shadow:0 10px 20px rgba(21,101,255,0.28);
 }
 
 .contact-note{
@@ -400,9 +429,9 @@ font-size:14px;
 display:flex;
 align-items:flex-start;
 gap:10px;
-margin-bottom:15px;
 font-size:14px;
 color:#333;
+padding:2px 2px 0;
 }
 
 .terms-check input{
@@ -421,10 +450,35 @@ text-decoration:underline;
 }
 
 .form-status{
-margin-top:12px;
 font-size:14px;
+font-weight:600;
 text-align:center;
-min-height:20px;
+min-height:0;
+opacity:0;
+transform:translateY(6px);
+transition:opacity 0.25s ease,transform 0.25s ease;
+padding:0;
+border-radius:10px;
+border:1px solid transparent;
+background:transparent;
+}
+
+.form-status.show{
+opacity:1;
+transform:translateY(0);
+padding:10px 12px;
+}
+
+.form-status.success{
+color:#166534;
+background:#ecfdf3;
+border-color:#86efac;
+}
+
+.form-status.error{
+color:#991b1b;
+background:#fef2f2;
+border-color:#fca5a5;
 }
 
 /* FOOTER */
@@ -682,9 +736,34 @@ border-color:#334155;
 color:#e2e8f0;
 }
 
+body.dark-mode .contact-box input,
+body.dark-mode .contact-box textarea{
+background:#0f172a;
+border-color:#334155;
+color:#e2e8f0;
+}
+
+body.dark-mode .contact-box input:focus,
+body.dark-mode .contact-box textarea:focus{
+border-color:#60a5fa;
+box-shadow:0 0 0 4px rgba(96,165,250,0.18);
+}
+
 body.dark-mode .contact-note,
 body.dark-mode .terms-check{
 color:#cbd5e1;
+}
+
+body.dark-mode .form-status.success{
+color:#86efac;
+background:#052e1d;
+border-color:#166534;
+}
+
+body.dark-mode .form-status.error{
+color:#fecaca;
+background:#3f0b12;
+border-color:#7f1d1d;
 }
 
 body.dark-mode .faq-item{
@@ -830,6 +909,10 @@ width:min(85%,340px);
 .about{
 justify-content:center;
 text-align:center;
+}
+
+.contact-box{
+padding:20px;
 }
 
 .footer-preferences{
@@ -1323,6 +1406,10 @@ contactForm.addEventListener("submit",async(event)=>{
 event.preventDefault()
 
 const data=new FormData(contactForm)
+const showFormStatus=(message,type)=>{
+formStatus.textContent=message
+formStatus.className=`form-status show ${type}`
+}
 
 try{
 const response=await fetch(contactForm.action,{
@@ -1333,15 +1420,12 @@ headers:{Accept:"application/json"}
 
 if(response.ok){
 contactForm.reset()
-formStatus.textContent="Mensaje enviado correctamente."
-formStatus.style.color="#15803d"
+showFormStatus("Mensaje enviado correctamente. Te responderemos pronto.","success")
 }else{
-formStatus.textContent="No se pudo enviar. Inténtalo de nuevo."
-formStatus.style.color="#b91c1c"
+showFormStatus("No se pudo enviar. Inténtalo de nuevo.","error")
 }
 }catch(error){
-formStatus.textContent="Error de conexión. Inténtalo de nuevo."
-formStatus.style.color="#b91c1c"
+showFormStatus("Error de conexión. Inténtalo de nuevo.","error")
 }
 })
 }
