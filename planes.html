@@ -486,34 +486,43 @@ background:linear-gradient(135deg,#3b82f6,#2563eb);
 
 @media(max-width:768px){
 body{
-padding-top:168px;
+padding-top:124px;
 }
 
 header{
-flex-direction:column;
-gap:10px;
-padding:12px 5%;
+padding:8px 4% 10px;
+gap:8px;
+flex-wrap:wrap;
+align-items:center;
 }
 
 nav{
+order:3;
+width:100%;
 display:flex;
-flex-wrap:wrap;
-justify-content:center;
-column-gap:12px;
-row-gap:8px;
+flex-wrap:nowrap;
+justify-content:flex-start;
+gap:10px;
+overflow-x:auto;
+padding-bottom:2px;
+-webkit-overflow-scrolling:touch;
 }
 
 nav a{
 margin-left:0;
-font-size:14px;
+font-size:13px;
+white-space:nowrap;
+flex:0 0 auto;
 }
 
 .theme-toggle{
 margin-left:0;
+width:34px;
+height:34px;
 }
 
 .logo img{
-height:34px;
+height:28px;
 }
 
 .hero{

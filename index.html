@@ -985,23 +985,30 @@ transform:translateY(0);
 @media(max-width:768px){
 
 header{
-flex-direction:column;
-gap:10px;
-top:52px;
-padding:12px 5%;
+top:44px;
+padding:8px 4% 10px;
+gap:8px;
+flex-wrap:wrap;
+align-items:center;
 }
 
 nav{
+order:3;
+width:100%;
 display:flex;
-flex-wrap:wrap;
-justify-content:center;
-column-gap:12px;
-row-gap:8px;
+flex-wrap:nowrap;
+justify-content:flex-start;
+gap:10px;
+overflow-x:auto;
+padding-bottom:2px;
+-webkit-overflow-scrolling:touch;
 }
 
 nav a{
 margin-left:0;
-font-size:14px;
+font-size:13px;
+white-space:nowrap;
+flex:0 0 auto;
 }
 
 .discord-banner{
@@ -1022,12 +1029,13 @@ padding:6px 12px;
 
 section{
 padding:88px 5%;
+scroll-margin-top:118px;
 }
 
 .hero{
 height:auto;
 min-height:100vh;
-padding:190px 5% 85px;
+padding:154px 5% 85px;
 }
 
 .hero-content{
@@ -1092,10 +1100,12 @@ padding:13px 30px;
 
 .theme-toggle{
 margin-left:0;
+width:34px;
+height:34px;
 }
 
 .logo img{
-height: 34px;
+height:28px;
 }
 
 .about img{
