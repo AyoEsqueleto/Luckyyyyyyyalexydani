@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Allow: /planes.html
+Allow: /index.html
+Allow: /comparador-planes-web.html
