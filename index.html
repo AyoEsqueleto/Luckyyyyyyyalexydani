@@ -336,6 +336,56 @@ animation:fadeUp 1.6s ease;
 transform:scale(1.1);
 }
 
+#seccion-login{
+max-width:420px;
+margin:24px auto 0;
+display:flex;
+flex-direction:column;
+gap:12px;
+background:#fff;
+padding:18px;
+border-radius:14px;
+box-shadow:0 12px 30px rgba(15,23,42,0.08);
+}
+
+#seccion-login input{
+width:100%;
+padding:12px 14px;
+border-radius:10px;
+border:1px solid #d5def0;
+font-size:14px;
+background:#f8fbff;
+}
+
+#seccion-login button{
+padding:12px 16px;
+border-radius:10px;
+border:none;
+background:#1565ff;
+color:#fff;
+font-weight:600;
+cursor:pointer;
+}
+
+#seccion-login button:hover{
+background:#0e49c9;
+}
+
+body.dark-mode #seccion-login{
+background:#1e293b;
+box-shadow:0 12px 30px rgba(0,0,0,0.35);
+}
+
+body.dark-mode #seccion-login input{
+background:#0f172a;
+border-color:#334155;
+color:#e2e8f0;
+}
+
+body.dark-mode #seccion-login button{
+background:#3b82f6;
+}
+
 
 /* SECTIONS */
 
@@ -1187,6 +1237,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a href="#about.html">Nosotros</a>
 <a href="#faq.html">FAQ</a>
 <a href="#contacto.html">Contacto</a>
+<a href="login.html">Iniciar sesión</a>
 
 </nav>
 
@@ -1226,6 +1277,13 @@ Soluciones digitales modernas para empresas que quieren destacar en internet.
 </div>
 </div>
 
+</section>
+<section id="login">
+<div id="seccion-login">
+  <input type="text" id="usuario" placeholder="Usuario">
+  <input type="password" id="password" placeholder="Contraseña">
+  <button onclick="ejecutarLogin()">Entrar</button>
+</div>
 </section>
 <section id="quehacemos">
 
