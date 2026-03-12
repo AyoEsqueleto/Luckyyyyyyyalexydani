@@ -186,12 +186,49 @@ background:#0e49c9;
 .nav-toggle{
 display:none;
 border:none;
-background:#1565ff;
-color:#fff;
-padding:8px 12px;
-border-radius:10px;
-font-weight:600;
+background:transparent;
+color:#1565ff;
+width:44px;
+height:44px;
+border-radius:12px;
 cursor:pointer;
+align-items:center;
+justify-content:center;
+position:relative;
+transition:0.3s;
+}
+
+.nav-toggle .bar{
+position:absolute;
+left:11px;
+right:11px;
+height:2px;
+background:currentColor;
+transition:transform 0.25s ease,opacity 0.2s ease;
+}
+
+.nav-toggle .bar:nth-child(1){
+top:14px;
+}
+
+.nav-toggle .bar:nth-child(2){
+top:21px;
+}
+
+.nav-toggle .bar:nth-child(3){
+top:28px;
+}
+
+.nav-toggle.is-open .bar:nth-child(1){
+transform:translateY(7px) rotate(45deg);
+}
+
+.nav-toggle.is-open .bar:nth-child(2){
+opacity:0;
+}
+
+.nav-toggle.is-open .bar:nth-child(3){
+transform:translateY(-7px) rotate(-45deg);
 }
 
 .theme-toggle{
@@ -879,7 +916,7 @@ background:#2563eb;
 }
 
 body.dark-mode .nav-toggle{
-background:#3b82f6;
+color:#93c5fd;
 }
 
 body.dark-mode .theme-toggle{
@@ -1104,6 +1141,11 @@ align-items:center;
 justify-content:center;
 }
 
+body.dark-mode nav{
+background:#111827;
+box-shadow:0 12px 30px rgba(0,0,0,0.35);
+}
+
 .discord-banner{
 flex-wrap:wrap;
 text-align:center;
@@ -1271,9 +1313,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <nav id="mainNav">
 
-<a href="#inicio">Inicio</a>
-<a href="#quehacemos">Qué hacemos</a>
-<a href="#servicios">Servicios</a>
 <a href="planes.html">Planes</a>
 <a href="#reventa">Reventa</a>
 <a href="#about">Nosotros</a>
@@ -1283,7 +1322,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 </nav>
 
-<button id="navToggle" class="nav-toggle" type="button" aria-label="Abrir menú">Menú</button>
+<button id="navToggle" class="nav-toggle" type="button" aria-label="Abrir menú">
+<span class="bar"></span>
+<span class="bar"></span>
+<span class="bar"></span>
+</button>
 <button id="themeToggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema"></button>
 
 </header>
@@ -1618,16 +1661,16 @@ const prefersReducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)")
 if(navToggle && mainNav){
   navToggle.addEventListener("click",()=>{
     const isOpen=mainNav.classList.toggle("is-open")
+    navToggle.classList.toggle("is-open",isOpen)
     navToggle.setAttribute("aria-label",isOpen?"Cerrar menú":"Abrir menú")
-    navToggle.textContent=isOpen?"Cerrar":"Menú"
   })
 
   mainNav.querySelectorAll("a").forEach((link)=>{
     link.addEventListener("click",()=>{
       if(window.innerWidth<=768){
         mainNav.classList.remove("is-open")
+        navToggle.classList.remove("is-open")
         navToggle.setAttribute("aria-label","Abrir menú")
-        navToggle.textContent="Menú"
       }
     })
   })
