@@ -62,6 +62,17 @@ color:#334155;
 font-weight:500;
 }
 
+.nav-toggle{
+display:none;
+border:none;
+background:#1565ff;
+color:#fff;
+padding:8px 12px;
+border-radius:10px;
+font-weight:600;
+cursor:pointer;
+}
+
 .theme-toggle{
 width:40px;
 height:40px;
@@ -152,6 +163,35 @@ transition:transform 0.2s ease,box-shadow 0.2s ease;
 background:#0e49c9;
 transform:translateY(-1px);
 box-shadow:0 10px 20px rgba(21,101,255,0.25);
+}
+
+.password-row{
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+.password-row input{
+flex:1;
+}
+
+.toggle-pass{
+border:1px solid #d5def0;
+background:#fff;
+color:#1e3a8a;
+padding:10px 12px;
+border-radius:10px;
+cursor:pointer;
+font-weight:600;
+}
+
+.toggle-pass:hover{
+background:#eef2ff;
+}
+
+#loginStatus{
+min-height:18px;
+transition:opacity 0.2s ease;
 }
 
 .help{
@@ -273,6 +313,15 @@ body.dark-mode .theme-toggle:hover{
 background:#374151;
 }
 
+body.dark-mode nav{
+background:#111827;
+box-shadow:0 12px 30px rgba(0,0,0,0.35);
+}
+
+body.dark-mode .nav-toggle{
+background:#3b82f6;
+}
+
 body.dark-mode #seccion-login{
 background:#1e293b;
 box-shadow:0 12px 30px rgba(0,0,0,0.35);
@@ -283,6 +332,12 @@ body.dark-mode #seccion-login input{
 background:#0f172a;
 border-color:#334155;
 color:#e2e8f0;
+}
+
+body.dark-mode .toggle-pass{
+background:#1e293b;
+border-color:#334155;
+color:#cbd5e1;
 }
 
 body.dark-mode footer{
@@ -307,14 +362,29 @@ gap:8px;
 
 nav{
 width:100%;
-gap:10px;
-overflow-x:auto;
-white-space:nowrap;
+display:none;
+flex-direction:column;
+align-items:center;
+gap:8px;
+padding:10px 0 4px;
+background:#fff;
+border-radius:12px;
+box-shadow:0 12px 30px rgba(15,23,42,0.12);
 }
 
 nav a{
 font-size:13px;
 flex:0 0 auto;
+}
+
+nav.is-open{
+display:flex;
+}
+
+.nav-toggle{
+display:inline-flex;
+align-items:center;
+justify-content:center;
 }
 
 .theme-toggle{
@@ -362,6 +432,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a href="comparador-planes-web.html">Comparador</a>
 <a href="index.html#contacto">Contacto</a>
 </nav>
+<button id="navToggle" class="nav-toggle" type="button" aria-label="Abrir menú">Menú</button>
 <button id="themeToggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema"></button>
 </header>
 
@@ -373,7 +444,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <main class="wrapper">
 <div id="seccion-login">
   <input type="text" id="usuario" placeholder="Usuario">
-  <input type="password" id="password" placeholder="Contraseña">
+  <div class="password-row">
+    <input type="password" id="password" placeholder="Contraseña">
+    <button type="button" id="togglePassword" class="toggle-pass">Mostrar</button>
+  </div>
   <button onclick="ejecutarLogin()">Entrar</button>
 </div>
 <p id="loginStatus" class="help" aria-live="polite"></p>
@@ -450,6 +524,36 @@ updateThemeLabel()
 })
 }
 
+const mainNav=document.querySelector("nav")
+const navToggle=document.getElementById("navToggle")
+if(navToggle && mainNav){
+  navToggle.addEventListener("click",()=>{
+    const isOpen=mainNav.classList.toggle("is-open")
+    navToggle.setAttribute("aria-label",isOpen?"Cerrar menú":"Abrir menú")
+    navToggle.textContent=isOpen?"Cerrar":"Menú"
+  })
+
+  mainNav.querySelectorAll("a").forEach((link)=>{
+    link.addEventListener("click",()=>{
+      if(window.innerWidth<=768){
+        mainNav.classList.remove("is-open")
+        navToggle.setAttribute("aria-label","Abrir menú")
+        navToggle.textContent="Menú"
+      }
+    })
+  })
+}
+
+const togglePassword=document.getElementById("togglePassword")
+const passwordInput=document.getElementById("password")
+if(togglePassword && passwordInput){
+  togglePassword.addEventListener("click",()=>{
+    const isHidden=passwordInput.getAttribute("type")==="password"
+    passwordInput.setAttribute("type",isHidden?"text":"password")
+    togglePassword.textContent=isHidden?"Ocultar":"Mostrar"
+  })
+}
+
 const URL_API = "https://script.google.com/macros/s/AKfycbxZeMApnIjxoF4aAPxNhcLbUb09JluFb4E7jP67bINuODTv08q9xDFtzC5updMnV_Gi/exec"
 
 let loginTimeoutId
@@ -474,8 +578,8 @@ function handleLoginResponse(datos, user){
     localStorage.setItem('clientData', JSON.stringify(payload))
     window.location.href = "panel.html"
   } else {
-    alert("Usuario o contraseña incorrectos")
     if(status) status.textContent = "Credenciales incorrectas."
+    setTimeout(()=>{ if(status) status.textContent = "" }, 5000)
   }
 }
 
@@ -486,7 +590,8 @@ function ejecutarLogin(){
   if(status) status.textContent = ""
 
   if(!user || !pass){
-    alert("Completa usuario y contraseña")
+    if(status) status.textContent = "Completa usuario y contraseña."
+    setTimeout(()=>{ if(status) status.textContent = "" }, 4000)
     return
   }
 
@@ -510,7 +615,7 @@ function ejecutarLogin(){
   script.src = `${URL_API}?${params.toString()}`
   script.onerror = () => {
     if(status) status.textContent = "No se pudo conectar con el servidor."
-    alert("No se pudo conectar. Inténtalo de nuevo.")
+    setTimeout(()=>{ if(status) status.textContent = "" }, 5000)
     delete window[callbackName]
     script.remove()
   }
@@ -518,7 +623,7 @@ function ejecutarLogin(){
 
   loginTimeoutId = setTimeout(() => {
     if(status) status.textContent = "Tiempo de espera agotado."
-    alert("No se pudo conectar. Inténtalo de nuevo.")
+    setTimeout(()=>{ if(status) status.textContent = "" }, 5000)
     delete window[callbackName]
     script.remove()
   }, 12000)
