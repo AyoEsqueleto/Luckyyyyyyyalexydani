@@ -614,6 +614,8 @@ function handleLoginResponse(datos, user){
       user,
       nombre: datos.nombre || user,
       plan: datos.plan || '-',
+      tipoplan: datos.tipoplan || '',
+      cuota: datos.cuota || '',
       pagado: datos.pagado || '-',
       fealta: datos.fealta || '-',
       proxpago: datos.proxpago || '-',

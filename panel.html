@@ -158,6 +158,11 @@ font-size:15px;
 color:#0f172a;
 }
 
+.status-bad{
+color:#dc2626;
+font-weight:700;
+}
+
 .actions{
 margin-top:18px;
 display:flex;
@@ -327,6 +332,10 @@ color:#94a3b8;
 
 body.dark-mode .detail strong{
 color:#f8fafc;
+}
+
+body.dark-mode .status-bad{
+color:#f87171;
 }
 
 body.dark-mode footer{
@@ -535,11 +544,16 @@ if(raw){
     planDoc = '<a class=\"secondary\" href=\"terminos-contratacion-web.html\">Ver documentación completa</a>'
   }
 
+  const pagadoValue = data.pagado || '-'
+  const isUnpaid = /^no\b/i.test(String(pagadoValue).trim())
+
   panel.innerHTML = `\
     <h3>Bienvenido, ${data.nombre || data.user}</h3>
     <div class="details">
       <div class="detail"><span>Plan</span><strong>${data.plan}</strong></div>
-      <div class="detail"><span>Pagado</span><strong>${data.pagado || '-'}</strong></div>
+      <div class="detail"><span>Tipo plan</span><strong>${data.tipoplan || '-'}</strong></div>
+      <div class="detail"><span>Cuota</span><strong>${data.cuota || '-'}</strong></div>
+      <div class="detail"><span>Pagado</span><strong class="${isUnpaid ? 'status-bad' : ''}">${pagadoValue}</strong></div>
       <div class="detail"><span>Fecha alta</span><strong>${data.fealta || '-'}</strong></div>
       <div class="detail"><span>Próximo pago</span><strong>${data.proxpago}</strong></div>
       <div class="detail"><span>Dominio</span><strong>${data.dominio}</strong></div>
