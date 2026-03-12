@@ -536,7 +536,7 @@ if(raw){
   }
 
   panel.innerHTML = `\
-    <h3>Bienvenido, ${data.user}</h3>
+    <h3>Bienvenido, ${data.nombre || data.user}</h3>
     <div class="details">
       <div class="detail"><span>Plan</span><strong>${data.plan}</strong></div>
       <div class="detail"><span>Pagado</span><strong>${data.pagado || '-'}</strong></div>

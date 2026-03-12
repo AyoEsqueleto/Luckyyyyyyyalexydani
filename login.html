@@ -463,6 +463,7 @@ function handleLoginResponse(datos, user){
   if (datos && datos.success) {
     const payload = {
       user,
+      nombre: datos.nombre || user,
       plan: datos.plan || '-',
       pagado: datos.pagado || '-',
       fealta: datos.fealta || '-',
