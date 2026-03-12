@@ -569,8 +569,8 @@ if(raw){
   panel.innerHTML = `\
     <h3>Bienvenido, ${data.nombre || data.user}</h3>
     <div class="details">
-      <div class="detail"><span>Plan</span><strong>${data.plan}</strong></div>
       <div class="detail"><span>Tipo plan</span><strong>${data.tipoplan || '-'}</strong></div>
+      <div class="detail"><span>Plan</span><strong>${data.plan}</strong></div>
       <div class="detail"><span>Cuota</span><strong>${cuotaDisplay}</strong></div>
       <div class="detail"><span>Pagado</span><strong class="${isUnpaid ? 'status-bad' : ''}">${pagadoValue}</strong></div>
       <div class="detail"><span>Fecha alta</span><strong>${data.fealta || '-'}</strong></div>
