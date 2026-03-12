@@ -528,6 +528,24 @@ if(navToggle && mainNav){
   })
 }
 
+function formatEuro(value){
+  const raw = String(value || '').replace('€','').trim()
+  if(!raw) return '-'
+  if(/[a-zA-Z]/.test(raw)) return value
+  let num = null
+  if(/^[0-9]+([.,][0-9]+)?$/.test(raw)){
+    if(raw.includes('.') && raw.includes(',')){
+      num = Number(raw.replace(/\./g,'').replace(',','.'))
+    }else if(raw.includes(',')){
+      num = Number(raw.replace(',','.'))
+    }else{
+      num = Number(raw)
+    }
+  }
+  if(num === null || !Number.isFinite(num)) return value
+  return new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(num)
+}
+
 const panel = document.getElementById("panelContent")
 const raw = localStorage.getItem("clientData")
 if(raw){
@@ -546,13 +564,14 @@ if(raw){
 
   const pagadoValue = data.pagado || '-'
   const isUnpaid = /^no\b/i.test(String(pagadoValue).trim())
+  const cuotaDisplay = formatEuro(data.cuota)
 
   panel.innerHTML = `\
     <h3>Bienvenido, ${data.nombre || data.user}</h3>
     <div class="details">
       <div class="detail"><span>Plan</span><strong>${data.plan}</strong></div>
       <div class="detail"><span>Tipo plan</span><strong>${data.tipoplan || '-'}</strong></div>
-      <div class="detail"><span>Cuota</span><strong>${data.cuota || '-'}</strong></div>
+      <div class="detail"><span>Cuota</span><strong>${cuotaDisplay}</strong></div>
       <div class="detail"><span>Pagado</span><strong class="${isUnpaid ? 'status-bad' : ''}">${pagadoValue}</strong></div>
       <div class="detail"><span>Fecha alta</span><strong>${data.fealta || '-'}</strong></div>
       <div class="detail"><span>Próximo pago</span><strong>${data.proxpago}</strong></div>
