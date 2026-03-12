@@ -384,7 +384,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p>Dominio: <span id="info-dominio"></span></p>
   <p>Nº Pedido: <span id="info-pedido"></span></p>
 </div>
-<p class="help">Si necesitas acceso, escribe a luckybaseprin@gmail.com</p>
+<p class="help">Si necesitas acceso, escribe a contacto@luckybase.es</p>
 </main>
 
 <footer>
@@ -464,6 +464,8 @@ function handleLoginResponse(datos, user){
     const payload = {
       user,
       plan: datos.plan || '-',
+      pagado: datos.pagado || '-',
+      fealta: datos.fealta || '-',
       proxpago: datos.proxpago || '-',
       dominio: datos.dominio || '-',
       npedido: datos.npedido || '-'
