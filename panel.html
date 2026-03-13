@@ -577,7 +577,7 @@ if(raw){
       <div class="detail"><span>Próximo pago</span><strong>${data.proxpago}</strong></div>
       <div class="detail"><span>Dominio</span><strong>${data.dominio}</strong></div>
       <div class="detail"><span>Nº pedido</span><strong>${data.npedido}</strong></div>
-      <div class="detail"><span>Consultas o cambios restantes</span><strong>${data.consultasocambiosrestantes}</strong></div>
+      <div class="detail"><span>Consultas o cambios restantes este mes</span><strong>${data.consultasocambiosrestantes || '-'}</strong></div>
     </div>
     <div class="actions">
       ${planDoc}
