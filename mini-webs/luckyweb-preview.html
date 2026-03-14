@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LuckyWeb Preview</title>
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html,body{
+  width:100%;
+  height:100%;
+}
+
+body{
+  font-family:"Poppins","Space Grotesk",system-ui,sans-serif;
+  background:#f5f7fb;
+  color:#0f172a;
+}
+
+.preview{
+  min-height:100%;
+  display:flex;
+  flex-direction:column;
+  border-radius:16px;
+  overflow:hidden;
+  background:#ffffff;
+  border:1px solid #e2e8f0;
+  box-shadow:0 12px 28px rgba(15,23,42,0.08);
+}
+
+.preview-nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 14px;
+  font-size:10px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  background:#ffffff;
+  border-bottom:1px solid #e2e8f0;
+}
+
+.preview-logo{
+  font-weight:700;
+  color:#1d4ed8;
+}
+
+.preview-cta{
+  padding:5px 10px;
+  border-radius:999px;
+  background:#1d4ed8;
+  color:#fff;
+  font-weight:600;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  font-size:9px;
+}
+
+.preview-hero{
+  padding:14px;
+  background:linear-gradient(135deg,#0b1b3a,#1f6bff);
+  color:#fff;
+  display:grid;
+  gap:8px;
+}
+
+.preview-hero span{
+  display:inline-flex;
+  align-items:center;
+  width:max-content;
+  padding:3px 8px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.18);
+  font-size:9px;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+}
+
+.preview-hero h1{
+  font-size:16px;
+  line-height:1.1;
+}
+
+.preview-hero p{
+  font-size:10px;
+  opacity:0.9;
+}
+
+.preview-hero .btn{
+  width:max-content;
+  padding:6px 12px;
+  border-radius:999px;
+  background:#ffffff;
+  color:#123b8f;
+  font-size:9px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+}
+
+.preview-cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  padding:12px 14px 14px;
+  background:#ffffff;
+}
+
+.preview-card{
+  border-radius:10px;
+  padding:8px;
+  background:#f1f5ff;
+  border:1px solid #dbeafe;
+  display:grid;
+  gap:6px;
+}
+
+.preview-card strong{
+  font-size:10px;
+  color:#1e3a8a;
+}
+
+.preview-card span{
+  font-size:9px;
+  color:#475569;
+}
+
+.preview-footer{
+  margin-top:auto;
+  padding:10px 14px 12px;
+  font-size:9px;
+  color:#64748b;
+  display:flex;
+  justify-content:space-between;
+  border-top:1px solid #e2e8f0;
+  background:#f8fafc;
+}
+</style>
+</head>
+<body>
+  <div class="preview">
+    <div class="preview-nav">
+      <div class="preview-logo">LuckyWeb</div>
+      <div class="preview-cta">Propuesta</div>
+    </div>
+    <div class="preview-hero">
+      <span>Servicio premium</span>
+      <h1>Web con narrativa, diseño y conversión.</h1>
+      <p>Tu web lista para vender, reservar o captar leads desde el primer día.</p>
+      <div class="btn">Ver ejemplo</div>
+    </div>
+    <div class="preview-cards">
+      <div class="preview-card">
+        <strong>Diseño</strong>
+        <span>Visuales a medida</span>
+      </div>
+      <div class="preview-card">
+        <strong>Velocidad</strong>
+        <span>Core Web Vitals</span>
+      </div>
+      <div class="preview-card">
+        <strong>Conversión</strong>
+        <span>CTA claros</span>
+      </div>
+    </div>
+    <div class="preview-footer">
+      <span>LuckyWeb</span>
+      <span>Responsive</span>
+    </div>
+  </div>
+</body>
+</html>

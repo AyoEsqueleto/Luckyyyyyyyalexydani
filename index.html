@@ -42,7 +42,7 @@
 }
 </script>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="favicon.png" type="image/png">
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -53,6 +53,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <script src="https://app.termly.io/resource-blocker/b67905d0-e597-4cc6-8085-08908b2ef547?autoBlock=on"></script>
 <!-- End Google Tag Manager -->
 <style>
+:root{
+--primary:#1565ff;
+--primary-dark:#0e49c9;
+--ink:#0f172a;
+--muted:#475569;
+--bg:#f6f8fc;
+--card:#ffffff;
+--surface:#ffffff;
+--surface-alt:#eef3ff;
+--outline:rgba(15,23,42,0.08);
+--hero-deep:#0b1b3a;
+--hero-blue:#1546b3;
+--hero-light:#1f6bff;
+--radius:16px;
+--shadow:0 14px 30px rgba(15,23,42,0.1);
+--shadow-hover:0 22px 45px rgba(15,23,42,0.15);
+}
+
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -74,12 +92,83 @@ scroll-behavior:smooth;
 }
 
 body{
-background:#ffffff;
-color:#1a1a1a;
+background:
+radial-gradient(circle at 15% 5%,rgba(21,101,255,0.12),transparent 45%),
+radial-gradient(circle at 85% 0%,rgba(14,73,201,0.12),transparent 45%),
+var(--bg);
+color:var(--ink);
+line-height:1.6;
+-webkit-font-smoothing:antialiased;
 }
 
 section{
 scroll-margin-top:150px;
+position:relative;
+}
+
+p{
+color:var(--muted);
+}
+
+section:not(.hero){
+position:relative;
+z-index:0;
+}
+
+section:not(.hero) > *{
+position:relative;
+z-index:1;
+}
+
+section:not(.hero)::after{
+content:"";
+position:absolute;
+inset:0;
+background:radial-gradient(circle at 12% 0%,rgba(21,101,255,0.08),transparent 45%);
+pointer-events:none;
+z-index:0;
+}
+
+section:not(.hero):nth-of-type(even)::after{
+background:radial-gradient(circle at 85% 15%,rgba(14,73,201,0.08),transparent 50%);
+}
+
+section:not(.hero)::before{
+content:"";
+position:absolute;
+left:8%;
+right:8%;
+top:0;
+height:1px;
+background:linear-gradient(90deg,transparent,rgba(15,23,42,0.12),transparent);
+}
+
+h2{
+font-size:clamp(28px,3.2vw,40px);
+letter-spacing:-0.02em;
+color:var(--ink);
+font-family:"Space Grotesk",sans-serif;
+}
+
+section > h2{
+text-align:center;
+margin-bottom:18px;
+position:relative;
+}
+
+section > h2::after{
+content:"";
+display:block;
+width:72px;
+height:4px;
+margin:14px auto 0;
+border-radius:999px;
+background:linear-gradient(90deg,rgba(21,101,255,0.2),rgba(21,101,255,0.9),rgba(21,101,255,0.2));
+}
+
+section > h2 + p{
+max-width:720px;
+margin:0 auto 32px;
 }
 
 .discord-banner{
@@ -133,12 +222,14 @@ header{
 position:fixed;
 top:52px;
 width:100%;
-background:white;
+background:rgba(255,255,255,0.9);
 display:flex;
 justify-content:space-between;
 align-items:center;
 padding:16px 6%;
 box-shadow:0 5px 20px rgba(0,0,0,0.05);
+border-bottom:1px solid var(--outline);
+backdrop-filter:saturate(140%) blur(10px);
 z-index:1000;
 flex-wrap:wrap;
 gap:16px;
@@ -168,11 +259,16 @@ height:40px;
 nav a{
 margin-left:0;
 text-decoration:none;
-color:#333;
-font-weight:500;
+color:#1f2937;
+font-weight:600;
 position:relative;
 white-space:nowrap;
 font-size:14px;
+letter-spacing:0.01em;
+}
+
+nav a:hover{
+color:var(--primary);
 }
 
 nav{
@@ -331,12 +427,25 @@ justify-content:center;
 align-items:center;
 text-align:center;
 color:white;
-background:linear-gradient(-45deg,#1565ff,#4f8cff,#1e40ff,#2a6bff);
-background-size:400% 400%;
+background:
+radial-gradient(circle at 18% 20%,rgba(255,255,255,0.18),transparent 45%),
+radial-gradient(circle at 85% 0%,rgba(99,179,255,0.28),transparent 40%),
+linear-gradient(135deg,var(--hero-deep),var(--hero-blue) 45%,var(--hero-light) 100%);
+background-size:200% 200%;
 position:relative;
 overflow:hidden;
 isolation:isolate;
-animation:gradientMove 10s ease infinite;
+animation:gradientMove 18s ease infinite;
+border-bottom:1px solid rgba(255,255,255,0.12);
+}
+
+.hero::before{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(180deg,rgba(15,23,42,0.15),transparent 35%,transparent 70%,rgba(15,23,42,0.4));
+z-index:0;
+pointer-events:none;
 }
 
 .hero::after{
@@ -398,6 +507,7 @@ position:relative;
 z-index:2;
 transition:transform 0.2s linear,opacity 0.2s linear;
 will-change:transform,opacity;
+max-width:780px;
 }
 
 .hero-metrics{
@@ -415,13 +525,23 @@ will-change:transform,opacity;
 }
 
 .metric{
-background:rgba(255,255,255,0.17);
-border:1px solid rgba(255,255,255,0.28);
-backdrop-filter:blur(10px);
+background:linear-gradient(140deg,rgba(255,255,255,0.22),rgba(255,255,255,0.08));
+border:1px solid rgba(255,255,255,0.32);
+backdrop-filter:blur(16px);
 padding:14px 12px;
 border-radius:14px;
 text-align:left;
-box-shadow:0 8px 20px rgba(7,35,105,0.2);
+box-shadow:0 18px 36px rgba(7,35,105,0.22);
+position:relative;
+}
+
+.metric::after{
+content:"";
+position:absolute;
+inset:0;
+border-radius:14px;
+border:1px solid rgba(255,255,255,0.24);
+pointer-events:none;
 }
 
 .metric strong{
@@ -450,6 +570,9 @@ margin-bottom:20px;
 animation:fadeUp 1s ease;
 display:flex;
 justify-content:center;
+font-family:"Space Grotesk",sans-serif;
+text-shadow:0 20px 40px rgba(15,23,42,0.35);
+letter-spacing:-0.02em;
 }
 
 .brand-title{
@@ -480,22 +603,26 @@ max-width:600px;
 font-size:20px;
 margin-bottom:30px;
 animation:fadeUp 1.3s ease;
+color:rgba(255,255,255,0.9);
 }
 
 .hero button{
 padding:15px 40px;
 border:none;
 border-radius:30px;
-background:white;
-color:#1565ff;
+background:linear-gradient(135deg,#ffffff,#e8f0ff);
+color:#123b8f;
 font-weight:600;
 cursor:pointer;
 transition:0.3s;
 animation:fadeUp 1.6s ease;
+box-shadow:0 12px 28px rgba(15,23,42,0.16);
+border:1px solid rgba(255,255,255,0.6);
 }
 
 .hero button:hover{
 transform:scale(1.1);
+box-shadow:0 18px 38px rgba(15,23,42,0.2);
 }
 
 
@@ -516,17 +643,197 @@ gap:35px;
 margin-top:50px;
 }
 
+/* LUCKYWEB HIGHLIGHT */
+.luckyweb-highlight{
+margin-top:44px;
+padding:40px 0 0;
+border-top:1px solid rgba(15,23,42,0.08);
+}
+
+.luckyweb-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:36px;
+align-items:center;
+margin-top:30px;
+}
+
+.luckyweb-pill{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:6px 12px;
+border-radius:999px;
+background:rgba(21,101,255,0.12);
+color:#1e3a8a;
+font-weight:600;
+font-size:12px;
+letter-spacing:0.08em;
+text-transform:uppercase;
+}
+
+.luckyweb-copy h3{
+font-size:30px;
+margin:16px 0 12px;
+font-family:"Space Grotesk",sans-serif;
+}
+
+.luckyweb-list{
+margin:18px 0 24px;
+padding-left:18px;
+color:#475569;
+line-height:1.7;
+}
+
+.luckyweb-actions{
+display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:12px;
+max-width:420px;
+align-items:stretch;
+}
+
+.luckyweb-actions a{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+height:44px;
+padding:0 22px;
+border-radius:999px;
+font-weight:600;
+letter-spacing:0.01em;
+line-height:1;
+box-sizing:border-box;
+border:1px solid transparent;
+white-space:nowrap;
+}
+
+.luckyweb-actions .platform-btn,
+.luckyweb-actions .ghost-btn{
+margin-top:0;
+border-radius:999px;
+height:44px;
+padding:0 22px;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+}
+
+.ghost-btn{
+border-color:rgba(21,101,255,0.35);
+color:#1e3a8a;
+text-decoration:none;
+background:#fff;
+transition:0.3s;
+}
+
+.ghost-btn:hover{
+background:#eff6ff;
+}
+
+.luckyweb-preview{
+border-radius:20px;
+padding:18px;
+background:linear-gradient(160deg,#0b1220,#0f1f3d);
+box-shadow:0 30px 60px rgba(15,23,42,0.35);
+border:1px solid rgba(255,255,255,0.1);
+color:#fff;
+position:relative;
+overflow:hidden;
+}
+
+.luckyweb-preview::after{
+content:"";
+position:absolute;
+inset:0;
+background:radial-gradient(circle at 20% 20%,rgba(99,179,255,0.2),transparent 45%);
+pointer-events:none;
+}
+
+.preview-top{
+display:flex;
+gap:6px;
+margin-bottom:16px;
+}
+
+.preview-top span{
+width:10px;
+height:10px;
+border-radius:50%;
+background:rgba(255,255,255,0.25);
+}
+
+.preview-frame{
+width:100%;
+height:320px;
+border:0;
+border-radius:14px;
+background:#ffffff;
+display:block;
+}
+
+@media(max-width:900px){
+  .luckyweb-highlight{
+    padding:32px 0 0;
+  }
+
+  .preview-frame{
+    height:240px;
+  }
+}
+
+@media(max-width:640px){
+  .luckyweb-actions{
+    grid-template-columns:1fr;
+    max-width:none;
+  }
+}
+
 .card{
 padding:35px;
-border-radius:12px;
-background:white;
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
+border-radius:var(--radius);
+background:linear-gradient(180deg,#ffffff,#f3f6ff);
+border:1px solid var(--outline);
+box-shadow:var(--shadow);
 transition:0.4s;
+position:relative;
+overflow:hidden;
 }
 
 .card:hover{
 transform:translateY(-12px);
-box-shadow:0 20px 40px rgba(0,0,0,0.12);
+box-shadow:var(--shadow-hover);
+}
+
+.card::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+right:0;
+height:3px;
+background:linear-gradient(90deg,rgba(21,101,255,0.85),rgba(21,101,255,0));
+opacity:0;
+transition:opacity 0.3s ease;
+}
+
+.card:hover::before{
+opacity:1;
+}
+
+.card::after{
+content:"";
+position:absolute;
+inset:0;
+border-radius:var(--radius);
+background:linear-gradient(120deg,rgba(255,255,255,0.6),transparent 45%);
+opacity:0;
+transition:opacity 0.35s ease;
+pointer-events:none;
+}
+
+.card:hover::after{
+opacity:1;
 }
 
 .platform-btn{
@@ -534,26 +841,30 @@ display:inline-block;
 margin-top:16px;
 padding:10px 18px;
 border-radius:8px;
-background:#1565ff;
+background:linear-gradient(135deg,#1565ff,#0e49c9);
 color:#fff;
 text-decoration:none;
 font-weight:600;
 transition:0.3s;
+box-shadow:0 12px 24px rgba(21,101,255,0.25);
 }
 
 .platform-btn:hover{
-background:#0e49c9;
+transform:translateY(-1px);
+box-shadow:0 16px 28px rgba(21,101,255,0.28);
 }
 
 .card h3{
-color:#1565ff;
+color:var(--primary);
 margin-bottom:10px;
+font-family:"Space Grotesk",sans-serif;
 }
 
 .premium-card{
-border:2px solid #1565ff;
-background:linear-gradient(180deg,#f4f8ff,#eaf1ff);
+border:1px solid rgba(21,101,255,0.45);
+background:linear-gradient(180deg,#f7f9ff,#eaf1ff);
 position:relative;
+box-shadow:0 24px 50px rgba(21,101,255,0.18);
 }
 
 .premium-badge{
@@ -567,6 +878,7 @@ font-weight:700;
 letter-spacing:0.8px;
 padding:6px 10px;
 border-radius:999px;
+box-shadow:0 10px 20px rgba(21,101,255,0.25);
 }
 
 .premium-type{
@@ -580,6 +892,7 @@ font-weight:700;
 letter-spacing:0.8px;
 padding:6px 10px;
 border-radius:999px;
+box-shadow:0 10px 20px rgba(14,73,201,0.25);
 }
 
 .plans-cta{
@@ -601,6 +914,9 @@ width:560px;
 max-width:100%;
 border-radius:15px;
 box-shadow:0 10px 30px rgba(0,0,0,0.1);
+border:1px solid rgba(15,23,42,0.08);
+background:#fff;
+padding:6px;
 }
 
 .about-text{
@@ -615,9 +931,9 @@ margin:40px auto 0;
 }
 
 .faq-item{
-background:#fff;
-border:1px solid #e5e7eb;
-border-radius:10px;
+background:linear-gradient(180deg,#ffffff,#f5f7ff);
+border:1px solid var(--outline);
+border-radius:14px;
 margin-bottom:14px;
 padding:16px 18px;
 box-shadow:0 6px 18px rgba(0,0,0,0.05);
@@ -641,10 +957,21 @@ max-width:600px;
 margin:auto;
 margin-top:40px;
 padding:28px;
-border-radius:16px;
-background:linear-gradient(180deg,#ffffff,#f8fbff);
-box-shadow:0 20px 45px rgba(21,101,255,0.12);
-border:1px solid #dbeafe;
+border-radius:18px;
+background:linear-gradient(180deg,#ffffff,#f3f7ff);
+box-shadow:0 20px 45px rgba(21,101,255,0.14);
+border:1px solid rgba(21,101,255,0.18);
+position:relative;
+overflow:hidden;
+}
+
+.contact-box::before{
+content:"";
+position:absolute;
+inset:0;
+background:radial-gradient(circle at 20% 0%,rgba(21,101,255,0.16),transparent 55%);
+opacity:0.6;
+pointer-events:none;
 }
 
 .contact-box form{
@@ -764,12 +1091,13 @@ border-color:#fca5a5;
 /* FOOTER */
 
 footer{
-background:#1565ff;
+background:linear-gradient(135deg,#0f3aa8,#1565ff 55%,#1f6bff);
 color:white;
 text-align:center;
 padding:35px;
 margin-top:80px;
 position:relative;
+box-shadow:0 -12px 40px rgba(15,23,42,0.22);
 }
 
 .footer-instagram{
@@ -959,6 +1287,28 @@ transform:translateY(0) scale(0.98);
 body.dark-mode{
 background:#0f172a;
 color:#e2e8f0;
+--outline:rgba(148,163,184,0.18);
+--muted:#cbd5e1;
+}
+
+body.dark-mode h2{
+color:#e2e8f0;
+}
+
+body.dark-mode section > h2::after{
+background:linear-gradient(90deg,rgba(59,130,246,0.2),rgba(59,130,246,0.85),rgba(59,130,246,0.2));
+}
+
+body.dark-mode section:not(.hero)::before{
+background:linear-gradient(90deg,transparent,rgba(148,163,184,0.25),transparent);
+}
+
+body.dark-mode section:not(.hero)::after{
+background:radial-gradient(circle at 12% 0%,rgba(59,130,246,0.12),transparent 45%);
+}
+
+body.dark-mode section:not(.hero):nth-of-type(even)::after{
+background:radial-gradient(circle at 85% 15%,rgba(56,189,248,0.12),transparent 50%);
 }
 
 body.dark-mode header{
@@ -1355,6 +1705,7 @@ font-size:12px;
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2827010027321154"
      crossorigin="anonymous"></script>
+<link rel="stylesheet" href="premium.css">
 </head>
 
 <body>
@@ -1527,6 +1878,36 @@ y preparación inicial para empezar a vender.
 <p>Identidad visual fuerte para tu empresa.</p>
 </div>
 
+</div>
+
+<div class="luckyweb-highlight" id="luckyweb-highlight">
+  <h2>LuckyWeb: web premium lista para convertir</h2>
+  <p>Tu web como si fuera un lanzamiento: narrativa clara, visuales propios y rendimiento real para captar clientes desde el primer día.</p>
+
+  <div class="luckyweb-grid">
+    <div class="luckyweb-copy">
+      <span class="luckyweb-pill">Servicio destacado</span>
+      <h3>Diseño, conversión y velocidad en un solo servicio.</h3>
+      <p>LuckyWeb combina estrategia, diseño visual y desarrollo optimizado para negocios que quieren crecer online con una web que vende.</p>
+      <ul class="luckyweb-list">
+        <li>Diseño a medida con estilo de keynote.</li>
+        <li>Optimización para móviles y Core Web Vitals.</li>
+        <li>Estructura enfocada a reservas, ventas o leads.</li>
+      </ul>
+      <div class="luckyweb-actions">
+        <a class="platform-btn" href="luckyweb.html">Ver LuckyWeb</a>
+        <a class="ghost-btn" href="comparador-planes-web.html">Comparar planes</a>
+      </div>
+    </div>
+  <div class="luckyweb-visual">
+    <div class="luckyweb-preview" aria-hidden="true">
+      <div class="preview-top">
+        <span></span><span></span><span></span>
+      </div>
+      <iframe class="preview-frame" src="mini-webs/luckyweb-preview.html" title="Vista previa LuckyWeb" loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
 </div>
 
 </section>
