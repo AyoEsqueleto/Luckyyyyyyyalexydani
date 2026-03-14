@@ -1689,6 +1689,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const heroIframe = document.querySelector(".hero-iframe[data-src]")
   let isLocked = false
   let lockScrollY = 0
+  const hasLockedOnce = sessionStorage.getItem("luckywebHeroLocked") === "1"
 
   const loadHeroIframe = () => {
     if (!heroIframe) return
@@ -1700,7 +1701,7 @@ window.addEventListener("DOMContentLoaded", () => {
     heroIframe.removeAttribute("data-src")
   }
 
-  if (shouldAnimateHero && window.innerWidth <= 768) {
+  if (shouldAnimateHero && window.innerWidth <= 768 && !hasLockedOnce) {
     const preventScroll = (event) => {
       event.preventDefault()
     }
@@ -1714,6 +1715,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const lockScroll = () => {
       lockScrollY = window.scrollY || 0
       isLocked = true
+      sessionStorage.setItem("luckywebHeroLocked", "1")
       document.documentElement.classList.add("is-locked")
       document.body.classList.add("is-locked")
       document.body.style.position = "fixed"
