@@ -321,12 +321,6 @@ body.is-loaded .hero-visual{
   border:0;
   border-radius:18px;
   background:#ffffff;
-  opacity:0;
-  transition:opacity 0.4s ease;
-}
-
-.hero-shot iframe.is-ready{
-  opacity:1;
 }
 
 .trust-row{
@@ -1243,7 +1237,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="hero-visual" aria-hidden="true">
       <figure class="hero-shot">
-        <iframe class="hero-iframe" src="about:blank" data-src="mini-webs/hero.html" data-lazy="manual" title="Mini web LuckyWeb"></iframe>
+        <iframe src="mini-webs/hero.html" title="Mini web LuckyWeb"></iframe>
       </figure>
       <div class="hero-caption">Hero real</div>
       <div class="trust-row">
@@ -1686,20 +1680,9 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   const lockDuration = window.innerWidth <= 768 ? 900 : 1100
-  const heroIframe = document.querySelector(".hero-iframe[data-src]")
   let isLocked = false
   let lockScrollY = 0
   const hasLockedOnce = sessionStorage.getItem("luckywebHeroLocked") === "1"
-
-  const loadHeroIframe = () => {
-    if (!heroIframe) return
-    if (!heroIframe.dataset.src) return
-    heroIframe.addEventListener("load", () => {
-      heroIframe.classList.add("is-ready")
-    }, { once: true })
-    heroIframe.src = heroIframe.dataset.src
-    heroIframe.removeAttribute("data-src")
-  }
 
   if (shouldAnimateHero && window.innerWidth <= 768 && !hasLockedOnce) {
     const preventScroll = (event) => {
@@ -1761,15 +1744,11 @@ window.addEventListener("DOMContentLoaded", () => {
     lockScroll()
     window.setTimeout(() => {
       unlockScroll()
-      window.setTimeout(loadHeroIframe, 120)
     }, lockDuration)
   } else if (shouldAnimateHero) {
     window.setTimeout(() => {
       document.body.classList.remove("is-animating")
-      loadHeroIframe()
     }, lockDuration)
-  } else {
-    loadHeroIframe()
   }
 })
 
