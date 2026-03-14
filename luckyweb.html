@@ -67,6 +67,11 @@ body{
   overflow-x:hidden;
 }
 
+body.is-locked{
+  height:100vh;
+  overflow:hidden;
+}
+
 img{max-width:100%;height:auto;}
 
 section{
@@ -1573,6 +1578,12 @@ const revealTargets = document.querySelectorAll("[data-reveal]")
 
 window.addEventListener("DOMContentLoaded", () => {
   document.body.classList.add("is-loaded")
+  if (!prefersReducedMotion && window.innerWidth <= 768) {
+    document.body.classList.add("is-locked")
+    window.setTimeout(() => {
+      document.body.classList.remove("is-locked")
+    }, 1100)
+  }
 })
 
 if (prefersReducedMotion || !("IntersectionObserver" in window)) {
