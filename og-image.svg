@@ -1,0 +1,23 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="LuckyBase">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f5bff"/>
+      <stop offset="50%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#60a5fa"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="20%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="220" cy="140" r="220" fill="url(#glow)"/>
+  <circle cx="980" cy="520" r="260" fill="url(#glow)"/>
+  <text x="80" y="300" font-family="Poppins, Arial, sans-serif" font-size="86" font-weight="700" fill="#ffffff">
+    LuckyBase
+  </text>
+  <text x="80" y="365" font-family="Poppins, Arial, sans-serif" font-size="34" font-weight="400" fill="#e0e7ff">
+    Soluciones digitales, automatizaciones y páginas web a medida
+  </text>
+  <rect x="80" y="410" width="240" height="6" rx="3" fill="#e0e7ff" opacity="0.7"/>
+</svg>
