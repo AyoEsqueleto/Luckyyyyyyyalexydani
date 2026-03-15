@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="LuckyBase: planes web, ecommerce y soluciones digitales para empresas.">
-<title>LuckyBase - Soluciones digitales</title>
-<meta property="og:title" content="LuckyBase - Soluciones digitales">
-<meta property="og:description" content="LuckyBase: planes web, ecommerce y soluciones digitales para empresas.">
+<meta name="description" content="LuckyBase: diseño web profesional, automatizaciones y soluciones digitales para negocios que quieren crecer online.">
+<title>LuckyBase — Tu negocio digital, listo para crecer</title>
+<meta property="og:title" content="LuckyBase — Tu negocio digital, listo para crecer">
+<meta property="og:description" content="LuckyBase: diseño web profesional, automatizaciones y soluciones digitales para negocios que quieren crecer online.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://luckybase.es/">
 <meta property="og:site_name" content="LuckyBase">
@@ -83,12 +83,15 @@ img{max-width:100%;height:auto;}
 body{overflow-x:hidden;}
 
 
+html{
+scroll-behavior:smooth;
+}
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Poppins',sans-serif;
-scroll-behavior:smooth;
 }
 
 body{
@@ -216,7 +219,28 @@ border-radius:999px;
 background:#eef2ff;
 }
 
-/* NAVBAR */
+.discord-close{
+background:none;
+border:none;
+cursor:pointer;
+color:rgba(255,255,255,0.7);
+font-size:18px;
+line-height:1;
+padding:0 4px;
+transition:color 0.2s;
+margin-left:4px;
+}
+.discord-close:hover{color:#fff;}
+
+/* ACTIVE NAV LINK */
+nav a.is-active{
+color:var(--primary);
+}
+nav a.is-active::after{
+width:100%;
+}
+
+/* BLOG */
 
 header{
 position:fixed;
@@ -804,6 +828,12 @@ overflow:hidden;
 transform:translateY(-12px);
 box-shadow:var(--shadow-hover);
 }
+.card[href]{
+cursor:pointer;
+text-decoration:none;
+color:inherit;
+display:block;
+}
 
 .card::before,
 .card::after{
@@ -910,18 +940,47 @@ background:linear-gradient(180deg,#ffffff,#f5f7ff);
 border:1px solid var(--outline);
 border-radius:14px;
 margin-bottom:14px;
-padding:16px 18px;
 box-shadow:0 6px 18px rgba(0,0,0,0.05);
+overflow:hidden;
 }
 
-.faq-item summary{
-cursor:pointer;
+.faq-question-btn{
+width:100%;
+padding:16px 18px;
+text-align:left;
 font-weight:600;
 color:#1f2937;
+background:none;
+border:none;
+cursor:pointer;
+font-family:'Poppins',sans-serif;
+font-size:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:12px;
+transition:background 0.2s;
 }
-
-.faq-item p{
-margin-top:12px;
+.faq-question-btn:hover{background:rgba(21,101,255,0.04);}
+.faq-question-btn svg{
+flex-shrink:0;width:18px;height:18px;color:#1565ff;
+transition:transform 0.3s ease;
+}
+.faq-item.is-open .faq-question-btn svg{
+transform:rotate(45deg);
+}
+.faq-answer-body{
+max-height:0;
+overflow:hidden;
+transition:max-height 0.35s ease, padding 0.25s ease;
+padding:0 18px;
+}
+.faq-item.is-open .faq-answer-body{
+max-height:180px;
+padding-bottom:16px;
+}
+.faq-answer-body p{
+margin-top:0;
 color:#4b5563;
 }
 
@@ -1390,12 +1449,32 @@ border-color:#334155;
 box-shadow:0 10px 30px rgba(0,0,0,0.25);
 }
 
+body.dark-mode .faq-item.is-open{
+box-shadow:0 18px 40px rgba(0,0,0,0.35);
+}
+
 body.dark-mode .faq-item summary{
 color:#e2e8f0;
 }
 
 body.dark-mode .faq-item p{
 color:#cbd5e1;
+}
+
+body.dark-mode .faq-question-btn{
+color:#e2e8f0;
+}
+
+body.dark-mode .faq-question-btn:hover{
+background:rgba(59,130,246,0.12);
+}
+
+body.dark-mode .faq-question-btn svg{
+color:#93c5fd;
+}
+
+body.dark-mode .faq-item.is-open .faq-answer-body{
+border-top:1px solid #334155;
 }
 
 body.dark-mode footer{
@@ -1690,10 +1769,11 @@ font-size:12px;
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<div class="discord-banner">
+<div class="discord-banner" id="discordBanner">
 <span class="discord-dot"></span>
 <span>Nuevo servidor de Discord disponible</span>
 <a href="https://discord.gg/GYJN7kEwU2" target="_blank" rel="noopener noreferrer">Unirme</a>
+<button class="discord-close" id="discordClose" aria-label="Cerrar banner">&times;</button>
 </div>
 
 <header>
@@ -1765,29 +1845,29 @@ Soluciones digitales modernas para empresas que quieren destacar en internet.
 
 <div class="services">
 
-<div class="card">
+<a class="card" href="#servicios">
 <h3>Automatizaciones</h3>
 <p>
 Creamos automatizaciones para empresas: bots, integraciones entre apps
 y sistemas que ahorran tiempo en tareas repetitivas.
 </p>
-</div>
+</a>
 
-<div class="card">
+<a class="card" href="luckyweb.html">
 <h3>Creación de páginas web</h3>
 <p>
 Diseñamos páginas web modernas, rápidas y optimizadas
 para empresas, marcas y proyectos digitales.
 </p>
-</div>
+</a>
 
-<div class="card">
+<a class="card" href="#servicios">
 <h3>Proyectos digitales</h3>
 <p>
 Desarrollamos ideas digitales desde cero, lanzando productos,
 herramientas online y proyectos en internet.
 </p>
-</div>
+</a>
 
 </div>
 
@@ -1967,25 +2047,37 @@ impactantes.
 
 <div class="faq-container">
 
-<details class="faq-item">
-<summary>¿En cuánto tiempo respondéis una consulta?</summary>
-<p>Normalmente respondemos en un plazo de hasta 24 horas hábiles mediante formulario de <a href="#contacto">Contacto</a> y directs de Instagram.</p>
-</details>
+<div class="faq-item">
+<button class="faq-question-btn" aria-expanded="false">
+<span>¿En cuánto tiempo respondéis una consulta?</span>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+</button>
+<div class="faq-answer-body"><p>Normalmente respondemos en un plazo de hasta 24 horas hábiles mediante formulario de <a href="#contacto">Contacto</a> y directs de Instagram.</p></div>
+</div>
 
-<details class="faq-item">
-<summary>¿Qué tipo de páginas web desarrolláis?</summary>
-<p>Diseñamos webs corporativas, landing pages y sitios personalizados orientados a conversión y rendimiento.</p>
-</details>
+<div class="faq-item">
+<button class="faq-question-btn" aria-expanded="false">
+<span>¿Qué tipo de páginas web desarrolláis?</span>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+</button>
+<div class="faq-answer-body"><p>Diseñamos webs corporativas, landing pages y sitios personalizados orientados a conversión y rendimiento.</p></div>
+</div>
 
-<details class="faq-item">
-<summary>¿También ofrecéis automatizaciones para negocios?</summary>
-<p>Sí, creamos automatizaciones e integraciones para ahorrar tiempo en tareas repetitivas.</p>
-</details>
+<div class="faq-item">
+<button class="faq-question-btn" aria-expanded="false">
+<span>¿También ofrecéis automatizaciones para negocios?</span>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+</button>
+<div class="faq-answer-body"><p>Sí, creamos automatizaciones e integraciones para ahorrar tiempo en tareas repetitivas.</p></div>
+</div>
 
-<details class="faq-item">
-<summary>¿Podéis ayudar con branding y diseño?</summary>
-<p>También trabajamos identidad visual, estructura de contenido y experiencia de usuario.</p>
-</details>
+<div class="faq-item">
+<button class="faq-question-btn" aria-expanded="false">
+<span>¿Podéis ayudar con branding y diseño?</span>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+</button>
+<div class="faq-answer-body"><p>También trabajamos identidad visual, estructura de contenido y experiencia de usuario.</p></div>
+</div>
 
 </div>
 
@@ -2339,6 +2431,95 @@ showFormStatus("No se pudo enviar. Inténtalo de nuevo.","error")
 showFormStatus("Error de conexión. Inténtalo de nuevo.","error")
 }
 })
+}
+
+// ── DISCORD BANNER CLOSE ──
+const discordBanner = document.getElementById('discordBanner')
+const discordClose = document.getElementById('discordClose')
+if (discordClose && discordBanner) {
+  if (localStorage.getItem('discordBannerClosed') === '1') {
+    discordBanner.style.display = 'none'
+    const hdr = document.querySelector('header')
+    if (hdr) hdr.style.top = '0'
+  }
+  discordClose.addEventListener('click', () => {
+    discordBanner.style.transition = 'opacity 0.3s ease'
+    discordBanner.style.opacity = '0'
+    localStorage.setItem('discordBannerClosed', '1')
+    setTimeout(() => {
+      discordBanner.style.display = 'none'
+      const hdr = document.querySelector('header')
+      if (hdr) hdr.style.top = '0'
+    }, 320)
+  })
+}
+
+// ── FAQ ACCORDION ──
+document.querySelectorAll('.faq-question-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item')
+    const isOpen = item.classList.contains('is-open')
+    document.querySelectorAll('.faq-item.is-open').forEach(el => {
+      el.classList.remove('is-open')
+      el.querySelector('.faq-question-btn').setAttribute('aria-expanded', 'false')
+    })
+    if (!isOpen) {
+      item.classList.add('is-open')
+      btn.setAttribute('aria-expanded', 'true')
+    }
+  })
+})
+
+// ── ACTIVE NAV ON SCROLL ──
+const navSections = document.querySelectorAll('section[id]')
+const navLinks = document.querySelectorAll('nav a[href^="#"]')
+if (navLinks.length && 'IntersectionObserver' in window) {
+  const navObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('is-active'))
+        const active = document.querySelector(`nav a[href="#${entry.target.id}"]`)
+        if (active) active.classList.add('is-active')
+      }
+    })
+  }, { threshold: 0.35 })
+  navSections.forEach(s => navObserver.observe(s))
+}
+
+// ── INLINE FORM VALIDATION ──
+document.querySelectorAll('#contactForm input[required], #contactForm textarea[required]').forEach(input => {
+  input.addEventListener('blur', () => {
+    if (!input.value.trim() || (input.type === 'email' && !/^[^@]+@[^@]+\.[^@]+$/.test(input.value))) {
+      input.style.borderColor = '#f87171'
+    } else {
+      input.style.borderColor = '#34d399'
+    }
+  })
+  input.addEventListener('input', () => { input.style.borderColor = '' })
+})
+
+// ── ANIMATED COUNTERS ──
+if ('IntersectionObserver' in window && !prefersReducedMotion) {
+  const counterObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return
+      const el = entry.target
+      const text = el.textContent
+      const num = parseFloat(text.replace(/[^0-9.]/g, ''))
+      if (!num || isNaN(num)) return
+      const suffix = text.replace(/[0-9.]/g, '')
+      const start = performance.now()
+      const step = ts => {
+        const progress = Math.min((ts - start) / 1200, 1)
+        const eased = 1 - Math.pow(1 - progress, 3)
+        el.textContent = Math.round(eased * num) + suffix
+        if (progress < 1) requestAnimationFrame(step)
+      }
+      requestAnimationFrame(step)
+      counterObserver.unobserve(el)
+    })
+  }, { threshold: 0.6 })
+  document.querySelectorAll('.metric strong').forEach(el => counterObserver.observe(el))
 }
 
 </script>
