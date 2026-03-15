@@ -541,7 +541,6 @@ body.is-loaded .hero-visual{
   color:#f5f5f5;
   border-top:1px solid rgba(255,255,255,0.08);
   border-bottom:1px solid rgba(255,255,255,0.08);
-  overflow:hidden;
 }
 
 .device-story .sticky-stage{
@@ -2257,6 +2256,13 @@ function updateScrollTracks() {
     const eased = raw * raw * (3 - 2 * raw)
     const maxTranslate = Math.max(track.scrollWidth - viewport.clientWidth, 0)
     track.style.transform = `translate3d(${-maxTranslate * eased}px,0,0)`
+    // Fade out sticky-stage in the last 20% so the exit snap is invisible
+    const stage = section.querySelector('.sticky-stage')
+    if (stage) {
+      const fadeStart = 0.82
+      stage.style.opacity = raw < fadeStart ? '1' : String(Math.max(0, 1 - (raw - fadeStart) / (1 - fadeStart)))
+      stage.style.transition = 'opacity 0.15s linear'
+    }
   })
 }
 
