@@ -600,8 +600,10 @@ body.is-loaded .hero-visual{
   --scale:0.32;
   --iframe-top:0px;
   --iframe-left:0px;
-  animation:deviceFloat 8s ease-in-out infinite;
-  animation-delay:var(--float-delay,0s);
+  animation: deviceFloat 6s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+  will-change: transform;
+  transition: filter 0.4s ease;
 }
 
 .device-mock{
@@ -611,8 +613,9 @@ body.is-loaded .hero-visual{
   border-radius:var(--mock-r);
   padding:var(--bezel);
   background:linear-gradient(145deg,#1a1d26,#0b0d12);
-  border:1px solid rgba(255,255,255,0.08);
-  box-shadow:0 26px 60px rgba(0,0,0,0.5);
+  border:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 26px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
+  transition:box-shadow 0.5s ease, border-color 0.5s ease;
 }
 
 .device-mock::after{
@@ -651,8 +654,28 @@ body.is-loaded .hero-visual{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(180deg,rgba(255,255,255,0.08),transparent 30%,transparent 70%,rgba(0,0,0,0.25));
+  background:linear-gradient(180deg,rgba(255,255,255,0.1),transparent 28%,transparent 65%,rgba(0,0,0,0.28));
   pointer-events:none;
+  z-index:2;
+}
+
+.device-screen::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.06) 50%,transparent 60%);
+  background-size:200% 100%;
+  animation:screenShimmer 5s ease-in-out infinite;
+  pointer-events:none;
+  z-index:3;
+  border-radius:inherit;
+}
+
+@keyframes screenShimmer{
+  0%   { background-position: 200% 0; opacity: 0; }
+  30%  { opacity: 1; }
+  60%  { background-position: -100% 0; opacity: 0.6; }
+  100% { background-position: -200% 0; opacity: 0; }
 }
 
 .device-screen iframe{
@@ -767,7 +790,22 @@ body.is-loaded .hero-visual{
   font-size:13px;
   text-transform:uppercase;
   letter-spacing:0.25em;
-  color:rgba(255,255,255,0.6);
+  color:rgba(255,255,255,0.45);
+  transition:color 0.35s ease;
+}
+
+.device-frame:hover{
+  animation-play-state:paused;
+  filter:drop-shadow(0 24px 48px rgba(10,116,255,0.18));
+}
+
+.device-frame:hover .device-mock{
+  border-color:rgba(255,255,255,0.22);
+  box-shadow:0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08), 0 0 40px rgba(10,116,255,0.12);
+}
+
+.device-frame:hover figcaption{
+  color:rgba(255,255,255,0.85);
 }
 
 .plans{
@@ -1019,8 +1057,8 @@ footer{
 }
 
 @keyframes deviceFloat{
-  0%,100%{transform:translateY(0);} 
-  50%{transform:translateY(-10px);} 
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
 }
 
 @keyframes heroIn{
@@ -1171,6 +1209,292 @@ footer{
     height:140vh;
   }
 }
+/* ── IFRAME SKELETON ── */
+.iframe-wrap{
+  position:relative;
+}
+.iframe-wrap::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,#e8e8e6 25%,#f0f0ee 50%,#e8e8e6 75%);
+  background-size:200% 100%;
+  animation:skeletonPulse 1.6s ease-in-out infinite;
+  border-radius:inherit;
+  z-index:1;
+  transition:opacity 0.4s ease;
+}
+.iframe-wrap.is-loaded::before{
+  opacity:0;
+  pointer-events:none;
+}
+@keyframes skeletonPulse{
+  0%{background-position:200% 0;}
+  100%{background-position:-200% 0;}
+}
+/* dark skeleton for device screens */
+.device-screen .iframe-wrap::before{
+  background:linear-gradient(90deg,#1a1d26 25%,#252934 50%,#1a1d26 75%);
+  background-size:200% 100%;
+}
+
+/* ── SCROLL INDICATOR ── */
+.scroll-hint{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:28px;
+  font-size:12px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.4);
+  animation:hintFade 2.5s ease-in-out infinite;
+}
+.scroll-hint svg{
+  width:28px;
+  height:14px;
+  flex-shrink:0;
+}
+@keyframes hintFade{
+  0%,100%{opacity:0.4;transform:translateX(0);}
+  50%{opacity:1;transform:translateX(5px);}
+}
+
+/* ── ACTIVE DEVICE FIGCAPTION ── */
+.device-frame figcaption.is-active{
+  color:#fff;
+  font-weight:600;
+}
+.device-frame figcaption.is-active::after{
+  content:"";
+  display:block;
+  width:100%;
+  height:2px;
+  border-radius:2px;
+  background:var(--accent);
+  margin-top:4px;
+  animation:capLine 0.3s ease forwards;
+}
+@keyframes capLine{
+  from{transform:scaleX(0);transform-origin:left;}
+  to{transform:scaleX(1);}
+}
+
+/* ── EXPLAIN-CARD pointer ── */
+.explain-card[href]{
+  cursor:pointer;
+  text-decoration:none;
+  color:inherit;
+  display:flex;
+}
+
+/* ── PLAN PRICE TAG ── */
+.plan-price{
+  font-family:"Space Grotesk",sans-serif;
+  font-size:13px;
+  color:var(--accent);
+  font-weight:600;
+  padding:4px 10px;
+  border-radius:999px;
+  background:rgba(10,116,255,0.08);
+  border:1px solid rgba(10,116,255,0.18);
+  display:inline-block;
+  margin-bottom:10px;
+}
+
+/* ── TABLE POPULAR BADGE ── */
+.popular-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  background:var(--accent);
+  color:#fff;
+  padding:2px 8px;
+  border-radius:999px;
+  margin-left:6px;
+  vertical-align:middle;
+}
+
+.compare .popular td{
+  background:rgba(10,116,255,0.06);
+}
+
+.compare .cta-row td{
+  padding:16px 14px;
+  border-bottom:none;
+}
+
+.compare .cta-row a{
+  display:inline-block;
+  padding:8px 14px;
+  border-radius:10px;
+  background:var(--ink);
+  color:#fff;
+  font-size:13px;
+  font-weight:600;
+  text-decoration:none;
+  transition:background 0.2s;
+}
+
+.compare .cta-row a:hover{background:#1565ff;}
+
+/* ── PROCESS TIME BADGE ── */
+.step-time{
+  display:inline-block;
+  font-size:11px;
+  color:var(--muted);
+  margin-top:6px;
+  padding:3px 8px;
+  border-radius:999px;
+  background:var(--paper);
+  border:1px solid var(--line);
+}
+
+/* ── SOCIAL PROOF SECTION ── */
+.social-proof{
+  background:#fff;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  padding:60px var(--page-pad);
+}
+
+.stats-row{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:28px;
+  margin-top:44px;
+}
+
+.stat-item{
+  text-align:center;
+}
+
+.stat-number{
+  font-family:"Space Grotesk",sans-serif;
+  font-size:clamp(36px,5vw,56px);
+  font-weight:700;
+  color:var(--ink);
+  line-height:1;
+}
+
+.stat-number span{
+  color:var(--accent);
+}
+
+.stat-label{
+  font-size:14px;
+  color:var(--muted);
+  margin-top:6px;
+}
+
+.testimonials-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:22px;
+  margin-top:44px;
+}
+
+.testimonial-card{
+  padding:24px;
+  border-radius:18px;
+  background:#f8f8f6;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow-soft);
+}
+
+.testimonial-card blockquote{
+  font-size:15px;
+  line-height:1.65;
+  color:#2a2a2a;
+  margin-bottom:16px;
+  font-style:italic;
+}
+
+.testimonial-card blockquote::before{
+  content:'“';
+  font-size:28px;
+  color:var(--accent);
+  line-height:0;
+  vertical-align:-10px;
+  margin-right:2px;
+}
+
+.testimonial-author{
+  font-size:13px;
+  font-weight:600;
+  color:var(--muted);
+}
+
+/* ── FAQ SECTION ── */
+.faq-list{
+  margin-top:40px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  max-width:760px;
+}
+
+.faq-item{
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#fff;
+  box-shadow:var(--shadow-soft);
+  overflow:hidden;
+}
+
+.faq-question{
+  width:100%;
+  padding:18px 22px;
+  text-align:left;
+  font-family:"Space Grotesk",sans-serif;
+  font-size:16px;
+  font-weight:600;
+  color:var(--ink);
+  background:none;
+  border:none;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  transition:background 0.2s;
+}
+
+.faq-question:hover{background:#f8f8f6;}
+
+.faq-question svg{
+  flex-shrink:0;
+  width:20px;
+  height:20px;
+  color:var(--accent);
+  transition:transform 0.3s ease;
+}
+
+.faq-item.is-open .faq-question svg{
+  transform:rotate(45deg);
+}
+
+.faq-answer{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height 0.35s ease, padding 0.25s ease;
+  padding:0 22px;
+}
+
+.faq-item.is-open .faq-answer{
+  max-height:240px;
+  padding-bottom:18px;
+}
+
+.faq-answer p{
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.65;
+}
 </style>
 </head>
 <body>
@@ -1211,14 +1535,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="hero-inner">
       <p class="eyebrow">Servicio LuckyWeb</p>
-      <h1>LuckyWeb</h1>
-      <p class="lead">Servicio de creacion de paginas web para negocios y cualquier persona que necesite presencia profesional. Diseño, rendimiento y narrativa con estilo de lanzamiento.</p>
-      <p class="hook">Convierte visitas en clientes desde el primer dia. Tu web lista para vender, reservar o captar leads.</p>
+      <h1>Tu web lista para vender.</h1>
+      <p class="lead">Diseño, rendimiento y narrativa con estilo de lanzamiento. Para negocios y personas que necesitan presencia digital con impacto real.</p>
+      <p class="hook">Convierte visitas en clientes desde el primer día. Lista para vender, reservar o captar leads.</p>
       <div class="hero-actions">
         <a class="btn primary" href="#contacto">Solicitar propuesta</a>
         <a class="btn ghost" href="#planes">Ver planes</a>
-        <a class="btn ghost" href="index.html">Volver a LuckyBase</a>
       </div>
+      <p style="margin-top:-18px;font-size:13px;color:var(--muted);">← <a href="index.html" style="color:var(--muted);text-decoration:underline;text-underline-offset:3px;">Volver a LuckyBase</a></p>
       <div class="hero-specs">
         <div class="spec">
           <span>Diseño</span>
@@ -1237,9 +1561,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="hero-visual" aria-hidden="true">
       <figure class="hero-shot">
-        <iframe src="mini-webs/hero.html" title="Mini web LuckyWeb"></iframe>
+        <iframe src="about:blank" data-src="mini-webs/hero.html" data-lazy="auto" title="Mini web LuckyWeb" loading="lazy"></iframe>
       </figure>
-      <div class="hero-caption">Hero real</div>
+      <div class="hero-caption">Vista real de la web</div>
       <div class="trust-row">
         <span>Negocios locales</span>
         <span>Reservas</span>
@@ -1252,9 +1576,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <section class="before-after" id="antes-despues">
     <div class="container">
       <div class="section-head reveal" data-reveal>
-        <p class="eyebrow">Antes / Despues</p>
+        <p class="eyebrow">Antes / Después</p>
         <h2>La diferencia se ve al primer scroll.</h2>
-        <p>Comparamos una web generica con una propuesta LuckyWeb: mas orden, mas jerarquia y mas foco en conversion.</p>
+        <p>Una web genérica pierde clientes antes de que lean la primera línea. Una web LuckyWeb guía, convence y convierte desde el primer momento.</p>
       </div>
       <div class="before-grid">
         <article class="before-card before reveal" data-reveal>
@@ -1347,12 +1671,53 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
+  <section class="social-proof reveal" data-reveal>
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Por qué LuckyWeb</p>
+        <h2>Resultados que hablan por sí solos.</h2>
+      </div>
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-number">+<span>40</span></div>
+          <div class="stat-label">Proyectos entregados</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number"><span>100</span>%</div>
+          <div class="stat-label">Satisfacción del cliente</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">&lt;<span>14</span></div>
+          <div class="stat-label">Días de entrega media</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number"><span>24</span>h</div>
+          <div class="stat-label">Tiempo de respuesta</div>
+        </div>
+      </div>
+      <div class="testimonials-grid">
+        <article class="testimonial-card">
+          <blockquote>LuckyWeb transformó nuestra imagen digital por completo. El proceso fue rápido, claro y el resultado superó lo que esperaba.</blockquote>
+          <div class="testimonial-author">María G. — Clínica estética, Madrid</div>
+        </article>
+        <article class="testimonial-card">
+          <blockquote>Pedí una web para mi restaurante y en menos de dos semanas ya tenía reservas online. Muy profesional y sin complicaciones.</blockquote>
+          <div class="testimonial-author">Carlos R. — Restaurante, Valencia</div>
+        </article>
+        <article class="testimonial-card">
+          <blockquote>La atención personalizada marca la diferencia. Explicaron cada decisión y entregaron exactamente lo que necesitábamos.</blockquote>
+          <div class="testimonial-author">Laura M. — Estudio de arquitectura, Barcelona</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <section id="que-es">
     <div class="container">
       <div class="section-head reveal" data-reveal>
-        <p class="eyebrow">Que es LuckyWeb</p>
+        <p class="eyebrow">Qué es LuckyWeb</p>
         <h2>Webs con ritmo de keynote.</h2>
-        <p>LuckyWeb es un servicio completo de creacion de paginas web para negocios y personas que necesitan presencia digital con impacto y claridad.</p>
+        <p>LuckyWeb es un servicio completo de creación de páginas web para negocios y personas que necesitan presencia digital con impacto y claridad.</p>
       </div>
       <div class="explain-grid">
         <article class="explain-card reveal" data-reveal>
@@ -1365,7 +1730,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </svg>
           </div>
           <h3>Storytelling claro</h3>
-          <p>Mensajes directos, estructura limpia y un recorrido que guia al usuario hacia la accion.</p>
+          <p>Mensajes directos, estructura limpia y un recorrido que guía al usuario hacia la acción.</p>
         </article>
         <article class="explain-card reveal" data-reveal>
           <div class="explain-icon">
@@ -1376,7 +1741,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </svg>
           </div>
           <h3>Visuales propios</h3>
-          <p>Ilustraciones y dispositivos creados a medida para que tu web se sienta unica.</p>
+          <p>Ilustraciones y dispositivos creados a medida para que tu web se sienta única.</p>
         </article>
         <article class="explain-card reveal" data-reveal>
           <div class="explain-icon">
@@ -1387,7 +1752,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </svg>
           </div>
           <h3>Movimiento medido</h3>
-          <p>Animaciones suaves para darle vida sin distraer del mensaje principal.</p>
+          <p>Animaciones suaves para dar vida a tu web sin distraer del mensaje principal.</p>
         </article>
       </div>
     </div>
@@ -1398,11 +1763,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="device-copy reveal" data-reveal>
         <p class="eyebrow">Adaptable</p>
         <h2>Una sola historia. Todos tus dispositivos.</h2>
-        <p>Scroll horizontal con multiples imagenes para mostrar como la web se adapta a cada pantalla en tiempo real.</p>
+        <p>Tu web se adapta perfectamente a cada pantalla. Desplázate para verlo en tiempo real.</p>
+        <div class="scroll-hint" aria-hidden="true">
+          <svg viewBox="0 0 28 14" fill="none">
+            <path d="M1 7h22M17 1l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Desplaza</span>
+        </div>
       </div>
       <div class="track-viewport">
         <div class="scroll-track" data-scroll-track>
-          <figure class="device-frame frame-desktop" style="--float-delay:0s;">
+          <figure class="device-frame frame-desktop" style="--float-delay:0s; animation-duration:7s;">
             <div class="device-mock desktop">
               <span class="device-camera"></span>
               <span class="device-speaker"></span>
@@ -1413,7 +1784,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="device-stand"></div>
             <figcaption>Desktop cinematic</figcaption>
           </figure>
-          <figure class="device-frame frame-tablet" style="--float-delay:0.4s;">
+          <figure class="device-frame frame-tablet" style="--float-delay:-2.3s; animation-duration:8.5s;">
             <div class="device-mock tablet">
               <span class="device-camera" style="left:50%;transform:translateX(-50%);"></span>
               <div class="device-screen">
@@ -1422,7 +1793,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <figcaption>Tablet precisa</figcaption>
           </figure>
-          <figure class="device-frame frame-phone" style="--float-delay:0.8s;">
+          <figure class="device-frame frame-phone" style="--float-delay:-4.7s; animation-duration:7.8s;">
             <div class="device-mock phone">
               <span class="device-notch"></span>
               <span class="device-button"></span>
@@ -1432,7 +1803,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <figcaption>Movil fluido</figcaption>
           </figure>
-          <figure class="device-frame frame-wide" style="--float-delay:1.2s;">
+          <figure class="device-frame frame-wide" style="--float-delay:-1.5s; animation-duration:9.3s;">
             <div class="device-mock desktop">
               <span class="device-camera"></span>
               <span class="device-speaker"></span>
@@ -1458,19 +1829,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="plan-grid">
         <article class="plan-card reveal" data-reveal>
           <h3>LuckyWeb Basic</h3>
+          <div class="plan-price">Consultar precio</div>
           <ul>
             <li>Web informativa con hasta 5 secciones</li>
             <li>Diseño limpio y directo</li>
-            <li>Optimizacion inicial para SEO</li>
-            <li>Entrega agil para empezar rapido</li>
+            <li>Optimización inicial para SEO</li>
+            <li>Entrega ágil para empezar rápido</li>
           </ul>
           <a href="luckyweb-basic.html">Ver plan Basic</a>
         </article>
         <article class="plan-card reveal" data-reveal>
           <h3>LuckyWeb Corporativa</h3>
+          <div class="plan-price">Consultar precio &nbsp;★ Más solicitado</div>
           <ul>
             <li>Web corporativa con diseño personalizado</li>
-            <li>Secciones ampliadas y estructura solida</li>
+            <li>Secciones ampliadas y estructura sólida</li>
             <li>SEO on-page completo</li>
             <li>Ideal para empresas en crecimiento</li>
           </ul>
@@ -1478,11 +1851,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </article>
         <article class="plan-card reveal" data-reveal>
           <h3>LuckyWeb Ecommerce</h3>
+          <div class="plan-price">Consultar precio</div>
           <ul>
             <li>Tienda online completa y escalable</li>
             <li>Pasarela de pago y checkout optimizado</li>
             <li>Carga inicial de productos</li>
-            <li>Lista para vender desde el dia uno</li>
+            <li>Lista para vender desde el día uno</li>
           </ul>
           <a href="luckyweb-ecommerce.html">Ver plan Ecommerce</a>
         </article>
@@ -1492,42 +1866,48 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <table>
           <thead>
             <tr>
-              <th>Comparador rapido</th>
+              <th>Comparador rápido</th>
               <th>Basic</th>
-              <th>Corporativa</th>
+              <th>Corporativa <span class="popular-badge">★ Popular</span></th>
               <th>Ecommerce</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Secciones / paginas</td>
+              <td>Secciones / páginas</td>
               <td>Hasta 5</td>
-              <td>Hasta 6 paginas</td>
-              <td>Catalogo + checkout</td>
+              <td class="popular">Hasta 6 páginas</td>
+              <td>Catálogo + checkout</td>
             </tr>
             <tr>
               <td>Diseño personalizado</td>
               <td>No</td>
-              <td>Si</td>
-              <td>Si</td>
+              <td class="popular">Sí</td>
+              <td>Sí</td>
             </tr>
             <tr>
               <td>SEO on-page</td>
-              <td>Basico</td>
-              <td>Completo</td>
+              <td>Básico</td>
+              <td class="popular">Completo</td>
               <td>Completo</td>
             </tr>
             <tr>
               <td>Ecommerce</td>
               <td>No</td>
-              <td>No</td>
-              <td>Si</td>
+              <td class="popular">No</td>
+              <td>Sí</td>
             </tr>
             <tr>
               <td>Ideal para</td>
-              <td>Empezar rapido</td>
-              <td>Empresas en crecimiento</td>
+              <td>Empezar rápido</td>
+              <td class="popular">Empresas en crecimiento</td>
               <td>Tiendas online</td>
+            </tr>
+            <tr class="cta-row">
+              <td></td>
+              <td><a href="luckyweb-basic.html">Ver Basic &rarr;</a></td>
+              <td class="popular"><a href="luckyweb-corporativa.html">Ver Corporativa &rarr;</a></td>
+              <td><a href="luckyweb-ecommerce.html">Ver Ecommerce &rarr;</a></td>
             </tr>
           </tbody>
         </table>
@@ -1581,29 +1961,80 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="container">
       <div class="section-head reveal" data-reveal>
         <p class="eyebrow">Proceso</p>
-        <h2>Como trabajamos en LuckyWeb.</h2>
-        <p>Flujo claro, entregas ordenadas y revisiones contigo.</p>
+        <h2>Cómo trabajamos en LuckyWeb.</h2>
+        <p>Flujo claro, entregas ordenadas y revisiones contigo en cada etapa.</p>
       </div>
       <div class="process-steps">
         <div class="process-step reveal" data-reveal>
           <div class="step-number">01</div>
           <h3>Briefing</h3>
-          <p>Definimos objetivos, publico y estructura.</p>
+          <p>Definimos objetivos, público y estructura.</p>
+          <span class="step-time">⏱ 1–2 días</span>
         </div>
         <div class="process-step reveal" data-reveal>
           <div class="step-number">02</div>
           <h3>Diseño y contenido</h3>
-          <p>Creamos el layout, el estilo visual y el copy.</p>
+          <p>Creamos el layout, el estilo visual y el texto.</p>
+          <span class="step-time">⏱ 3–5 días</span>
         </div>
         <div class="process-step reveal" data-reveal>
           <div class="step-number">03</div>
           <h3>Desarrollo</h3>
-          <p>Construimos tu web con rendimiento optimizado.</p>
+          <p>Construimos tu web con código limpio y rendimiento optimizado.</p>
+          <span class="step-time">⏱ 5–8 días</span>
         </div>
         <div class="process-step reveal" data-reveal>
           <div class="step-number">04</div>
           <h3>Entrega</h3>
-          <p>Revision final y publicacion lista para crecer.</p>
+          <p>Revisón final y publicación lista para crecer.</p>
+          <span class="step-time">⏱ 1–2 días</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="container">
+      <div class="section-head reveal" data-reveal>
+        <p class="eyebrow">Preguntas frecuentes</p>
+        <h2>¿Tienes dudas? Aquí las respuestas.</h2>
+        <p>Todo lo que necesitas saber antes de contratar tu LuckyWeb.</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>¿Cuánto tarda en estar lista mi web?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-answer"><p>La mayoría de proyectos se entregan en menos de 14 días desde el briefing. Dependiendo del plan y la complejidad puede variar entre 7 y 21 días.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>¿Qué necesito para empezar?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-answer"><p>Solo necesitas contarnos tu proyecto: qué quieres transmitir, a quién va dirigido y cuálquier referencia visual que te guste. Nosotros nos encargamos del resto.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>¿Puedo pedir cambios después de la entrega?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-answer"><p>Sí. Todos los planes incluyen revisiones y consultas gratuitas. Consulte los términos y condiciones de cada plan.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>¿Necesito tener un dominio o hosting?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-answer"><p>Todos los planes de LuckyWeb incluyen un dominio personalizado con extensión predeterminada .es. Otras extensiones pueden tener costes adicionales.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>¿Cómo se realiza el pago?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-answer"><p>Trabajamos con un 50% de anticipo al inicio del proyecto y el 50% restante a la entrega. Aceptamos transferencia bancaria y otros métodos habituales.</p></div>
         </div>
       </div>
     </div>
@@ -1614,7 +2045,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="section-head reveal" data-reveal>
         <p class="eyebrow">Contacto</p>
         <h2>Solicita tu LuckyWeb.</h2>
-        <p>Escribenos y te enviamos una propuesta adaptada a tu negocio o proyecto personal.</p>
+        <p>Escríbenos y te enviamos una propuesta adaptada a tu negocio o proyecto personal en menos de 24h.</p>
       </div>
       <div class="cta-actions">
         <a class="btn primary" href="index.html#contacto">Quiero mi LuckyWeb</a>
@@ -1628,7 +2059,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <footer>
   <p class="footer-copy">
     <img loading="lazy" src="logoluckyblancosinfondo.png" alt="Logo Lucky Base">
-    <span>(c) 2026 LuckyBase. Todos los derechos reservados.</span>
+    <span>© 2026 LuckyBase. Todos los derechos reservados.</span>
   </p>
 
   <div class="footer-socials">
@@ -1826,6 +2257,85 @@ function requestTick() {
 window.addEventListener("scroll", requestTick, { passive: true })
 window.addEventListener("resize", requestTick)
 requestTick()
+
+// ── IFRAME SKELETON ──
+document.querySelectorAll(".device-screen iframe, .before-mock iframe, .process-visual-box iframe, .hero-shot iframe").forEach(iframe => {
+  const parent = iframe.parentNode
+  const wrap = document.createElement("div")
+  wrap.className = "iframe-wrap"
+  parent.insertBefore(wrap, iframe)
+  wrap.appendChild(iframe)
+  const onLoad = () => wrap.classList.add("is-loaded")
+  if (iframe.src && iframe.src !== "about:blank") {
+    iframe.addEventListener("load", onLoad, { once: true })
+  } else {
+    const observer = new MutationObserver(() => {
+      if (iframe.src && iframe.src !== "about:blank") {
+        iframe.addEventListener("load", onLoad, { once: true })
+        observer.disconnect()
+      }
+    })
+    observer.observe(iframe, { attributes: true, attributeFilter: ["src"] })
+  }
+})
+
+// ── ACTIVE FIGCAPTION ON SCROLL ──
+function updateActiveFigcaption() {
+  const viewport = document.querySelector(".track-viewport")
+  const frames = document.querySelectorAll(".device-frame")
+  if (!viewport || !frames.length) return
+  const vpRect = viewport.getBoundingClientRect()
+  const vpCenter = vpRect.left + vpRect.width / 2
+  let closest = null, minDist = Infinity
+  frames.forEach(frame => {
+    const r = frame.getBoundingClientRect()
+    const dist = Math.abs((r.left + r.width / 2) - vpCenter)
+    if (dist < minDist) { minDist = dist; closest = frame }
+  })
+  frames.forEach(frame => {
+    const cap = frame.querySelector("figcaption")
+    if (!cap) return
+    if (frame === closest) cap.classList.add("is-active")
+    else cap.classList.remove("is-active")
+  })
+}
+window.addEventListener("scroll", updateActiveFigcaption, { passive: true })
+updateActiveFigcaption()
+
+// ── FAQ ACCORDION ──
+document.querySelectorAll(".faq-question").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const item = btn.closest(".faq-item")
+    const isOpen = item.classList.contains("is-open")
+    document.querySelectorAll(".faq-item.is-open").forEach(el => {
+      el.classList.remove("is-open")
+      el.querySelector(".faq-question").setAttribute("aria-expanded", "false")
+    })
+    if (!isOpen) {
+      item.classList.add("is-open")
+      btn.setAttribute("aria-expanded", "true")
+    }
+  })
+})
+
+// ── HIDE SCROLL HINT AFTER FIRST TRACK SCROLL ──
+const scrollHint = document.querySelector(".scroll-hint")
+if (scrollHint) {
+  let hintHidden = false
+  const hideHint = () => {
+    if (hintHidden) return
+    const track = document.querySelector("[data-scroll-track]")
+    if (!track) return
+    const currentTransform = new DOMMatrix(getComputedStyle(track).transform)
+    if (Math.abs(currentTransform.m41) > 10) {
+      hintHidden = true
+      scrollHint.style.transition = "opacity 0.5s ease"
+      scrollHint.style.opacity = "0"
+      scrollHint.style.pointerEvents = "none"
+    }
+  }
+  window.addEventListener("scroll", hideHint, { passive: true })
+}
 </script>
 
 </body>
