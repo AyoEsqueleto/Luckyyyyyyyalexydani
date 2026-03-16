@@ -67,6 +67,19 @@ body{
   overflow-x:hidden;
 }
 
+body.is-preloading{
+  overflow:hidden;
+}
+
+.page-content{
+  transition:opacity 0.4s ease,visibility 0.4s ease;
+}
+
+body.is-preloading .page-content{
+  opacity:0;
+  visibility:hidden;
+}
+
 html.is-locked,
 body.is-locked{
   overflow:hidden;
@@ -95,6 +108,76 @@ body.is-locked iframe{
 
 body.is-locked .scroll-lock-overlay{
   pointer-events:auto;
+}
+
+.lw-loader{
+  position:fixed;
+  inset:0;
+  z-index:2000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#0a0a0a;
+  color:#fff;
+  padding:24px;
+}
+
+.lw-loader-card{
+  width:min(520px,90vw);
+  border-radius:20px;
+  padding:24px;
+  background:linear-gradient(160deg,#0f172a,#0b1220);
+  border:1px solid rgba(255,255,255,0.12);
+  box-shadow:0 30px 80px rgba(0,0,0,0.4);
+}
+
+.lw-loader-title{
+  font-family:"Space Grotesk",sans-serif;
+  font-size:20px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+
+.lw-loader-code{
+  font-family:"JetBrains Mono",monospace;
+  font-size:12px;
+  line-height:1.7;
+  color:rgba(255,255,255,0.75);
+  max-height:190px;
+  overflow:hidden;
+}
+
+.lw-loader-code span{
+  display:block;
+}
+
+.lw-loader-bar{
+  height:4px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.1);
+  overflow:hidden;
+  margin-top:16px;
+}
+
+.lw-loader-bar span{
+  display:block;
+  height:100%;
+  width:45%;
+  background:linear-gradient(90deg,#0a74ff,#00c2a8);
+  animation:loaderBar 1.6s ease-in-out infinite;
+}
+
+.lw-loader.is-hidden{
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.4s ease;
+}
+
+@keyframes loaderBar{
+  0%{transform:translateX(-20%);}
+  50%{transform:translateX(40%);}
+  100%{transform:translateX(120%);}
 }
 
 img{max-width:100%;height:auto;}
@@ -1510,13 +1593,35 @@ footer{
 }
 </style>
 </head>
-<body>
+<body class="is-preloading">
 
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K96JRDLJ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
+<div class="lw-loader" id="lwLoader" aria-hidden="true">
+  <div class="lw-loader-card">
+    <div class="lw-loader-title">LuckyWeb</div>
+    <div class="lw-loader-code">
+      <span>&lt;!doctype html&gt;</span>
+      <span>&lt;html lang="es"&gt;</span>
+      <span>&nbsp;&nbsp;&lt;head&gt;</span>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;&lt;meta charset="utf-8" /&gt;</span>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;Tu web&lt;/title&gt;</span>
+      <span>&nbsp;&nbsp;&lt;/head&gt;</span>
+      <span>&nbsp;&nbsp;&lt;body&gt;</span>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;&lt;header&gt;Lanzamiento&lt;/header&gt;</span>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;&lt;main&gt;Proyecto en marcha...&lt;/main&gt;</span>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;&lt;footer&gt;LuckyWeb&lt;/footer&gt;</span>
+      <span>&nbsp;&nbsp;&lt;/body&gt;</span>
+      <span>&lt;/html&gt;</span>
+    </div>
+    <div class="lw-loader-bar"><span></span></div>
+  </div>
+</div>
+
+<div class="page-content">
 <main>
   <section class="hero" id="inicio">
     <div class="code-backdrop" aria-hidden="true">
@@ -2105,22 +2210,47 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </footer>
 
 <div class="scroll-lock-overlay" aria-hidden="true"></div>
+</div>
 
 <script>
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
 
 const revealTargets = document.querySelectorAll("[data-reveal]")
 const scrollOverlay = document.querySelector(".scroll-lock-overlay")
+const loader = document.getElementById("lwLoader")
+const loaderStart = performance.now()
+const minLoaderTime = 1400
+
+const finishLoading = () => {
+  const elapsed = performance.now() - loaderStart
+  const remaining = Math.max(0, minLoaderTime - elapsed)
+  window.setTimeout(() => {
+    document.body.classList.remove("is-preloading")
+    if (loader) {
+      loader.classList.add("is-hidden")
+      setTimeout(() => loader.remove(), 600)
+    }
+    if (!document.body.classList.contains("is-loaded")) {
+      document.body.classList.add("is-loaded")
+    }
+  }, remaining)
+}
+
+window.addEventListener("load", finishLoading, { once: true })
 
 window.addEventListener("DOMContentLoaded", () => {
   const shouldAnimateHero = !prefersReducedMotion
   if (shouldAnimateHero) {
     document.body.classList.add("is-animating")
-    window.requestAnimationFrame(() => {
-      document.body.classList.add("is-loaded")
-    })
+    if (!document.body.classList.contains("is-preloading")) {
+      window.requestAnimationFrame(() => {
+        document.body.classList.add("is-loaded")
+      })
+    }
   } else {
-    document.body.classList.add("is-loaded")
+    if (!document.body.classList.contains("is-preloading")) {
+      document.body.classList.add("is-loaded")
+    }
   }
 
   const lockDuration = window.innerWidth <= 768 ? 900 : 1100
