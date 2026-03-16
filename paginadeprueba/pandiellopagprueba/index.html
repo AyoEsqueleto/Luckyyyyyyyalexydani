@@ -64,6 +64,47 @@ body{overflow-x:hidden;}
       margin: 0 auto;
     }
 
+    .luckybase-banner {
+      background: linear-gradient(135deg, #0b1b3a, #1546b3 55%, #1f6bff);
+      color: #fff;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .luckybase-banner .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .luckybase-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Sora", sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    .luckybase-brand img {
+      height: 34px;
+      width: auto;
+      display: block;
+    }
+
+    .luckybase-message {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .luckybase-message strong {
+      color: #fff;
+      font-weight: 700;
+    }
+
     .nav {
       position: sticky;
       top: 0;
@@ -113,6 +154,12 @@ body{overflow-x:hidden;}
       font-weight: 700;
       font-size: 0.95rem;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    @media (max-width: 720px) {
+      .luckybase-message {
+        width: 100%;
+      }
     }
 
     .hero {
@@ -523,10 +570,19 @@ body{overflow-x:hidden;}
   </style>
 </head>
 <body>
+  <div class="luckybase-banner">
+    <div class="container">
+      <div class="luckybase-brand">
+        <img src="../../LUCKYBASE logo letras.png" alt="LuckyBase">
+      </div>
+      <div class="luckybase-message">Hola, <strong>esta es su web de prueba</strong>.</div>
+    </div>
+  </div>
+
   <nav class="nav">
     <div class="container nav-inner">
       <div class="logo">
-        <img loading="lazy" src="/pruebaspags/pandiellopagprueba/logos/pandiello.png" alt="Logo Pandiello Cerrajeros">
+        <img loading="lazy" src="/paginadeprueba/pandiellopagprueba/logos/pandiello.png" alt="Logo Pandiello Cerrajeros">
       </div>
       <div class="nav-links">
         <a href="#inicio">Inicio</a>
