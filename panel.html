@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="LuckyBase: acceso de clientes y panel de gestión.">
+<meta name="robots" content="noindex, nofollow">
 <title>Panel de Cliente | LuckyBase</title>
 <meta property="og:title" content="Panel de Cliente | LuckyBase">
 <meta property="og:description" content="LuckyBase: acceso de clientes y panel de gestión.">
@@ -845,8 +846,213 @@ function formatEuro(value){
   return new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(num)
 }
 
+const URL_API = "https://script.google.com/macros/s/AKfycbxZeMApnIjxoF4aAPxNhcLbUb09JluFb4E7jP67bINuODTv08q9xDFtzC5updMnV_Gi/exec"
 const panel = document.getElementById("panelContent")
+const SESSION_DURATION_MS = 8 * 60 * 60 * 1000
+const SESSION_VALIDATE_INTERVAL_MS = 60 * 1000
 let lastRaw = null
+let hasExpiredSession = false
+let validationInFlight = false
+let lastValidationAt = 0
+
+function jsonpRequest(params, timeoutMs=10000){
+  return new Promise((resolve, reject)=>{
+    const callbackName = "jsonpCallback_" + Date.now() + "_" + Math.floor(Math.random() * 100000)
+    const script = document.createElement("script")
+    let isSettled = false
+
+    const cleanup = ()=>{
+      if(script.parentNode){
+        script.parentNode.removeChild(script)
+      }
+      try{
+        delete window[callbackName]
+      }catch(error){
+        window[callbackName] = undefined
+      }
+    }
+
+    const timeoutId = setTimeout(()=>{
+      if(isSettled) return
+      isSettled = true
+      cleanup()
+      reject(new Error("TIMEOUT"))
+    }, timeoutMs)
+
+    window[callbackName] = (response)=>{
+      if(isSettled) return
+      isSettled = true
+      clearTimeout(timeoutId)
+      cleanup()
+      resolve(response)
+    }
+
+    const query = new URLSearchParams({
+      ...params,
+      callback: callbackName
+    })
+    script.src = `${URL_API}?${query.toString()}`
+    script.async = true
+    script.onerror = ()=>{
+      if(isSettled) return
+      isSettled = true
+      clearTimeout(timeoutId)
+      cleanup()
+      reject(new Error("NETWORK"))
+    }
+    document.body.appendChild(script)
+  })
+}
+
+function parseSessionExpiry(value){
+  const numeric = Number(value)
+  if(Number.isFinite(numeric) && numeric > 0){
+    return numeric
+  }
+  const parsedDate = Date.parse(String(value || ""))
+  if(Number.isFinite(parsedDate) && parsedDate > 0){
+    return parsedDate
+  }
+  return NaN
+}
+
+function readClientData(){
+  const raw = localStorage.getItem("clientData")
+  if(!raw){
+    return { raw: null, data: null }
+  }
+  try{
+    return { raw, data: JSON.parse(raw) }
+  }catch(error){
+    return { raw, data: null }
+  }
+}
+
+function clearClientSession(redirectToLogin=true, reason="expired"){
+  const state = readClientData()
+  const sessionToken = state.data && state.data.sessionToken ? String(state.data.sessionToken) : ""
+  if(sessionToken){
+    jsonpRequest({ action: "logout", sessionToken }, 5000).catch(()=>{})
+  }
+  localStorage.removeItem("clientData")
+  if(redirectToLogin){
+    window.location.href = reason === "logout" ? "login.html" : "login.html?expired=1"
+  }
+}
+
+function getSessionState(){
+  const { raw, data } = readClientData()
+  if(!raw){
+    return { raw: null, expired: false }
+  }
+
+  if(!data){
+    return { raw: null, expired: true }
+  }
+
+  const now = Date.now()
+  const sessionExpiresAt = parseSessionExpiry(data.sessionExpiresAt)
+  if(Number.isFinite(sessionExpiresAt)){
+    if(now >= sessionExpiresAt){
+      return { raw: null, expired: true }
+    }
+    return { raw, expired: false }
+  }
+
+  const sessionStartedAt = Number(data.sessionStartedAt)
+
+  if(!Number.isFinite(sessionStartedAt) || sessionStartedAt <= 0){
+    data.sessionStartedAt = now
+    const normalizedRaw = JSON.stringify(data)
+    localStorage.setItem("clientData", normalizedRaw)
+    return { raw: normalizedRaw, expired: false }
+  }
+
+  const sessionAge = now - sessionStartedAt
+  if(sessionAge >= SESSION_DURATION_MS){
+    return { raw: null, expired: true }
+  }
+
+  return { raw, expired: false }
+}
+
+function handleSessionExpiration(){
+  if(hasExpiredSession){
+    return
+  }
+  hasExpiredSession = true
+  if(panel){
+    panel.innerHTML = `\
+      <div class="panel-title">
+        <h3>Sesión finalizada</h3>
+        <p class="empty">Tu sesión ha caducado tras 8 horas. Redirigiendo a inicio de sesión...</p>
+      </div>
+    `
+  }
+  clearClientSession(true)
+}
+
+async function validateSessionWithApi(force=false){
+  const now = Date.now()
+  if(!force && (now - lastValidationAt) < SESSION_VALIDATE_INTERVAL_MS){
+    return
+  }
+  if(validationInFlight){
+    return
+  }
+
+  const state = readClientData()
+  if(!state.data){
+    return
+  }
+  const sessionToken = String(state.data.sessionToken || "").trim()
+  if(!sessionToken){
+    return
+  }
+
+  validationInFlight = true
+  try{
+    const response = await jsonpRequest({
+      action: "validate",
+      sessionToken
+    }, 10000)
+    lastValidationAt = Date.now()
+
+    if(!response || response.success !== true || response.valid === false){
+      handleSessionExpiration()
+      return
+    }
+
+    const apiData = (response.data && typeof response.data === "object") ? response.data : response
+    const mergedData = {
+      ...state.data,
+      nombre: apiData.nombre || state.data.nombre || state.data.user,
+      plan: apiData.plan || state.data.plan || "-",
+      tipoplan: apiData.tipoplan || state.data.tipoplan || "",
+      cuota: apiData.cuota || state.data.cuota || "",
+      consultasocambiosrestantes: apiData.consultasocambiosrestantes || state.data.consultasocambiosrestantes || "",
+      pagado: apiData.pagado || state.data.pagado || "-",
+      fealta: apiData.fealta || state.data.fealta || "-",
+      proxpago: apiData.proxpago || state.data.proxpago || "-",
+      dominio: apiData.dominio || state.data.dominio || "-",
+      npedido: apiData.npedido || state.data.npedido || "-"
+    }
+
+    const apiSessionExpiresAt = parseSessionExpiry(response.sessionExpiresAt || apiData.sessionExpiresAt)
+    if(Number.isFinite(apiSessionExpiresAt)){
+      mergedData.sessionExpiresAt = apiSessionExpiresAt
+    }
+
+    const mergedRaw = JSON.stringify(mergedData)
+    if(mergedRaw !== state.raw){
+      localStorage.setItem("clientData", mergedRaw)
+    }
+  }catch(error){
+    lastValidationAt = Date.now()
+  }finally{
+    validationInFlight = false
+  }
+}
 
 function renderPanel(raw){
   if(!panel) return
@@ -940,8 +1146,7 @@ function renderPanel(raw){
     const logoutBtn = document.getElementById("logoutBtn")
     if(logoutBtn){
       logoutBtn.addEventListener("click",()=>{
-        localStorage.removeItem("clientData")
-        window.location.href = "login.html"
+        clearClientSession(true, "logout")
       })
     }
   }else{
@@ -958,12 +1163,19 @@ function renderPanel(raw){
 }
 
 function refreshPanel(force=false){
-  const raw = localStorage.getItem("clientData")
-  if(!force && raw === lastRaw){
+  const sessionState = getSessionState()
+  if(sessionState.expired){
+    handleSessionExpiration()
     return
   }
-  lastRaw = raw
-  renderPanel(raw)
+
+  if(!force && sessionState.raw === lastRaw){
+    validateSessionWithApi(false)
+    return
+  }
+  lastRaw = sessionState.raw
+  renderPanel(sessionState.raw)
+  validateSessionWithApi(force)
 }
 
 refreshPanel(true)

@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="LuckyBase: acceso de clientes y panel de gestión.">
+<meta name="robots" content="noindex, nofollow">
 <title>Iniciar sesión | LuckyBase</title>
 <meta property="og:title" content="Iniciar sesión | LuckyBase">
 <meta property="og:description" content="LuckyBase: acceso de clientes y panel de gestión.">
@@ -650,15 +651,78 @@ if(togglePassword && passwordInput && eyeIcon){
 }
 
 const URL_API = "https://script.google.com/macros/s/AKfycbxZeMApnIjxoF4aAPxNhcLbUb09JluFb4E7jP67bINuODTv08q9xDFtzC5updMnV_Gi/exec"
+const SESSION_DURATION_MS = 8 * 60 * 60 * 1000
+const REQUIRE_SERVER_SESSION = true
 
-let loginTimeoutId
+function jsonpRequest(params, timeoutMs=12000){
+  return new Promise((resolve, reject)=>{
+    const callbackName = "jsonpCallback_" + Date.now() + "_" + Math.floor(Math.random() * 100000)
+    const script = document.createElement("script")
+    let isSettled = false
+
+    const cleanup = ()=>{
+      if(script.parentNode){
+        script.parentNode.removeChild(script)
+      }
+      try{
+        delete window[callbackName]
+      }catch(error){
+        window[callbackName] = undefined
+      }
+    }
+
+    const timeoutId = setTimeout(()=>{
+      if(isSettled) return
+      isSettled = true
+      cleanup()
+      reject(new Error("TIMEOUT"))
+    }, timeoutMs)
+
+    window[callbackName] = (response)=>{
+      if(isSettled) return
+      isSettled = true
+      clearTimeout(timeoutId)
+      cleanup()
+      resolve(response)
+    }
+
+    const query = new URLSearchParams({
+      ...params,
+      callback: callbackName
+    })
+    script.src = `${URL_API}?${query.toString()}`
+    script.async = true
+    script.onerror = ()=>{
+      if(isSettled) return
+      isSettled = true
+      clearTimeout(timeoutId)
+      cleanup()
+      reject(new Error("NETWORK"))
+    }
+    document.body.appendChild(script)
+  })
+}
+
+function parseSessionExpiry(value){
+  const numeric = Number(value)
+  if(Number.isFinite(numeric) && numeric > 0){
+    return numeric
+  }
+  const parsedDate = Date.parse(String(value || ""))
+  if(Number.isFinite(parsedDate) && parsedDate > 0){
+    return parsedDate
+  }
+  return NaN
+}
+
+function extractPayloadData(datos){
+  if(datos && typeof datos.data === "object" && datos.data !== null){
+    return datos.data
+  }
+  return datos || {}
+}
 
 function handleLoginResponse(datos, user){
-  if (loginTimeoutId) {
-    clearTimeout(loginTimeoutId)
-    loginTimeoutId = null
-  }
-
   const status = document.getElementById('loginStatus')
   const btn = document.getElementById('btnLogin')
   if(btn){ btn.disabled = false; btn.textContent = 'Entrar' }
@@ -667,18 +731,31 @@ function handleLoginResponse(datos, user){
   }
 
   if (datos && datos.success) {
+    const sourceData = extractPayloadData(datos)
+    const sessionToken = String(datos.sessionToken || sourceData.sessionToken || "").trim()
+    const sessionExpiresAt = parseSessionExpiry(datos.sessionExpiresAt || sourceData.sessionExpiresAt)
+
+    if(REQUIRE_SERVER_SESSION && (!sessionToken || !Number.isFinite(sessionExpiresAt))){
+      if(status) status.textContent = ""
+      showLoginBanner("El backend no devolvió una sesión válida. Actualiza el script de Google Apps Script.")
+      return
+    }
+
     const payload = {
       user,
-      nombre: datos.nombre || user,
-      plan: datos.plan || '-',
-      tipoplan: datos.tipoplan || '',
-      cuota: datos.cuota || '',
-      consultasocambiosrestantes: datos.consultasocambiosrestantes || '',
-      pagado: datos.pagado || '-',
-      fealta: datos.fealta || '-',
-      proxpago: datos.proxpago || '-',
-      dominio: datos.dominio || '-',
-      npedido: datos.npedido || '-'
+      sessionToken: sessionToken || "",
+      sessionStartedAt: Date.now(),
+      sessionExpiresAt: Number.isFinite(sessionExpiresAt) ? sessionExpiresAt : (Date.now() + SESSION_DURATION_MS),
+      nombre: sourceData.nombre || user,
+      plan: sourceData.plan || '-',
+      tipoplan: sourceData.tipoplan || '',
+      cuota: sourceData.cuota || '',
+      consultasocambiosrestantes: sourceData.consultasocambiosrestantes || '',
+      pagado: sourceData.pagado || '-',
+      fealta: sourceData.fealta || '-',
+      proxpago: sourceData.proxpago || '-',
+      dominio: sourceData.dominio || '-',
+      npedido: sourceData.npedido || '-'
     }
     localStorage.setItem('clientData', JSON.stringify(payload))
     window.location.href = "panel.html"
@@ -712,46 +789,25 @@ function ejecutarLogin(e){
     status.innerHTML = '<span class="spinner" aria-label="Cargando"></span>'
   }
 
-  const callbackName = "loginCallback_" + Date.now()
-  window[callbackName] = (datos) => {
-    handleLoginResponse(datos, user)
-    delete window[callbackName]
-    const script = document.getElementById(callbackName)
-    if(script) script.remove()
-  }
-
-  const script = document.createElement('script')
-  script.id = callbackName
-  const params = new URLSearchParams({
+  jsonpRequest({
+    action: "login",
     usuario: user,
-    password: pass,
-    callback: callbackName
-  })
-  script.src = `${URL_API}?${params.toString()}`
-  script.onerror = () => {
-    const btn = document.getElementById('btnLogin')
-    if(btn){ btn.disabled = false; btn.textContent = 'Entrar' }
-    if(status){
-      status.classList.remove("status-loading")
-      status.textContent = "No se pudo conectar con el servidor."
-    }
-    setTimeout(()=>{ if(status) status.textContent = "" }, 5000)
-    delete window[callbackName]
-    script.remove()
-  }
-  document.body.appendChild(script)
-
-  loginTimeoutId = setTimeout(() => {
-    const btn = document.getElementById('btnLogin')
-    if(btn){ btn.disabled = false; btn.textContent = 'Entrar' }
-    if(status){
-      status.classList.remove("status-loading")
-      status.textContent = "Tiempo de espera agotado."
-    }
-    setTimeout(()=>{ if(status) status.textContent = "" }, 5000)
-    delete window[callbackName]
-    script.remove()
+    password: pass
   }, 12000)
+    .then((response)=>{
+      handleLoginResponse(response, user)
+    })
+    .catch((error)=>{
+      const btn = document.getElementById('btnLogin')
+      if(btn){ btn.disabled = false; btn.textContent = 'Entrar' }
+      if(status){
+        status.classList.remove("status-loading")
+        status.textContent = error && error.message === "TIMEOUT"
+          ? "Tiempo de espera agotado."
+          : "No se pudo conectar con el servidor."
+      }
+      setTimeout(()=>{ if(status) status.textContent = "" }, 5000)
+    })
 }
 
 function showLoginBanner(message){
@@ -766,6 +822,12 @@ function showLoginBanner(message){
 function hideLoginBanner(){
   const banner=document.getElementById("loginBanner")
   if(banner) banner.classList.remove("show")
+}
+
+const loginQuery = new URLSearchParams(window.location.search)
+if(loginQuery.get("expired")==="1"){
+  showLoginBanner("Tu sesión ha caducado después de 8 horas. Inicia sesión de nuevo.")
+  window.history.replaceState({}, document.title, window.location.pathname)
 }
 </script>
 
