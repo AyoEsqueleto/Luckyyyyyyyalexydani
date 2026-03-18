@@ -2239,7 +2239,7 @@ impactantes.
 <span class="contact-badge">Soporte real</span>
 </div>
 
-<form id="contactForm" action="https://formspree.io/f/mqeyzdyz" method="POST">
+<form id="contactForm" action="#" method="POST">
 
 <div class="contact-grid">
 <div class="input-group">
@@ -2262,6 +2262,16 @@ impactantes.
 <input type="checkbox" name="terms" required>
 <span>He leído y acepto los <a href="terminos-condiciones.html" target="_blank" rel="noopener noreferrer">términos y condiciones</a>.</span>
 </label>
+
+<input
+  id="contactCompany"
+  type="text"
+  name="company"
+  autocomplete="off"
+  tabindex="-1"
+  aria-hidden="true"
+  style="position:absolute;left:-9999px;opacity:0;pointer-events:none;"
+>
 
 <button class="submit" type="submit">Enviar mensaje</button>
 
@@ -2523,6 +2533,7 @@ const contactForm=document.getElementById("contactForm")
 const formStatus=document.getElementById("formStatus")
 const termsCheckbox=document.querySelector('input[name="terms"]')
 const messageInput=document.getElementById("contactMessage")
+const CONTACT_API_URL="https://script.google.com/macros/s/AKfycbxZeMApnIjxoF4aAPxNhcLbUb09JluFb4E7jP67bINuODTv08q9xDFtzC5updMnV_Gi/exec"
 const themeToggle=document.getElementById("themeToggle")
 const footerLogo=document.getElementById("footerLogo")
 const sunIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="5"></line><line x1="12" y1="19" x2="12" y2="22"></line><line x1="2" y1="12" x2="5" y2="12"></line><line x1="19" y1="12" x2="22" y2="12"></line><line x1="4.9" y1="4.9" x2="7" y2="7"></line><line x1="17" y1="17" x2="19.1" y2="19.1"></line><line x1="17" y1="7" x2="19.1" y2="4.9"></line><line x1="4.9" y1="19.1" x2="7" y2="17"></line></svg>'
@@ -2568,27 +2579,54 @@ if(contactForm){
 contactForm.addEventListener("submit",async(event)=>{
 event.preventDefault()
 
+const submitBtn=contactForm.querySelector('button[type="submit"]')
+if(submitBtn){ submitBtn.disabled=true; submitBtn.textContent="Enviando..." }
+
 const data=new FormData(contactForm)
+const payload={
+action:"contact",
+nombre:String(data.get("nombre")||"").trim(),
+email:String(data.get("email")||"").trim(),
+mensaje:String(data.get("mensaje")||"").trim(),
+terms:data.get("terms")?"true":"false",
+company:String(data.get("company")||"").trim(),
+originUrl:window.location.href
+}
 const showFormStatus=(message,type)=>{
 formStatus.textContent=message
 formStatus.className=`form-status show ${type}`
 }
 
 try{
-const response=await fetch(contactForm.action,{
+const response=await fetch(CONTACT_API_URL,{
 method:"POST",
-body:data,
-headers:{Accept:"application/json"}
+mode:"cors",
+cache:"no-store",
+headers:{"Content-Type":"text/plain;charset=utf-8"},
+body:JSON.stringify(payload)
 })
 
-if(response.ok){
+if(!response.ok){
+throw new Error("HTTP_"+response.status)
+}
+
+let result={}
+try{
+result=await response.json()
+}catch(parseError){
+result={}
+}
+
+if(result && result.success){
 contactForm.reset()
 showFormStatus("Mensaje enviado correctamente. Te responderemos pronto.","success")
 }else{
-showFormStatus("No se pudo enviar. Inténtalo de nuevo.","error")
+showFormStatus((result && result.message) ? result.message : "No se pudo enviar. Inténtalo de nuevo.","error")
 }
 }catch(error){
 showFormStatus("Error de conexión. Inténtalo de nuevo.","error")
+}finally{
+if(submitBtn){ submitBtn.disabled=false; submitBtn.textContent="Enviar mensaje" }
 }
 })
 }
