@@ -738,7 +738,10 @@ function handleLoginResponse(datos, user){
     window.location.href = "panel.html"
   } else {
     if(status) status.textContent = ""
-    showLoginBanner("Usuario o contraseña incorrectos.")
+    const backendMessage = (datos && typeof datos.message === "string" && datos.message.trim())
+      ? datos.message.trim()
+      : "Usuario o contraseña incorrectos."
+    showLoginBanner(backendMessage)
   }
 }
 
