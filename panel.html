@@ -423,6 +423,225 @@ nav a{
   background:#dfe9ff;
 }
 
+.tickets{
+  margin-top:22px;
+  border:1px solid rgba(148,163,184,0.24);
+  border-radius:16px;
+  padding:16px;
+  background:#f8fbff;
+}
+
+.tickets-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:8px;
+}
+
+.tickets-header h4{
+  font-size:18px;
+  color:#0f172a;
+}
+
+.tickets-help{
+  font-size:13px;
+  color:#64748b;
+  margin-bottom:12px;
+}
+
+.ticket-form{
+  display:grid;
+  gap:10px;
+}
+
+.ticket-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:10px;
+}
+
+.ticket-field{
+  display:grid;
+  gap:6px;
+}
+
+.ticket-field span{
+  font-size:12px;
+  color:#475569;
+  font-weight:600;
+}
+
+.ticket-field input,
+.ticket-field select,
+.ticket-field textarea{
+  width:100%;
+  border:1px solid rgba(148,163,184,0.35);
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:14px;
+  color:#0f172a;
+  background:#fff;
+}
+
+.ticket-field textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+.ticket-actions{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.ticket-feedback{
+  font-size:13px;
+  color:#64748b;
+}
+
+.ticket-feedback.is-error{
+  color:#b91c1c;
+}
+
+.ticket-feedback.is-success{
+  color:#0f766e;
+}
+
+.ticket-refresh{
+  background:#e8f0ff;
+  color:#1e3a8a;
+  border:1px solid rgba(59,130,246,0.2);
+  border-radius:999px;
+  padding:8px 14px;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.ticket-submit{
+  border:none;
+  border-radius:999px;
+  padding:10px 16px;
+  font-weight:700;
+  cursor:pointer;
+  background:var(--primary);
+  color:#fff;
+  box-shadow:0 12px 24px rgba(21,101,255,0.22);
+}
+
+.ticket-submit:disabled{
+  opacity:0.7;
+  cursor:not-allowed;
+}
+
+.ticket-list{
+  margin-top:14px;
+  display:grid;
+  gap:10px;
+}
+
+.ticket-item{
+  border:1px solid rgba(148,163,184,0.25);
+  border-radius:12px;
+  padding:12px;
+  background:#fff;
+}
+
+.ticket-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:8px;
+}
+
+.ticket-id{
+  font-size:12px;
+  color:#475569;
+}
+
+.ticket-title{
+  font-size:15px;
+  font-weight:700;
+  color:#0f172a;
+}
+
+.ticket-meta{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.ticket-tag{
+  font-size:11px;
+  font-weight:700;
+  border-radius:999px;
+  padding:4px 8px;
+  text-transform:uppercase;
+  letter-spacing:0.3px;
+}
+
+.ticket-tag.priority-baja{
+  background:#e0f2fe;
+  color:#075985;
+}
+
+.ticket-tag.priority-media{
+  background:#ede9fe;
+  color:#5b21b6;
+}
+
+.ticket-tag.priority-alta{
+  background:#fee2e2;
+  color:#b91c1c;
+}
+
+.ticket-tag.status-abierto{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.ticket-tag.status-enproceso{
+  background:#fef3c7;
+  color:#92400e;
+}
+
+.ticket-tag.status-resuelto{
+  background:#dbeafe;
+  color:#1d4ed8;
+}
+
+.ticket-text{
+  white-space:pre-wrap;
+  font-size:13px;
+  line-height:1.5;
+  color:#334155;
+}
+
+.ticket-response{
+  margin-top:10px;
+  border-top:1px dashed rgba(148,163,184,0.45);
+  padding-top:10px;
+}
+
+.ticket-response strong{
+  display:block;
+  font-size:12px;
+  color:#475569;
+  margin-bottom:4px;
+}
+
+.ticket-response p{
+  white-space:pre-wrap;
+  font-size:13px;
+  line-height:1.5;
+  color:#0f172a;
+}
+
 .empty{
   text-align:center;
   color:var(--muted);
@@ -636,6 +855,78 @@ body.dark-mode .status-bad{
   color:#f87171;
 }
 
+body.dark-mode .tickets{
+  background:#0f172a;
+  border-color:#334155;
+}
+
+body.dark-mode .tickets-header h4{
+  color:#f8fafc;
+}
+
+body.dark-mode .tickets-help{
+  color:#cbd5e1;
+}
+
+body.dark-mode .ticket-field span{
+  color:#cbd5e1;
+}
+
+body.dark-mode .ticket-field input,
+body.dark-mode .ticket-field select,
+body.dark-mode .ticket-field textarea{
+  background:#0b1220;
+  border-color:#334155;
+  color:#f8fafc;
+}
+
+body.dark-mode .ticket-feedback{
+  color:#cbd5e1;
+}
+
+body.dark-mode .ticket-feedback.is-error{
+  color:#fecaca;
+}
+
+body.dark-mode .ticket-feedback.is-success{
+  color:#99f6e4;
+}
+
+body.dark-mode .ticket-refresh{
+  background:#1e293b;
+  border-color:#334155;
+  color:#bfdbfe;
+}
+
+body.dark-mode .ticket-item{
+  background:#0b1220;
+  border-color:#334155;
+}
+
+body.dark-mode .ticket-id{
+  color:#94a3b8;
+}
+
+body.dark-mode .ticket-title{
+  color:#f8fafc;
+}
+
+body.dark-mode .ticket-text{
+  color:#dbe4f0;
+}
+
+body.dark-mode .ticket-response{
+  border-top-color:#334155;
+}
+
+body.dark-mode .ticket-response strong{
+  color:#cbd5e1;
+}
+
+body.dark-mode .ticket-response p{
+  color:#f1f5f9;
+}
+
 body.dark-mode footer{
   background:linear-gradient(135deg,#0b1220,#111827 60%,#0f172a);
 }
@@ -728,6 +1019,10 @@ body.dark-mode .footer-legal a{
 
   .panel{
     padding:20px;
+  }
+
+  .ticket-grid{
+    grid-template-columns:1fr;
   }
 
   .footer-preferences{
@@ -869,6 +1164,26 @@ function formatEuro(value){
   }
   if(num === null || !Number.isFinite(num)) return value
   return new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(num)
+}
+
+function escapeHtml(value){
+  return String(value || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#39;")
+}
+
+function formatDateTime(value){
+  const raw = String(value || "").trim()
+  if(!raw) return "-"
+  const parsed = Date.parse(raw)
+  if(!Number.isFinite(parsed)) return raw
+  return new Intl.DateTimeFormat("es-ES",{
+    dateStyle:"medium",
+    timeStyle:"short"
+  }).format(new Date(parsed))
 }
 
 const URL_API = "https://script.google.com/macros/s/AKfycbxZeMApnIjxoF4aAPxNhcLbUb09JluFb4E7jP67bINuODTv08q9xDFtzC5updMnV_Gi/exec"
@@ -1056,6 +1371,160 @@ async function validateSessionWithApi(force=false){
   }
 }
 
+function setTicketFeedback(message, type=""){
+  const feedback = document.getElementById("ticketFeedback")
+  if(!feedback) return
+  feedback.textContent = message || ""
+  feedback.className = "ticket-feedback" + (type ? " is-" + type : "")
+}
+
+function renderTicketList(tickets){
+  const container = document.getElementById("ticketList")
+  if(!container) return
+  if(!Array.isArray(tickets) || !tickets.length){
+    container.innerHTML = '<p class="empty">Todavía no has creado tickets.</p>'
+    return
+  }
+
+  const html = tickets.map((ticket)=>{
+    const priorityRaw = String(ticket.prioridad || "media").toLowerCase()
+    const statusRaw = String(ticket.estado || "abierto").toLowerCase()
+    const priority = priorityRaw === "alta" ? "alta" : (priorityRaw === "baja" ? "baja" : "media")
+    const status = statusRaw === "resuelto" ? "resuelto" : (statusRaw === "en_proceso" ? "enproceso" : "abierto")
+    const statusLabel = status === "enproceso" ? "en proceso" : status
+    const adminResponse = String(ticket.adminResponse || "").trim()
+    const respondedAt = String(ticket.respondedAt || "").trim()
+    const responseBlock = adminResponse
+      ? `\
+        <div class="ticket-response">
+          <strong>Respuesta de soporte${respondedAt ? " · " + escapeHtml(formatDateTime(respondedAt)) : ""}</strong>
+          <p>${escapeHtml(adminResponse)}</p>
+        </div>
+      `
+      : ""
+
+    return `\
+      <article class="ticket-item">
+        <div class="ticket-top">
+          <div>
+            <div class="ticket-title">${escapeHtml(ticket.asunto || "-")}</div>
+            <div class="ticket-id">${escapeHtml(ticket.ticketId || "-")} · ${escapeHtml(formatDateTime(ticket.createdAt))}</div>
+          </div>
+          <div class="ticket-meta">
+            <span class="ticket-tag priority-${escapeHtml(priority)}">${escapeHtml(priority)}</span>
+            <span class="ticket-tag status-${escapeHtml(status)}">${escapeHtml(statusLabel)}</span>
+          </div>
+        </div>
+        <p class="ticket-text">${escapeHtml(ticket.mensaje || "")}</p>
+        ${responseBlock}
+      </article>
+    `
+  }).join("")
+
+  container.innerHTML = html
+}
+
+async function loadTickets(showLoading=true){
+  const container = document.getElementById("ticketList")
+  if(!container){
+    return
+  }
+  const state = readClientData()
+  const sessionToken = state.data && state.data.sessionToken ? String(state.data.sessionToken).trim() : ""
+  if(!sessionToken){
+    container.innerHTML = '<p class="empty">No hay sesión activa.</p>'
+    return
+  }
+
+  if(showLoading){
+    container.innerHTML = '<p class="empty">Cargando tickets...</p>'
+  }
+
+  try{
+    const response = await apiPostRequest({
+      action: "list_tickets",
+      sessionToken
+    }, 10000)
+    if(!response || response.success !== true){
+      throw new Error("LIST_FAILED")
+    }
+    renderTicketList(response.tickets || [])
+  }catch(error){
+    container.innerHTML = '<p class="empty">No se pudieron cargar tus tickets.</p>'
+  }
+}
+
+function bindTicketModule(){
+  const form = document.getElementById("ticketForm")
+  const refreshBtn = document.getElementById("refreshTicketsBtn")
+  const submitBtn = document.getElementById("ticketSubmitBtn")
+
+  if(refreshBtn){
+    refreshBtn.addEventListener("click",()=>{
+      setTicketFeedback("")
+      loadTickets(true)
+    })
+  }
+
+  if(!form || !submitBtn){
+    return
+  }
+
+  form.addEventListener("submit", async (event)=>{
+    event.preventDefault()
+    const subjectInput = document.getElementById("ticketSubject")
+    const priorityInput = document.getElementById("ticketPriority")
+    const messageInput = document.getElementById("ticketMessage")
+    const asunto = subjectInput ? String(subjectInput.value || "").trim() : ""
+    const prioridad = priorityInput ? String(priorityInput.value || "media").trim() : "media"
+    const mensaje = messageInput ? String(messageInput.value || "").trim() : ""
+    const state = readClientData()
+    const sessionToken = state.data && state.data.sessionToken ? String(state.data.sessionToken).trim() : ""
+
+    if(!sessionToken){
+      setTicketFeedback("Tu sesión no está activa.", "error")
+      return
+    }
+    if(asunto.length < 4){
+      setTicketFeedback("El asunto debe tener al menos 4 caracteres.", "error")
+      return
+    }
+    if(mensaje.length < 10){
+      setTicketFeedback("El mensaje debe tener al menos 10 caracteres.", "error")
+      return
+    }
+
+    submitBtn.disabled = true
+    setTicketFeedback("Enviando ticket...")
+    try{
+      const response = await apiPostRequest({
+        action: "create_ticket",
+        sessionToken,
+        asunto,
+        prioridad,
+        mensaje,
+        source: "panel_cliente"
+      }, 12000)
+
+      if(!response || response.success !== true){
+        const message = response && response.message ? response.message : "No se pudo crear el ticket."
+        setTicketFeedback(message, "error")
+        return
+      }
+
+      form.reset()
+      setTicketFeedback("Ticket enviado correctamente.", "success")
+      loadTickets(false)
+    }catch(error){
+      setTicketFeedback("No se pudo crear el ticket.", "error")
+    }finally{
+      submitBtn.disabled = false
+    }
+  })
+
+  loadTickets(true)
+}
+
 function renderPanel(raw){
   if(!panel) return
   if(raw){
@@ -1137,6 +1606,40 @@ function renderPanel(raw){
         <div class="detail"><span>Nº pedido</span><strong>${data.npedido}</strong></div>
         <div class="detail"><span>Consultas o cambios restantes este mes</span><strong>${data.consultasocambiosrestantes || '-'}</strong></div>
       </div>
+      <section class="tickets">
+        <div class="tickets-header">
+          <h4>Soporte y tickets</h4>
+          <button class="ticket-refresh" id="refreshTicketsBtn" type="button">Actualizar</button>
+        </div>
+        <p class="tickets-help">Abre un ticket desde aquí y consulta el estado de tus solicitudes.</p>
+        <form id="ticketForm" class="ticket-form" novalidate>
+          <div class="ticket-grid">
+            <label class="ticket-field">
+              <span>Asunto</span>
+              <input id="ticketSubject" type="text" maxlength="140" placeholder="Ej: Cambio en la home">
+            </label>
+            <label class="ticket-field">
+              <span>Prioridad</span>
+              <select id="ticketPriority">
+                <option value="baja">Baja</option>
+                <option value="media" selected>Media</option>
+                <option value="alta">Alta</option>
+              </select>
+            </label>
+          </div>
+          <label class="ticket-field">
+            <span>Mensaje</span>
+            <textarea id="ticketMessage" maxlength="4000" placeholder="Describe tu solicitud con detalle."></textarea>
+          </label>
+          <div class="ticket-actions">
+            <span id="ticketFeedback" class="ticket-feedback"></span>
+            <button class="ticket-submit" id="ticketSubmitBtn" type="submit">Enviar ticket</button>
+          </div>
+        </form>
+        <div id="ticketList" class="ticket-list">
+          <p class="empty">Cargando tickets...</p>
+        </div>
+      </section>
       <div class="actions">
         ${planDoc}
         <a class="secondary" href="REQUERIMIENTOS-WEBS.pdf" target="_blank" rel="noopener noreferrer">Requerimientos</a>
@@ -1151,6 +1654,7 @@ function renderPanel(raw){
         clearClientSession(true, "logout")
       })
     }
+    bindTicketModule()
   }else{
     panel.innerHTML = `\
       <div class="panel-title">
