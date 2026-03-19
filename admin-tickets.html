@@ -55,6 +55,12 @@ button{border:none;border-radius:999px;padding:10px 14px;font-weight:700;cursor:
 .ticket-response{margin-top:10px;border-top:1px dashed #334155;padding-top:10px;}
 .ticket-response h4{margin:0 0 6px;font-size:13px;color:#cbd5e1;}
 .ticket-response p{margin:0;white-space:pre-wrap;}
+.ticket-chat{margin-top:10px;display:grid;gap:8px;}
+.msg{border:1px solid #334155;border-radius:10px;padding:8px 10px;background:#111827;}
+.msg.admin{background:#062b2a;border-color:#0f766e;}
+.msg.client{background:#0b2540;border-color:#1d4ed8;}
+.msg-head{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:#94a3b8;margin-bottom:4px;}
+.msg-body{white-space:pre-wrap;line-height:1.45;font-size:13px;}
 .reply-grid{display:grid;gap:8px;margin-top:10px;}
 small{color:var(--muted)}
 @media (max-width:760px){
@@ -210,10 +216,31 @@ function normalizeStatus(raw){
   return "abierto"
 }
 
+function renderMessages(messages){
+  const list = Array.isArray(messages) ? messages : []
+  if(!list.length){
+    return '<p class="feedback">Sin mensajes todavía.</p>'
+  }
+  return list.map((msg) => {
+    const roleRaw = String(msg.senderRole || "client").toLowerCase()
+    const role = roleRaw === "admin" ? "admin" : "client"
+    const roleLabel = role === "admin" ? "Admin LuckyBase" : "Cliente"
+    return `\
+      <div class="msg ${escapeHtml(role)}">
+        <div class="msg-head">
+          <strong>${escapeHtml(roleLabel)}</strong>
+          <span>${escapeHtml(formatDateTime(msg.createdAt))}</span>
+        </div>
+        <div class="msg-body">${escapeHtml(msg.message || "")}</div>
+      </div>
+    `
+  }).join("")
+}
+
 function ticketCardHtml(ticket){
   const priority = normalizePriority(ticket.prioridad)
   const status = normalizeStatus(ticket.estado)
-  const response = String(ticket.adminResponse || "").trim()
+  const messagesHtml = renderMessages(ticket.messages || [])
   return `
     <article class="ticket" data-ticket-id="${escapeHtml(ticket.ticketId || "")}">
       <div class="ticket-top">
@@ -229,8 +256,7 @@ function ticketCardHtml(ticket){
           <span class="tag s-${escapeHtml(status)}">${escapeHtml(status.replace("_"," "))}</span>
         </div>
       </div>
-      <div class="ticket-body">${escapeHtml(ticket.mensaje || "")}</div>
-      ${response ? `<div class="ticket-response"><h4>Respuesta enviada (${escapeHtml(formatDateTime(ticket.respondedAt))})</h4><p>${escapeHtml(response)}</p></div>` : ""}
+      <div class="ticket-chat">${messagesHtml}</div>
       <div class="reply-grid">
         <label>Responder al cliente
           <textarea class="reply-text" maxlength="4000" placeholder="Escribe aquí la respuesta..."></textarea>

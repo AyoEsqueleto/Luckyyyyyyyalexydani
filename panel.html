@@ -642,6 +642,94 @@ nav a{
   color:#0f172a;
 }
 
+.ticket-chat{
+  margin-top:10px;
+  display:grid;
+  gap:8px;
+}
+
+.ticket-msg{
+  padding:9px 10px;
+  border-radius:10px;
+  border:1px solid rgba(148,163,184,0.35);
+  background:#f8fafc;
+}
+
+.ticket-msg.is-client{
+  background:#eff6ff;
+  border-color:#bfdbfe;
+}
+
+.ticket-msg.is-admin{
+  background:#ecfeff;
+  border-color:#99f6e4;
+}
+
+.ticket-msg-head{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  font-size:11px;
+  color:#64748b;
+  margin-bottom:4px;
+}
+
+.ticket-msg-body{
+  white-space:pre-wrap;
+  font-size:13px;
+  line-height:1.45;
+  color:#0f172a;
+}
+
+.ticket-reply-box{
+  margin-top:10px;
+  display:grid;
+  gap:8px;
+}
+
+.ticket-reply-text{
+  width:100%;
+  border:1px solid rgba(148,163,184,0.35);
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:13px;
+  color:#0f172a;
+  background:#fff;
+  min-height:84px;
+  resize:vertical;
+}
+
+.ticket-reply-actions{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.ticket-reply-feedback{
+  font-size:12px;
+  color:#64748b;
+}
+
+.ticket-reply-feedback.is-error{
+  color:#b91c1c;
+}
+
+.ticket-reply-feedback.is-success{
+  color:#0f766e;
+}
+
+.ticket-reply-send{
+  border:none;
+  border-radius:999px;
+  padding:8px 12px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  background:#1d4ed8;
+  color:#fff;
+}
+
 .empty{
   text-align:center;
   color:var(--muted);
@@ -925,6 +1013,47 @@ body.dark-mode .ticket-response strong{
 
 body.dark-mode .ticket-response p{
   color:#f1f5f9;
+}
+
+body.dark-mode .ticket-msg{
+  background:#0f172a;
+  border-color:#334155;
+}
+
+body.dark-mode .ticket-msg.is-client{
+  background:#0b2540;
+  border-color:#1d4ed8;
+}
+
+body.dark-mode .ticket-msg.is-admin{
+  background:#062b2a;
+  border-color:#0f766e;
+}
+
+body.dark-mode .ticket-msg-head{
+  color:#94a3b8;
+}
+
+body.dark-mode .ticket-msg-body{
+  color:#f8fafc;
+}
+
+body.dark-mode .ticket-reply-text{
+  background:#0b1220;
+  border-color:#334155;
+  color:#f8fafc;
+}
+
+body.dark-mode .ticket-reply-feedback{
+  color:#cbd5e1;
+}
+
+body.dark-mode .ticket-reply-feedback.is-error{
+  color:#fecaca;
+}
+
+body.dark-mode .ticket-reply-feedback.is-success{
+  color:#99f6e4;
 }
 
 body.dark-mode footer{
@@ -1378,6 +1507,101 @@ function setTicketFeedback(message, type=""){
   feedback.className = "ticket-feedback" + (type ? " is-" + type : "")
 }
 
+function renderTicketMessages(messages){
+  const list = Array.isArray(messages) ? messages : []
+  if(!list.length){
+    return '<p class="empty">Sin mensajes todavía.</p>'
+  }
+
+  return list.map((msg)=>{
+    const roleRaw = String(msg.senderRole || "client").toLowerCase()
+    const role = roleRaw === "admin" ? "admin" : "client"
+    const roleLabel = role === "admin" ? "Soporte LuckyBase" : "Tú"
+    return `\
+      <div class="ticket-msg is-${escapeHtml(role)}">
+        <div class="ticket-msg-head">
+          <strong>${escapeHtml(roleLabel)}</strong>
+          <span>${escapeHtml(formatDateTime(msg.createdAt))}</span>
+        </div>
+        <div class="ticket-msg-body">${escapeHtml(msg.message || "")}</div>
+      </div>
+    `
+  }).join("")
+}
+
+function bindTicketReplyButtons(){
+  const buttons = document.querySelectorAll(".ticket-reply-send")
+  buttons.forEach((button)=>{
+    button.addEventListener("click", async ()=>{
+      const ticketId = String(button.getAttribute("data-ticket-id") || "")
+      const card = button.closest(".ticket-item")
+      const textEl = card ? card.querySelector(".ticket-reply-text") : null
+      const feedbackEl = card ? card.querySelector(".ticket-reply-feedback") : null
+      const message = textEl ? String(textEl.value || "").trim() : ""
+
+      if(!ticketId){
+        return
+      }
+      if(!message || message.length < 2){
+        if(feedbackEl){
+          feedbackEl.textContent = "El mensaje debe tener al menos 2 caracteres."
+          feedbackEl.className = "ticket-reply-feedback is-error"
+        }
+        return
+      }
+
+      const state = readClientData()
+      const sessionToken = state.data && state.data.sessionToken ? String(state.data.sessionToken).trim() : ""
+      if(!sessionToken){
+        if(feedbackEl){
+          feedbackEl.textContent = "Sesión no activa."
+          feedbackEl.className = "ticket-reply-feedback is-error"
+        }
+        return
+      }
+
+      button.disabled = true
+      if(feedbackEl){
+        feedbackEl.textContent = "Enviando..."
+        feedbackEl.className = "ticket-reply-feedback"
+      }
+      try{
+        const response = await apiPostRequest({
+          action: "client_reply_ticket",
+          sessionToken,
+          ticketId,
+          message
+        }, 30000)
+
+        if(!response || response.success !== true){
+          const errorMessage = response && response.message ? response.message : "No se pudo enviar la respuesta."
+          if(feedbackEl){
+            feedbackEl.textContent = errorMessage
+            feedbackEl.className = "ticket-reply-feedback is-error"
+          }
+          return
+        }
+
+        if(textEl){
+          textEl.value = ""
+        }
+        if(feedbackEl){
+          feedbackEl.textContent = "Mensaje enviado."
+          feedbackEl.className = "ticket-reply-feedback is-success"
+        }
+        loadTickets(false)
+      }catch(error){
+        if(feedbackEl){
+          feedbackEl.textContent = "No se pudo enviar la respuesta."
+          feedbackEl.className = "ticket-reply-feedback is-error"
+        }
+      }finally{
+        button.disabled = false
+      }
+    })
+  })
+}
+
 function renderTicketList(tickets){
   const container = document.getElementById("ticketList")
   if(!container) return
@@ -1392,16 +1616,7 @@ function renderTicketList(tickets){
     const priority = priorityRaw === "alta" ? "alta" : (priorityRaw === "baja" ? "baja" : "media")
     const status = statusRaw === "resuelto" ? "resuelto" : (statusRaw === "en_proceso" ? "enproceso" : "abierto")
     const statusLabel = status === "enproceso" ? "en proceso" : status
-    const adminResponse = String(ticket.adminResponse || "").trim()
-    const respondedAt = String(ticket.respondedAt || "").trim()
-    const responseBlock = adminResponse
-      ? `\
-        <div class="ticket-response">
-          <strong>Respuesta de soporte${respondedAt ? " · " + escapeHtml(formatDateTime(respondedAt)) : ""}</strong>
-          <p>${escapeHtml(adminResponse)}</p>
-        </div>
-      `
-      : ""
+    const messagesHtml = renderTicketMessages(ticket.messages || [])
 
     return `\
       <article class="ticket-item">
@@ -1415,13 +1630,20 @@ function renderTicketList(tickets){
             <span class="ticket-tag status-${escapeHtml(status)}">${escapeHtml(statusLabel)}</span>
           </div>
         </div>
-        <p class="ticket-text">${escapeHtml(ticket.mensaje || "")}</p>
-        ${responseBlock}
+        <div class="ticket-chat">${messagesHtml}</div>
+        <div class="ticket-reply-box">
+          <textarea class="ticket-reply-text" maxlength="4000" placeholder="Escribe una respuesta para continuar el ticket..."></textarea>
+          <div class="ticket-reply-actions">
+            <span class="ticket-reply-feedback"></span>
+            <button class="ticket-reply-send" type="button" data-ticket-id="${escapeHtml(ticket.ticketId || "")}">Responder</button>
+          </div>
+        </div>
       </article>
     `
   }).join("")
 
   container.innerHTML = html
+  bindTicketReplyButtons()
 }
 
 async function loadTickets(showLoading=true){
@@ -1444,7 +1666,7 @@ async function loadTickets(showLoading=true){
     const response = await apiPostRequest({
       action: "list_tickets",
       sessionToken
-    }, 10000)
+    }, 30000)
     if(!response || response.success !== true){
       throw new Error("LIST_FAILED")
     }
@@ -1504,7 +1726,7 @@ function bindTicketModule(){
         prioridad,
         mensaje,
         source: "panel_cliente"
-      }, 12000)
+      }, 30000)
 
       if(!response || response.success !== true){
         const message = response && response.message ? response.message : "No se pudo crear el ticket."
@@ -1611,7 +1833,7 @@ function renderPanel(raw){
           <h4>Soporte y tickets</h4>
           <button class="ticket-refresh" id="refreshTicketsBtn" type="button">Actualizar</button>
         </div>
-        <p class="tickets-help">Abre un ticket desde aquí y consulta el estado de tus solicitudes.</p>
+        <p class="tickets-help">Abre tickets y responde en el mismo hilo tipo chat.</p>
         <form id="ticketForm" class="ticket-form" novalidate>
           <div class="ticket-grid">
             <label class="ticket-field">
