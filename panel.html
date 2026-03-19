@@ -550,6 +550,11 @@ nav a{
   background:#fff;
 }
 
+.ticket-item.is-resolved{
+  border-color:rgba(30,64,175,0.35);
+  background:linear-gradient(180deg,#ffffff,#f8fbff);
+}
+
 .ticket-top{
   display:flex;
   align-items:center;
@@ -561,6 +566,13 @@ nav a{
 .ticket-id{
   font-size:12px;
   color:#475569;
+}
+
+.ticket-last-update{
+  display:block;
+  margin-top:4px;
+  font-size:11px;
+  color:#64748b;
 }
 
 .ticket-title{
@@ -648,6 +660,14 @@ nav a{
   gap:8px;
 }
 
+.ticket-chat-title{
+  font-size:12px;
+  font-weight:700;
+  color:#475569;
+  text-transform:uppercase;
+  letter-spacing:.3px;
+}
+
 .ticket-msg{
   padding:9px 10px;
   border-radius:10px;
@@ -685,6 +705,8 @@ nav a{
   margin-top:10px;
   display:grid;
   gap:8px;
+  border-top:1px dashed rgba(148,163,184,0.45);
+  padding-top:10px;
 }
 
 .ticket-reply-text{
@@ -728,6 +750,18 @@ nav a{
   cursor:pointer;
   background:#1d4ed8;
   color:#fff;
+}
+
+.ticket-reply-send:disabled,
+.ticket-reply-text:disabled{
+  opacity:.65;
+  cursor:not-allowed;
+}
+
+.ticket-closed-note{
+  font-size:12px;
+  color:#1e3a8a;
+  font-weight:600;
 }
 
 .empty{
@@ -991,6 +1025,11 @@ body.dark-mode .ticket-item{
   border-color:#334155;
 }
 
+body.dark-mode .ticket-item.is-resolved{
+  border-color:#1e3a8a;
+  background:linear-gradient(180deg,#0b1220,#111c34);
+}
+
 body.dark-mode .ticket-id{
   color:#94a3b8;
 }
@@ -1038,10 +1077,18 @@ body.dark-mode .ticket-msg-body{
   color:#f8fafc;
 }
 
+body.dark-mode .ticket-chat-title{
+  color:#cbd5e1;
+}
+
 body.dark-mode .ticket-reply-text{
   background:#0b1220;
   border-color:#334155;
   color:#f8fafc;
+}
+
+body.dark-mode .ticket-reply-box{
+  border-top-color:#334155;
 }
 
 body.dark-mode .ticket-reply-feedback{
@@ -1054,6 +1101,10 @@ body.dark-mode .ticket-reply-feedback.is-error{
 
 body.dark-mode .ticket-reply-feedback.is-success{
   color:#99f6e4;
+}
+
+body.dark-mode .ticket-closed-note{
+  color:#bfdbfe;
 }
 
 body.dark-mode footer{
@@ -1533,6 +1584,9 @@ function bindTicketReplyButtons(){
   const buttons = document.querySelectorAll(".ticket-reply-send")
   buttons.forEach((button)=>{
     button.addEventListener("click", async ()=>{
+      if(button.hasAttribute("data-closed")){
+        return
+      }
       const ticketId = String(button.getAttribute("data-ticket-id") || "")
       const card = button.closest(".ticket-item")
       const textEl = card ? card.querySelector(".ticket-reply-text") : null
@@ -1617,25 +1671,32 @@ function renderTicketList(tickets){
     const status = statusRaw === "resuelto" ? "resuelto" : (statusRaw === "en_proceso" ? "enproceso" : "abierto")
     const statusLabel = status === "enproceso" ? "en proceso" : status
     const messagesHtml = renderTicketMessages(ticket.messages || [])
+    const isClosed = status === "resuelto"
+    const updatedAtText = ticket.updatedAt ? formatDateTime(ticket.updatedAt) : formatDateTime(ticket.createdAt)
 
     return `\
-      <article class="ticket-item">
+      <article class="ticket-item ${isClosed ? 'is-resolved' : ''}">
         <div class="ticket-top">
           <div>
             <div class="ticket-title">${escapeHtml(ticket.asunto || "-")}</div>
             <div class="ticket-id">${escapeHtml(ticket.ticketId || "-")} · ${escapeHtml(formatDateTime(ticket.createdAt))}</div>
+            <span class="ticket-last-update">Última actualización: ${escapeHtml(updatedAtText)}</span>
           </div>
           <div class="ticket-meta">
             <span class="ticket-tag priority-${escapeHtml(priority)}">${escapeHtml(priority)}</span>
             <span class="ticket-tag status-${escapeHtml(status)}">${escapeHtml(statusLabel)}</span>
           </div>
         </div>
-        <div class="ticket-chat">${messagesHtml}</div>
+        <div class="ticket-chat">
+          <div class="ticket-chat-title">Conversación</div>
+          ${messagesHtml}
+        </div>
         <div class="ticket-reply-box">
-          <textarea class="ticket-reply-text" maxlength="4000" placeholder="Escribe una respuesta para continuar el ticket..."></textarea>
+          ${isClosed ? '<span class="ticket-closed-note">Ticket resuelto. No se admiten más respuestas.</span>' : ''}
+          <textarea class="ticket-reply-text" maxlength="4000" placeholder="Escribe una respuesta para continuar el ticket..." ${isClosed ? 'disabled' : ''}></textarea>
           <div class="ticket-reply-actions">
             <span class="ticket-reply-feedback"></span>
-            <button class="ticket-reply-send" type="button" data-ticket-id="${escapeHtml(ticket.ticketId || "")}">Responder</button>
+            <button class="ticket-reply-send" type="button" data-ticket-id="${escapeHtml(ticket.ticketId || "")}" ${isClosed ? 'data-closed disabled' : ''}>Responder</button>
           </div>
         </div>
       </article>
@@ -1833,7 +1894,7 @@ function renderPanel(raw){
           <h4>Soporte y tickets</h4>
           <button class="ticket-refresh" id="refreshTicketsBtn" type="button">Actualizar</button>
         </div>
-        <p class="tickets-help">Abre tickets y responde en el mismo hilo tipo chat.</p>
+        <p class="tickets-help">Abre tickets y responde en el mismo hilo tipo chat. Si el estado es <strong>resuelto</strong>, el ticket queda cerrado.</p>
         <form id="ticketForm" class="ticket-form" novalidate>
           <div class="ticket-grid">
             <label class="ticket-field">
