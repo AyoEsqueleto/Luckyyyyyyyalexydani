@@ -580,6 +580,31 @@ body.dark-mode footer{
   background:#05070d;
 }
 
+/* Dark mode contrast boost */
+body.dark-mode{
+  color:#f8fafc;
+}
+
+body.dark-mode p,
+body.dark-mode li,
+body.dark-mode .card ul,
+body.dark-mode .compare-card ul,
+body.dark-mode .footer-copy span{
+  color:#dbe4f0;
+}
+
+body.dark-mode a{
+  color:#93c5fd;
+}
+
+body.dark-mode a:hover{
+  color:#bfdbfe;
+}
+
+body.dark-mode .footer-legal a{
+  color:#c7d2fe;
+}
+
 @media(max-width:980px){
   .hero-inner{
     grid-template-columns:1fr;
