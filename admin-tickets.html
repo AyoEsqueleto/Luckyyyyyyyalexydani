@@ -112,6 +112,8 @@ small{color:var(--muted)}
 <script>
 const URL_API = "https://script.google.com/macros/s/AKfycbxZeMApnIjxoF4aAPxNhcLbUb09JluFb4E7jP67bINuODTv08q9xDFtzC5updMnV_Gi/exec"
 const SESSION_KEY = "luckybase_admin_session_v1"
+const API_TIMEOUT_MS = 30000
+const API_TIMEOUT_RETRIES = 1
 
 function escapeHtml(value){
   return String(value || "")
@@ -142,25 +144,46 @@ function clearSession(){
   sessionStorage.removeItem(SESSION_KEY)
 }
 
-async function apiPostRequest(payload, timeoutMs=10000){
-  const controller = new AbortController()
-  const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
-  try{
-    const response = await fetch(URL_API, {
-      method: "POST",
-      mode: "cors",
-      cache: "no-store",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(payload || {}),
-      signal: controller.signal
-    })
-    if(!response.ok){
-      throw new Error("HTTP_" + response.status)
+async function apiPostRequest(payload, timeoutMs=API_TIMEOUT_MS){
+  const maxAttempts = 1 + API_TIMEOUT_RETRIES
+  let lastError = null
+
+  for(let attempt = 1; attempt <= maxAttempts; attempt++){
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
+    try{
+      const response = await fetch(URL_API, {
+        method: "POST",
+        mode: "cors",
+        cache: "no-store",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload || {}),
+        signal: controller.signal
+      })
+      if(!response.ok){
+        throw new Error("HTTP_" + response.status)
+      }
+      const text = await response.text()
+      try{
+        return JSON.parse(text)
+      }catch(_){
+        throw new Error("NON_JSON_RESPONSE")
+      }
+    }catch(error){
+      if(error && error.name === "AbortError"){
+        lastError = new Error("TIMEOUT")
+      }else{
+        lastError = error
+      }
+      if(!(lastError && lastError.message === "TIMEOUT") || attempt >= maxAttempts){
+        throw lastError
+      }
+    }finally{
+      clearTimeout(timeoutId)
     }
-    return await response.json()
-  }finally{
-    clearTimeout(timeoutId)
   }
+
+  throw (lastError || new Error("REQUEST_FAILED"))
 }
 
 function setFeedback(id, message, type=""){
@@ -264,7 +287,7 @@ function renderTickets(tickets){
           ticketId,
           response,
           estado
-        }, 12000)
+        }, API_TIMEOUT_MS)
 
         if(!result || result.success !== true){
           setFeedback("ticketsFeedback", (result && result.message) ? result.message : "No se pudo responder el ticket.", "error")
@@ -273,11 +296,11 @@ function renderTickets(tickets){
 
         setFeedback("ticketsFeedback", "Respuesta enviada correctamente.", "ok")
         await loadTickets()
-      }catch(error){
-        setFeedback("ticketsFeedback", "No se pudo responder el ticket.", "error")
-      }finally{
-        btn.disabled = false
-      }
+  }catch(error){
+    setFeedback("ticketsFeedback", "No se pudo responder el ticket (" + String(error && error.message || "ERROR") + ").", "error")
+  }finally{
+    btn.disabled = false
+  }
     })
   })
 }
@@ -296,7 +319,7 @@ async function loadTickets(){
       adminToken: session.adminToken,
       estado,
       limit: 200
-    }, 12000)
+    }, API_TIMEOUT_MS)
 
     if(!result || result.success !== true){
       setFeedback("ticketsFeedback", (result && result.message) ? result.message : "No se pudieron cargar tickets.", "error")
@@ -306,7 +329,7 @@ async function loadTickets(){
     renderTickets(result.tickets || [])
     setFeedback("ticketsFeedback", "")
   }catch(error){
-    setFeedback("ticketsFeedback", "Error cargando tickets.", "error")
+    setFeedback("ticketsFeedback", "Error cargando tickets (" + String(error && error.message || "ERROR") + ").", "error")
   }
 }
 
@@ -321,7 +344,7 @@ async function validateAdminSession(){
     const result = await apiPostRequest({
       action: "admin_validate",
       adminToken: session.adminToken
-    }, 10000)
+    }, API_TIMEOUT_MS)
 
     if(!result || result.success !== true || result.valid !== true){
       clearSession()
@@ -342,6 +365,7 @@ async function validateAdminSession(){
   }catch(error){
     clearSession()
     showAdminView(false)
+    setFeedback("loginFeedback", "Error validando sesión (" + String(error && error.message || "ERROR") + ").", "error")
     return false
   }
 }
@@ -361,7 +385,7 @@ async function handleLogin(event){
       action: "admin_login",
       username,
       password
-    }, 12000)
+    }, API_TIMEOUT_MS)
 
     if(!result || result.success !== true || result.valid !== true){
       setFeedback("loginFeedback", (result && result.message) ? result.message : "No se pudo iniciar sesión.", "error")
@@ -380,7 +404,7 @@ async function handleLogin(event){
       await loadTickets()
     }
   }catch(error){
-    setFeedback("loginFeedback", "No se pudo iniciar sesión.", "error")
+    setFeedback("loginFeedback", "No se pudo iniciar sesión (" + String(error && error.message || "ERROR") + ").", "error")
   }
 }
 
