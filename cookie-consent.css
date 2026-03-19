@@ -1,0 +1,279 @@
+:root {
+  --cc-bg: #0f172a;
+  --cc-surface: #111827;
+  --cc-card: #ffffff;
+  --cc-text: #e2e8f0;
+  --cc-text-dark: #0f172a;
+  --cc-muted: #94a3b8;
+  --cc-primary: #1565ff;
+  --cc-primary-dark: #0e4acc;
+  --cc-border: #1f2937;
+  --cc-success: #0f766e;
+  --cc-shadow: 0 20px 50px rgba(2, 6, 23, 0.45);
+  --cc-radius: 14px;
+}
+
+.cc-hidden {
+  display: none !important;
+}
+
+.cc-banner {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2147483000;
+  background: linear-gradient(180deg, #0b1220, var(--cc-bg));
+  color: var(--cc-text);
+  border: 1px solid #334155;
+  border-radius: var(--cc-radius);
+  box-shadow: var(--cc-shadow);
+  padding: 18px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.cc-banner h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+.cc-banner p {
+  margin: 0;
+  color: #cbd5e1;
+  line-height: 1.55;
+  font-size: 14px;
+}
+
+.cc-badges {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cc-badge {
+  border: 1px solid #334155;
+  border-radius: 999px;
+  font-size: 12px;
+  padding: 4px 10px;
+  color: #cbd5e1;
+}
+
+.cc-actions {
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cc-btn {
+  appearance: none;
+  border: 1px solid #334155;
+  background: #0b1220;
+  color: #e2e8f0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.cc-btn:hover {
+  background: #131f35;
+}
+
+.cc-btn-primary {
+  background: var(--cc-primary);
+  border-color: var(--cc-primary);
+  color: #fff;
+}
+
+.cc-btn-primary:hover {
+  background: var(--cc-primary-dark);
+}
+
+.cc-btn-outline {
+  background: transparent;
+}
+
+.cc-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483001;
+  background: rgba(2, 6, 23, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.cc-modal {
+  width: min(720px, 100%);
+  max-height: 92vh;
+  overflow: auto;
+  border-radius: 16px;
+  background: var(--cc-card);
+  color: var(--cc-text-dark);
+  border: 1px solid #e2e8f0;
+  box-shadow: var(--cc-shadow);
+}
+
+.cc-modal-head {
+  padding: 18px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.cc-modal-head h3 {
+  margin: 0;
+  font-size: 19px;
+}
+
+.cc-modal-body {
+  padding: 16px 20px 8px;
+}
+
+.cc-modal-body p {
+  margin: 0 0 14px;
+  color: #334155;
+  line-height: 1.55;
+}
+
+.cc-cookie-list {
+  display: grid;
+  gap: 12px;
+  margin: 14px 0;
+}
+
+.cc-cookie-item {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px;
+  background: #f8fafc;
+}
+
+.cc-cookie-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cc-cookie-name {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.cc-cookie-type {
+  margin-left: 8px;
+  font-size: 11px;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.cc-cookie-desc {
+  margin-top: 8px;
+  color: #475569;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.cc-switch {
+  position: relative;
+  width: 46px;
+  height: 26px;
+  flex: 0 0 auto;
+}
+
+.cc-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.cc-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: #cbd5e1;
+  transition: 0.2s;
+  border-radius: 999px;
+}
+
+.cc-slider:before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  top: 3px;
+  background: #fff;
+  transition: 0.2s;
+  border-radius: 50%;
+}
+
+.cc-switch input:checked + .cc-slider {
+  background: #16a34a;
+}
+
+.cc-switch input:checked + .cc-slider:before {
+  transform: translateX(20px);
+}
+
+.cc-switch input:disabled + .cc-slider {
+  background: #0f766e;
+  opacity: 0.9;
+  cursor: not-allowed;
+}
+
+.cc-modal-foot {
+  border-top: 1px solid #e2e8f0;
+  padding: 14px 20px 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.cc-note {
+  margin-top: 8px;
+  color: #64748b;
+  font-size: 12px;
+}
+
+@media (max-width: 640px) {
+  .cc-banner {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    padding: 14px;
+  }
+
+  .cc-actions {
+    flex-direction: column;
+  }
+
+  .cc-btn {
+    width: 100%;
+  }
+
+  .cc-modal-head,
+  .cc-modal-body,
+  .cc-modal-foot {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .cc-modal-foot {
+    justify-content: stretch;
+  }
+}
