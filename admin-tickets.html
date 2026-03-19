@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Admin Tickets | LuckyBase</title>
+<style>
+:root{
+  --bg:#0b1220;
+  --card:#111827;
+  --line:#334155;
+  --text:#e5e7eb;
+  --muted:#94a3b8;
+  --primary:#2563eb;
+  --danger:#dc2626;
+  --ok:#059669;
+}
+*{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
+body{margin:0;background:linear-gradient(180deg,#020617,#0b1220);color:var(--text);min-height:100vh;}
+main{max-width:1100px;margin:0 auto;padding:28px 18px 60px;}
+h1{margin:0 0 16px;font-size:24px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 16px 34px rgba(0,0,0,.35);}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+label{display:grid;gap:6px;font-size:13px;color:var(--muted);}
+input,select,textarea,button{font:inherit;}
+input,select,textarea{background:#0b1220;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:10px 12px;}
+textarea{min-height:90px;resize:vertical;}
+button{border:none;border-radius:999px;padding:10px 14px;font-weight:700;cursor:pointer;}
+.btn-primary{background:var(--primary);color:#fff;}
+.btn-muted{background:#1f2937;color:#d1d5db;border:1px solid #374151;}
+.btn-danger{background:var(--danger);color:#fff;}
+.feedback{font-size:13px;color:var(--muted);min-height:18px;}
+.feedback.error{color:#fecaca;}
+.feedback.ok{color:#99f6e4;}
+.hidden{display:none !important;}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:14px 0;}
+.ticket-list{display:grid;gap:12px;}
+.ticket{border:1px solid var(--line);border-radius:12px;padding:12px;background:#0b1220;}
+.ticket-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;}
+.ticket-title{font-size:16px;font-weight:700;}
+.ticket-meta{font-size:12px;color:var(--muted);margin-top:4px;}
+.tags{display:flex;gap:6px;flex-wrap:wrap;}
+.tag{font-size:11px;font-weight:700;border-radius:999px;padding:4px 8px;text-transform:uppercase;}
+.p-baja{background:#0c4a6e;color:#bae6fd;}
+.p-media{background:#4c1d95;color:#ddd6fe;}
+.p-alta{background:#7f1d1d;color:#fecaca;}
+.s-abierto{background:#14532d;color:#bbf7d0;}
+.s-en_proceso{background:#78350f;color:#fde68a;}
+.s-resuelto{background:#1e3a8a;color:#bfdbfe;}
+.ticket-body{margin-top:10px;font-size:14px;line-height:1.5;white-space:pre-wrap;}
+.ticket-response{margin-top:10px;border-top:1px dashed #334155;padding-top:10px;}
+.ticket-response h4{margin:0 0 6px;font-size:13px;color:#cbd5e1;}
+.ticket-response p{margin:0;white-space:pre-wrap;}
+.reply-grid{display:grid;gap:8px;margin-top:10px;}
+small{color:var(--muted)}
+@media (max-width:760px){
+  .reply-grid .row{flex-direction:column;align-items:stretch;}
+}
+</style>
+</head>
+<body>
+<main>
+  <h1>LuckyBase Admin · Tickets</h1>
+
+  <section id="loginCard" class="card">
+    <h2 style="margin:0 0 10px;font-size:18px;">Acceso administrador</h2>
+    <form id="loginForm" class="reply-grid" autocomplete="off">
+      <label>Usuario
+        <input id="adminUser" type="text" minlength="3" maxlength="80" required>
+      </label>
+      <label>Contraseña
+        <input id="adminPass" type="password" minlength="12" maxlength="160" required>
+      </label>
+      <div class="row">
+        <button class="btn-primary" type="submit">Entrar</button>
+      </div>
+      <div id="loginFeedback" class="feedback"></div>
+      <small>Recomendado: URL no pública + contraseña larga + rotación periódica.</small>
+    </form>
+  </section>
+
+  <section id="adminCard" class="hidden">
+    <div class="card">
+      <div class="toolbar">
+        <div>
+          <strong id="adminUserLabel">Admin</strong>
+          <div class="feedback" id="sessionInfo"></div>
+        </div>
+        <div class="row">
+          <label>Estado
+            <select id="statusFilter">
+              <option value="">Todos</option>
+              <option value="abierto">Abierto</option>
+              <option value="en_proceso">En proceso</option>
+              <option value="resuelto">Resuelto</option>
+            </select>
+          </label>
+          <button class="btn-muted" id="refreshBtn" type="button">Actualizar</button>
+          <button class="btn-danger" id="logoutBtn" type="button">Salir</button>
+        </div>
+      </div>
+      <div id="ticketsFeedback" class="feedback"></div>
+      <div id="ticketsList" class="ticket-list"><p class="feedback">Cargando tickets...</p></div>
+    </div>
+  </section>
+</main>
+
+<script>
+const URL_API = "https://script.google.com/macros/s/AKfycbxZeMApnIjxoF4aAPxNhcLbUb09JluFb4E7jP67bINuODTv08q9xDFtzC5updMnV_Gi/exec"
+const SESSION_KEY = "luckybase_admin_session_v1"
+
+function escapeHtml(value){
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\"/g, "&quot;")
+    .replace(/'/g, "&#39;")
+}
+
+function formatDateTime(value){
+  const ts = Date.parse(String(value || ""))
+  if(!Number.isFinite(ts)) return String(value || "-")
+  return new Intl.DateTimeFormat("es-ES", { dateStyle:"medium", timeStyle:"short" }).format(new Date(ts))
+}
+
+function readSession(){
+  const raw = sessionStorage.getItem(SESSION_KEY)
+  if(!raw) return null
+  try{ return JSON.parse(raw) }catch(_){ return null }
+}
+
+function writeSession(data){
+  sessionStorage.setItem(SESSION_KEY, JSON.stringify(data || {}))
+}
+
+function clearSession(){
+  sessionStorage.removeItem(SESSION_KEY)
+}
+
+async function apiPostRequest(payload, timeoutMs=10000){
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs)
+  try{
+    const response = await fetch(URL_API, {
+      method: "POST",
+      mode: "cors",
+      cache: "no-store",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload || {}),
+      signal: controller.signal
+    })
+    if(!response.ok){
+      throw new Error("HTTP_" + response.status)
+    }
+    return await response.json()
+  }finally{
+    clearTimeout(timeoutId)
+  }
+}
+
+function setFeedback(id, message, type=""){
+  const el = document.getElementById(id)
+  if(!el) return
+  el.textContent = message || ""
+  el.className = "feedback" + (type ? " " + type : "")
+}
+
+function showAdminView(show){
+  document.getElementById("loginCard").classList.toggle("hidden", show)
+  document.getElementById("adminCard").classList.toggle("hidden", !show)
+}
+
+function normalizePriority(raw){
+  const p = String(raw || "").toLowerCase()
+  return p === "alta" ? "alta" : (p === "baja" ? "baja" : "media")
+}
+
+function normalizeStatus(raw){
+  const s = String(raw || "").toLowerCase()
+  if(s === "resuelto") return "resuelto"
+  if(s === "en_proceso") return "en_proceso"
+  return "abierto"
+}
+
+function ticketCardHtml(ticket){
+  const priority = normalizePriority(ticket.prioridad)
+  const status = normalizeStatus(ticket.estado)
+  const response = String(ticket.adminResponse || "").trim()
+  return `
+    <article class="ticket" data-ticket-id="${escapeHtml(ticket.ticketId || "")}">
+      <div class="ticket-top">
+        <div>
+          <div class="ticket-title">${escapeHtml(ticket.asunto || "-")}</div>
+          <div class="ticket-meta">
+            ${escapeHtml(ticket.ticketId || "-")} · ${escapeHtml(ticket.usuario || "-")} · ${escapeHtml(ticket.clientEmail || "-")}<br>
+            Creado: ${escapeHtml(formatDateTime(ticket.createdAt))}
+          </div>
+        </div>
+        <div class="tags">
+          <span class="tag p-${escapeHtml(priority)}">${escapeHtml(priority)}</span>
+          <span class="tag s-${escapeHtml(status)}">${escapeHtml(status.replace("_"," "))}</span>
+        </div>
+      </div>
+      <div class="ticket-body">${escapeHtml(ticket.mensaje || "")}</div>
+      ${response ? `<div class="ticket-response"><h4>Respuesta enviada (${escapeHtml(formatDateTime(ticket.respondedAt))})</h4><p>${escapeHtml(response)}</p></div>` : ""}
+      <div class="reply-grid">
+        <label>Responder al cliente
+          <textarea class="reply-text" maxlength="4000" placeholder="Escribe aquí la respuesta..."></textarea>
+        </label>
+        <div class="row">
+          <label>Nuevo estado
+            <select class="reply-status">
+              <option value="en_proceso">En proceso</option>
+              <option value="resuelto">Resuelto</option>
+              <option value="abierto">Abierto</option>
+            </select>
+          </label>
+          <button class="btn-primary reply-send" type="button">Enviar respuesta</button>
+        </div>
+      </div>
+    </article>
+  `
+}
+
+function renderTickets(tickets){
+  const list = document.getElementById("ticketsList")
+  if(!Array.isArray(tickets) || !tickets.length){
+    list.innerHTML = '<p class="feedback">No hay tickets con ese filtro.</p>'
+    return
+  }
+  list.innerHTML = tickets.map(ticketCardHtml).join("")
+
+  list.querySelectorAll(".reply-send").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const article = btn.closest(".ticket")
+      if(!article) return
+      const ticketId = article.getAttribute("data-ticket-id") || ""
+      const textEl = article.querySelector(".reply-text")
+      const statusEl = article.querySelector(".reply-status")
+      const response = textEl ? String(textEl.value || "").trim() : ""
+      const estado = statusEl ? String(statusEl.value || "en_proceso") : "en_proceso"
+      if(response.length < 2){
+        setFeedback("ticketsFeedback", "La respuesta debe tener al menos 2 caracteres.", "error")
+        return
+      }
+      const session = readSession()
+      if(!session || !session.adminToken){
+        setFeedback("ticketsFeedback", "Sesión admin no válida.", "error")
+        showAdminView(false)
+        return
+      }
+
+      btn.disabled = true
+      setFeedback("ticketsFeedback", "Enviando respuesta...")
+      try{
+        const result = await apiPostRequest({
+          action: "admin_reply_ticket",
+          adminToken: session.adminToken,
+          ticketId,
+          response,
+          estado
+        }, 12000)
+
+        if(!result || result.success !== true){
+          setFeedback("ticketsFeedback", (result && result.message) ? result.message : "No se pudo responder el ticket.", "error")
+          return
+        }
+
+        setFeedback("ticketsFeedback", "Respuesta enviada correctamente.", "ok")
+        await loadTickets()
+      }catch(error){
+        setFeedback("ticketsFeedback", "No se pudo responder el ticket.", "error")
+      }finally{
+        btn.disabled = false
+      }
+    })
+  })
+}
+
+async function loadTickets(){
+  const session = readSession()
+  if(!session || !session.adminToken){
+    showAdminView(false)
+    return
+  }
+  const estado = String(document.getElementById("statusFilter").value || "")
+  setFeedback("ticketsFeedback", "Cargando tickets...")
+  try{
+    const result = await apiPostRequest({
+      action: "admin_list_tickets",
+      adminToken: session.adminToken,
+      estado,
+      limit: 200
+    }, 12000)
+
+    if(!result || result.success !== true){
+      setFeedback("ticketsFeedback", (result && result.message) ? result.message : "No se pudieron cargar tickets.", "error")
+      return
+    }
+
+    renderTickets(result.tickets || [])
+    setFeedback("ticketsFeedback", "")
+  }catch(error){
+    setFeedback("ticketsFeedback", "Error cargando tickets.", "error")
+  }
+}
+
+async function validateAdminSession(){
+  const session = readSession()
+  if(!session || !session.adminToken){
+    showAdminView(false)
+    return false
+  }
+
+  try{
+    const result = await apiPostRequest({
+      action: "admin_validate",
+      adminToken: session.adminToken
+    }, 10000)
+
+    if(!result || result.success !== true || result.valid !== true){
+      clearSession()
+      showAdminView(false)
+      return false
+    }
+
+    writeSession({
+      adminToken: session.adminToken,
+      adminUser: result.adminUser,
+      adminExpiresAt: result.adminExpiresAt
+    })
+
+    document.getElementById("adminUserLabel").textContent = "Admin: " + (result.adminUser || "-")
+    document.getElementById("sessionInfo").textContent = "Sesión válida hasta: " + formatDateTime(result.adminExpiresAt)
+    showAdminView(true)
+    return true
+  }catch(error){
+    clearSession()
+    showAdminView(false)
+    return false
+  }
+}
+
+async function handleLogin(event){
+  event.preventDefault()
+  const username = String(document.getElementById("adminUser").value || "").trim()
+  const password = String(document.getElementById("adminPass").value || "")
+  if(!username || !password){
+    setFeedback("loginFeedback", "Completa usuario y contraseña.", "error")
+    return
+  }
+
+  setFeedback("loginFeedback", "Validando...")
+  try{
+    const result = await apiPostRequest({
+      action: "admin_login",
+      username,
+      password
+    }, 12000)
+
+    if(!result || result.success !== true || result.valid !== true){
+      setFeedback("loginFeedback", (result && result.message) ? result.message : "No se pudo iniciar sesión.", "error")
+      return
+    }
+
+    writeSession({
+      adminToken: result.adminToken,
+      adminUser: result.adminUser,
+      adminExpiresAt: result.adminExpiresAt
+    })
+    document.getElementById("adminPass").value = ""
+    setFeedback("loginFeedback", "Acceso correcto.", "ok")
+    const ok = await validateAdminSession()
+    if(ok){
+      await loadTickets()
+    }
+  }catch(error){
+    setFeedback("loginFeedback", "No se pudo iniciar sesión.", "error")
+  }
+}
+
+function handleLogout(){
+  clearSession()
+  showAdminView(false)
+  setFeedback("ticketsFeedback", "")
+}
+
+document.getElementById("loginForm").addEventListener("submit", handleLogin)
+document.getElementById("refreshBtn").addEventListener("click", loadTickets)
+document.getElementById("statusFilter").addEventListener("change", loadTickets)
+document.getElementById("logoutBtn").addEventListener("click", handleLogout)
+
+validateAdminSession().then((ok) => {
+  if(ok){
+    loadTickets()
+  }
+})
+</script>
+</body>
+</html>
