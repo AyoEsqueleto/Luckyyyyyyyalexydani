@@ -112,8 +112,8 @@ small{color:var(--muted)}
 <script>
 const URL_API = "https://script.google.com/macros/s/AKfycbxZeMApnIjxoF4aAPxNhcLbUb09JluFb4E7jP67bINuODTv08q9xDFtzC5updMnV_Gi/exec"
 const SESSION_KEY = "luckybase_admin_session_v1"
-const API_TIMEOUT_MS = 30000
-const API_TIMEOUT_RETRIES = 1
+const API_TIMEOUT_MS = 95000
+const API_TIMEOUT_RETRIES = 0
 
 function escapeHtml(value){
   return String(value || "")
@@ -312,7 +312,7 @@ async function loadTickets(){
     return
   }
   const estado = String(document.getElementById("statusFilter").value || "")
-  setFeedback("ticketsFeedback", "Cargando tickets...")
+  setFeedback("ticketsFeedback", "Cargando tickets... (puede tardar hasta 1 min)")
   try{
     const result = await apiPostRequest({
       action: "admin_list_tickets",
@@ -379,7 +379,7 @@ async function handleLogin(event){
     return
   }
 
-  setFeedback("loginFeedback", "Validando...")
+  setFeedback("loginFeedback", "Validando... (primera llamada puede tardar)")
   try{
     const result = await apiPostRequest({
       action: "admin_login",
