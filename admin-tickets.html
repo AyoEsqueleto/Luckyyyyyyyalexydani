@@ -124,6 +124,54 @@ button:disabled{opacity:.6;cursor:not-allowed;transform:none;}
 }
 .ticket-title{font-size:17px;font-weight:800;line-height:1.35;}
 .ticket-meta{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.55;}
+.ticket-main{display:grid;gap:10px;margin-top:12px;}
+.panel-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:8px;
+}
+.panel-cell{
+  background:#091326;
+  border:1px solid var(--line-soft);
+  border-radius:10px;
+  padding:8px 10px;
+}
+.panel-label{
+  display:block;
+  font-size:10px;
+  letter-spacing:.35px;
+  text-transform:uppercase;
+  color:#8fa7ce;
+  margin-bottom:4px;
+}
+.panel-value{
+  display:block;
+  font-size:13px;
+  color:#e3edff;
+  line-height:1.35;
+  font-weight:700;
+}
+.ticket-preview{
+  background:#091326;
+  border:1px solid var(--line-soft);
+  border-radius:10px;
+  padding:9px 10px;
+}
+.ticket-preview strong{
+  display:block;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.3px;
+  color:#8fa7ce;
+  margin-bottom:4px;
+}
+.ticket-preview p{
+  margin:0;
+  font-size:13px;
+  color:#d6e5ff;
+  line-height:1.45;
+  white-space:pre-wrap;
+}
 .tags{display:flex;gap:6px;flex-wrap:wrap;}
 .tag{font-size:11px;font-weight:800;border-radius:999px;padding:5px 9px;text-transform:uppercase;letter-spacing:.25px;}
 .p-baja{background:#0a3e56;color:#b3ebff;}
@@ -132,8 +180,39 @@ button:disabled{opacity:.6;cursor:not-allowed;transform:none;}
 .s-abierto{background:#11452a;color:#b9f5d3;}
 .s-en_proceso{background:#684608;color:#ffe8ab;}
 .s-resuelto{background:#203e80;color:#cfe1ff;}
-.ticket-chat{
+.ticket-detail{
   margin-top:12px;
+  border:1px solid var(--line-soft);
+  border-radius:10px;
+  background:#091326;
+  overflow:hidden;
+}
+.ticket-detail > summary{
+  list-style:none;
+  cursor:pointer;
+  padding:10px 12px;
+  user-select:none;
+  color:#d5e5ff;
+  font-size:13px;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#0a1730;
+}
+.ticket-detail > summary::-webkit-details-marker{display:none;}
+.ticket-detail > summary::after{
+  content:"+";
+  color:#9cb4da;
+  font-size:18px;
+  line-height:1;
+}
+.ticket-detail[open] > summary::after{
+  content:"-";
+}
+.ticket-detail-body{padding:10px;}
+.ticket-chat{
+  margin-top:0;
   display:grid;
   gap:9px;
   background:#091326;
@@ -154,7 +233,7 @@ button:disabled{opacity:.6;cursor:not-allowed;transform:none;}
 .reply-grid{
   display:grid;
   gap:8px;
-  margin-top:12px;
+  margin-top:10px;
   background:#091324;
   border:1px solid var(--line-soft);
   border-radius:10px;
@@ -348,11 +427,23 @@ function filterTicketsBySearch(tickets){
   return list.filter((ticket) => {
     const haystack = normalizeSearchValue([
       ticket.ticketId,
+      ticket.asunto,
       ticket.usuario,
-      ticket.clientEmail
+      ticket.clientEmail,
+      ticket.clientName,
+      ticket.clientPlan,
+      ticket.clientPlanType
     ].join(" "))
     return haystack.includes(query)
   })
+}
+
+function truncateText(value, maxLen){
+  const text = String(value || "").replace(/\s+/g, " ").trim()
+  if(!maxLen || text.length <= maxLen){
+    return text
+  }
+  return text.slice(0, Math.max(0, maxLen - 1)).trimEnd() + "…"
 }
 
 function renderMessages(messages){
@@ -379,15 +470,27 @@ function renderMessages(messages){
 function ticketCardHtml(ticket){
   const priority = normalizePriority(ticket.prioridad)
   const status = normalizeStatus(ticket.estado)
-  const messagesHtml = renderMessages(ticket.messages || [])
   const statusText = status.replace("_"," ")
+  const clientName = String(ticket.clientName || "").trim() || "-"
+  const clientEmail = String(ticket.clientEmail || "").trim() || "-"
+  const clientPlan = String(ticket.clientPlan || "").trim() || "-"
+  const clientPlanType = String(ticket.clientPlanType || "").trim() || "-"
+  const openingMessage = truncateText(ticket.mensaje || "", 260) || "-"
+  const messages = Array.isArray(ticket.messages) ? ticket.messages : []
+  const latestMessage = messages.length
+    ? truncateText(messages[messages.length - 1].message || "", 260)
+    : openingMessage
+  const messagesHtml = renderMessages(ticket.messages || [])
+  const selectedOpen = status === "abierto" ? " selected" : ""
+  const selectedInProgress = status === "en_proceso" ? " selected" : ""
+  const selectedResolved = status === "resuelto" ? " selected" : ""
   return `
     <article class="ticket" data-ticket-id="${escapeHtml(ticket.ticketId || "")}" data-status="${escapeHtml(status)}" data-priority="${escapeHtml(priority)}">
       <div class="ticket-top">
         <div>
           <div class="ticket-title">${escapeHtml(ticket.asunto || "-")}</div>
           <div class="ticket-meta">
-            ${escapeHtml(ticket.ticketId || "-")} · ${escapeHtml(ticket.usuario || "-")} · ${escapeHtml(ticket.clientEmail || "-")}<br>
+            ${escapeHtml(ticket.ticketId || "-")} · ${escapeHtml(ticket.usuario || "-")} · ${escapeHtml(clientEmail)}<br>
             Creado: ${escapeHtml(formatDateTime(ticket.createdAt))} · Actualizado: ${escapeHtml(formatDateTime(ticket.updatedAt))}
           </div>
         </div>
@@ -396,21 +499,48 @@ function ticketCardHtml(ticket){
           <span class="tag s-${escapeHtml(status)}">${escapeHtml(statusText)}</span>
         </div>
       </div>
-      <div class="ticket-chat">${messagesHtml}</div>
-      <div class="reply-grid">
-        <label>Responder al cliente
-          <textarea class="reply-text" maxlength="4000" placeholder="Escribe aquí la respuesta..."></textarea>
-        </label>
-        <div class="row">
-          <label>Nuevo estado
-            <select class="reply-status">
-              <option value="en_proceso">En proceso</option>
-              <option value="resuelto">Resuelto</option>
-              <option value="abierto">Abierto</option>
-            </select>
-          </label>
-          <button class="btn-primary reply-send" type="button">Enviar respuesta</button>
+      <div class="ticket-main">
+        <div class="panel-grid">
+          <div class="panel-cell"><span class="panel-label">Nombre cliente</span><span class="panel-value">${escapeHtml(clientName)}</span></div>
+          <div class="panel-cell"><span class="panel-label">Usuario</span><span class="panel-value">${escapeHtml(ticket.usuario || "-")}</span></div>
+          <div class="panel-cell"><span class="panel-label">Correo</span><span class="panel-value">${escapeHtml(clientEmail)}</span></div>
+          <div class="panel-cell"><span class="panel-label">Plan</span><span class="panel-value">${escapeHtml(clientPlan)}</span></div>
+          <div class="panel-cell"><span class="panel-label">Tipo de plan</span><span class="panel-value">${escapeHtml(clientPlanType)}</span></div>
+          <div class="panel-cell"><span class="panel-label">Último estado</span><span class="panel-value">${escapeHtml(statusText)}</span></div>
         </div>
+        <div class="ticket-preview">
+          <strong>Mensaje principal</strong>
+          <p>${escapeHtml(openingMessage)}</p>
+        </div>
+        <div class="ticket-preview">
+          <strong>Última actualización del chat</strong>
+          <p>${escapeHtml(latestMessage || "-")}</p>
+        </div>
+      </div>
+      <details class="ticket-detail">
+        <summary>Ver chat completo y responder</summary>
+        <div class="ticket-detail-body">
+          <div class="ticket-chat">${messagesHtml}</div>
+          <div class="reply-grid">
+            <label>Responder al cliente
+              <textarea class="reply-text" maxlength="4000" placeholder="Escribe aquí la respuesta..."></textarea>
+            </label>
+            <div class="row">
+              <label>Nuevo estado
+                <select class="reply-status">
+                  <option value="en_proceso"${selectedInProgress}>En proceso</option>
+                  <option value="resuelto"${selectedResolved}>Resuelto</option>
+                  <option value="abierto"${selectedOpen}>Abierto</option>
+                </select>
+              </label>
+              <button class="btn-primary reply-send" type="button">Enviar respuesta</button>
+            </div>
+          </div>
+        </div>
+      </details>
+      <div class="ticket-preview">
+        <strong>Fuente del ticket</strong>
+        <p>${escapeHtml(ticket.source || "panel_cliente")}</p>
       </div>
     </article>
   `
