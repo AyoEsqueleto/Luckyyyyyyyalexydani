@@ -38,6 +38,8 @@ button{border:none;border-radius:999px;padding:10px 14px;font-weight:700;cursor:
 .feedback.ok{color:#99f6e4;}
 .hidden{display:none !important;}
 .toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:14px 0;}
+.toolbar .search-wrap{min-width:240px;max-width:360px;flex:1 1 280px;}
+.toolbar .search-wrap input{width:100%;}
 .ticket-list{display:grid;gap:12px;}
 .ticket{border:1px solid var(--line);border-radius:12px;padding:12px;background:#0b1220;}
 .ticket-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;}
@@ -97,6 +99,9 @@ small{color:var(--muted)}
           <div class="feedback" id="sessionInfo"></div>
         </div>
         <div class="row">
+          <label class="search-wrap">Buscar
+            <input id="searchFilter" type="search" placeholder="Ticket, usuario o correo" autocomplete="off">
+          </label>
           <label>Estado
             <select id="statusFilter">
               <option value="">Todos</option>
@@ -120,6 +125,7 @@ const URL_API = "https://script.google.com/macros/s/AKfycbxZeMApnIjxoF4aAPxNhcLb
 const SESSION_KEY = "luckybase_admin_session_v1"
 const API_TIMEOUT_MS = 95000
 const API_TIMEOUT_RETRIES = 0
+let ticketsCache = []
 
 function escapeHtml(value){
   return String(value || "")
@@ -214,6 +220,32 @@ function normalizeStatus(raw){
   if(s === "resuelto") return "resuelto"
   if(s === "en_proceso") return "en_proceso"
   return "abierto"
+}
+
+function normalizeSearchValue(value){
+  return String(value || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+}
+
+function filterTicketsBySearch(tickets){
+  const searchEl = document.getElementById("searchFilter")
+  const query = normalizeSearchValue(searchEl ? searchEl.value : "")
+  const list = Array.isArray(tickets) ? tickets : []
+  if(!query){
+    return list
+  }
+
+  return list.filter((ticket) => {
+    const haystack = normalizeSearchValue([
+      ticket.ticketId,
+      ticket.usuario,
+      ticket.clientEmail
+    ].join(" "))
+    return haystack.includes(query)
+  })
 }
 
 function renderMessages(messages){
@@ -331,6 +363,11 @@ function renderTickets(tickets){
   })
 }
 
+function applyTicketFilters(){
+  const filteredTickets = filterTicketsBySearch(ticketsCache)
+  renderTickets(filteredTickets)
+}
+
 async function loadTickets(){
   const session = readSession()
   if(!session || !session.adminToken){
@@ -352,7 +389,8 @@ async function loadTickets(){
       return
     }
 
-    renderTickets(result.tickets || [])
+    ticketsCache = Array.isArray(result.tickets) ? result.tickets : []
+    applyTicketFilters()
     setFeedback("ticketsFeedback", "")
   }catch(error){
     setFeedback("ticketsFeedback", "Error cargando tickets (" + String(error && error.message || "ERROR") + ").", "error")
@@ -436,6 +474,11 @@ async function handleLogin(event){
 
 function handleLogout(){
   clearSession()
+  ticketsCache = []
+  const searchEl = document.getElementById("searchFilter")
+  if(searchEl){
+    searchEl.value = ""
+  }
   showAdminView(false)
   setFeedback("ticketsFeedback", "")
 }
@@ -443,6 +486,7 @@ function handleLogout(){
 document.getElementById("loginForm").addEventListener("submit", handleLogin)
 document.getElementById("refreshBtn").addEventListener("click", loadTickets)
 document.getElementById("statusFilter").addEventListener("change", loadTickets)
+document.getElementById("searchFilter").addEventListener("input", applyTicketFilters)
 document.getElementById("logoutBtn").addEventListener("click", handleLogout)
 
 validateAdminSession().then((ok) => {
