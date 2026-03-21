@@ -698,6 +698,53 @@ function extractPayloadData(datos){
   return datos || {}
 }
 
+function normalizePlanEntry_(plan, fallbackIndex){
+  const source = (plan && typeof plan === "object") ? plan : {}
+  const npedido = String(source.npedido || source.planId || "").trim()
+  const planId = npedido || ("plan_" + String((Number(fallbackIndex) || 0) + 1))
+  return {
+    planId,
+    plan: String(source.plan || "-").trim() || "-",
+    tipoplan: String(source.tipoplan || "").trim(),
+    cuota: String(source.cuota || "").trim(),
+    consultasocambiosrestantes: String(source.consultasocambiosrestantes || "").trim(),
+    pagado: String(source.pagado || "-").trim() || "-",
+    fealta: String(source.fealta || "-").trim() || "-",
+    proxpago: String(source.proxpago || "-").trim() || "-",
+    dominio: String(source.dominio || "-").trim() || "-",
+    npedido: npedido || planId
+  }
+}
+
+function normalizePortfolioData_(data){
+  const source = (data && typeof data === "object") ? data : {}
+  const planes = (Array.isArray(source.planes) ? source.planes : []).map((plan, index) => normalizePlanEntry_(plan, index))
+  if(!planes.length){
+    planes.push(normalizePlanEntry_(source, 0))
+  }
+  const requestedPlanId = String(source.activePlanId || source.npedido || "").trim()
+  let active = planes.find((plan) => String(plan.planId) === requestedPlanId)
+  if(!active){
+    active = planes[0]
+  }
+
+  return {
+    ...source,
+    planes,
+    totalPlanes: planes.length,
+    activePlanId: String(active.planId || ""),
+    plan: active.plan || "-",
+    tipoplan: active.tipoplan || "",
+    cuota: active.cuota || "",
+    consultasocambiosrestantes: active.consultasocambiosrestantes || "",
+    pagado: active.pagado || "-",
+    fealta: active.fealta || "-",
+    proxpago: active.proxpago || "-",
+    dominio: active.dominio || "-",
+    npedido: active.npedido || "-"
+  }
+}
+
 function handleLoginResponse(datos, user){
   const status = document.getElementById('loginStatus')
   const btn = document.getElementById('btnLogin')
@@ -717,7 +764,7 @@ function handleLoginResponse(datos, user){
       return
     }
 
-    const payload = {
+    const payload = normalizePortfolioData_({
       user,
       sessionToken: sessionToken || "",
       sessionStartedAt: Date.now(),
@@ -731,8 +778,11 @@ function handleLoginResponse(datos, user){
       fealta: sourceData.fealta || '-',
       proxpago: sourceData.proxpago || '-',
       dominio: sourceData.dominio || '-',
-      npedido: sourceData.npedido || '-'
-    }
+      npedido: sourceData.npedido || '-',
+      planes: Array.isArray(sourceData.planes) ? sourceData.planes : [],
+      totalPlanes: Number(sourceData.totalPlanes || 0),
+      activePlanId: String(sourceData.activePlanId || sourceData.npedido || '').trim()
+    })
     localStorage.setItem('clientData', JSON.stringify(payload))
     window.location.href = "panel.html"
   } else {

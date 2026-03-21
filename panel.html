@@ -235,6 +235,58 @@ nav a{
   margin:18px 0 16px;
 }
 
+.plan-switcher{
+  margin:0 0 14px;
+  padding:12px;
+  border:1px solid rgba(59,130,246,0.18);
+  border-radius:14px;
+  background:#f8fbff;
+}
+
+.plan-switcher strong{
+  display:block;
+  margin-bottom:8px;
+  font-size:12px;
+  color:#1e3a8a;
+  text-transform:uppercase;
+  letter-spacing:.3px;
+}
+
+.plan-switcher-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.plan-switch-btn{
+  border:1px solid rgba(59,130,246,0.22);
+  border-radius:10px;
+  background:#eef4ff;
+  color:#1e3a8a;
+  padding:8px 10px;
+  cursor:pointer;
+  font-size:12px;
+  display:grid;
+  gap:2px;
+  min-width:140px;
+  text-align:left;
+}
+
+.plan-switch-btn .line1{
+  font-weight:700;
+}
+
+.plan-switch-btn .line2{
+  opacity:.85;
+}
+
+.plan-switch-btn.is-active{
+  border-color:#1565ff;
+  background:#1565ff;
+  color:#fff;
+  box-shadow:0 12px 20px rgba(21,101,255,0.26);
+}
+
 .panel-chip{
   display:inline-flex;
   align-items:center;
@@ -461,6 +513,10 @@ nav a{
   gap:10px;
 }
 
+.ticket-grid.has-plan{
+  grid-template-columns:minmax(220px, 2fr) minmax(120px, 1fr) minmax(220px, 1.5fr);
+}
+
 .ticket-field{
   display:grid;
   gap:6px;
@@ -564,6 +620,13 @@ nav a{
 }
 
 .ticket-id{
+  font-size:12px;
+  color:#475569;
+}
+
+.ticket-plan-ref{
+  display:block;
+  margin-top:4px;
   font-size:12px;
   color:#475569;
 }
@@ -889,6 +952,27 @@ body.dark-mode .panel-chip{
   color:#bfdbfe;
 }
 
+body.dark-mode .plan-switcher{
+  background:#0b1220;
+  border-color:#334155;
+}
+
+body.dark-mode .plan-switcher strong{
+  color:#bfdbfe;
+}
+
+body.dark-mode .plan-switch-btn{
+  background:#0f172a;
+  border-color:#334155;
+  color:#dbeafe;
+}
+
+body.dark-mode .plan-switch-btn.is-active{
+  background:#1d4ed8;
+  border-color:#1d4ed8;
+  color:#fff;
+}
+
 body.dark-mode .panel-title p{
   color:#cbd5e1;
 }
@@ -1032,6 +1116,10 @@ body.dark-mode .ticket-item.is-resolved{
 
 body.dark-mode .ticket-id{
   color:#94a3b8;
+}
+
+body.dark-mode .ticket-plan-ref{
+  color:#cbd5e1;
 }
 
 body.dark-mode .ticket-title{
@@ -1205,6 +1293,10 @@ body.dark-mode .footer-legal a{
     grid-template-columns:1fr;
   }
 
+  .plan-switch-btn{
+    width:100%;
+  }
+
   .footer-preferences{
     position:static;
     margin-top:12px;
@@ -1366,6 +1458,71 @@ function formatDateTime(value){
   }).format(new Date(parsed))
 }
 
+function normalizePlanEntry(plan, fallbackIndex){
+  const source = (plan && typeof plan === "object") ? plan : {}
+  const npedido = String(source.npedido || source.planId || "").trim()
+  const planId = npedido || ("plan_" + String((Number(fallbackIndex) || 0) + 1))
+  return {
+    planId,
+    nombre: String(source.nombre || "").trim(),
+    plan: String(source.plan || "-").trim() || "-",
+    tipoplan: String(source.tipoplan || "").trim(),
+    cuota: String(source.cuota || "").trim(),
+    consultasocambiosrestantes: String(source.consultasocambiosrestantes || "").trim(),
+    pagado: String(source.pagado || "-").trim() || "-",
+    fealta: String(source.fealta || "-").trim() || "-",
+    proxpago: String(source.proxpago || "-").trim() || "-",
+    dominio: String(source.dominio || "-").trim() || "-",
+    npedido: npedido || planId
+  }
+}
+
+function normalizeClientPortfolioData(data){
+  const source = (data && typeof data === "object") ? data : {}
+  const sourcePlanes = Array.isArray(source.planes) ? source.planes : []
+  const planes = sourcePlanes.map((plan, index) => normalizePlanEntry(plan, index))
+  if(!planes.length){
+    planes.push(normalizePlanEntry(source, 0))
+  }
+
+  const requestedPlanId = String(source.activePlanId || source.npedido || "").trim()
+  let activePlan = planes.find((plan) => String(plan.planId) === requestedPlanId)
+  if(!activePlan){
+    activePlan = planes[0]
+  }
+  const activePlanId = String(activePlan.planId || "")
+
+  return {
+    ...source,
+    nombre: source.nombre || source.user || "",
+    planes,
+    totalPlanes: planes.length,
+    activePlanId,
+    plan: activePlan.plan || "-",
+    tipoplan: activePlan.tipoplan || "",
+    cuota: activePlan.cuota || "",
+    consultasocambiosrestantes: activePlan.consultasocambiosrestantes || "",
+    pagado: activePlan.pagado || "-",
+    fealta: activePlan.fealta || "-",
+    proxpago: activePlan.proxpago || "-",
+    dominio: activePlan.dominio || "-",
+    npedido: activePlan.npedido || "-"
+  }
+}
+
+function setActivePlan(planId){
+  const state = readClientData()
+  if(!state.data){
+    return
+  }
+  const next = normalizeClientPortfolioData({
+    ...state.data,
+    activePlanId: String(planId || "").trim()
+  })
+  localStorage.setItem("clientData", JSON.stringify(next))
+  refreshPanel(true)
+}
+
 const URL_API = "https://script.google.com/macros/s/AKfycbxZeMApnIjxoF4aAPxNhcLbUb09JluFb4E7jP67bINuODTv08q9xDFtzC5updMnV_Gi/exec"
 const panel = document.getElementById("panelContent")
 const SESSION_DURATION_MS = 8 * 60 * 60 * 1000
@@ -1521,7 +1678,7 @@ async function validateSessionWithApi(force=false){
     }
 
     const apiData = (response.data && typeof response.data === "object") ? response.data : response
-    const mergedData = {
+    const mergedData = normalizeClientPortfolioData({
       ...state.data,
       nombre: apiData.nombre || state.data.nombre || state.data.user,
       plan: apiData.plan || state.data.plan || "-",
@@ -1532,8 +1689,11 @@ async function validateSessionWithApi(force=false){
       fealta: apiData.fealta || state.data.fealta || "-",
       proxpago: apiData.proxpago || state.data.proxpago || "-",
       dominio: apiData.dominio || state.data.dominio || "-",
-      npedido: apiData.npedido || state.data.npedido || "-"
-    }
+      npedido: apiData.npedido || state.data.npedido || "-",
+      planes: Array.isArray(apiData.planes) ? apiData.planes : state.data.planes,
+      totalPlanes: Number(apiData.totalPlanes || state.data.totalPlanes || 0),
+      activePlanId: state.data.activePlanId || apiData.activePlanId || ""
+    })
 
     const apiSessionExpiresAt = parseSessionExpiry(response.sessionExpiresAt || apiData.sessionExpiresAt)
     if(Number.isFinite(apiSessionExpiresAt)){
@@ -1670,6 +1830,18 @@ function renderTicketList(tickets){
     const priority = priorityRaw === "alta" ? "alta" : (priorityRaw === "baja" ? "baja" : "media")
     const status = statusRaw === "resuelto" ? "resuelto" : (statusRaw === "en_proceso" ? "enproceso" : "abierto")
     const statusLabel = status === "enproceso" ? "en proceso" : status
+    const ticketPlan = String(ticket.ticketPlan || "").trim()
+    const ticketPlanType = String(ticket.ticketPlanType || "").trim()
+    const ticketPlanDomain = String(ticket.ticketPlanDomain || "").trim()
+    const ticketPlanOrder = String(ticket.ticketPlanOrder || ticket.ticketPlanId || "").trim()
+    const planParts = []
+    if(ticketPlan) planParts.push("Plan: " + ticketPlan)
+    if(ticketPlanType) planParts.push("Tipo: " + ticketPlanType)
+    if(ticketPlanDomain) planParts.push("Dominio: " + ticketPlanDomain)
+    if(ticketPlanOrder) planParts.push("Pedido: " + ticketPlanOrder)
+    const planRefHtml = planParts.length
+      ? '<span class="ticket-plan-ref">' + escapeHtml(planParts.join(" · ")) + '</span>'
+      : ""
     const messagesHtml = renderTicketMessages(ticket.messages || [])
     const isClosed = status === "resuelto"
     const updatedAtText = ticket.updatedAt ? formatDateTime(ticket.updatedAt) : formatDateTime(ticket.createdAt)
@@ -1680,6 +1852,7 @@ function renderTicketList(tickets){
           <div>
             <div class="ticket-title">${escapeHtml(ticket.asunto || "-")}</div>
             <div class="ticket-id">${escapeHtml(ticket.ticketId || "-")} · ${escapeHtml(formatDateTime(ticket.createdAt))}</div>
+            ${planRefHtml}
             <span class="ticket-last-update">Última actualización: ${escapeHtml(updatedAtText)}</span>
           </div>
           <div class="ticket-meta">
@@ -1757,11 +1930,15 @@ function bindTicketModule(){
     event.preventDefault()
     const subjectInput = document.getElementById("ticketSubject")
     const priorityInput = document.getElementById("ticketPriority")
+    const planInput = document.getElementById("ticketPlanSelect")
     const messageInput = document.getElementById("ticketMessage")
     const asunto = subjectInput ? String(subjectInput.value || "").trim() : ""
     const prioridad = priorityInput ? String(priorityInput.value || "media").trim() : "media"
-    const mensaje = messageInput ? String(messageInput.value || "").trim() : ""
     const state = readClientData()
+    const ticketPlanId = planInput
+      ? String(planInput.value || "").trim()
+      : String((state.data && state.data.activePlanId) || "").trim()
+    const mensaje = messageInput ? String(messageInput.value || "").trim() : ""
     const sessionToken = state.data && state.data.sessionToken ? String(state.data.sessionToken).trim() : ""
 
     if(!sessionToken){
@@ -1785,6 +1962,7 @@ function bindTicketModule(){
         sessionToken,
         asunto,
         prioridad,
+        ticketPlanId,
         mensaje,
         source: "panel_cliente"
       }, 30000)
@@ -1796,6 +1974,13 @@ function bindTicketModule(){
       }
 
       form.reset()
+      if(planInput){
+        const latestState = readClientData()
+        const activePlanId = latestState.data ? String(latestState.data.activePlanId || "").trim() : ""
+        if(activePlanId){
+          planInput.value = activePlanId
+        }
+      }
       setTicketFeedback("Ticket enviado correctamente.", "success")
       loadTickets(false)
     }catch(error){
@@ -1813,12 +1998,13 @@ function renderPanel(raw){
   if(raw){
     let data = null
     try{
-      data = JSON.parse(raw)
+      data = normalizeClientPortfolioData(JSON.parse(raw))
     }catch(error){
       panel.innerHTML = '<p class="empty">Error al leer la sesión. Vuelve a iniciar sesión.</p>'
       return
     }
 
+    const plans = Array.isArray(data.planes) ? data.planes : []
     const planKey = String(data.plan || '').toLowerCase()
     let planDoc = ''
     if(planKey.includes('basic')){
@@ -1834,12 +2020,28 @@ function renderPanel(raw){
     const pagadoValue = data.pagado || '-'
     const isUnpaid = /^no\\b/i.test(String(pagadoValue).trim())
     const cuotaDisplay = formatEuro(data.cuota)
+    const plansSwitchHtml = plans.length > 1
+      ? `<div class="plan-switcher">
+          <strong>Tus planes (${plans.length})</strong>
+          <div class="plan-switcher-list">
+            ${plans.map((plan) => {
+              const planId = String(plan.planId || "")
+              const isActive = planId === String(data.activePlanId || "")
+              return `<button class="plan-switch-btn ${isActive ? "is-active" : ""}" type="button" data-plan-id="${escapeHtml(planId)}">
+                <span class="line1">${escapeHtml(plan.plan || "-")}</span>
+                <span class="line2">${escapeHtml(plan.npedido || planId || "-")}</span>
+              </button>`
+            }).join("")}
+          </div>
+        </div>`
+      : ''
 
     panel.innerHTML = `\
+      ${plansSwitchHtml}
       <div class="panel-header">
         <div class="panel-title">
           <h3>Hola, ${data.nombre || data.user}</h3>
-          <p>Resumen de tu plan y datos clave del servicio.</p>
+          <p>Resumen de tu plan activo y datos clave del servicio.</p>
         </div>
         <div class="panel-status ${isUnpaid ? 'is-bad' : ''}">
           <span>Estado de pago</span>
@@ -1896,7 +2098,7 @@ function renderPanel(raw){
         </div>
         <p class="tickets-help">Abre tickets y responde en el mismo hilo tipo chat. Si el estado es <strong>resuelto</strong>, el ticket queda cerrado.</p>
         <form id="ticketForm" class="ticket-form" novalidate>
-          <div class="ticket-grid">
+          <div class="ticket-grid ${plans.length > 1 ? "has-plan" : ""}">
             <label class="ticket-field">
               <span>Asunto</span>
               <input id="ticketSubject" type="text" maxlength="140" placeholder="Ej: Cambio en la home">
@@ -1909,6 +2111,19 @@ function renderPanel(raw){
                 <option value="alta">Alta</option>
               </select>
             </label>
+            ${plans.length > 1 ? `
+            <label class="ticket-field">
+              <span>Plan al que pertenece</span>
+              <select id="ticketPlanSelect">
+                ${plans.map((plan) => {
+                  const planId = String(plan.planId || plan.npedido || "").trim()
+                  const isSelected = planId === String(data.activePlanId || "")
+                  return '<option value="' + escapeHtml(planId) + '"' + (isSelected ? ' selected' : '') + '>' +
+                    escapeHtml(String(plan.plan || "-")) + ' · ' + escapeHtml(String(plan.npedido || planId || "-")) +
+                  '</option>'
+                }).join("")}
+              </select>
+            </label>` : ""}
           </div>
           <label class="ticket-field">
             <span>Mensaje</span>
@@ -1931,6 +2146,15 @@ function renderPanel(raw){
         <button class="secondary" id="logoutBtn">Cerrar sesión</button>
       </div>
     `
+    panel.querySelectorAll(".plan-switch-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        const planId = String(button.getAttribute("data-plan-id") || "").trim()
+        if(!planId){
+          return
+        }
+        setActivePlan(planId)
+      })
+    })
     const logoutBtn = document.getElementById("logoutBtn")
     if(logoutBtn){
       logoutBtn.addEventListener("click",()=>{
