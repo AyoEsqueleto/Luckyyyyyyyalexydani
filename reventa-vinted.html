@@ -245,6 +245,7 @@ async function loadVintedProducts(){
     const resp=await fetch("productos.json",{cache:"no-store"})
     if(!resp.ok) throw new Error("HTTP_"+resp.status)
     const payload=await resp.json()
+    const sourceInfo=(payload&&payload.sources&&payload.sources.vinted)||{}
     const allItems=Array.isArray(payload && payload.items)?payload.items:[]
     const items=allItems
       .filter((it)=>String(it && it.source||"").toLowerCase()==="vinted")
@@ -253,7 +254,15 @@ async function loadVintedProducts(){
     grid.innerHTML=""
 
     if(!items.length){
-      statusEl.textContent="No hay productos de Vinted disponibles por ahora."
+      const customError=String(sourceInfo.error||"").trim()
+      const configuredUrl=String(sourceInfo.profile_url||"").trim()
+      if(customError){
+        statusEl.textContent=customError
+      }else if(!configuredUrl){
+        statusEl.textContent="No hay URL de Vinted configurada todavía en la automatización."
+      }else{
+        statusEl.textContent="No hay productos de Vinted disponibles por ahora."
+      }
       return
     }
 

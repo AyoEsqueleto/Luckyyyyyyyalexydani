@@ -19,7 +19,7 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-from urllib.parse import urljoin
+from urllib.parse import parse_qs, urlencode, urljoin, urlparse
 
 import requests
 from bs4 import BeautifulSoup
@@ -250,6 +250,98 @@ def selector_to_products(soup: BeautifulSoup, source: str, base_url: str, limit:
     return products[:limit]
 
 
+def title_from_vinted_overlay(overlay_title: str, link: str) -> str:
+    title = clean_text(overlay_title)
+    if title:
+        # Ejemplo overlay:
+        # "Vestido azul, marca: Zara, estado: Muy bueno, ..."
+        title = re.split(r",\s*marca\s*:", title, maxsplit=1, flags=re.IGNORECASE)[0]
+    if title:
+        return title
+
+    parsed = urlparse(link)
+    match = re.search(r"/items/\d+-([^/?#]+)", parsed.path)
+    if not match:
+        return ""
+    return clean_text(match.group(1).replace("-", " "))
+
+
+def vinted_catalog_to_products(soup: BeautifulSoup, base_url: str, limit: int) -> list[dict[str, str]]:
+    products: list[dict[str, str]] = []
+    seen_links: set[str] = set()
+    cards = soup.select("div[data-testid^='product-item-id-']")
+
+    for card in cards:
+        overlay = card.select_one("a[data-testid$='--overlay-link']")
+        if not overlay:
+            continue
+
+        link = absolute_url(base_url, overlay.get("href"))
+        if not link or link in seen_links:
+            continue
+
+        title = title_from_vinted_overlay(clean_text(overlay.get("title")), link)
+        if not title:
+            continue
+
+        price_el = card.select_one("[data-testid$='--price-text']")
+        price = clean_text(price_el.get_text(" ", strip=True)) if price_el else ""
+
+        image_el = card.select_one("[data-testid$='--image--img']") or card.select_one("img")
+        image = image_from_tag(image_el, base_url)
+
+        seen_links.add(link)
+        products.append(
+            {
+                "source": "vinted",
+                "title": title,
+                "price": price,
+                "image": image,
+                "link": link,
+            }
+        )
+        if len(products) >= limit:
+            break
+
+    return products[:limit]
+
+
+def extract_vinted_user_id(profile_url: str, html: str) -> str:
+    parsed = urlparse(profile_url)
+    query = parse_qs(parsed.query or "")
+    query_user_id = clean_text((query.get("user_id") or [""])[0])
+    if query_user_id.isdigit():
+        return query_user_id
+
+    path_match = re.search(r"/member/(\d+)", parsed.path or "")
+    if path_match:
+        return path_match.group(1)
+
+    canonical_match = re.search(r'href="https?://[^"]+/member/(\d+)', html or "")
+    if canonical_match:
+        return canonical_match.group(1)
+
+    profile_match = re.search(r'"profile_url":"https?:\\/\\/[^"]+\\/member\\/(\\d+)', html or "")
+    if profile_match:
+        return profile_match.group(1)
+
+    return ""
+
+
+def build_vinted_catalog_url(profile_url: str, html: str) -> str:
+    parsed = urlparse(profile_url)
+    query = parse_qs(parsed.query or "")
+    if (query.get("user_id") or [""])[0]:
+        return profile_url
+
+    user_id = extract_vinted_user_id(profile_url, html)
+    if not user_id:
+        return profile_url
+
+    base = f"{parsed.scheme}://{parsed.netloc}"
+    return f"{base}/catalog?{urlencode({'user_id': user_id, 'order': 'newest_first'})}"
+
+
 def fetch_html(url: str) -> str:
     headers = {
         "User-Agent": random.choice(USER_AGENTS),
@@ -277,20 +369,43 @@ def fetch_html(url: str) -> str:
     raise RuntimeError("No se pudo descargar la pagina. " + " | ".join(errors))
 
 
-def scrape_profile(source: str, profile_url: str, limit: int = MAX_ITEMS_PER_SOURCE) -> list[dict[str, str]]:
+def scrape_profile(source: str, profile_url: str, limit: int = MAX_ITEMS_PER_SOURCE) -> tuple[list[dict[str, str]], dict[str, str]]:
     if not profile_url:
         print(f"[{source}] URL no configurada, se omite.")
-        return []
+        return [], {
+            "error": "No se definio VINTED_PROFILE_URL en Secrets/Variables del repositorio.",
+            "profile_url": "",
+            "effective_url": "",
+        }
 
     print(f"[{source}] Descargando perfil: {profile_url}")
     html = fetch_html(profile_url)
-    soup = BeautifulSoup(html, "html.parser")
+    effective_url = profile_url
 
-    by_selector = selector_to_products(soup, source, profile_url, limit)
-    by_jsonld = jsonld_to_products(soup, source, profile_url, limit)
+    if source == "vinted":
+        maybe_catalog_url = build_vinted_catalog_url(profile_url, html)
+        if maybe_catalog_url != profile_url:
+            print(f"[{source}] Usando catalogo: {maybe_catalog_url}")
+            html = fetch_html(maybe_catalog_url)
+            effective_url = maybe_catalog_url
+    soup = BeautifulSoup(html, "html.parser")
 
     combined: list[dict[str, str]] = []
     seen: set[str] = set()
+
+    if source == "vinted":
+        by_vinted_catalog = vinted_catalog_to_products(soup, effective_url, limit)
+        for item in by_vinted_catalog:
+            link = item.get("link", "")
+            if not link or link in seen:
+                continue
+            seen.add(link)
+            combined.append(item)
+            if len(combined) >= limit:
+                break
+
+    by_selector = selector_to_products(soup, source, profile_url, limit)
+    by_jsonld = jsonld_to_products(soup, source, profile_url, limit)
     for item in by_selector + by_jsonld:
         link = item.get("link", "")
         if not link or link in seen:
@@ -300,11 +415,22 @@ def scrape_profile(source: str, profile_url: str, limit: int = MAX_ITEMS_PER_SOU
         if len(combined) >= limit:
             break
 
+    info = {
+        "profile_url": profile_url,
+        "effective_url": effective_url,
+        "error": "",
+    }
+    if not combined:
+        info["error"] = (
+            "No se pudieron extraer productos. Comprueba que la URL sea publica y tenga anuncios visibles "
+            "o usa directamente una URL tipo /catalog?user_id=XXXX."
+        )
+
     print(f"[{source}] Productos extraidos: {len(combined)}")
-    return combined
+    return combined, info
 
 
-def build_payload(vinted_items: list[dict[str, str]]) -> dict[str, Any]:
+def build_payload(vinted_items: list[dict[str, str]], vinted_info: dict[str, str]) -> dict[str, Any]:
     items = vinted_items
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -312,8 +438,10 @@ def build_payload(vinted_items: list[dict[str, str]]) -> dict[str, Any]:
         "items": items,
         "sources": {
             "vinted": {
-                "profile_url": os.getenv("VINTED_PROFILE_URL", ""),
+                "profile_url": clean_text(vinted_info.get("profile_url")),
+                "effective_url": clean_text(vinted_info.get("effective_url")),
                 "count": len(vinted_items),
+                "error": clean_text(vinted_info.get("error")),
             },
         },
     }
@@ -322,9 +450,9 @@ def build_payload(vinted_items: list[dict[str, str]]) -> dict[str, Any]:
 def main() -> int:
     vinted_url = clean_text(os.getenv("VINTED_PROFILE_URL", ""))
 
-    vinted_items = scrape_profile("vinted", vinted_url, MAX_ITEMS_PER_SOURCE)
+    vinted_items, vinted_info = scrape_profile("vinted", vinted_url, MAX_ITEMS_PER_SOURCE)
 
-    payload = build_payload(vinted_items)
+    payload = build_payload(vinted_items, vinted_info)
     OUTPUT_FILE.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
     print(f"JSON actualizado en: {OUTPUT_FILE}")
