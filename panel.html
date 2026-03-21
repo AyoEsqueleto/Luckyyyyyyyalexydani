@@ -606,6 +606,11 @@ nav a{
   background:#fff;
 }
 
+.ticket-item.has-new{
+  border-color:rgba(21,101,255,0.45);
+  box-shadow:0 0 0 1px rgba(21,101,255,0.1),0 10px 20px rgba(21,101,255,0.12);
+}
+
 .ticket-item.is-resolved{
   border-color:rgba(30,64,175,0.35);
   background:linear-gradient(180deg,#ffffff,#f8fbff);
@@ -649,6 +654,33 @@ nav a{
   align-items:center;
   gap:8px;
   flex-wrap:wrap;
+}
+
+.ticket-new-pill{
+  background:#1565ff;
+  color:#fff;
+  border-radius:999px;
+  padding:4px 8px;
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.3px;
+}
+
+.ticket-new-summary{
+  display:none;
+  margin-bottom:10px;
+  border:1px solid rgba(21,101,255,0.25);
+  background:#eff6ff;
+  color:#1d4ed8;
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.ticket-new-summary.is-visible{
+  display:block;
 }
 
 .ticket-tag{
@@ -721,6 +753,12 @@ nav a{
   margin-top:10px;
   display:grid;
   gap:8px;
+  max-height:300px;
+  overflow:auto;
+  border:1px solid rgba(148,163,184,0.28);
+  border-radius:10px;
+  background:#f8fbff;
+  padding:10px;
 }
 
 .ticket-chat-title{
@@ -736,16 +774,19 @@ nav a{
   border-radius:10px;
   border:1px solid rgba(148,163,184,0.35);
   background:#f8fafc;
+  max-width:88%;
 }
 
 .ticket-msg.is-client{
   background:#eff6ff;
   border-color:#bfdbfe;
+  margin-left:auto;
 }
 
 .ticket-msg.is-admin{
   background:#ecfeff;
   border-color:#99f6e4;
+  margin-right:auto;
 }
 
 .ticket-msg-head{
@@ -768,8 +809,49 @@ nav a{
   margin-top:10px;
   display:grid;
   gap:8px;
-  border-top:1px dashed rgba(148,163,184,0.45);
+  border-top:1px solid rgba(148,163,184,0.3);
   padding-top:10px;
+}
+
+.ticket-thread-wrap{
+  margin-top:10px;
+  border:1px solid rgba(148,163,184,0.28);
+  border-radius:10px;
+  background:#fff;
+  overflow:hidden;
+}
+
+.ticket-thread-wrap > summary{
+  list-style:none;
+  cursor:pointer;
+  user-select:none;
+  padding:10px 12px;
+  font-size:12px;
+  font-weight:700;
+  color:#334155;
+  background:#f8fafc;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.ticket-thread-wrap > summary::-webkit-details-marker{
+  display:none;
+}
+
+.ticket-thread-wrap > summary::after{
+  content:"▾";
+  color:#64748b;
+  font-size:13px;
+  transition:transform .2s ease;
+}
+
+.ticket-thread-wrap[open] > summary::after{
+  transform:rotate(180deg);
+}
+
+.ticket-thread-body{
+  padding:10px;
 }
 
 .ticket-reply-text{
@@ -1109,9 +1191,20 @@ body.dark-mode .ticket-item{
   border-color:#334155;
 }
 
+body.dark-mode .ticket-item.has-new{
+  border-color:#2563eb;
+  box-shadow:0 0 0 1px rgba(37,99,235,0.22),0 10px 22px rgba(37,99,235,0.2);
+}
+
 body.dark-mode .ticket-item.is-resolved{
   border-color:#1e3a8a;
   background:linear-gradient(180deg,#0b1220,#111c34);
+}
+
+body.dark-mode .ticket-new-summary{
+  background:#0b2540;
+  border-color:#1d4ed8;
+  color:#bfdbfe;
 }
 
 body.dark-mode .ticket-id{
@@ -1169,6 +1262,11 @@ body.dark-mode .ticket-chat-title{
   color:#cbd5e1;
 }
 
+body.dark-mode .ticket-chat{
+  background:#0b1220;
+  border-color:#334155;
+}
+
 body.dark-mode .ticket-reply-text{
   background:#0b1220;
   border-color:#334155;
@@ -1193,6 +1291,16 @@ body.dark-mode .ticket-reply-feedback.is-success{
 
 body.dark-mode .ticket-closed-note{
   color:#bfdbfe;
+}
+
+body.dark-mode .ticket-thread-wrap{
+  border-color:#334155;
+  background:#0b1220;
+}
+
+body.dark-mode .ticket-thread-wrap > summary{
+  background:#111827;
+  color:#cbd5e1;
 }
 
 body.dark-mode footer{
@@ -1527,6 +1635,7 @@ const URL_API = "https://script.google.com/macros/s/AKfycbxZeMApnIjxoF4aAPxNhcLb
 const panel = document.getElementById("panelContent")
 const SESSION_DURATION_MS = 8 * 60 * 60 * 1000
 const SESSION_VALIDATE_INTERVAL_MS = 60 * 1000
+const CLIENT_TICKET_SEEN_STORAGE_KEY = "luckybase_client_ticket_seen_v1"
 let lastRaw = null
 let hasExpiredSession = false
 let validationInFlight = false
@@ -1718,6 +1827,80 @@ function setTicketFeedback(message, type=""){
   feedback.className = "ticket-feedback" + (type ? " is-" + type : "")
 }
 
+function readClientTicketSeenMap(){
+  try{
+    const raw = localStorage.getItem(CLIENT_TICKET_SEEN_STORAGE_KEY)
+    if(!raw) return {}
+    const parsed = JSON.parse(raw)
+    return parsed && typeof parsed === "object" ? parsed : {}
+  }catch(_){
+    return {}
+  }
+}
+
+function writeClientTicketSeenMap(map){
+  try{
+    localStorage.setItem(CLIENT_TICKET_SEEN_STORAGE_KEY, JSON.stringify(map || {}))
+  }catch(_){}
+}
+
+function getLastTicketMessageMeta(ticket){
+  const messages = Array.isArray(ticket && ticket.messages) ? ticket.messages : []
+  if(!messages.length){
+    return { role:"", createdAtMs:0 }
+  }
+  const last = messages[messages.length - 1] || {}
+  const role = String(last.senderRole || "").trim().toLowerCase()
+  const parsedMs = Date.parse(String(last.createdAt || ""))
+  return {
+    role,
+    createdAtMs: Number.isFinite(parsedMs) ? parsedMs : 0
+  }
+}
+
+function isNewTicketForClient(ticket, seenMap){
+  const ticketId = String(ticket && ticket.ticketId || "").trim()
+  if(!ticketId){
+    return false
+  }
+  const map = seenMap && typeof seenMap === "object" ? seenMap : readClientTicketSeenMap()
+  const lastMeta = getLastTicketMessageMeta(ticket)
+  if(lastMeta.role !== "admin" || !lastMeta.createdAtMs){
+    return false
+  }
+  const seenMs = Number(map[ticketId] || 0)
+  return !Number.isFinite(seenMs) || lastMeta.createdAtMs > seenMs
+}
+
+function markTicketSeenForClient(ticketId, messageMs){
+  const id = String(ticketId || "").trim()
+  const parsedMs = Number(messageMs)
+  if(!id || !Number.isFinite(parsedMs) || parsedMs <= 0){
+    return
+  }
+  const seenMap = readClientTicketSeenMap()
+  const currentMs = Number(seenMap[id] || 0)
+  if(!Number.isFinite(currentMs) || parsedMs > currentMs){
+    seenMap[id] = parsedMs
+    writeClientTicketSeenMap(seenMap)
+  }
+}
+
+function refreshClientTicketNewSummary(){
+  const summary = document.getElementById("ticketNewSummary")
+  if(!summary){
+    return
+  }
+  const pendingCount = document.querySelectorAll("#ticketList .ticket-item.has-new").length
+  if(pendingCount > 0){
+    summary.textContent = "Tienes " + pendingCount + " ticket(s) con nuevos mensajes del soporte."
+    summary.classList.add("is-visible")
+  }else{
+    summary.textContent = ""
+    summary.classList.remove("is-visible")
+  }
+}
+
 function renderTicketMessages(messages){
   const list = Array.isArray(messages) ? messages : []
   if(!list.length){
@@ -1816,6 +1999,44 @@ function bindTicketReplyButtons(){
   })
 }
 
+function bindTicketThreadToggles(){
+  const detailsList = document.querySelectorAll(".ticket-thread-wrap")
+  detailsList.forEach((detailEl)=>{
+    detailEl.addEventListener("toggle", ()=>{
+      if(!detailEl.open){
+        return
+      }
+      const ticketId = String(detailEl.getAttribute("data-ticket-id") || "")
+      const lastRole = String(detailEl.getAttribute("data-last-role") || "").trim().toLowerCase()
+      const lastMs = Number(detailEl.getAttribute("data-last-ms") || 0)
+      if(lastRole !== "admin" || !Number.isFinite(lastMs) || lastMs <= 0){
+        return
+      }
+      markTicketSeenForClient(ticketId, lastMs)
+      const card = detailEl.closest(".ticket-item")
+      if(card){
+        card.classList.remove("has-new")
+        const badge = card.querySelector(".ticket-new-pill")
+        if(badge){
+          badge.remove()
+        }
+      }
+      refreshClientTicketNewSummary()
+    })
+  })
+}
+
+function normalizeTicketStatus(raw){
+  const value = String(raw || "").toLowerCase().trim()
+  if(value === "resuelto"){
+    return "resuelto"
+  }
+  if(value === "en_proceso" || value === "enproceso"){
+    return "enproceso"
+  }
+  return "abierto"
+}
+
 function renderTicketList(tickets){
   const container = document.getElementById("ticketList")
   if(!container) return
@@ -1824,7 +2045,31 @@ function renderTicketList(tickets){
     return
   }
 
-  const html = tickets.map((ticket)=>{
+  const seenMap = readClientTicketSeenMap()
+  const orderedTickets = tickets.slice().sort((a,b)=>{
+    const aStatus = normalizeTicketStatus(String(a && a.estado || "abierto"))
+    const bStatus = normalizeTicketStatus(String(b && b.estado || "abierto"))
+    const aClosed = aStatus === "resuelto" ? 1 : 0
+    const bClosed = bStatus === "resuelto" ? 1 : 0
+    if(aClosed !== bClosed){
+      return aClosed - bClosed
+    }
+
+    const aNew = isNewTicketForClient(a, seenMap) ? 1 : 0
+    const bNew = isNewTicketForClient(b, seenMap) ? 1 : 0
+    if(aNew !== bNew){
+      return bNew - aNew
+    }
+
+    const aUpdated = Date.parse(String(a && (a.updatedAt || a.createdAt) || ""))
+    const bUpdated = Date.parse(String(b && (b.updatedAt || b.createdAt) || ""))
+    const aMs = Number.isFinite(aUpdated) ? aUpdated : 0
+    const bMs = Number.isFinite(bUpdated) ? bUpdated : 0
+    return bMs - aMs
+  })
+
+  let newTicketsCount = 0
+  const html = orderedTickets.map((ticket)=>{
     const priorityRaw = String(ticket.prioridad || "media").toLowerCase()
     const statusRaw = String(ticket.estado || "abierto").toLowerCase()
     const priority = priorityRaw === "alta" ? "alta" : (priorityRaw === "baja" ? "baja" : "media")
@@ -1844,10 +2089,17 @@ function renderTicketList(tickets){
       : ""
     const messagesHtml = renderTicketMessages(ticket.messages || [])
     const isClosed = status === "resuelto"
+    const lastMessageMeta = getLastTicketMessageMeta(ticket)
+    const hasNew = isNewTicketForClient(ticket, seenMap)
+    if(hasNew){
+      newTicketsCount += 1
+    }
     const updatedAtText = ticket.updatedAt ? formatDateTime(ticket.updatedAt) : formatDateTime(ticket.createdAt)
+    const toggleLabel = isClosed ? "Ticket cerrado: ver conversación" : "Abrir chat y responder"
+    const newBadgeHtml = hasNew ? '<span class="ticket-new-pill">Nuevo mensaje</span>' : ''
 
     return `\
-      <article class="ticket-item ${isClosed ? 'is-resolved' : ''}">
+      <article class="ticket-item ${isClosed ? 'is-resolved' : ''} ${hasNew ? 'has-new' : ''}">
         <div class="ticket-top">
           <div>
             <div class="ticket-title">${escapeHtml(ticket.asunto || "-")}</div>
@@ -1858,26 +2110,35 @@ function renderTicketList(tickets){
           <div class="ticket-meta">
             <span class="ticket-tag priority-${escapeHtml(priority)}">${escapeHtml(priority)}</span>
             <span class="ticket-tag status-${escapeHtml(status)}">${escapeHtml(statusLabel)}</span>
+            ${newBadgeHtml}
           </div>
         </div>
-        <div class="ticket-chat">
-          <div class="ticket-chat-title">Conversación</div>
-          ${messagesHtml}
-        </div>
-        <div class="ticket-reply-box">
-          ${isClosed ? '<span class="ticket-closed-note">Ticket resuelto. No se admiten más respuestas.</span>' : ''}
-          <textarea class="ticket-reply-text" maxlength="4000" placeholder="Escribe una respuesta para continuar el ticket..." ${isClosed ? 'disabled' : ''}></textarea>
-          <div class="ticket-reply-actions">
-            <span class="ticket-reply-feedback"></span>
-            <button class="ticket-reply-send" type="button" data-ticket-id="${escapeHtml(ticket.ticketId || "")}" ${isClosed ? 'data-closed disabled' : ''}>Responder</button>
+        <details class="ticket-thread-wrap" data-ticket-id="${escapeHtml(ticket.ticketId || "")}" data-last-role="${escapeHtml(lastMessageMeta.role)}" data-last-ms="${escapeHtml(String(lastMessageMeta.createdAtMs || 0))}">
+          <summary>${escapeHtml(toggleLabel)}</summary>
+          <div class="ticket-thread-body">
+            <div class="ticket-chat">
+              <div class="ticket-chat-title">Conversación</div>
+              ${messagesHtml}
+            </div>
+            <div class="ticket-reply-box">
+              ${isClosed ? '<span class="ticket-closed-note">Ticket resuelto. No se admiten más respuestas.</span>' : ''}
+              <textarea class="ticket-reply-text" maxlength="4000" placeholder="Escribe una respuesta para continuar el ticket..." ${isClosed ? 'disabled' : ''}></textarea>
+              <div class="ticket-reply-actions">
+                <span class="ticket-reply-feedback"></span>
+                <button class="ticket-reply-send" type="button" data-ticket-id="${escapeHtml(ticket.ticketId || "")}" ${isClosed ? 'data-closed disabled' : ''}>Responder</button>
+              </div>
+            </div>
           </div>
-        </div>
+        </details>
       </article>
     `
   }).join("")
 
-  container.innerHTML = html
+  container.innerHTML = '<div id="ticketNewSummary" class="ticket-new-summary' + (newTicketsCount > 0 ? ' is-visible' : '') + '">' +
+    (newTicketsCount > 0 ? ('Tienes ' + newTicketsCount + ' ticket(s) con nuevos mensajes del soporte.') : '') +
+    '</div>' + html
   bindTicketReplyButtons()
+  bindTicketThreadToggles()
 }
 
 async function loadTickets(showLoading=true){
