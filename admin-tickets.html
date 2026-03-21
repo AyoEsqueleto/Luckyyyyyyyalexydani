@@ -1044,6 +1044,8 @@ button:disabled{
           <button class="tab-btn active" type="button" data-tab="dashboard"><span class="tab-icon">◉</span>Resumen</button>
           <button class="tab-btn" type="button" data-tab="clients"><span class="tab-icon">◍</span>Clientes</button>
           <button class="tab-btn" type="button" data-tab="tickets"><span class="tab-icon">◎</span>Tickets</button>
+          <button class="tab-btn" type="button" data-tab="search"><span class="tab-icon">◐</span>Buscador</button>
+          <button class="tab-btn" type="button" data-tab="audit"><span class="tab-icon">◑</span>Auditoría</button>
           <button class="tab-btn" type="button" data-tab="cloudflare"><span class="tab-icon">◌</span>Cloudflare</button>
         </nav>
         <div class="sidebar-foot">
@@ -1157,11 +1159,39 @@ button:disabled{
                 </select>
               </label>
             </div>
+            <div class="client-manage-card" style="margin-top:10px;">
+              <div class="client-manage-head">
+                <strong>Acciones masivas</strong>
+                <span class="quick-pill">Selecciona filas en la tabla</span>
+              </div>
+              <div class="client-manage-grid">
+                <label>Operación
+                  <select id="bulkOperation">
+                    <option value="mark_paid">Marcar pago</option>
+                    <option value="set_plan">Cambiar plan</option>
+                    <option value="send_reminder">Enviar recordatorio</option>
+                    <option value="export_csv">Exportar CSV</option>
+                  </select>
+                </label>
+                <label id="bulkValueWrap"><span id="bulkValueLabel">Valor</span>
+                  <select id="bulkValue">
+                    <option value="Abonado">Abonado</option>
+                    <option value="No abonado">No abonado</option>
+                  </select>
+                </label>
+                <div class="row" style="align-self:end;">
+                  <button id="bulkApplyBtn" class="btn-primary" type="button">Aplicar a seleccionados</button>
+                  <button id="bulkClearSelectionBtn" class="btn-muted" type="button">Limpiar selección</button>
+                </div>
+              </div>
+              <div id="bulkFeedback" class="feedback"></div>
+            </div>
             <div id="clientsFeedback" class="feedback"></div>
             <div class="data-table-wrap">
               <table class="data-table">
                 <thead>
                   <tr>
+                    <th><input id="clientsSelectAll" type="checkbox" aria-label="Seleccionar todos"></th>
                     <th>Usuario</th>
                     <th>Nombre</th>
                     <th>Correo</th>
@@ -1190,6 +1220,33 @@ button:disabled{
                     <option value="resuelto">Resuelto</option>
                   </select>
                 </label>
+                <label>Estado interno
+                  <select id="ticketInternalStatusFilter">
+                    <option value="">Todos</option>
+                    <option value="sin_asignar">Sin asignar</option>
+                    <option value="en_revision">En revisión</option>
+                    <option value="bloqueado">Bloqueado</option>
+                    <option value="esperando_cliente">Esperando cliente</option>
+                    <option value="completado">Completado</option>
+                  </select>
+                </label>
+                <label>Asignado admin
+                  <input id="ticketAssignedAdminFilter" type="text" placeholder="ej. dani" autocomplete="off">
+                </label>
+                <label>Asignación
+                  <select id="ticketAssignmentFilter">
+                    <option value="">Todos</option>
+                    <option value="unassigned">Sin asignar</option>
+                    <option value="assigned">Asignados</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Solo SLA</span>
+                  <select id="ticketSlaOnlyFilter">
+                    <option value="0">No</option>
+                    <option value="1">Sí</option>
+                  </select>
+                </label>
                 <button id="ticketRefreshBtn" class="btn-muted" type="button">Actualizar</button>
               </div>
             </div>
@@ -1214,6 +1271,49 @@ button:disabled{
             </div>
             <div id="cloudflareFeedback" class="feedback"></div>
             <div id="cloudflareCards" class="cloud-grid"></div>
+          </section>
+
+          <section id="tab-search" class="tab-pane hidden">
+            <div class="panel-tools">
+              <h3 class="section-title">Buscador global</h3>
+              <div class="row">
+                <label class="search-wrap">Buscar
+                  <input id="globalSearchInput" type="search" placeholder="Cliente, correo, ticket, dominio..." autocomplete="off">
+                </label>
+                <button id="globalSearchBtn" class="btn-primary" type="button">Buscar</button>
+              </div>
+            </div>
+            <div id="globalSearchFeedback" class="feedback"></div>
+            <div class="panel-grid">
+              <div class="panel-cell">
+                <span class="panel-label">Clientes</span>
+                <div id="globalSearchClients" class="ticket-chat"></div>
+              </div>
+              <div class="panel-cell">
+                <span class="panel-label">Tickets</span>
+                <div id="globalSearchTickets" class="ticket-chat"></div>
+              </div>
+            </div>
+          </section>
+
+          <section id="tab-audit" class="tab-pane hidden">
+            <div class="panel-tools">
+              <h3 class="section-title">Auditoría</h3>
+              <div class="row">
+                <label>Entidad
+                  <select id="auditEntityFilter">
+                    <option value="">Todas</option>
+                    <option value="client">Cliente</option>
+                    <option value="ticket">Ticket</option>
+                    <option value="cloudflare_zone">Cloudflare</option>
+                    <option value="system">Sistema</option>
+                  </select>
+                </label>
+                <button id="auditRefreshBtn" class="btn-muted" type="button">Actualizar</button>
+              </div>
+            </div>
+            <div id="auditFeedback" class="feedback"></div>
+            <div id="auditList" class="ticket-list"></div>
           </section>
         </div>
       </section>
@@ -1287,6 +1387,20 @@ button:disabled{
       </div>
       <div id="clientEditFeedback" class="feedback"></div>
     </form>
+    <div class="list-box" style="margin-top:12px;">
+      <strong style="font-size:13px;">Cliente 360</strong>
+      <div id="client360Summary" class="feedback" style="margin-top:8px;"></div>
+      <div class="panel-grid">
+        <div class="panel-cell">
+          <span class="panel-label">Planes</span>
+          <div id="client360Plans" class="ticket-chat"></div>
+        </div>
+        <div class="panel-cell">
+          <span class="panel-label">Tickets recientes</span>
+          <div id="client360Tickets" class="ticket-chat"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1299,9 +1413,16 @@ const API_TIMEOUT_RETRIES = 0
 let activeTab = "dashboard"
 let ticketsCache = []
 let clientsCache = []
+let selectedClientRows = {}
 let newClientLookupTimer = null
 let newClientLookupSeq = 0
 let newClientLookupLastEmail = ""
+const TICKET_REPLY_TEMPLATES = [
+  { id: "", label: "Sin plantilla", text: "" },
+  { id: "ack", label: "Acuse de recibo", text: "Hemos recibido tu solicitud y ya estamos trabajando en ello. Te iremos informando por este mismo canal." },
+  { id: "need_info", label: "Solicitar más datos", text: "Para avanzar con tu solicitud necesitamos más información: capturas, URL exacta y pasos para reproducir el problema." },
+  { id: "done", label: "Confirmación de resolución", text: "Hemos aplicado los cambios solicitados. Por favor revisa y confirma si todo está correcto para cerrar el ticket." }
+]
 
 function escapeHtml(value){
   return String(value || "")
@@ -1412,6 +1533,8 @@ function setActiveTab(tab){
   if(tab === "dashboard") loadDashboard()
   if(tab === "clients") loadClients()
   if(tab === "tickets") loadTickets()
+  if(tab === "search") setFeedback("globalSearchFeedback", "")
+  if(tab === "audit") loadAuditLog()
   if(tab === "cloudflare") loadCloudflareStatus()
 }
 
@@ -1497,12 +1620,15 @@ function renderClientsTable(clients){
   const tbody = document.getElementById("clientsTableBody")
   const list = Array.isArray(clients) ? clients : []
   if(!list.length){
-    tbody.innerHTML = '<tr><td colspan="9" class="empty-state">No hay clientes con ese filtro.</td></tr>'
+    tbody.innerHTML = '<tr><td colspan="10" class="empty-state">No hay clientes con ese filtro.</td></tr>'
     return
   }
 
   tbody.innerHTML = list.map((c) => {
+    const rowIndex = Number(c.rowIndex || 0)
+    const isSelected = !!selectedClientRows[rowIndex]
     return '<tr>' +
+      '<td><input class="client-select-row" type="checkbox" data-row-index="' + escapeHtml(String(rowIndex)) + '"' + (isSelected ? ' checked' : '') + '></td>' +
       '<td>' + escapeHtml(c.usuario || "-") + '</td>' +
       '<td>' + escapeHtml(c.nombre || "-") + '</td>' +
       '<td>' + escapeHtml(c.email || "-") + '</td>' +
@@ -1512,11 +1638,17 @@ function renderClientsTable(clients){
       '<td>' + escapeHtml(c.proxpago || "-") + '</td>' +
       '<td>' + escapeHtml(c.fealta || "-") + '</td>' +
       '<td><div class="table-actions">' +
-        '<button class="btn-row-muted client-detail-btn" type="button" data-row-index="' + escapeHtml(String(c.rowIndex || "")) + '">Ver / editar</button>' +
-        '<button class="btn-row-danger client-delete-btn" type="button" data-row-index="' + escapeHtml(String(c.rowIndex || "")) + '" data-usuario="' + escapeHtml(c.usuario || "") + '" data-email="' + escapeHtml(c.email || "") + '">Eliminar</button>' +
+        '<button class="btn-row-muted client-detail-btn" type="button" data-row-index="' + escapeHtml(String(rowIndex)) + '" data-usuario="' + escapeHtml(c.usuario || "") + '" data-email="' + escapeHtml(c.email || "") + '">Ver / editar</button>' +
+        '<button class="btn-row-danger client-delete-btn" type="button" data-row-index="' + escapeHtml(String(rowIndex)) + '" data-usuario="' + escapeHtml(c.usuario || "") + '" data-email="' + escapeHtml(c.email || "") + '">Eliminar</button>' +
       '</div></td>' +
     '</tr>'
   }).join("")
+  const selectedCount = getSelectedClientRowIndexes_().length
+  const selectAllEl = document.getElementById("clientsSelectAll")
+  if(selectAllEl){
+    selectAllEl.checked = list.length > 0 && list.every((c) => !!selectedClientRows[Number(c.rowIndex || 0)])
+  }
+  setFeedback("bulkFeedback", selectedCount ? ("Seleccionados: " + selectedCount) : "")
 }
 
 function applyClientFilters(){
@@ -1567,6 +1699,15 @@ async function loadClients(){
     }
 
     clientsCache = Array.isArray(result.clients) ? result.clients : []
+    const knownRows = {}
+    clientsCache.forEach((c) => {
+      knownRows[Number(c.rowIndex || 0)] = true
+    })
+    Object.keys(selectedClientRows).forEach((key) => {
+      if(!knownRows[Number(key)]){
+        delete selectedClientRows[key]
+      }
+    })
     const plans = buildClientsPlanFilterOptions(clientsCache)
     const planFilterEl = document.getElementById("clientsPlanFilter")
     const currentPlan = String(planFilterEl.value || "")
@@ -1578,6 +1719,109 @@ async function loadClients(){
     applyClientFilters()
   }catch(error){
     setFeedback("clientsFeedback", "Error cargando clientes (" + String(error && error.message || "ERROR") + ").", "error")
+  }
+}
+
+function getSelectedClientRowIndexes_(){
+  return Object.keys(selectedClientRows)
+    .map((key) => Number(key))
+    .filter((value) => Number.isFinite(value) && value > 1)
+    .sort((a,b) => a - b)
+}
+
+function clearClientSelection_(){
+  selectedClientRows = {}
+  const selectAllEl = document.getElementById("clientsSelectAll")
+  if(selectAllEl){
+    selectAllEl.checked = false
+  }
+  applyClientFilters()
+}
+
+function syncBulkControls(){
+  const operation = normalizeText(document.getElementById("bulkOperation").value || "mark_paid")
+  const bulkValue = document.getElementById("bulkValue")
+  const bulkWrap = document.getElementById("bulkValueWrap")
+  const bulkLabel = document.getElementById("bulkValueLabel")
+  if(!bulkValue || !bulkWrap){
+    return
+  }
+
+  if(operation === "markpaid"){
+    bulkWrap.classList.remove("hidden")
+    if(bulkLabel) bulkLabel.textContent = "Valor"
+    bulkValue.innerHTML = '<option value="Abonado">Abonado</option><option value="No abonado">No abonado</option>'
+    bulkValue.value = "Abonado"
+    return
+  }
+  if(operation === "setplan"){
+    bulkWrap.classList.remove("hidden")
+    if(bulkLabel) bulkLabel.textContent = "Plan"
+    bulkValue.innerHTML = '<option value="basic">basic</option><option value="corporativa">corporativa</option><option value="ecommerce">ecommerce</option>'
+    bulkValue.value = "basic"
+    return
+  }
+  bulkWrap.classList.add("hidden")
+}
+
+function downloadTextFile_(filename, content, mimeType){
+  const blob = new Blob([String(content || "")], { type: mimeType || "text/plain;charset=utf-8" })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement("a")
+  a.href = url
+  a.download = filename || "export.txt"
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+  URL.revokeObjectURL(url)
+}
+
+async function handleBulkApply(){
+  const session = readSession()
+  if(!session || !session.adminToken){
+    setFeedback("bulkFeedback", "Sesión admin no válida.", "error")
+    return
+  }
+  const rowIndexes = getSelectedClientRowIndexes_()
+  if(!rowIndexes.length){
+    setFeedback("bulkFeedback", "Selecciona al menos un cliente.", "error")
+    return
+  }
+
+  const operation = String(document.getElementById("bulkOperation").value || "")
+  const valueEl = document.getElementById("bulkValue")
+  const value = valueEl ? String(valueEl.value || "") : ""
+  setFeedback("bulkFeedback", "Aplicando operación masiva...")
+  try{
+    const result = await apiPostRequest({
+      action: "admin_bulk_clients",
+      adminToken: session.adminToken,
+      operation,
+      value,
+      rowIndexes
+    }, API_TIMEOUT_MS)
+
+    if(!result || result.success !== true){
+      setFeedback("bulkFeedback", (result && result.message) ? result.message : "No se pudo aplicar la operación masiva.", "error")
+      return
+    }
+    if(normalizeText(operation) === "exportcsv"){
+      downloadTextFile_(
+        String(result.filename || "clientes_luckybase.csv"),
+        String(result.csv || ""),
+        "text/csv;charset=utf-8"
+      )
+      setFeedback("bulkFeedback", "CSV generado correctamente.", "ok")
+      return
+    }
+    const errors = Array.isArray(result.errors) ? result.errors : []
+    const baseMsg = "Completado. Seleccionados: " + String(result.selected || rowIndexes.length) +
+      " · Actualizados: " + String(result.updated || 0) +
+      " · Recordatorios enviados: " + String(result.remindersSent || 0)
+    setFeedback("bulkFeedback", errors.length ? (baseMsg + " · Errores: " + errors.length) : baseMsg, errors.length ? "error" : "ok")
+    await loadClients()
+  }catch(error){
+    setFeedback("bulkFeedback", "Error en operación masiva (" + String(error && error.message || "ERROR") + ").", "error")
   }
 }
 
@@ -1777,6 +2021,70 @@ function setClientDetailModalVisible(show){
 function closeClientDetailModal(){
   setClientDetailModalVisible(false)
   setFeedback("clientEditFeedback", "")
+  document.getElementById("client360Summary").textContent = ""
+  document.getElementById("client360Plans").innerHTML = ""
+  document.getElementById("client360Tickets").innerHTML = ""
+}
+
+function renderClient360(result){
+  const summaryEl = document.getElementById("client360Summary")
+  const plansEl = document.getElementById("client360Plans")
+  const ticketsEl = document.getElementById("client360Tickets")
+  if(!summaryEl || !plansEl || !ticketsEl){
+    return
+  }
+  if(!result || result.success !== true || !result.client){
+    summaryEl.textContent = "No se pudo cargar cliente 360."
+    summaryEl.className = "feedback error"
+    plansEl.innerHTML = ""
+    ticketsEl.innerHTML = ""
+    return
+  }
+
+  const client = result.client || {}
+  const plans = Array.isArray(result.planes) ? result.planes : []
+  const tickets = Array.isArray(result.tickets) ? result.tickets : []
+  summaryEl.textContent = "Planes: " + String(client.totalPlanes || plans.length || 0) +
+    " · Tickets totales: " + String(client.totalTickets || tickets.length || 0) +
+    " · Tickets abiertos: " + String(client.openTickets || 0)
+  summaryEl.className = "feedback ok"
+
+  plansEl.innerHTML = plans.length
+    ? plans.map((plan) => {
+      return '<div class="msg client">' +
+        '<div class="msg-head"><strong>' + escapeHtml(plan.plan || "-") + '</strong><span>' + escapeHtml(plan.npedido || "-") + '</span></div>' +
+        '<div class="msg-body">Dominio: ' + escapeHtml(plan.dominio || "-") + ' · Próximo pago: ' + escapeHtml(plan.proxpago || "-") + '</div>' +
+      '</div>'
+    }).join("")
+    : '<p class="feedback">Sin planes.</p>'
+
+  ticketsEl.innerHTML = tickets.length
+    ? tickets.map((ticket) => {
+      return '<div class="msg admin">' +
+        '<div class="msg-head"><strong>' + escapeHtml(ticket.ticketId || "-") + '</strong><span>' + escapeHtml(ticket.estado || "-") + '</span></div>' +
+        '<div class="msg-body">' + escapeHtml(ticket.asunto || "-") + '<br>Creado: ' + escapeHtml(formatDateTime(ticket.createdAt)) + '</div>' +
+      '</div>'
+    }).join("")
+    : '<p class="feedback">Sin tickets.</p>'
+}
+
+async function loadClient360(rowIndex, usuario, email){
+  const session = readSession()
+  if(!session || !session.adminToken){
+    return
+  }
+  try{
+    const result = await apiPostRequest({
+      action: "admin_get_client_360",
+      adminToken: session.adminToken,
+      rowIndex,
+      usuario: usuario || "",
+      email: email || ""
+    }, API_TIMEOUT_MS)
+    renderClient360(result)
+  }catch(_){
+    renderClient360({ success:false })
+  }
 }
 
 function fillClientEditForm(client){
@@ -1843,6 +2151,7 @@ async function openClientDetailModal(rowIndex){
     }
 
     fillClientEditForm(result.client)
+    await loadClient360(result.client.rowIndex, result.client.usuario, result.client.email)
     setFeedback("clientEditFeedback", "")
   }catch(error){
     setFeedback("clientEditFeedback", "Error cargando detalle (" + String(error && error.message || "ERROR") + ").", "error")
@@ -1901,6 +2210,7 @@ async function handleUpdateClient(event){
     }
 
     fillClientEditForm(result.client)
+    await loadClient360(result.client.rowIndex, result.client.usuario, result.client.email)
     setFeedback("clientEditFeedback", "Cliente actualizado correctamente.", "ok")
     await loadClients()
   }catch(error){
@@ -2042,6 +2352,31 @@ function ticketCardHtml(ticket){
   const selectedOpen = status === "abierto" ? " selected" : ""
   const selectedInProgress = status === "en_proceso" ? " selected" : ""
   const selectedResolved = status === "resuelto" ? " selected" : ""
+  const assignedAdmin = String(ticket.assignedAdmin || "").trim()
+  const internalStatus = normalizeText(ticket.internalStatus || "sin_asignar")
+  const internalStatusOptions = [
+    ["sin_asignar", "Sin asignar"],
+    ["en_revision", "En revisión"],
+    ["bloqueado", "Bloqueado"],
+    ["esperando_cliente", "Esperando cliente"],
+    ["completado", "Completado"]
+  ].map(([value, label]) => {
+    const selected = normalizeText(value) === internalStatus ? " selected" : ""
+    return '<option value="' + escapeHtml(value) + '"' + selected + '>' + escapeHtml(label) + '</option>'
+  }).join("")
+  const templateOptions = TICKET_REPLY_TEMPLATES.map((tpl) => {
+    return '<option value="' + escapeHtml(tpl.id) + '">' + escapeHtml(tpl.label) + '</option>'
+  }).join("")
+  const slaBadges = []
+  if(ticket.slaPending24h){
+    slaBadges.push('<span class="tag s-en_proceso">SLA > 24h sin respuesta</span>')
+  }
+  if(ticket.slaHighNoResponse){
+    slaBadges.push('<span class="tag p-alta">Alta sin respuesta</span>')
+  }
+  if(!assignedAdmin){
+    slaBadges.push('<span class="tag s-abierto">Sin asignar</span>')
+  }
 
   return '<article class="ticket" data-ticket-id="' + escapeHtml(ticket.ticketId || "") + '" data-status="' + escapeHtml(status) + '">' +
     '<div class="ticket-top">' +
@@ -2055,6 +2390,7 @@ function ticketCardHtml(ticket){
       '<div class="tags">' +
         '<span class="tag p-' + escapeHtml(priority) + '">' + escapeHtml(priority) + '</span>' +
         '<span class="tag s-' + escapeHtml(status) + '">' + escapeHtml(statusText) + '</span>' +
+        slaBadges.join("") +
       '</div>' +
     '</div>' +
     '<div class="ticket-main">' +
@@ -2066,18 +2402,27 @@ function ticketCardHtml(ticket){
         '<div class="panel-cell"><span class="panel-label">Tipo plan</span><span class="panel-value">' + escapeHtml(ticketPlanType) + '</span></div>' +
         '<div class="panel-cell"><span class="panel-label">Dominio</span><span class="panel-value">' + escapeHtml(ticketPlanDomain) + '</span></div>' +
         '<div class="panel-cell"><span class="panel-label">Nº pedido</span><span class="panel-value">' + escapeHtml(ticketPlanOrder) + '</span></div>' +
+        '<div class="panel-cell"><span class="panel-label">Asignado admin</span><span class="panel-value">' + escapeHtml(assignedAdmin || "Sin asignar") + '</span></div>' +
+        '<div class="panel-cell"><span class="panel-label">Estado interno</span><span class="panel-value">' + escapeHtml(internalStatus.replace("_", " ")) + '</span></div>' +
         '<div class="panel-cell"><span class="panel-label">Estado</span><span class="panel-value">' + escapeHtml(statusText) + '</span></div>' +
       '</div>' +
       '<div class="ticket-preview"><strong>Mensaje principal</strong><p>' + escapeHtml(openingMessage) + '</p></div>' +
       '<div class="ticket-preview"><strong>Última actualización del chat</strong><p>' + escapeHtml(latestMessage || "-") + '</p></div>' +
+      '<div class="reply-grid">' +
+        '<label>Asignar a admin<input class="ticket-assign-admin" type="text" maxlength="80" placeholder="usuario admin" value="' + escapeHtml(assignedAdmin) + '"></label>' +
+        '<label>Estado interno<select class="ticket-internal-status">' + internalStatusOptions + '</select></label>' +
+        '<div class="row" style="align-self:end;"><button class="btn-muted ticket-meta-save" type="button">Guardar metadatos</button></div>' +
+      '</div>' +
     '</div>' +
     '<details class="ticket-detail">' +
       '<summary>Ver chat completo y responder</summary>' +
       '<div class="ticket-detail-body">' +
         '<div class="ticket-chat">' + messagesHtml + '</div>' +
         '<div class="reply-grid">' +
+          '<label>Plantilla<select class="reply-template">' + templateOptions + '</select></label>' +
           '<label>Responder al cliente<textarea class="reply-text" maxlength="4000" placeholder="Escribe aquí la respuesta..."></textarea></label>' +
           '<div class="row">' +
+            '<button class="btn-muted reply-apply-template" type="button">Aplicar plantilla</button>' +
             '<label>Nuevo estado<select class="reply-status">' +
               '<option value="en_proceso"' + selectedInProgress + '>En proceso</option>' +
               '<option value="resuelto"' + selectedResolved + '>Resuelto</option>' +
@@ -2094,7 +2439,26 @@ function ticketCardHtml(ticket){
 
 function applyTicketFilters(){
   const search = normalizeText(document.getElementById("ticketSearch").value || "")
+  const internalStatusFilter = normalizeText(document.getElementById("ticketInternalStatusFilter").value || "")
+  const assignedAdminFilter = normalizeText(document.getElementById("ticketAssignedAdminFilter").value || "")
+  const assignmentFilter = normalizeText(document.getElementById("ticketAssignmentFilter").value || "")
+  const slaOnly = normalizeText(document.getElementById("ticketSlaOnlyFilter").value || "") === "1"
   const filtered = ticketsCache.filter((ticket) => {
+    if(internalStatusFilter && normalizeText(ticket.internalStatus || "") !== internalStatusFilter){
+      return false
+    }
+    if(assignmentFilter === "unassigned" && normalizeText(ticket.assignedAdmin || "")){
+      return false
+    }
+    if(assignmentFilter === "assigned" && !normalizeText(ticket.assignedAdmin || "")){
+      return false
+    }
+    if(assignedAdminFilter && !normalizeText(ticket.assignedAdmin || "").includes(assignedAdminFilter)){
+      return false
+    }
+    if(slaOnly && !ticket.slaPending24h && !ticket.slaHighNoResponse){
+      return false
+    }
     if(!search) return true
     const haystack = normalizeText([
       ticket.ticketId,
@@ -2107,6 +2471,8 @@ function applyTicketFilters(){
       ticket.ticketPlanDomain,
       ticket.ticketPlanOrder,
       ticket.ticketPlanId,
+      ticket.assignedAdmin,
+      ticket.internalStatus,
       ticket.clientPlan,
       ticket.clientPlanType
     ].join(" "))
@@ -2124,6 +2490,62 @@ function renderTickets(tickets){
   }
 
   list.innerHTML = current.map(ticketCardHtml).join("")
+  list.querySelectorAll(".reply-apply-template").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const article = btn.closest(".ticket")
+      if(!article) return
+      const templateEl = article.querySelector(".reply-template")
+      const textEl = article.querySelector(".reply-text")
+      if(!templateEl || !textEl){
+        return
+      }
+      const templateId = String(templateEl.value || "")
+      const template = TICKET_REPLY_TEMPLATES.find((tpl) => tpl.id === templateId)
+      if(!template || !template.text){
+        return
+      }
+      const existing = String(textEl.value || "").trim()
+      textEl.value = existing ? (existing + "\n\n" + template.text) : template.text
+    })
+  })
+  list.querySelectorAll(".ticket-meta-save").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const article = btn.closest(".ticket")
+      if(!article) return
+      const session = readSession()
+      if(!session || !session.adminToken){
+        setFeedback("ticketsFeedback", "Sesión admin no válida.", "error")
+        showAdminView(false)
+        return
+      }
+      const ticketId = String(article.getAttribute("data-ticket-id") || "")
+      const assignEl = article.querySelector(".ticket-assign-admin")
+      const internalEl = article.querySelector(".ticket-internal-status")
+      const assignedAdmin = assignEl ? String(assignEl.value || "").trim() : ""
+      const internalStatus = internalEl ? String(internalEl.value || "sin_asignar").trim() : "sin_asignar"
+      btn.disabled = true
+      setFeedback("ticketsFeedback", "Guardando metadatos del ticket...")
+      try{
+        const result = await apiPostRequest({
+          action: "admin_update_ticket_meta",
+          adminToken: session.adminToken,
+          ticketId,
+          assignedAdmin,
+          internalStatus
+        }, API_TIMEOUT_MS)
+        if(!result || result.success !== true){
+          setFeedback("ticketsFeedback", (result && result.message) ? result.message : "No se pudieron actualizar los metadatos del ticket.", "error")
+          return
+        }
+        setFeedback("ticketsFeedback", "Metadatos del ticket actualizados.", "ok")
+        await loadTickets()
+      }catch(error){
+        setFeedback("ticketsFeedback", "Error actualizando metadatos (" + String(error && error.message || "ERROR") + ").", "error")
+      }finally{
+        btn.disabled = false
+      }
+    })
+  })
   list.querySelectorAll(".reply-send").forEach((btn) => {
     btn.addEventListener("click", async () => {
       const article = btn.closest(".ticket")
@@ -2177,12 +2599,18 @@ async function loadTickets(){
   if(!session || !session.adminToken) return
 
   const estado = String(document.getElementById("ticketStatusFilter").value || "")
+  const internalStatus = String(document.getElementById("ticketInternalStatusFilter").value || "")
+  const assignedAdmin = String(document.getElementById("ticketAssignedAdminFilter").value || "")
+  const slaOnly = normalizeText(document.getElementById("ticketSlaOnlyFilter").value || "") === "1"
   setFeedback("ticketsFeedback", "Cargando tickets...")
   try{
     const result = await apiPostRequest({
       action: "admin_list_tickets",
       adminToken: session.adminToken,
       estado,
+      internalStatus,
+      assignedAdmin,
+      slaOnly,
       limit: 200
     }, API_TIMEOUT_MS)
 
@@ -2250,6 +2678,122 @@ async function loadCloudflareStatus(){
   }catch(error){
     setFeedback("cloudflareFeedback", "Error consultando Cloudflare (" + String(error && error.message || "ERROR") + ").", "error")
     document.getElementById("cloudflareCards").innerHTML = ""
+  }
+}
+
+function renderGlobalSearchResults(result){
+  const clientsEl = document.getElementById("globalSearchClients")
+  const ticketsEl = document.getElementById("globalSearchTickets")
+  if(!clientsEl || !ticketsEl){
+    return
+  }
+  const clients = result && result.results && Array.isArray(result.results.clients) ? result.results.clients : []
+  const tickets = result && result.results && Array.isArray(result.results.tickets) ? result.results.tickets : []
+
+  clientsEl.innerHTML = clients.length
+    ? clients.map((c) => {
+      return '<div class="msg client">' +
+        '<div class="msg-head"><strong>' + escapeHtml(c.usuario || "-") + '</strong><span>' + escapeHtml(c.plan || "-") + '</span></div>' +
+        '<div class="msg-body">' + escapeHtml(c.nombre || "-") + ' · ' + escapeHtml(c.email || "-") + '</div>' +
+      '</div>'
+    }).join("")
+    : '<p class="feedback">Sin resultados de clientes.</p>'
+
+  ticketsEl.innerHTML = tickets.length
+    ? tickets.map((t) => {
+      return '<div class="msg admin">' +
+        '<div class="msg-head"><strong>' + escapeHtml(t.ticketId || "-") + '</strong><span>' + escapeHtml(t.estado || "-") + '</span></div>' +
+        '<div class="msg-body">' + escapeHtml(t.asunto || "-") + ' · ' + escapeHtml(t.usuario || "-") + '</div>' +
+      '</div>'
+    }).join("")
+    : '<p class="feedback">Sin resultados de tickets.</p>'
+}
+
+async function handleGlobalSearch(){
+  const session = readSession()
+  if(!session || !session.adminToken){
+    setFeedback("globalSearchFeedback", "Sesión admin no válida.", "error")
+    return
+  }
+  const q = String(document.getElementById("globalSearchInput").value || "").trim()
+  if(q.length < 2){
+    setFeedback("globalSearchFeedback", "Escribe al menos 2 caracteres.", "error")
+    return
+  }
+  setFeedback("globalSearchFeedback", "Buscando...")
+  try{
+    const result = await apiPostRequest({
+      action: "admin_global_search",
+      adminToken: session.adminToken,
+      q,
+      limit: 20
+    }, API_TIMEOUT_MS)
+    if(!result || result.success !== true){
+      setFeedback("globalSearchFeedback", (result && result.message) ? result.message : "No se pudo ejecutar la búsqueda.", "error")
+      return
+    }
+    renderGlobalSearchResults(result)
+    setFeedback("globalSearchFeedback", "Búsqueda completada.", "ok")
+  }catch(error){
+    setFeedback("globalSearchFeedback", "Error en búsqueda global (" + String(error && error.message || "ERROR") + ").", "error")
+  }
+}
+
+function renderAuditLog(entries){
+  const listEl = document.getElementById("auditList")
+  if(!listEl){
+    return
+  }
+  const list = Array.isArray(entries) ? entries : []
+  if(!list.length){
+    listEl.innerHTML = '<p class="empty-state">No hay eventos de auditoría para ese filtro.</p>'
+    return
+  }
+  listEl.innerHTML = list.map((entry) => {
+    let detailsText = ""
+    try{
+      const parsed = JSON.parse(String(entry.detailsJson || "{}"))
+      detailsText = JSON.stringify(parsed)
+    }catch(_){
+      detailsText = String(entry.detailsJson || "")
+    }
+    return '<article class="ticket">' +
+      '<div class="ticket-top">' +
+        '<div>' +
+          '<div class="ticket-title">' + escapeHtml(entry.eventType || "-") + '</div>' +
+          '<div class="ticket-meta">' + escapeHtml(entry.entityType || "-") + ' · ' + escapeHtml(entry.entityId || "-") + '</div>' +
+        '</div>' +
+        '<div class="tags"><span class="tag s-en_proceso">' + escapeHtml(entry.actorRole || "-") + '</span></div>' +
+      '</div>' +
+      '<div class="ticket-preview"><strong>Actor</strong><p>' + escapeHtml(entry.actorUser || "-") + '</p></div>' +
+      '<div class="ticket-preview"><strong>Fecha</strong><p>' + escapeHtml(formatDateTime(entry.createdAt)) + '</p></div>' +
+      '<div class="ticket-preview"><strong>Detalle</strong><p>' + escapeHtml(detailsText || "-") + '</p></div>' +
+    '</article>'
+  }).join("")
+}
+
+async function loadAuditLog(){
+  const session = readSession()
+  if(!session || !session.adminToken){
+    return
+  }
+  const entityType = String(document.getElementById("auditEntityFilter").value || "")
+  setFeedback("auditFeedback", "Cargando auditoría...")
+  try{
+    const result = await apiPostRequest({
+      action: "admin_list_audit_log",
+      adminToken: session.adminToken,
+      entityType,
+      limit: 200
+    }, API_TIMEOUT_MS)
+    if(!result || result.success !== true){
+      setFeedback("auditFeedback", (result && result.message) ? result.message : "No se pudo cargar auditoría.", "error")
+      return
+    }
+    renderAuditLog(result.entries || [])
+    setFeedback("auditFeedback", "Eventos cargados: " + String((result.entries || []).length) + ".", "ok")
+  }catch(error){
+    setFeedback("auditFeedback", "Error cargando auditoría (" + String(error && error.message || "ERROR") + ").", "error")
   }
 }
 
@@ -2353,11 +2897,42 @@ function bindEvents(){
   document.getElementById("clientCreateForm").addEventListener("submit", handleCreateClient)
   document.getElementById("newClientPlan").addEventListener("change", () => syncCreateClientPlanFields())
   document.getElementById("newClientCuota").addEventListener("change", () => syncCreateClientPlanFields())
+  document.getElementById("bulkOperation").addEventListener("change", syncBulkControls)
+  document.getElementById("bulkApplyBtn").addEventListener("click", handleBulkApply)
+  document.getElementById("bulkClearSelectionBtn").addEventListener("click", clearClientSelection_)
+  document.getElementById("clientsSelectAll").addEventListener("change", (event) => {
+    const checked = !!(event.target && event.target.checked)
+    const filteredRows = Array.from(document.querySelectorAll("#clientsTableBody .client-select-row"))
+      .map((el) => Number(el.getAttribute("data-row-index") || 0))
+      .filter((value) => Number.isFinite(value) && value > 1)
+    if(checked){
+      filteredRows.forEach((rowIndex) => { selectedClientRows[rowIndex] = true })
+    }else{
+      filteredRows.forEach((rowIndex) => { delete selectedClientRows[rowIndex] })
+    }
+    applyClientFilters()
+  })
   document.getElementById("newClientEmail").addEventListener("input", scheduleExistingClientLookup)
   document.getElementById("newClientEmail").addEventListener("blur", () => lookupExistingClientByEmail(true))
   document.getElementById("clientsSearch").addEventListener("input", applyClientFilters)
   document.getElementById("clientsPlanFilter").addEventListener("change", applyClientFilters)
   document.getElementById("clientsPaymentFilter").addEventListener("change", applyClientFilters)
+  document.getElementById("clientsTableBody").addEventListener("change", (event) => {
+    const rowCheck = event.target && event.target.closest ? event.target.closest(".client-select-row") : null
+    if(!rowCheck){
+      return
+    }
+    const rowIndex = Number(rowCheck.getAttribute("data-row-index") || 0)
+    if(!Number.isFinite(rowIndex) || rowIndex <= 1){
+      return
+    }
+    if(rowCheck.checked){
+      selectedClientRows[rowIndex] = true
+    }else{
+      delete selectedClientRows[rowIndex]
+    }
+    applyClientFilters()
+  })
   document.getElementById("clientsTableBody").addEventListener("click", (event) => {
     const detailBtn = event.target.closest(".client-detail-btn")
     if(detailBtn){
@@ -2392,10 +2967,26 @@ function bindEvents(){
 
   document.getElementById("ticketRefreshBtn").addEventListener("click", loadTickets)
   document.getElementById("ticketStatusFilter").addEventListener("change", loadTickets)
+  document.getElementById("ticketInternalStatusFilter").addEventListener("change", applyTicketFilters)
+  document.getElementById("ticketAssignedAdminFilter").addEventListener("input", applyTicketFilters)
+  document.getElementById("ticketAssignmentFilter").addEventListener("change", applyTicketFilters)
+  document.getElementById("ticketSlaOnlyFilter").addEventListener("change", applyTicketFilters)
   document.getElementById("ticketSearch").addEventListener("input", applyTicketFilters)
+
+  document.getElementById("globalSearchBtn").addEventListener("click", handleGlobalSearch)
+  document.getElementById("globalSearchInput").addEventListener("keydown", (event) => {
+    if(event.key === "Enter"){
+      event.preventDefault()
+      handleGlobalSearch()
+    }
+  })
+
+  document.getElementById("auditRefreshBtn").addEventListener("click", loadAuditLog)
+  document.getElementById("auditEntityFilter").addEventListener("change", loadAuditLog)
 
   document.getElementById("cfRefreshBtn").addEventListener("click", loadCloudflareStatus)
   syncCreateClientPlanFields()
+  syncBulkControls()
 }
 
 bindEvents()
