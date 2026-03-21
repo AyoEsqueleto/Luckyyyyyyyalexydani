@@ -83,31 +83,6 @@ color:#374151;
 font-weight:500;
 }
 
-.theme-toggle{
-width:40px;
-height:40px;
-padding:0;
-border:1px solid #d1d5db;
-border-radius:50%;
-background:#fff;
-color:#1f2937;
-cursor:pointer;
-display:inline-flex;
-align-items:center;
-justify-content:center;
-transition:0.3s;
-}
-
-.theme-toggle:hover{
-background:#f3f4f6;
-}
-
-.theme-toggle svg{
-width:20px;
-height:20px;
-display:block;
-}
-
 .hero{
 padding:72px 8% 36px;
 background:linear-gradient(120deg,#1565ff 0%,#3b82f6 55%,#60a5fa 100%);
@@ -347,85 +322,6 @@ text-decoration:none;
 text-decoration:underline;
 }
 
-body.dark-mode{
-background:#0f172a;
-color:#e5e7eb;
-}
-
-body.dark-mode header{
-background:#111827;
-box-shadow:0 5px 20px rgba(0,0,0,0.3);
-}
-
-body.dark-mode nav a{
-color:#e5e7eb;
-}
-
-body.dark-mode .theme-toggle{
-background:#1f2937;
-border-color:#374151;
-color:#f9fafb;
-}
-
-body.dark-mode .theme-toggle:hover{
-background:#374151;
-}
-
-body.dark-mode .controls,
-body.dark-mode .table-wrap{
-background:#1e293b;
-box-shadow:0 10px 30px rgba(0,0,0,0.35);
-}
-
-body.dark-mode .field label,
-body.dark-mode .checkbox-line,
-body.dark-mode td.label{
-color:#cbd5e1;
-}
-
-body.dark-mode select{
-background:#0f172a;
-color:#e2e8f0;
-border-color:#334155;
-}
-
-body.dark-mode thead th{
-background:#1e3a8a;
-color:#dbeafe;
-border-bottom-color:#1d4ed8;
-}
-
-body.dark-mode tbody td{
-border-bottom-color:#334155;
-}
-
-body.dark-mode td.value{
-color:#f8fafc;
-}
-
-body.dark-mode .win{
-background:#064e3b;
-color:#bbf7d0;
-}
-
-body.dark-mode .muted{
-color:#94a3b8;
-}
-
-body.dark-mode .btn-secondary{
-background:#1e3a8a;
-color:#dbeafe;
-}
-
-body.dark-mode footer{
-background:#0b1220;
-}
-
-body.dark-mode .footer-preferences{
-background:#1e293b;
-color:#93c5fd;
-}
-
 @media(max-width:900px){
 header{
 padding:8px 4% 10px;
@@ -495,7 +391,6 @@ margin-top:12px;
 <a href="planes.html">Planes</a>
 <a href="index.html#contacto">Contacto</a>
 </nav>
-<button id="themeToggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema"></button>
 </header>
 
 <section class="hero">
@@ -587,6 +482,8 @@ const plans={
 basic:{
 name:"LuckyWeb Basic",
 values:{
+precioPrincipalWeb:"50 €",
+cuotaMensual:"3,50 € (5 consultas/cambios) o 6,50 € (ilimitadas)",
 proyecto:"Web informativa esencial",
 estructura:"Hasta 5 secciones",
 responsive:true,
@@ -604,6 +501,8 @@ soporte:"Email (básico)"
 corporativa:{
 name:"LuckyWeb Corporativa",
 values:{
+precioPrincipalWeb:"150 € → 110 €",
+cuotaMensual:"5,50 €",
 proyecto:"Web corporativa completa",
 estructura:"Hasta 6 páginas internas",
 responsive:true,
@@ -621,6 +520,8 @@ soporte:"Prioritario"
 ecommerce:{
 name:"LuckyWeb Ecommerce",
 values:{
+precioPrincipalWeb:"200 €",
+cuotaMensual:"20 €",
 proyecto:"Tienda online completa",
 estructura:"Catálogo + checkout + páginas legales",
 responsive:true,
@@ -638,6 +539,8 @@ soporte:"Prioritario + guía de uso"
 }
 
 const rows=[
+{key:"precioPrincipalWeb",label:"Precio principal web",type:"text"},
+{key:"cuotaMensual",label:"Cuota mensual",type:"text"},
 {key:"proyecto",label:"Tipo de proyecto",type:"text"},
 {key:"estructura",label:"Estructura incluida",type:"text"},
 {key:"responsive",label:"Diseño responsive",type:"boolean"},
@@ -659,9 +562,6 @@ const headA=document.getElementById("headA")
 const headB=document.getElementById("headB")
 const body=document.getElementById("comparisonBody")
 const status=document.getElementById("status")
-const themeToggle=document.getElementById("themeToggle")
-const sunIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="5"></line><line x1="12" y1="19" x2="12" y2="22"></line><line x1="2" y1="12" x2="5" y2="12"></line><line x1="19" y1="12" x2="22" y2="12"></line><line x1="4.9" y1="4.9" x2="7" y2="7"></line><line x1="17" y1="17" x2="19.1" y2="19.1"></line><line x1="17" y1="7" x2="19.1" y2="4.9"></line><line x1="4.9" y1="19.1" x2="7" y2="17"></line></svg>'
-const moonIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8z"></path></svg>'
 
 function boolLabel(value){
 return value ? "Incluido" : "No incluido"
@@ -752,29 +652,9 @@ body.appendChild(tr)
 })
 }
 
-function updateThemeLabel(){
-const isDarkMode=document.body.classList.contains("dark-mode")
-themeToggle.innerHTML=isDarkMode?moonIcon:sunIcon
-themeToggle.setAttribute("aria-label",isDarkMode?"Modo oscuro":"Modo claro")
-themeToggle.setAttribute("title",isDarkMode?"Modo oscuro":"Modo claro")
-}
-
-themeToggle.addEventListener("click",()=>{
-document.body.classList.toggle("dark-mode")
-const isDarkMode=document.body.classList.contains("dark-mode")
-localStorage.setItem("theme",isDarkMode?"dark":"light")
-updateThemeLabel()
-})
-
 planASelect.addEventListener("change",render)
 planBSelect.addEventListener("change",render)
 onlyDiffs.addEventListener("change",render)
-
-const savedTheme=localStorage.getItem("theme")
-if(savedTheme==="dark"){
-document.body.classList.add("dark-mode")
-}
-updateThemeLabel()
 render()
 </script>
 </body>

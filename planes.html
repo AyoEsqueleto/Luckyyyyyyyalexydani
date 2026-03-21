@@ -305,6 +305,20 @@ margin:8px 0 14px;
 color:#0f172a;
 }
 
+.price-note{
+font-size:14px;
+line-height:1.45;
+color:#334155;
+margin:-6px 0 14px;
+}
+
+.price-old{
+text-decoration:line-through;
+opacity:0.72;
+font-size:20px;
+margin-right:8px;
+}
+
 .card ul{
 padding-left:18px;
 line-height:1.7;
@@ -523,6 +537,10 @@ body.dark-mode .price{
 color:#f8fafc;
 }
 
+body.dark-mode .price-note{
+color:#dbe4f0;
+}
+
 body.dark-mode .card ul{
 color:#cbd5e1;
 }
@@ -588,6 +606,14 @@ color:#bfdbfe;
 
 body.dark-mode .footer-legal a{
 color:#c7d2fe;
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode strong{
+color:#f8fafc;
 }
 
 .js-enabled .reveal-item{
@@ -762,6 +788,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="services">
 <div class="card reveal-item">
 <h3>LuckyWeb Basic</h3>
+<p class="price">Precio web: 50€</p>
+<p class="price-note">Cuota mensual: 3,50 € (5 consultas/cambios) o 6,50 € (ilimitadas)</p>
 <ul>
 <li>Diseño responsive</li>
 <li>Hasta 5 secciones</li>
@@ -773,6 +801,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <div class="card reveal-item">
 <h3>LuckyWeb Corporativa</h3>
+<p class="price">Precio web: <span class="price-old">150€</span> 110€</p>
+<p class="price-note">Cuota mensual: 5,50 €</p>
 <ul>
 <li>Hasta 6 páginas internas</li>
 <li>Diseño personalizado</li>
@@ -785,6 +815,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="card premium-card reveal-item">
 <span class="premium-badge">PREMIUM</span>
 <h3>LuckyWeb Ecommerce</h3>
+<p class="price">Precio web: 200€</p>
+<p class="price-note">Cuota mensual: 20 €</p>
 <ul>
 <li>Tienda online completa</li>
 <li>Pasarela de pago</li>

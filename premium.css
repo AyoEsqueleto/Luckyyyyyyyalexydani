@@ -320,9 +320,9 @@ footer a{
 
 body.dark-mode{
   background:#0f172a;
-  color:#e2e8f0;
+  color:#f8fafc;
   --outline:rgba(148,163,184,0.18);
-  --muted:#cbd5e1;
+  --muted:#dbe4f0;
 }
 
 body.dark-mode h2{
@@ -334,6 +334,13 @@ body.dark-mode section:not(.card) > h2::after{
 }
 
 body.dark-mode p{
+  color:var(--muted);
+}
+
+body.dark-mode li,
+body.dark-mode label,
+body.dark-mode small,
+body.dark-mode .footer-copy span{
   color:var(--muted);
 }
 
@@ -355,7 +362,15 @@ body.dark-mode header{
 }
 
 body.dark-mode nav a{
-  color:#e5e7eb;
+  color:#f8fafc;
+}
+
+body.dark-mode a{
+  color:#93c5fd;
+}
+
+body.dark-mode a:hover{
+  color:#bfdbfe;
 }
 
 body.dark-mode .card,
@@ -370,6 +385,23 @@ body.dark-mode .faq-item{
 
 body.dark-mode footer{
   background:linear-gradient(135deg,#0b1220,#111827 60%,#0f172a);
+}
+
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select{
+  color:#f8fafc;
+  background:#0f172a;
+  border-color:#475569;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder{
+  color:#b6c4d7;
+}
+
+body.dark-mode .footer-legal a{
+  color:#c7d2fe;
 }
 
 body.dark-mode .about img{
