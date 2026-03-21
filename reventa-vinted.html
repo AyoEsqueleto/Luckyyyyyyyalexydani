@@ -60,12 +60,15 @@
     }
 
     .vt-logo {
-      font-size: 30px;
-      line-height: 1;
-      font-weight: 800;
-      color: var(--brand);
+      display: inline-flex;
+      align-items: center;
       text-decoration: none;
-      letter-spacing: -0.02em;
+    }
+
+    .vt-logo img {
+      height: 34px;
+      width: auto;
+      display: block;
     }
 
     .vt-search {
@@ -389,7 +392,9 @@
 <body>
   <header class="vt-header">
     <div class="vt-header-inner">
-      <a class="vt-logo" href="index.html" aria-label="Inicio LuckyBase">Vinted</a>
+      <a class="vt-logo" href="index.html" aria-label="Inicio LuckyBase">
+        <img src="LUCKYBASE logo letras.png" alt="LuckyBase">
+      </a>
 
       <label class="vt-search" aria-label="Buscador">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
