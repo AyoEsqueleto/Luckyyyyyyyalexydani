@@ -328,18 +328,74 @@ def extract_vinted_user_id(profile_url: str, html: str) -> str:
     return ""
 
 
-def build_vinted_catalog_url(profile_url: str, html: str) -> str:
+def normalize_login_(value: str) -> str:
+    return clean_text(value).lower()
+
+
+def extract_vinted_login(profile_url: str, html: str) -> str:
+    parsed = urlparse(profile_url)
+    slug_match = re.search(r"/member/\d+-([a-zA-Z0-9._-]+)", parsed.path or "")
+    if slug_match:
+        return slug_match.group(1)
+
+    patterns = [
+        r'"login":"([^"]+)"',
+        r'\\"login\\":\\"([^"\\]+)\\"',
+        r'"username":"([^"]+)"',
+        r'\\"username\\":\\"([^"\\]+)\\"',
+        r'"profile_url":"https?:\\/\\/[^"]+\\/member\\/\d+-([^"\\/]+)',
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, html or "")
+        if match:
+            return clean_text(match.group(1))
+
+    return ""
+
+
+def build_vinted_catalog_url(profile_url: str, html: str) -> tuple[str, str]:
     parsed = urlparse(profile_url)
     query = parse_qs(parsed.query or "")
-    if (query.get("user_id") or [""])[0]:
-        return profile_url
+    query_search = clean_text((query.get("search_text") or [""])[0])
+    if query_search:
+        return profile_url, query_search
 
+    if (query.get("user_id") or [""])[0]:
+        login = extract_vinted_login(profile_url, html)
+        return profile_url, login
+
+    login = extract_vinted_login(profile_url, html)
+    if login:
+        base = f"{parsed.scheme}://{parsed.netloc}"
+        return f"{base}/catalog?{urlencode({'search_text': login, 'order': 'newest_first'})}", login
+
+    # Fallback final: user_id, si no se pudo extraer login.
     user_id = extract_vinted_user_id(profile_url, html)
     if not user_id:
-        return profile_url
+        return profile_url, ""
 
     base = f"{parsed.scheme}://{parsed.netloc}"
-    return f"{base}/catalog?{urlencode({'user_id': user_id, 'order': 'newest_first'})}"
+    return f"{base}/catalog?{urlencode({'user_id': user_id, 'order': 'newest_first'})}", ""
+
+
+def item_belongs_to_vinted_login(item_url: str, expected_login: str) -> bool:
+    login = normalize_login_(expected_login)
+    if not login:
+        return True
+
+    try:
+        html = fetch_html(item_url)
+    except Exception:
+        return False
+
+    found = set()
+    for pattern in [r'"username":"([^"]+)"', r'\\"username\\":\\"([^"\\]+)\\"']:
+        for value in re.findall(pattern, html or ""):
+            norm = normalize_login_(value)
+            if norm:
+                found.add(norm)
+
+    return login in found
 
 
 def fetch_html(url: str) -> str:
@@ -381,9 +437,10 @@ def scrape_profile(source: str, profile_url: str, limit: int = MAX_ITEMS_PER_SOU
     print(f"[{source}] Descargando perfil: {profile_url}")
     html = fetch_html(profile_url)
     effective_url = profile_url
+    expected_login = ""
 
     if source == "vinted":
-        maybe_catalog_url = build_vinted_catalog_url(profile_url, html)
+        maybe_catalog_url, expected_login = build_vinted_catalog_url(profile_url, html)
         if maybe_catalog_url != profile_url:
             print(f"[{source}] Usando catalogo: {maybe_catalog_url}")
             html = fetch_html(maybe_catalog_url)
@@ -395,6 +452,18 @@ def scrape_profile(source: str, profile_url: str, limit: int = MAX_ITEMS_PER_SOU
 
     if source == "vinted":
         by_vinted_catalog = vinted_catalog_to_products(soup, effective_url, limit)
+        if expected_login:
+            verified_items = []
+            for item in by_vinted_catalog:
+                link = clean_text(item.get("link", ""))
+                if not link:
+                    continue
+                if item_belongs_to_vinted_login(link, expected_login):
+                    verified_items.append(item)
+                if len(verified_items) >= limit:
+                    break
+            by_vinted_catalog = verified_items
+
         for item in by_vinted_catalog:
             link = item.get("link", "")
             if not link or link in seen:
@@ -418,6 +487,7 @@ def scrape_profile(source: str, profile_url: str, limit: int = MAX_ITEMS_PER_SOU
     info = {
         "profile_url": profile_url,
         "effective_url": effective_url,
+        "login": expected_login,
         "error": "",
     }
     if not combined:
@@ -440,6 +510,7 @@ def build_payload(vinted_items: list[dict[str, str]], vinted_info: dict[str, str
             "vinted": {
                 "profile_url": clean_text(vinted_info.get("profile_url")),
                 "effective_url": clean_text(vinted_info.get("effective_url")),
+                "login": clean_text(vinted_info.get("login")),
                 "count": len(vinted_items),
                 "error": clean_text(vinted_info.get("error")),
             },

@@ -1,11 +1,22 @@
 {
-  "generated_at": "2026-03-21T22:18:09.057493+00:00",
-  "total_items": 0,
-  "items": [],
+  "generated_at": "2026-03-21T22:34:50.933595+00:00",
+  "total_items": 1,
+  "items": [
+    {
+      "source": "vinted",
+      "title": "usb nuevo",
+      "price": "4,00 €",
+      "image": "https://images1.vinted.net/t/05_00557_tgiM4qpt7PR4CWacUdeioZvF/310x430/1774130780.webp?s=b0180fb20e83e5db91233da35559639e2451b25f",
+      "link": "https://www.vinted.es/items/8451969885-usb-nuevo?referrer=catalog"
+    }
+  ],
   "sources": {
     "vinted": {
       "profile_url": "https://www.vinted.es/member/3140332927",
-      "count": 0
+      "effective_url": "https://www.vinted.es/catalog?search_text=luckyyshopp&order=newest_first",
+      "login": "luckyyshopp",
+      "count": 1,
+      "error": ""
     }
   }
 }
