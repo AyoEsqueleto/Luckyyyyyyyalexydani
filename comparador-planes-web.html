@@ -1,14 +1,661 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Redireccionando...</title>
-  <link rel="canonical" href="https://luckybase.es/comparador-planes-web/">
-  <meta http-equiv="refresh" content="0; url=/comparador-planes-web/">
-  <script>location.replace('/comparador-planes-web/')</script>
-</head>
+  <link rel="stylesheet" href="cookie-consent.css">
+  <script src="cookie-consent.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Compara LuckyWeb Basic, Corporativa y Ecommerce: secciones, SEO, soporte y enfoque para elegir el plan ideal para tu negocio.">
+<title>Comparador Web | LuckyBase</title>
+<meta property="og:title" content="Comparador Web | LuckyBase">
+<meta property="og:description" content="Compara LuckyWeb Basic, Corporativa y Ecommerce: secciones, SEO, soporte y enfoque para elegir el plan ideal para tu negocio.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://luckybase.es/comparador-planes-web.html">
+<meta property="og:site_name" content="LuckyBase">
+<meta property="og:image" content="https://luckybase.es/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Comparador Web | LuckyBase">
+<meta name="twitter:description" content="Compara LuckyWeb Basic, Corporativa y Ecommerce: secciones, SEO, soporte y enfoque para elegir el plan ideal para tu negocio.">
+<meta name="twitter:image" content="https://luckybase.es/og-image.png">
+<meta name="theme-color" content="#1565ff">
+<link rel="canonical" href="https://luckybase.es/comparador-planes-web.html">
+<link rel="apple-touch-icon" href="https://luckybase.es/apple-touch-icon.png">
+<link rel="icon" href="https://luckybase.es/favicon.ico" type="image/x-icon">
+<link rel="icon" sizes="32x32" href="https://luckybase.es/favicon-32x32.png">
+<link rel="icon" sizes="16x16" href="https://luckybase.es/favicon-16x16.png">
+<link rel="manifest" href="https://luckybase.es/site.webmanifest">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon.png" type="image/png">
+<style>
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible{
+outline:3px solid rgba(21,101,255,0.55);
+outline-offset:2px;
+}
+img{max-width:100%;height:auto;}
+body{overflow-x:hidden;}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#f7f9ff;
+color:#111827;
+padding-top:110px;
+}
+
+header{
+position:fixed;
+top:0;
+width:100%;
+background:#ffffff;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 8%;
+box-shadow:0 5px 20px rgba(0,0,0,0.06);
+z-index:1000;
+}
+
+.logo img{
+height:54px;
+width:auto;
+display:block;
+}
+
+nav{
+display:flex;
+align-items:center;
+gap:24px;
+}
+
+nav a{
+text-decoration:none;
+color:#374151;
+font-weight:500;
+}
+
+.hero{
+padding:72px 8% 36px;
+background:linear-gradient(120deg,#1565ff 0%,#3b82f6 55%,#60a5fa 100%);
+color:#fff;
+}
+
+.hero h1{
+font-size:44px;
+line-height:1.1;
+margin-bottom:12px;
+}
+
+.hero p{
+max-width:760px;
+font-size:18px;
+opacity:0.96;
+}
+
+.main{
+padding:38px 8% 78px;
+}
+
+.controls{
+background:#ffffff;
+border-radius:14px;
+padding:24px;
+box-shadow:0 10px 30px rgba(15,23,42,0.08);
+display:grid;
+grid-template-columns:repeat(2,minmax(220px,1fr));
+gap:16px 18px;
+align-items:end;
+margin-bottom:24px;
+}
+
+.field{
+display:flex;
+flex-direction:column;
+gap:8px;
+}
+
+.field label{
+font-size:14px;
+font-weight:600;
+color:#334155;
+}
+
+select{
+height:44px;
+padding:0 12px;
+border:1px solid #d1d5db;
+border-radius:10px;
+background:#fff;
+color:#111827;
+font-size:15px;
+}
+
+.checkbox-line{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:14px;
+font-weight:500;
+color:#334155;
+}
+
+.status{
+grid-column:1 / -1;
+font-size:14px;
+font-weight:600;
+color:#2563eb;
+}
+
+.table-wrap{
+background:#fff;
+border-radius:14px;
+box-shadow:0 10px 30px rgba(15,23,42,0.08);
+overflow:auto;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+min-width:680px;
+}
+
+thead th{
+text-align:left;
+padding:16px;
+background:#eff6ff;
+color:#1e3a8a;
+font-size:14px;
+font-weight:700;
+border-bottom:1px solid #dbeafe;
+}
+
+tbody td{
+padding:14px 16px;
+border-bottom:1px solid #eef2ff;
+font-size:14px;
+}
+
+tbody tr:last-child td{
+border-bottom:none;
+}
+
+td.label{
+font-weight:600;
+color:#334155;
+width:34%;
+}
+
+td.value{
+color:#111827;
+}
+
+.win{
+background:#ecfdf5;
+color:#065f46;
+font-weight:600;
+}
+
+.muted{
+color:#64748b;
+}
+
+.actions{
+margin-top:18px;
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.btn{
+display:inline-block;
+padding:10px 16px;
+border-radius:8px;
+text-decoration:none;
+font-weight:600;
+border:none;
+cursor:pointer;
+}
+
+.btn-primary{
+background:#1565ff;
+color:#fff;
+}
+
+.btn-secondary{
+background:#e5edff;
+color:#1e40af;
+}
+
+footer{
+background:#1565ff;
+color:white;
+text-align:center;
+padding:35px;
+margin-top:80px;
+position:relative;
+}
+
+.footer-instagram{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+width:34px;
+height:34px;
+border-radius:50%;
+background:#fff;
+color:#1565ff;
+text-decoration:none;
+transition:0.3s;
+}
+
+.footer-instagram:hover{
+transform:scale(1.08);
+background:#f3f6ff;
+}
+
+.footer-instagram svg{
+width:18px;
+height:18px;
+display:block;
+}
+
+.footer-copy{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+}
+
+.footer-copy img{
+width:30px;
+height:30px;
+object-fit:contain;
+display:block;
+}
+
+.footer-preferences{
+display:inline-block;
+padding:6px 10px;
+border-radius:8px;
+background:#fff;
+color:#1565ff;
+text-decoration:none;
+font-size:12px;
+font-weight:600;
+transition:0.3s;
+position:absolute;
+right:35px;
+bottom:35px;
+}
+
+.footer-preferences:hover{
+background:#f3f6ff;
+}
+
+.footer-socials{
+display:flex;
+justify-content:center;
+gap:10px;
+margin-top:12px;
+}
+
+.footer-legal{
+margin-top:10px;
+}
+
+.footer-legal a{
+color:#dbeafe;
+font-size:13px;
+text-decoration:none;
+}
+
+.footer-legal a:hover{
+text-decoration:underline;
+}
+
+@media(max-width:900px){
+header{
+padding:8px 4% 10px;
+gap:8px;
+flex-wrap:wrap;
+align-items:center;
+}
+
+body{
+padding-top:124px;
+}
+
+nav{
+order:3;
+width:100%;
+display:flex;
+flex-wrap:nowrap;
+justify-content:flex-start;
+gap:10px;
+overflow-x:auto;
+padding-bottom:2px;
+-webkit-overflow-scrolling:touch;
+}
+
+nav a{
+font-size:13px;
+white-space:nowrap;
+flex:0 0 auto;
+}
+
+.hero{
+padding:46px 5% 28px;
+}
+
+.hero h1{
+font-size:34px;
+}
+
+.hero p{
+font-size:16px;
+}
+
+.main{
+padding:24px 5% 60px;
+}
+
+.controls{
+grid-template-columns:1fr;
+padding:18px;
+}
+
+.footer-preferences{
+position:static;
+margin-top:12px;
+}
+}
+</style>
+<link rel="stylesheet" href="premium.css"></head>
 <body>
-  <p>Redireccionando a <a href="/comparador-planes-web/">/comparador-planes-web/</a>...</p>
+
+<header>
+<div class="logo">
+<img loading="lazy" src="LUCKYBASE logo letras.png" alt="Logo Lucky Base">
+</div>
+<nav>
+<a href="index.html">Inicio</a>
+<a href="planes.html">Planes</a>
+<a href="index.html#contacto">Contacto</a>
+</nav>
+</header>
+
+<section class="hero">
+<h1>Comparador de planes LuckyWeb</h1>
+<p>Selecciona dos planes y revisa diferencias clave para decidir más rápido: alcance, SEO, ecommerce, integraciones y tiempos de entrega.</p>
+</section>
+
+<main class="main">
+<section class="controls">
+<div class="field">
+<label for="planA">Plan A</label>
+<select id="planA">
+<option value="basic">LuckyWeb Basic</option>
+<option value="corporativa">LuckyWeb Corporativa</option>
+<option value="ecommerce">LuckyWeb Ecommerce</option>
+</select>
+</div>
+<div class="field">
+<label for="planB">Plan B</label>
+<select id="planB">
+<option value="basic">LuckyWeb Basic</option>
+<option value="corporativa" selected>LuckyWeb Corporativa</option>
+<option value="ecommerce">LuckyWeb Ecommerce</option>
+</select>
+</div>
+<label class="checkbox-line" for="onlyDiffs">
+<input id="onlyDiffs" type="checkbox">
+Mostrar solo diferencias
+</label>
+<p id="status" class="status">Comparando LuckyWeb Basic vs LuckyWeb Corporativa</p>
+</section>
+
+<section class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Característica</th>
+<th id="headA">Plan A</th>
+<th id="headB">Plan B</th>
+</tr>
+</thead>
+<tbody id="comparisonBody"></tbody>
+</table>
+</section>
+
+<div class="actions">
+<a class="btn btn-primary" href="index.html#contacto">Solicitar asesoría</a>
+<a class="btn btn-secondary" href="planes.html">Volver a planes</a>
+</div>
+</main>
+
+<footer>
+<p class="footer-copy">
+<img loading="lazy" src="logoluckyblancosinfondo.png" alt="Logo Lucky Base">
+<span>© 2026 LuckyBase — Todos los derechos reservados</span>
+</p>
+
+<div class="footer-socials">
+<a class="footer-instagram" href="https://www.instagram.com/luckybaseofficial/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Lucky Base">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+<rect x="2.5" y="2.5" width="19" height="19" rx="5"></rect>
+<circle cx="12" cy="12" r="4.5"></circle>
+<circle cx="18" cy="6" r="1.2" fill="currentColor" stroke="none"></circle>
+</svg>
+</a>
+
+<a class="footer-instagram" href="https://www.tiktok.com/@luckybaseofficial" target="_blank" rel="noopener noreferrer" aria-label="TikTok Lucky Base">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+<path d="M14.5 3c.4 1.8 1.8 3.2 3.5 3.7v2.6c-1.4 0-2.7-.4-3.8-1.2v6.5c0 3.3-2.7 5.9-6 5.9s-6-2.6-6-5.9 2.7-5.9 6-5.9c.3 0 .7 0 1 .1v2.8c-.3-.1-.6-.2-1-.2-1.7 0-3.1 1.4-3.1 3.1s1.4 3.1 3.1 3.1 3.1-1.4 3.1-3.1V3h3.2z"></path>
+</svg>
+</a>
+
+<a class="footer-instagram" href="https://discord.com/invite/GYJN7kEwU2" target="_blank" rel="noopener noreferrer" aria-label="Discord Lucky Base">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+<path d="M20 4.5a17.4 17.4 0 0 0-4.1-1.3 12.2 12.2 0 0 0-.5 1.1 16.8 16.8 0 0 0-6.8 0 12 12 0 0 0-.5-1.1A17.3 17.3 0 0 0 4 4.5C1.5 8 1 11.4 1.2 14.8c1.7 1.3 3.4 2.1 5.2 2.6.4-.6.8-1.2 1.1-1.9-.6-.2-1.2-.5-1.7-.8.1-.1.3-.2.4-.3 3.3 1.5 6.9 1.5 10.2 0 .1.1.3.2.4.3-.6.3-1.1.6-1.7.8.3.7.7 1.3 1.1 1.9 1.8-.5 3.5-1.3 5.2-2.6.3-3.9-.7-7.3-3.2-10.3zM8.5 13.1c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm7 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z"/>
+</svg>
+</a>
+</div>
+
+<a href="#" class="footer-preferences">Cambiar mis preferencias</a>
+
+<div class="footer-legal">
+<a href="privacy-policy.html">Política de Privacidad</a>
+</div>
+</footer>
+
+<script>
+const plans={
+basic:{
+name:"LuckyWeb Basic",
+values:{
+precioPrincipalWeb:"50 €",
+cuotaMensual:"3,50 € (5 consultas/cambios y dominio standard) o 6,50 € (ilimitadas y dominio personalizado)",
+proyecto:"Web informativa esencial",
+estructura:"Hasta 5 secciones",
+responsive:true,
+disenoPersonalizado:false,
+seo:false,
+integraciones:false,
+ecommerce:false,
+pasarelaPago:false,
+productosIniciales:0,
+formacion:false,
+entregaDias:6,
+soporte:"Email (básico)"
+}
+},
+corporativa:{
+name:"LuckyWeb Corporativa",
+values:{
+precioPrincipalWeb:"150 € → 110 €",
+cuotaMensual:"5,50 €",
+proyecto:"Web corporativa completa",
+estructura:"Hasta 6 páginas internas",
+responsive:true,
+disenoPersonalizado:true,
+seo:true,
+integraciones:true,
+ecommerce:false,
+pasarelaPago:false,
+productosIniciales:0,
+formacion:false,
+entregaDias:10,
+soporte:"Prioritario"
+}
+},
+ecommerce:{
+name:"LuckyWeb Ecommerce",
+values:{
+precioPrincipalWeb:"200 €",
+cuotaMensual:"20 €",
+proyecto:"Tienda online completa",
+estructura:"Catálogo + checkout + páginas legales",
+responsive:true,
+disenoPersonalizado:true,
+seo:true,
+integraciones:true,
+ecommerce:true,
+pasarelaPago:true,
+productosIniciales:20,
+formacion:true,
+entregaDias:14,
+soporte:"Prioritario + guía de uso"
+}
+}
+}
+
+const rows=[
+{key:"precioPrincipalWeb",label:"Precio principal web",type:"text"},
+{key:"cuotaMensual",label:"Cuota mensual",type:"text"},
+{key:"proyecto",label:"Tipo de proyecto",type:"text"},
+{key:"estructura",label:"Estructura incluida",type:"text"},
+{key:"responsive",label:"Diseño responsive",type:"boolean"},
+{key:"disenoPersonalizado",label:"Diseño personalizado",type:"boolean"},
+{key:"seo",label:"SEO básico on-page",type:"boolean"},
+{key:"integraciones",label:"Integraciones básicas",type:"boolean"},
+{key:"ecommerce",label:"Módulo ecommerce",type:"boolean"},
+{key:"pasarelaPago",label:"Pasarela de pago",type:"boolean"},
+{key:"productosIniciales",label:"Carga inicial de productos",type:"number_high"},
+{key:"formacion",label:"Formación de uso",type:"boolean"},
+{key:"entregaDias",label:"Tiempo de entrega estimado",type:"number_low"},
+{key:"soporte",label:"Soporte post-entrega",type:"text"}
+]
+
+const planASelect=document.getElementById("planA")
+const planBSelect=document.getElementById("planB")
+const onlyDiffs=document.getElementById("onlyDiffs")
+const headA=document.getElementById("headA")
+const headB=document.getElementById("headB")
+const body=document.getElementById("comparisonBody")
+const status=document.getElementById("status")
+
+function boolLabel(value){
+return value ? "Incluido" : "No incluido"
+}
+
+function fmt(row,value){
+if(row.type==="boolean"){
+return boolLabel(value)
+}
+if(row.key==="entregaDias"){
+return "Aprox. "+value+" días"
+}
+if(row.key==="productosIniciales"&&value===0){
+return "No incluido"
+}
+if(row.key==="productosIniciales"){
+return value+" productos"
+}
+return String(value)
+}
+
+function betterClass(row,a,b,forA){
+if(row.type==="number_high"){
+if(a===b){return ""}
+return forA ? (a>b?"win":"") : (b>a?"win":"")
+}
+if(row.type==="number_low"){
+if(a===b){return ""}
+return forA ? (a<b?"win":"") : (b<a?"win":"")
+}
+if(row.type==="boolean"){
+if(a===b){return ""}
+return forA ? (a?"win":"") : (b?"win":"")
+}
+return ""
+}
+
+function isDifferent(row,a,b){
+if(row.type==="text"){
+return String(a)!==String(b)
+}
+return a!==b
+}
+
+function render(){
+const planA=plans[planASelect.value]
+const planB=plans[planBSelect.value]
+headA.textContent=planA.name
+headB.textContent=planB.name
+status.textContent="Comparando "+planA.name+" vs "+planB.name
+
+if(planASelect.value===planBSelect.value){
+status.textContent="Selecciona dos planes distintos para una comparación útil."
+}
+
+body.innerHTML=""
+
+rows.forEach((row)=>{
+const aValue=planA.values[row.key]
+const bValue=planB.values[row.key]
+const different=isDifferent(row,aValue,bValue)
+
+if(onlyDiffs.checked&&!different){
+return
+}
+
+const tr=document.createElement("tr")
+if(!different){
+tr.classList.add("muted")
+}
+
+const tdLabel=document.createElement("td")
+tdLabel.className="label"
+tdLabel.textContent=row.label
+
+const tdA=document.createElement("td")
+tdA.className="value "+betterClass(row,aValue,bValue,true)
+tdA.textContent=fmt(row,aValue)
+
+const tdB=document.createElement("td")
+tdB.className="value "+betterClass(row,aValue,bValue,false)
+tdB.textContent=fmt(row,bValue)
+
+tr.appendChild(tdLabel)
+tr.appendChild(tdA)
+tr.appendChild(tdB)
+body.appendChild(tr)
+})
+}
+
+planASelect.addEventListener("change",render)
+planBSelect.addEventListener("change",render)
+onlyDiffs.addEventListener("change",render)
+render()
+</script>
 </body>
 </html>
