@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <base href="/">
+  <link rel="stylesheet" href="cookie-consent.css">
+  <script src="cookie-consent.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ultimos productos publicados en Vinted por LuckyBase.">
+  <title>LuckyBase Reventa | Vinted</title>
+  <meta name="theme-color" content="#007782">
+  <link rel="canonical" href="https://luckybase.es/reventa-vinted/">
+  <link rel="apple-touch-icon" href="https://luckybase.es/apple-touch-icon.png">
+  <link rel="icon" href="https://luckybase.es/favicon.ico" type="image/x-icon">
+  <link rel="icon" sizes="32x32" href="https://luckybase.es/favicon-32x32.png">
+  <link rel="icon" sizes="16x16" href="https://luckybase.es/favicon-16x16.png">
+  <link rel="manifest" href="https://luckybase.es/site.webmanifest">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f6f7;
+      --surface: #ffffff;
+      --line: #e6e7e9;
+      --text: #172121;
+      --muted: #6a6f73;
+      --brand: #007782;
+      --brand-dark: #005e67;
+      --pill: #f0f2f4;
+      --radius: 12px;
+      --shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+      --container: 1240px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Manrope, "Segoe UI", sans-serif;
+    }
+
+    a { color: inherit; }
+
+    .vt-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .vt-header-inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: grid;
+      grid-template-columns: auto minmax(260px, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .vt-logo {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .vt-logo img {
+      height: 34px;
+      width: auto;
+      display: block;
+    }
+
+    .vt-search {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f1f3f4;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 10px 14px;
+    }
+
+    .vt-search:focus-within {
+      border-color: #c8d2d6;
+      background: #fff;
+    }
+
+    .vt-search input {
+      border: 0;
+      background: transparent;
+      width: 100%;
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+    }
+
+    .vt-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .vt-btn {
+      font-weight: 700;
+      font-size: 13px;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      white-space: nowrap;
+    }
+
+    .vt-btn-primary {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #fff;
+    }
+
+    .vt-btn-primary:hover { background: var(--brand-dark); }
+
+    .vt-nav {
+      border-top: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .vt-nav-inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .vt-chip {
+      border: 1px solid var(--line);
+      background: var(--pill);
+      color: #384146;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .vt-main {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 22px 20px 44px;
+    }
+
+    .vt-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .vt-title {
+      margin: 0;
+      font-size: 26px;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+
+    .vt-subtitle {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .vt-sort {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 12px;
+      background: var(--surface);
+      color: #384146;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .vt-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .vt-filters {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      position: sticky;
+      top: 130px;
+    }
+
+    .vt-filter-title {
+      margin: 0 0 12px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .vt-filter-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .vt-filter-pill {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 10px;
+      padding: 9px 10px;
+      font-size: 13px;
+      color: #2f383d;
+    }
+
+    .vt-filter-pill strong {
+      color: var(--brand);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .vt-results {
+      min-height: 280px;
+    }
+
+    .vt-status {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .vt-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    .vt-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .vt-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.09);
+    }
+
+    .vt-media {
+      position: relative;
+      aspect-ratio: 3 / 4;
+      background: #eef1f2;
+    }
+
+    .vt-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .vt-like {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.92);
+      color: #4f5a60;
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+    }
+
+    .vt-card-body {
+      padding: 10px 10px 12px;
+      display: grid;
+      gap: 6px;
+    }
+
+    .vt-item-title {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.35;
+      color: #111a1d;
+      min-height: 38px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .vt-item-meta {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .vt-item-price {
+      display: grid;
+      gap: 2px;
+      margin-top: 2px;
+    }
+
+    .vt-item-price strong {
+      font-size: 15px;
+      line-height: 1;
+    }
+
+    .vt-item-price span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .vt-item-action {
+      margin-top: 6px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--brand);
+      border: 1px solid #b6d7db;
+      border-radius: 999px;
+      text-align: center;
+      padding: 8px 10px;
+      background: #f5fcfd;
+    }
+
+    .vt-empty {
+      border: 1px dashed #c6ced2;
+      border-radius: 12px;
+      padding: 24px;
+      background: #fbfcfd;
+      color: #566066;
+      font-size: 14px;
+    }
+
+    @media (max-width: 1024px) {
+      .vt-layout { grid-template-columns: 1fr; }
+      .vt-filters {
+        position: static;
+        top: auto;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .vt-header-inner {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .vt-actions {
+        justify-content: flex-start;
+      }
+
+      .vt-title {
+        font-size: 22px;
+      }
+
+      .vt-main {
+        padding: 16px 12px 34px;
+      }
+
+      .vt-nav-inner,
+      .vt-header-inner {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .vt-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="vt-header">
+    <div class="vt-header-inner">
+      <a class="vt-logo" href="/" aria-label="Inicio LuckyBase">
+        <img src="LUCKYBASE logo letras.png" alt="LuckyBase">
+      </a>
+
+      <label class="vt-search" aria-label="Buscador">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Zm8.4 2-4.1-4.1" stroke="#5b666d" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <input type="text" placeholder="Buscar articulos" value="LuckyBase Vinted" readonly>
+      </label>
+
+      <div class="vt-actions">
+        <a class="vt-btn" href="/">Volver</a>
+        <a class="vt-btn vt-btn-primary" href="https://www.vinted.es/member/3140332927-luckyyshopp" target="_blank" rel="noopener noreferrer">Perfil Vinted</a>
+      </div>
+    </div>
+
+    <nav class="vt-nav" aria-label="Categorias">
+      <div class="vt-nav-inner">
+        <span class="vt-chip">Recomendados</span>
+        <span class="vt-chip">Novedades</span>
+        <span class="vt-chip">Tecnologia</span>
+        <span class="vt-chip">Ropa</span>
+        <span class="vt-chip">Accesorios</span>
+        <span class="vt-chip">Hogar</span>
+        <span class="vt-chip">Precio bajo a alto</span>
+      </div>
+    </nav>
+  </header>
+
+  <main class="vt-main">
+    <div class="vt-toolbar">
+      <div>
+        <h1 class="vt-title">Articulos en venta</h1>
+        <p id="vintedHeadline" class="vt-subtitle">Sincronizado con productos.json</p>
+      </div>
+      <div class="vt-sort">Orden: mas recientes</div>
+    </div>
+
+    <div class="vt-layout">
+      <aside class="vt-filters" aria-label="Filtros">
+        <h2 class="vt-filter-title">Filtros rapidos</h2>
+        <div class="vt-filter-list">
+          <div class="vt-filter-pill">Estado <strong>Todos</strong></div>
+          <div class="vt-filter-pill">Precio <strong>EUR</strong></div>
+          <div class="vt-filter-pill">Vendedor <strong>LuckyyShopp</strong></div>
+          <div class="vt-filter-pill">Publicacion <strong>Reciente</strong></div>
+        </div>
+      </aside>
+
+      <section class="vt-results" aria-live="polite">
+        <p id="vintedStatus" class="vt-status">Cargando productos...</p>
+        <div id="vintedGrid" class="vt-grid"></div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const grid = document.getElementById("vintedGrid")
+    const statusEl = document.getElementById("vintedStatus")
+    const headlineEl = document.getElementById("vintedHeadline")
+
+    function toLocaleDate(iso) {
+      const d = new Date(iso || "")
+      if (Number.isNaN(d.getTime())) return ""
+      return d.toLocaleString("es-ES", { dateStyle: "medium", timeStyle: "short" })
+    }
+
+    function buildBuyerProtectionLine(priceText) {
+      const base = String(priceText || "").trim()
+      if (!base) return "Proteccion comprador incluida"
+      return base + " con Proteccion comprador"
+    }
+
+    function createCard(item) {
+      const card = document.createElement("article")
+      card.className = "vt-card"
+
+      const media = document.createElement("div")
+      media.className = "vt-media"
+
+      const img = document.createElement("img")
+      img.loading = "lazy"
+      img.alt = item.title || "Producto Vinted"
+      img.src = item.image || "https://via.placeholder.com/450x600?text=Vinted"
+      media.appendChild(img)
+
+      const like = document.createElement("button")
+      like.className = "vt-like"
+      like.type = "button"
+      like.setAttribute("aria-label", "Favorito")
+      like.textContent = "♡"
+      media.appendChild(like)
+
+      const body = document.createElement("div")
+      body.className = "vt-card-body"
+
+      const title = document.createElement("h3")
+      title.className = "vt-item-title"
+      title.textContent = item.title || "Articulo sin titulo"
+
+      const meta = document.createElement("div")
+      meta.className = "vt-item-meta"
+      meta.textContent = "LuckyyShopp · Vinted"
+
+      const price = document.createElement("div")
+      price.className = "vt-item-price"
+
+      const priceStrong = document.createElement("strong")
+      priceStrong.textContent = item.price || "Precio no disponible"
+
+      const priceSub = document.createElement("span")
+      priceSub.textContent = buildBuyerProtectionLine(item.price)
+
+      price.appendChild(priceStrong)
+      price.appendChild(priceSub)
+
+      const action = document.createElement("a")
+      action.className = "vt-item-action"
+      action.href = item.link || "#"
+      action.target = "_blank"
+      action.rel = "noopener noreferrer"
+      action.textContent = "Ver en Vinted"
+
+      body.appendChild(title)
+      body.appendChild(meta)
+      body.appendChild(price)
+      body.appendChild(action)
+
+      card.appendChild(media)
+      card.appendChild(body)
+      return card
+    }
+
+    function renderEmpty(message) {
+      grid.innerHTML = ""
+      const empty = document.createElement("div")
+      empty.className = "vt-empty"
+      empty.textContent = message
+      grid.appendChild(empty)
+    }
+
+    async function loadVintedProducts() {
+      try {
+        const resp = await fetch("productos.json", { cache: "no-store" })
+        if (!resp.ok) throw new Error("HTTP_" + resp.status)
+
+        const payload = await resp.json()
+        const sourceInfo = (payload && payload.sources && payload.sources.vinted) || {}
+
+        const allItems = Array.isArray(payload && payload.items) ? payload.items : []
+        const items = allItems
+          .filter((it) => String((it && it.source) || "").toLowerCase() === "vinted")
+          .slice(0, 24)
+
+        grid.innerHTML = ""
+
+        if (!items.length) {
+          const customError = String(sourceInfo.error || "").trim()
+          const configuredUrl = String(sourceInfo.profile_url || "").trim()
+          if (customError) {
+            statusEl.textContent = customError
+            renderEmpty(customError)
+          } else if (!configuredUrl) {
+            const msg = "No hay URL de Vinted configurada todavia en la automatizacion."
+            statusEl.textContent = msg
+            renderEmpty(msg)
+          } else {
+            const msg = "No hay productos disponibles ahora mismo."
+            statusEl.textContent = msg
+            renderEmpty(msg)
+          }
+          return
+        }
+
+        items.forEach((item) => grid.appendChild(createCard(item || {})))
+
+        const updated = toLocaleDate(payload && payload.generated_at)
+        const login = String(sourceInfo.login || "").trim()
+
+        statusEl.textContent = updated
+          ? `Mostrando ${items.length} articulos. Ultima actualizacion: ${updated}.`
+          : `Mostrando ${items.length} articulos.`
+
+        headlineEl.textContent = login
+          ? `Vendedor: ${login} · feed sincronizado automaticamente`
+          : "Feed sincronizado con productos.json"
+      } catch (error) {
+        const msg = "No se pudieron cargar los productos en este momento."
+        statusEl.textContent = msg
+        renderEmpty(msg)
+      }
+    }
+
+    loadVintedProducts()
+  </script>
+</body>
+</html>

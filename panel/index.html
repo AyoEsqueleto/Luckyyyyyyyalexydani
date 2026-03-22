@@ -1,0 +1,2493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <base href="/">
+  <link rel="stylesheet" href="cookie-consent.css">
+  <script src="cookie-consent.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="LuckyBase: acceso de clientes y panel de gestión.">
+<meta name="robots" content="noindex, nofollow">
+<title>Panel de Cliente | LuckyBase</title>
+<meta property="og:title" content="Panel de Cliente | LuckyBase">
+<meta property="og:description" content="LuckyBase: acceso de clientes y panel de gestión.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://luckybase.es/panel/">
+<meta property="og:site_name" content="LuckyBase">
+<meta property="og:image" content="https://luckybase.es/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Panel de Cliente | LuckyBase">
+<meta name="twitter:description" content="LuckyBase: acceso de clientes y panel de gestión.">
+<meta name="twitter:image" content="https://luckybase.es/og-image.png">
+<meta name="theme-color" content="#1565ff">
+<link rel="canonical" href="https://luckybase.es/panel/">
+<link rel="apple-touch-icon" href="https://luckybase.es/apple-touch-icon.png">
+<link rel="icon" href="https://luckybase.es/favicon.ico" type="image/x-icon">
+<link rel="icon" sizes="32x32" href="https://luckybase.es/favicon-32x32.png">
+<link rel="icon" sizes="16x16" href="https://luckybase.es/favicon-16x16.png">
+<link rel="manifest" href="https://luckybase.es/site.webmanifest">
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon.png" type="image/png">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K96JRDLJ');</script><!-- End Google Tag Manager -->
+<style>
+:root{
+  --primary:#1565ff;
+  --primary-dark:#0e49c9;
+  --accent:#60a5fa;
+  --ink:#0f172a;
+  --muted:#64748b;
+  --bg:#f4f6ff;
+  --card:#ffffff;
+  --stroke:rgba(15,23,42,0.08);
+  --shadow:0 20px 45px rgba(15,23,42,0.12);
+  --radius:18px;
+  --glow:0 0 0 1px rgba(96,165,250,0.25),0 18px 32px rgba(15,23,42,0.12);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Space Grotesk","Poppins",sans-serif;
+}
+
+img{max-width:100%;height:auto;}
+body{overflow-x:hidden;}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible{
+  outline:3px solid rgba(21,101,255,0.55);
+  outline-offset:2px;
+}
+
+body{
+  background:
+    radial-gradient(circle at 15% 10%,rgba(21,101,255,0.16),transparent 48%),
+    radial-gradient(circle at 85% 5%,rgba(96,165,250,0.22),transparent 40%),
+    radial-gradient(circle at 50% 90%,rgba(14,73,201,0.18),transparent 35%),
+    var(--bg);
+  color:var(--ink);
+  padding-top:84px;
+  min-height:100vh;
+}
+
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  background:rgba(255,255,255,0.9);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--stroke);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 8%;
+  z-index:1000;
+}
+
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo img{
+  height:44px;
+  width:auto;
+  display:block;
+}
+
+nav{
+  display:flex;
+  gap:20px;
+}
+
+nav a{
+  text-decoration:none;
+  color:#1f2937;
+  font-weight:600;
+}
+
+.nav-toggle{
+  display:none;
+  border:none;
+  background:var(--primary);
+  color:#fff;
+  padding:8px 12px;
+  border-radius:10px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.theme-toggle{
+  width:40px;
+  height:40px;
+  padding:0;
+  border:1px solid rgba(148,163,184,0.4);
+  border-radius:50%;
+  background:#fff;
+  color:#1f2937;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  transition:0.2s ease;
+}
+
+.theme-toggle:hover{
+  background:#f1f5f9;
+}
+
+.theme-toggle svg{
+  width:20px;
+  height:20px;
+  display:block;
+}
+
+.hero{
+  padding:88px 8% 42px;
+  text-align:center;
+  color:#fff;
+  background:linear-gradient(135deg,#0b1b3a,#1546b3 55%,#1f6bff);
+  position:relative;
+  overflow:hidden;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:auto -20% -40% -20%;
+  height:70%;
+  background:radial-gradient(circle at 20% 20%,rgba(255,255,255,0.35),transparent 55%);
+  opacity:0.6;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(7,12,24,0.15),transparent 45%,rgba(7,12,24,0.4));
+}
+
+.hero h1{
+  font-size:clamp(32px,4vw,46px);
+  margin-bottom:10px;
+  position:relative;
+  z-index:1;
+}
+
+.hero p{
+  opacity:0.9;
+  position:relative;
+  z-index:1;
+}
+
+.wrapper{
+  padding:36px 8% 70px;
+}
+
+.panel{
+  max-width:980px;
+  margin:0 auto;
+  background:var(--card);
+  padding:26px;
+  border-radius:var(--radius);
+  box-shadow:var(--glow);
+  border:1px solid var(--stroke);
+  position:relative;
+  overflow:hidden;
+  animation:panelIn 0.5s ease;
+}
+
+.panel::after{
+  content:"";
+  position:absolute;
+  inset:-40% 10% auto 10%;
+  height:60%;
+  background:radial-gradient(circle at top,rgba(21,101,255,0.18),transparent 70%);
+  pointer-events:none;
+}
+
+.panel > *{
+  position:relative;
+  z-index:1;
+}
+
+@keyframes panelIn{
+  from{transform:translateY(12px);opacity:0;}
+  to{transform:translateY(0);opacity:1;}
+}
+
+.panel-toolbar{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:18px 0 16px;
+}
+
+.plan-switcher{
+  margin:0 0 14px;
+  padding:12px;
+  border:1px solid rgba(59,130,246,0.18);
+  border-radius:14px;
+  background:#f8fbff;
+}
+
+.plan-switcher strong{
+  display:block;
+  margin-bottom:8px;
+  font-size:12px;
+  color:#1e3a8a;
+  text-transform:uppercase;
+  letter-spacing:.3px;
+}
+
+.plan-switcher-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.plan-switch-btn{
+  border:1px solid rgba(59,130,246,0.22);
+  border-radius:10px;
+  background:#eef4ff;
+  color:#1e3a8a;
+  padding:8px 10px;
+  cursor:pointer;
+  font-size:12px;
+  display:grid;
+  gap:2px;
+  min-width:140px;
+  text-align:left;
+}
+
+.plan-switch-btn .line1{
+  font-weight:700;
+}
+
+.plan-switch-btn .line2{
+  opacity:.85;
+}
+
+.plan-switch-btn.is-active{
+  border-color:#1565ff;
+  background:#1565ff;
+  color:#fff;
+  box-shadow:0 12px 20px rgba(21,101,255,0.26);
+}
+
+.panel-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  border-radius:999px;
+  background:#eef4ff;
+  border:1px solid rgba(59,130,246,0.2);
+  font-size:12px;
+  color:#1e3a8a;
+  font-weight:600;
+}
+
+.panel-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  flex-wrap:wrap;
+  margin-bottom:18px;
+}
+
+.panel-title h3{
+  font-size:22px;
+  margin-bottom:6px;
+}
+
+.panel-title p{
+  color:var(--muted);
+  font-size:14px;
+}
+
+.panel-status{
+  background:#f0f5ff;
+  border-radius:14px;
+  padding:12px 16px;
+  border:1px solid rgba(59,130,246,0.25);
+  min-width:220px;
+}
+
+.panel-status span{
+  display:block;
+  font-size:12px;
+  color:#64748b;
+}
+
+.panel-status strong{
+  font-size:18px;
+  color:#0f172a;
+}
+
+.panel-status small{
+  display:block;
+  margin-top:4px;
+  font-size:12px;
+  color:#475569;
+}
+
+.panel-status.is-bad{
+  background:#fff1f2;
+  border-color:rgba(248,113,113,0.4);
+}
+
+.panel-status.is-bad strong{
+  color:#dc2626;
+}
+
+.panel-status.is-bad span{
+  color:#b91c1c;
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:14px;
+  margin-bottom:18px;
+}
+
+.stat-card{
+  background:linear-gradient(140deg,rgba(21,101,255,0.12),rgba(96,165,250,0.08));
+  border-radius:16px;
+  padding:14px 16px;
+  border:1px solid rgba(59,130,246,0.2);
+  box-shadow:0 12px 26px rgba(15,23,42,0.08);
+  display:grid;
+  gap:6px;
+}
+
+.stat-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.stat-label{
+  font-size:12px;
+  color:#475569;
+}
+
+.stat-badge{
+  padding:4px 8px;
+  border-radius:999px;
+  background:rgba(21,101,255,0.15);
+  color:#1e3a8a;
+  font-size:11px;
+  font-weight:600;
+}
+
+.stat-badge.is-bad{
+  background:rgba(248,113,113,0.2);
+  color:#b91c1c;
+}
+
+.stat-value{
+  font-size:18px;
+  font-weight:700;
+  color:#0f172a;
+}
+
+.stat-note{
+  font-size:12px;
+  color:#64748b;
+}
+
+.details{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:14px;
+}
+
+.detail{
+  background:#f8fbff;
+  border-radius:14px;
+  padding:14px 16px;
+  border:1px solid rgba(148,163,184,0.18);
+  box-shadow:0 12px 24px rgba(15,23,42,0.06);
+}
+
+.detail span{
+  display:block;
+  font-size:12px;
+  color:#64748b;
+}
+
+.detail strong{
+  font-size:15px;
+  color:#0f172a;
+}
+
+.status-bad{
+  color:#dc2626;
+  font-weight:700;
+}
+
+.actions{
+  margin-top:20px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.actions button,
+.actions a{
+  text-decoration:none;
+  font-weight:600;
+  border-radius:999px;
+  padding:10px 16px;
+  border:none;
+  cursor:pointer;
+}
+
+.actions .primary{
+  background:var(--primary);
+  color:#fff;
+  box-shadow:0 12px 24px rgba(21,101,255,0.22);
+}
+
+.actions .secondary{
+  background:#e8f0ff;
+  color:#1e3a8a;
+  border:1px solid rgba(59,130,246,0.2);
+}
+
+.actions .secondary:hover{
+  background:#dfe9ff;
+}
+
+.tickets{
+  margin-top:22px;
+  border:1px solid rgba(148,163,184,0.24);
+  border-radius:16px;
+  padding:16px;
+  background:#f8fbff;
+}
+
+.tickets-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:8px;
+}
+
+.tickets-header h4{
+  font-size:18px;
+  color:#0f172a;
+}
+
+.tickets-help{
+  font-size:13px;
+  color:#64748b;
+  margin-bottom:12px;
+}
+
+.ticket-form{
+  display:grid;
+  gap:10px;
+}
+
+.ticket-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:10px;
+}
+
+.ticket-grid.has-plan{
+  grid-template-columns:minmax(220px, 2fr) minmax(120px, 1fr) minmax(220px, 1.5fr);
+}
+
+.ticket-field{
+  display:grid;
+  gap:6px;
+}
+
+.ticket-field span{
+  font-size:12px;
+  color:#475569;
+  font-weight:600;
+}
+
+.ticket-field input,
+.ticket-field select,
+.ticket-field textarea{
+  width:100%;
+  border:1px solid rgba(148,163,184,0.35);
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:14px;
+  color:#0f172a;
+  background:#fff;
+}
+
+.ticket-field textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+.ticket-actions{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.ticket-feedback{
+  font-size:13px;
+  color:#64748b;
+}
+
+.ticket-feedback.is-error{
+  color:#b91c1c;
+}
+
+.ticket-feedback.is-success{
+  color:#0f766e;
+}
+
+.ticket-refresh{
+  background:#e8f0ff;
+  color:#1e3a8a;
+  border:1px solid rgba(59,130,246,0.2);
+  border-radius:999px;
+  padding:8px 14px;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.ticket-submit{
+  border:none;
+  border-radius:999px;
+  padding:10px 16px;
+  font-weight:700;
+  cursor:pointer;
+  background:var(--primary);
+  color:#fff;
+  box-shadow:0 12px 24px rgba(21,101,255,0.22);
+}
+
+.ticket-submit:disabled{
+  opacity:0.7;
+  cursor:not-allowed;
+}
+
+.ticket-list{
+  margin-top:14px;
+  display:grid;
+  gap:10px;
+}
+
+.ticket-item{
+  border:1px solid rgba(148,163,184,0.25);
+  border-radius:12px;
+  padding:12px;
+  background:#fff;
+}
+
+.ticket-item.has-new{
+  border-color:rgba(21,101,255,0.45);
+  box-shadow:0 0 0 1px rgba(21,101,255,0.1),0 10px 20px rgba(21,101,255,0.12);
+}
+
+.ticket-item.is-resolved{
+  border-color:rgba(30,64,175,0.35);
+  background:linear-gradient(180deg,#ffffff,#f8fbff);
+}
+
+.ticket-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:8px;
+}
+
+.ticket-id{
+  font-size:12px;
+  color:#475569;
+}
+
+.ticket-plan-ref{
+  display:block;
+  margin-top:4px;
+  font-size:12px;
+  color:#475569;
+}
+
+.ticket-last-update{
+  display:block;
+  margin-top:4px;
+  font-size:11px;
+  color:#64748b;
+}
+
+.ticket-title{
+  font-size:15px;
+  font-weight:700;
+  color:#0f172a;
+}
+
+.ticket-meta{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.ticket-new-pill{
+  background:#1565ff;
+  color:#fff;
+  border-radius:999px;
+  padding:4px 8px;
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.3px;
+}
+
+.ticket-new-summary{
+  display:none;
+  margin-bottom:10px;
+  border:1px solid rgba(21,101,255,0.25);
+  background:#eff6ff;
+  color:#1d4ed8;
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.ticket-new-summary.is-visible{
+  display:block;
+}
+
+.ticket-tag{
+  font-size:11px;
+  font-weight:700;
+  border-radius:999px;
+  padding:4px 8px;
+  text-transform:uppercase;
+  letter-spacing:0.3px;
+}
+
+.ticket-tag.priority-baja{
+  background:#e0f2fe;
+  color:#075985;
+}
+
+.ticket-tag.priority-media{
+  background:#ede9fe;
+  color:#5b21b6;
+}
+
+.ticket-tag.priority-alta{
+  background:#fee2e2;
+  color:#b91c1c;
+}
+
+.ticket-tag.status-abierto{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.ticket-tag.status-enproceso{
+  background:#fef3c7;
+  color:#92400e;
+}
+
+.ticket-tag.status-resuelto{
+  background:#dbeafe;
+  color:#1d4ed8;
+}
+
+.ticket-text{
+  white-space:pre-wrap;
+  font-size:13px;
+  line-height:1.5;
+  color:#334155;
+}
+
+.ticket-response{
+  margin-top:10px;
+  border-top:1px dashed rgba(148,163,184,0.45);
+  padding-top:10px;
+}
+
+.ticket-response strong{
+  display:block;
+  font-size:12px;
+  color:#475569;
+  margin-bottom:4px;
+}
+
+.ticket-response p{
+  white-space:pre-wrap;
+  font-size:13px;
+  line-height:1.5;
+  color:#0f172a;
+}
+
+.ticket-chat{
+  margin-top:10px;
+  display:grid;
+  gap:8px;
+  max-height:300px;
+  overflow:auto;
+  border:1px solid rgba(148,163,184,0.28);
+  border-radius:10px;
+  background:#f8fbff;
+  padding:10px;
+}
+
+.ticket-chat-title{
+  font-size:12px;
+  font-weight:700;
+  color:#475569;
+  text-transform:uppercase;
+  letter-spacing:.3px;
+}
+
+.ticket-msg{
+  padding:9px 10px;
+  border-radius:10px;
+  border:1px solid rgba(148,163,184,0.35);
+  background:#f8fafc;
+  max-width:88%;
+}
+
+.ticket-msg.is-client{
+  background:#eff6ff;
+  border-color:#bfdbfe;
+  margin-left:auto;
+}
+
+.ticket-msg.is-admin{
+  background:#ecfeff;
+  border-color:#99f6e4;
+  margin-right:auto;
+}
+
+.ticket-msg-head{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  font-size:11px;
+  color:#64748b;
+  margin-bottom:4px;
+}
+
+.ticket-msg-body{
+  white-space:pre-wrap;
+  font-size:13px;
+  line-height:1.45;
+  color:#0f172a;
+}
+
+.ticket-reply-box{
+  margin-top:10px;
+  display:grid;
+  gap:8px;
+  border-top:1px solid rgba(148,163,184,0.3);
+  padding-top:10px;
+}
+
+.ticket-thread-wrap{
+  margin-top:10px;
+  border:1px solid rgba(148,163,184,0.28);
+  border-radius:10px;
+  background:#fff;
+  overflow:hidden;
+}
+
+.ticket-thread-wrap > summary{
+  list-style:none;
+  cursor:pointer;
+  user-select:none;
+  padding:10px 12px;
+  font-size:12px;
+  font-weight:700;
+  color:#334155;
+  background:#f8fafc;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.ticket-thread-wrap > summary::-webkit-details-marker{
+  display:none;
+}
+
+.ticket-thread-wrap > summary::after{
+  content:"▾";
+  color:#64748b;
+  font-size:13px;
+  transition:transform .2s ease;
+}
+
+.ticket-thread-wrap[open] > summary::after{
+  transform:rotate(180deg);
+}
+
+.ticket-thread-body{
+  padding:10px;
+}
+
+.ticket-reply-text{
+  width:100%;
+  border:1px solid rgba(148,163,184,0.35);
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:13px;
+  color:#0f172a;
+  background:#fff;
+  min-height:84px;
+  resize:vertical;
+}
+
+.ticket-reply-actions{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.ticket-reply-feedback{
+  font-size:12px;
+  color:#64748b;
+}
+
+.ticket-reply-feedback.is-error{
+  color:#b91c1c;
+}
+
+.ticket-reply-feedback.is-success{
+  color:#0f766e;
+}
+
+.ticket-reply-send{
+  border:none;
+  border-radius:999px;
+  padding:8px 12px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  background:#1d4ed8;
+  color:#fff;
+}
+
+.ticket-reply-send:disabled,
+.ticket-reply-text:disabled{
+  opacity:.65;
+  cursor:not-allowed;
+}
+
+.ticket-closed-note{
+  font-size:12px;
+  color:#1e3a8a;
+  font-weight:600;
+}
+
+.empty{
+  text-align:center;
+  color:var(--muted);
+}
+
+footer{
+  background:linear-gradient(135deg,#0f3aa8,#1565ff 55%,#1f6bff);
+  color:white;
+  text-align:center;
+  padding:40px 8%;
+  margin-top:80px;
+  position:relative;
+}
+
+.footer-copy{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.footer-copy img{
+  width:30px;
+  height:30px;
+  object-fit:contain;
+  display:block;
+}
+
+.footer-socials{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:12px;
+}
+
+.footer-instagram{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.16);
+  color:#ffffff;
+  text-decoration:none;
+  transition:0.2s ease;
+}
+
+.footer-instagram:hover{
+  transform:scale(1.05);
+  background:rgba(255,255,255,0.28);
+}
+
+.footer-instagram svg{
+  width:18px;
+  height:18px;
+  display:block;
+}
+
+.footer-preferences{
+  display:inline-block;
+  padding:6px 12px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.16);
+  border:1px solid rgba(255,255,255,0.3);
+  color:#fff;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:600;
+  position:absolute;
+  right:35px;
+  bottom:35px;
+}
+
+.footer-legal{
+  margin-top:10px;
+}
+
+.footer-legal a{
+  color:rgba(255,255,255,0.85);
+  font-size:13px;
+  text-decoration:none;
+}
+
+.footer-legal a:hover{
+  text-decoration:underline;
+}
+
+body.dark-mode{
+  background:#0f172a;
+  color:#e2e8f0;
+}
+
+body.dark-mode header{
+  background:rgba(17,24,39,0.9);
+  border-bottom:1px solid rgba(148,163,184,0.2);
+}
+
+body.dark-mode nav a{
+  color:#e5e7eb;
+}
+
+body.dark-mode .theme-toggle{
+  background:#1f2937;
+  border-color:#374151;
+  color:#f9fafb;
+}
+
+body.dark-mode .panel{
+  background:#1e293b;
+  border-color:#334155;
+  box-shadow:0 20px 50px rgba(0,0,0,0.35);
+}
+
+body.dark-mode .panel::after{
+  background:radial-gradient(circle at top,rgba(59,130,246,0.2),transparent 70%);
+}
+
+body.dark-mode .panel-chip{
+  background:#0b1220;
+  border-color:#334155;
+  color:#bfdbfe;
+}
+
+body.dark-mode .plan-switcher{
+  background:#0b1220;
+  border-color:#334155;
+}
+
+body.dark-mode .plan-switcher strong{
+  color:#bfdbfe;
+}
+
+body.dark-mode .plan-switch-btn{
+  background:#0f172a;
+  border-color:#334155;
+  color:#dbeafe;
+}
+
+body.dark-mode .plan-switch-btn.is-active{
+  background:#1d4ed8;
+  border-color:#1d4ed8;
+  color:#fff;
+}
+
+body.dark-mode .panel-title p{
+  color:#cbd5e1;
+}
+
+body.dark-mode .panel-status{
+  background:#0b1220;
+  border-color:#334155;
+}
+
+body.dark-mode .panel-status.is-bad{
+  background:rgba(248,113,113,0.12);
+  border-color:rgba(248,113,113,0.45);
+  box-shadow:0 12px 26px rgba(248,113,113,0.18);
+}
+
+body.dark-mode .panel-status span{
+  color:#94a3b8;
+}
+
+body.dark-mode .panel-status strong{
+  color:#e2e8f0;
+}
+
+body.dark-mode .panel-status.is-bad strong{
+  color:#fecaca;
+}
+
+body.dark-mode .panel-status.is-bad span{
+  color:#fecaca;
+}
+
+body.dark-mode .panel-status small{
+  color:#94a3b8;
+}
+
+body.dark-mode .panel-status.is-bad small{
+  color:#fecaca;
+}
+
+body.dark-mode .stat-card{
+  background:linear-gradient(140deg,rgba(59,130,246,0.18),rgba(15,23,42,0.4));
+  border-color:#334155;
+  box-shadow:0 18px 30px rgba(0,0,0,0.35);
+}
+
+body.dark-mode .stat-label{
+  color:#94a3b8;
+}
+
+body.dark-mode .stat-badge{
+  background:rgba(59,130,246,0.25);
+  color:#bfdbfe;
+}
+
+body.dark-mode .stat-badge.is-bad{
+  background:rgba(248,113,113,0.2);
+  color:#fecaca;
+}
+
+body.dark-mode .stat-value{
+  color:#e2e8f0;
+}
+
+body.dark-mode .stat-note{
+  color:#94a3b8;
+}
+
+body.dark-mode .detail{
+  background:#0f172a;
+  border-color:#334155;
+}
+
+body.dark-mode .detail{
+  box-shadow:0 18px 30px rgba(0,0,0,0.35);
+}
+
+body.dark-mode .detail span{
+  color:#94a3b8;
+}
+
+body.dark-mode .detail strong{
+  color:#f8fafc;
+}
+
+body.dark-mode .status-bad{
+  color:#f87171;
+}
+
+body.dark-mode .tickets{
+  background:#0f172a;
+  border-color:#334155;
+}
+
+body.dark-mode .tickets-header h4{
+  color:#f8fafc;
+}
+
+body.dark-mode .tickets-help{
+  color:#cbd5e1;
+}
+
+body.dark-mode .ticket-field span{
+  color:#cbd5e1;
+}
+
+body.dark-mode .ticket-field input,
+body.dark-mode .ticket-field select,
+body.dark-mode .ticket-field textarea{
+  background:#0b1220;
+  border-color:#334155;
+  color:#f8fafc;
+}
+
+body.dark-mode .ticket-feedback{
+  color:#cbd5e1;
+}
+
+body.dark-mode .ticket-feedback.is-error{
+  color:#fecaca;
+}
+
+body.dark-mode .ticket-feedback.is-success{
+  color:#99f6e4;
+}
+
+body.dark-mode .ticket-refresh{
+  background:#1e293b;
+  border-color:#334155;
+  color:#bfdbfe;
+}
+
+body.dark-mode .ticket-item{
+  background:#0b1220;
+  border-color:#334155;
+}
+
+body.dark-mode .ticket-item.has-new{
+  border-color:#2563eb;
+  box-shadow:0 0 0 1px rgba(37,99,235,0.22),0 10px 22px rgba(37,99,235,0.2);
+}
+
+body.dark-mode .ticket-item.is-resolved{
+  border-color:#1e3a8a;
+  background:linear-gradient(180deg,#0b1220,#111c34);
+}
+
+body.dark-mode .ticket-new-summary{
+  background:#0b2540;
+  border-color:#1d4ed8;
+  color:#bfdbfe;
+}
+
+body.dark-mode .ticket-id{
+  color:#94a3b8;
+}
+
+body.dark-mode .ticket-plan-ref{
+  color:#cbd5e1;
+}
+
+body.dark-mode .ticket-title{
+  color:#f8fafc;
+}
+
+body.dark-mode .ticket-text{
+  color:#dbe4f0;
+}
+
+body.dark-mode .ticket-response{
+  border-top-color:#334155;
+}
+
+body.dark-mode .ticket-response strong{
+  color:#cbd5e1;
+}
+
+body.dark-mode .ticket-response p{
+  color:#f1f5f9;
+}
+
+body.dark-mode .ticket-msg{
+  background:#0f172a;
+  border-color:#334155;
+}
+
+body.dark-mode .ticket-msg.is-client{
+  background:#0b2540;
+  border-color:#1d4ed8;
+}
+
+body.dark-mode .ticket-msg.is-admin{
+  background:#062b2a;
+  border-color:#0f766e;
+}
+
+body.dark-mode .ticket-msg-head{
+  color:#94a3b8;
+}
+
+body.dark-mode .ticket-msg-body{
+  color:#f8fafc;
+}
+
+body.dark-mode .ticket-chat-title{
+  color:#cbd5e1;
+}
+
+body.dark-mode .ticket-chat{
+  background:#0b1220;
+  border-color:#334155;
+}
+
+body.dark-mode .ticket-reply-text{
+  background:#0b1220;
+  border-color:#334155;
+  color:#f8fafc;
+}
+
+body.dark-mode .ticket-reply-box{
+  border-top-color:#334155;
+}
+
+body.dark-mode .ticket-reply-feedback{
+  color:#cbd5e1;
+}
+
+body.dark-mode .ticket-reply-feedback.is-error{
+  color:#fecaca;
+}
+
+body.dark-mode .ticket-reply-feedback.is-success{
+  color:#99f6e4;
+}
+
+body.dark-mode .ticket-closed-note{
+  color:#bfdbfe;
+}
+
+body.dark-mode .ticket-thread-wrap{
+  border-color:#334155;
+  background:#0b1220;
+}
+
+body.dark-mode .ticket-thread-wrap > summary{
+  background:#111827;
+  color:#cbd5e1;
+}
+
+body.dark-mode footer{
+  background:linear-gradient(135deg,#0b1220,#111827 60%,#0f172a);
+}
+
+body.dark-mode .footer-preferences{
+  background:rgba(255,255,255,0.08);
+  border-color:rgba(255,255,255,0.2);
+}
+
+/* Dark mode contrast boost */
+body.dark-mode{
+  color:#f8fafc;
+}
+
+body.dark-mode p,
+body.dark-mode .panel-title p,
+body.dark-mode .stat-label,
+body.dark-mode .stat-note,
+body.dark-mode .detail span,
+body.dark-mode .footer-copy span{
+  color:#dbe4f0;
+}
+
+body.dark-mode a{
+  color:#93c5fd;
+}
+
+body.dark-mode a:hover{
+  color:#bfdbfe;
+}
+
+body.dark-mode .footer-legal a{
+  color:#c7d2fe;
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode strong{
+  color:#f8fafc;
+}
+
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select{
+  color:#f8fafc;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder{
+  color:#b6c4d7;
+}
+
+@media(max-width:768px){
+  body{
+    padding-top:104px;
+  }
+
+  header{
+    padding:10px 4%;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+
+  nav{
+    width:100%;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    padding:10px 0 4px;
+    background:#fff;
+    border-radius:12px;
+    box-shadow:0 12px 30px rgba(15,23,42,0.12);
+  }
+
+  body.dark-mode nav{
+    background:#111827;
+    box-shadow:0 12px 30px rgba(0,0,0,0.4);
+  }
+
+  nav.is-open{
+    display:flex;
+  }
+
+  .nav-toggle{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .theme-toggle{
+    width:34px;
+    height:34px;
+  }
+
+  .logo img{
+    height:30px;
+  }
+
+  .hero{
+    padding:56px 5% 28px;
+  }
+
+  .wrapper{
+    padding:24px 5% 50px;
+  }
+
+  .panel{
+    padding:20px;
+  }
+
+  .ticket-grid{
+    grid-template-columns:1fr;
+  }
+
+  .plan-switch-btn{
+    width:100%;
+  }
+
+  .footer-preferences{
+    position:static;
+    margin-top:12px;
+  }
+}
+</style></head>
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K96JRDLJ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<header>
+<div class="logo">
+<img loading="lazy" src="LUCKYBASE logo letras.png" alt="Logo Lucky Base">
+</div>
+<nav id="mainNav">
+<a href="/">Inicio</a>
+<a href="planes/">Planes</a>
+<a href="comparador-planes-web/">Comparador</a>
+<a href="/#contacto">Contacto</a>
+</nav>
+<div class="header-right">
+<button id="navToggle" class="nav-toggle" type="button" aria-label="Abrir menú">Menú</button>
+<button id="themeToggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema"></button>
+</div>
+</header>
+
+<section class="hero">
+<h1>Panel de cliente</h1>
+<p>Resumen rápido de tu plan y datos de servicio.</p>
+</section>
+
+<main class="wrapper">
+<div class="panel" id="panelContent">
+<p class="empty">Cargando datos...</p>
+</div>
+</main>
+
+<footer>
+<p class="footer-copy">
+<img loading="lazy" src="logoluckyblancosinfondo.png" alt="Logo Lucky Base">
+<span>© 2026 LuckyBase — Todos los derechos reservados</span>
+</p>
+
+<div class="footer-socials">
+<a class="footer-instagram" href="https://www.instagram.com/luckybaseofficial/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Lucky Base">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+<rect x="2.5" y="2.5" width="19" height="19" rx="5"></rect>
+<circle cx="12" cy="12" r="4.5"></circle>
+<circle cx="18" cy="6" r="1.2" fill="currentColor" stroke="none"></circle>
+</svg>
+</a>
+
+<a class="footer-instagram" href="https://www.tiktok.com/@luckybaseofficial" target="_blank" rel="noopener noreferrer" aria-label="TikTok Lucky Base">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+<path d="M14.5 3c.4 1.8 1.8 3.2 3.5 3.7v2.6c-1.4 0-2.7-.4-3.8-1.2v6.5c0 3.3-2.7 5.9-6 5.9s-6-2.6-6-5.9 2.7-5.9 6-5.9c.3 0 .7 0 1 .1v2.8c-.3-.1-.6-.2-1-.2-1.7 0-3.1 1.4-3.1 3.1s1.4 3.1 3.1 3.1 3.1-1.4 3.1-3.1V3h3.2z"></path>
+</svg>
+</a>
+
+<a class="footer-instagram" href="https://discord.com/invite/GYJN7kEwU2" target="_blank" rel="noopener noreferrer" aria-label="Discord Lucky Base">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+<path d="M20 4.5a17.4 17.4 0 0 0-4.1-1.3 12.2 12.2 0 0 0-.5 1.1 16.8 16.8 0 0 0-6.8 0 12 12 0 0 0-.5-1.1A17.3 17.3 0 0 0 4 4.5C1.5 8 1 11.4 1.2 14.8c1.7 1.3 3.4 2.1 5.2 2.6.4-.6.8-1.2 1.1-1.9-.6-.2-1.2-.5-1.7-.8.1-.1.3-.2.4-.3 3.3 1.5 6.9 1.5 10.2 0 .1.1.3.2.4.3-.6.3-1.1.6-1.7.8.3.7.7 1.3 1.1 1.9 1.8-.5 3.5-1.3 5.2-2.6.3-3.9-.7-7.3-3.2-10.3zM8.5 13.1c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm7 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z"/>
+</svg>
+</a>
+</div>
+
+<a href="#" class="footer-preferences">Cambiar mis preferencias</a>
+
+<div class="footer-legal">
+<a href="privacy-policy/">Política de Privacidad</a>
+</div>
+</footer>
+
+<script>
+const themeToggle=document.getElementById("themeToggle")
+const mainNav=document.getElementById("mainNav")
+const navToggle=document.getElementById("navToggle")
+const sunIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="5"></line><line x1="12" y1="19" x2="12" y2="22"></line><line x1="2" y1="12" x2="5" y2="12"></line><line x1="19" y1="12" x2="22" y2="12"></line><line x1="4.9" y1="4.9" x2="7" y2="7"></line><line x1="17" y1="17" x2="19.1" y2="19.1"></line><line x1="17" y1="7" x2="19.1" y2="4.9"></line><line x1="4.9" y1="19.1" x2="7" y2="17"></line></svg>'
+const moonIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8z"></path></svg>'
+
+function updateThemeLabel(){
+const isDarkMode=document.body.classList.contains("dark-mode")
+if(themeToggle){
+themeToggle.innerHTML=isDarkMode?moonIcon:sunIcon
+themeToggle.setAttribute("aria-label",isDarkMode?"Modo oscuro":"Modo claro")
+themeToggle.setAttribute("title",isDarkMode?"Modo oscuro":"Modo claro")
+}
+}
+
+if(localStorage.getItem("theme")==="dark"){
+document.body.classList.add("dark-mode")
+}
+updateThemeLabel()
+
+if(themeToggle){
+themeToggle.addEventListener("click",()=>{
+document.body.classList.toggle("dark-mode")
+const currentTheme=document.body.classList.contains("dark-mode")?"dark":"light"
+localStorage.setItem("theme",currentTheme)
+updateThemeLabel()
+})
+}
+
+if(navToggle && mainNav){
+  navToggle.addEventListener("click",()=>{
+    const isOpen=mainNav.classList.toggle("is-open")
+    navToggle.setAttribute("aria-label",isOpen?"Cerrar menú":"Abrir menú")
+    navToggle.textContent=isOpen?"Cerrar":"Menú"
+  })
+
+  mainNav.querySelectorAll("a").forEach((link)=>{
+    link.addEventListener("click",()=>{
+      if(window.innerWidth<=768){
+        mainNav.classList.remove("is-open")
+        navToggle.setAttribute("aria-label","Abrir menú")
+        navToggle.textContent="Menú"
+      }
+    })
+  })
+}
+
+function formatEuro(value){
+  const raw = String(value || '').replace('€','').trim()
+  if(!raw) return '-'
+  if(/[a-zA-Z]/.test(raw)) return value
+  let num = null
+  if(/^[0-9]+([.,][0-9]+)?$/.test(raw)){
+    if(raw.includes('.') && raw.includes(',')){
+      num = Number(raw.replace(/\./g,'').replace(',','.'))
+    }else if(raw.includes(',')){
+      num = Number(raw.replace(',','.'))
+    }else{
+      num = Number(raw)
+    }
+  }
+  if(num === null || !Number.isFinite(num)) return value
+  return new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(num)
+}
+
+function escapeHtml(value){
+  return String(value || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#39;")
+}
+
+function formatDateTime(value){
+  const raw = String(value || "").trim()
+  if(!raw) return "-"
+  const parsed = Date.parse(raw)
+  if(!Number.isFinite(parsed)) return raw
+  return new Intl.DateTimeFormat("es-ES",{
+    dateStyle:"medium",
+    timeStyle:"short"
+  }).format(new Date(parsed))
+}
+
+function normalizePlanEntry(plan, fallbackIndex){
+  const source = (plan && typeof plan === "object") ? plan : {}
+  const npedido = String(source.npedido || source.planId || "").trim()
+  const planId = npedido || ("plan_" + String((Number(fallbackIndex) || 0) + 1))
+  return {
+    planId,
+    nombre: String(source.nombre || "").trim(),
+    plan: String(source.plan || "-").trim() || "-",
+    tipoplan: String(source.tipoplan || "").trim(),
+    cuota: String(source.cuota || "").trim(),
+    consultasocambiosrestantes: String(source.consultasocambiosrestantes || "").trim(),
+    pagado: String(source.pagado || "-").trim() || "-",
+    fealta: String(source.fealta || "-").trim() || "-",
+    proxpago: String(source.proxpago || "-").trim() || "-",
+    dominio: String(source.dominio || "-").trim() || "-",
+    npedido: npedido || planId
+  }
+}
+
+function normalizeClientPortfolioData(data){
+  const source = (data && typeof data === "object") ? data : {}
+  const sourcePlanes = Array.isArray(source.planes) ? source.planes : []
+  const planes = sourcePlanes.map((plan, index) => normalizePlanEntry(plan, index))
+  if(!planes.length){
+    planes.push(normalizePlanEntry(source, 0))
+  }
+
+  const requestedPlanId = String(source.activePlanId || source.npedido || "").trim()
+  let activePlan = planes.find((plan) => String(plan.planId) === requestedPlanId)
+  if(!activePlan){
+    activePlan = planes[0]
+  }
+  const activePlanId = String(activePlan.planId || "")
+
+  return {
+    ...source,
+    nombre: source.nombre || source.user || "",
+    planes,
+    totalPlanes: planes.length,
+    activePlanId,
+    plan: activePlan.plan || "-",
+    tipoplan: activePlan.tipoplan || "",
+    cuota: activePlan.cuota || "",
+    consultasocambiosrestantes: activePlan.consultasocambiosrestantes || "",
+    pagado: activePlan.pagado || "-",
+    fealta: activePlan.fealta || "-",
+    proxpago: activePlan.proxpago || "-",
+    dominio: activePlan.dominio || "-",
+    npedido: activePlan.npedido || "-"
+  }
+}
+
+function setActivePlan(planId){
+  const state = readClientData()
+  if(!state.data){
+    return
+  }
+  const next = normalizeClientPortfolioData({
+    ...state.data,
+    activePlanId: String(planId || "").trim()
+  })
+  localStorage.setItem("clientData", JSON.stringify(next))
+  refreshPanel(true)
+}
+
+const URL_API = "https://script.google.com/macros/s/AKfycbxZeMApnIjxoF4aAPxNhcLbUb09JluFb4E7jP67bINuODTv08q9xDFtzC5updMnV_Gi/exec"
+const panel = document.getElementById("panelContent")
+const SESSION_DURATION_MS = 8 * 60 * 60 * 1000
+const SESSION_VALIDATE_INTERVAL_MS = 60 * 1000
+const CLIENT_TICKET_SEEN_STORAGE_KEY = "luckybase_client_ticket_seen_v1"
+let lastRaw = null
+let hasExpiredSession = false
+let validationInFlight = false
+let lastValidationAt = 0
+
+async function apiPostRequest(payload, timeoutMs=10000){
+  const controller = new AbortController()
+  const timeoutId = setTimeout(()=>controller.abort(), timeoutMs)
+  try{
+    const response = await fetch(URL_API, {
+      method: "POST",
+      mode: "cors",
+      cache: "no-store",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload || {}),
+      signal: controller.signal
+    })
+    if(!response.ok){
+      throw new Error("HTTP_" + response.status)
+    }
+    return await response.json()
+  }catch(error){
+    if(error && error.name === "AbortError"){
+      throw new Error("TIMEOUT")
+    }
+    throw error
+  }finally{
+    clearTimeout(timeoutId)
+  }
+}
+
+function parseSessionExpiry(value){
+  const numeric = Number(value)
+  if(Number.isFinite(numeric) && numeric > 0){
+    return numeric
+  }
+  const parsedDate = Date.parse(String(value || ""))
+  if(Number.isFinite(parsedDate) && parsedDate > 0){
+    return parsedDate
+  }
+  return NaN
+}
+
+function readClientData(){
+  const raw = localStorage.getItem("clientData")
+  if(!raw){
+    return { raw: null, data: null }
+  }
+  try{
+    return { raw, data: JSON.parse(raw) }
+  }catch(error){
+    return { raw, data: null }
+  }
+}
+
+function clearClientSession(redirectToLogin=true, reason="expired"){
+  const state = readClientData()
+  const sessionToken = state.data && state.data.sessionToken ? String(state.data.sessionToken) : ""
+  if(sessionToken){
+    apiPostRequest({ action: "logout", sessionToken }, 5000).catch(()=>{})
+  }
+  localStorage.removeItem("clientData")
+  if(redirectToLogin){
+    window.location.href = reason === "logout" ? "login/" : "login/?expired=1"
+  }
+}
+
+function getSessionState(){
+  const { raw, data } = readClientData()
+  if(!raw){
+    return { raw: null, expired: false }
+  }
+
+  if(!data){
+    return { raw: null, expired: true }
+  }
+
+  const now = Date.now()
+  const sessionExpiresAt = parseSessionExpiry(data.sessionExpiresAt)
+  if(Number.isFinite(sessionExpiresAt)){
+    if(now >= sessionExpiresAt){
+      return { raw: null, expired: true }
+    }
+    return { raw, expired: false }
+  }
+
+  const sessionStartedAt = Number(data.sessionStartedAt)
+
+  if(!Number.isFinite(sessionStartedAt) || sessionStartedAt <= 0){
+    data.sessionStartedAt = now
+    const normalizedRaw = JSON.stringify(data)
+    localStorage.setItem("clientData", normalizedRaw)
+    return { raw: normalizedRaw, expired: false }
+  }
+
+  const sessionAge = now - sessionStartedAt
+  if(sessionAge >= SESSION_DURATION_MS){
+    return { raw: null, expired: true }
+  }
+
+  return { raw, expired: false }
+}
+
+function handleSessionExpiration(){
+  if(hasExpiredSession){
+    return
+  }
+  hasExpiredSession = true
+  if(panel){
+    panel.innerHTML = `\
+      <div class="panel-title">
+        <h3>Sesión finalizada</h3>
+        <p class="empty">Tu sesión ha caducado tras 8 horas. Redirigiendo a inicio de sesión...</p>
+      </div>
+    `
+  }
+  clearClientSession(true)
+}
+
+async function validateSessionWithApi(force=false){
+  const now = Date.now()
+  if(!force && (now - lastValidationAt) < SESSION_VALIDATE_INTERVAL_MS){
+    return
+  }
+  if(validationInFlight){
+    return
+  }
+
+  const state = readClientData()
+  if(!state.data){
+    return
+  }
+  const sessionToken = String(state.data.sessionToken || "").trim()
+  if(!sessionToken){
+    return
+  }
+
+  validationInFlight = true
+  try{
+    const response = await apiPostRequest({
+      action: "validate",
+      sessionToken
+    }, 10000)
+    lastValidationAt = Date.now()
+
+    if(!response || response.success !== true || response.valid === false){
+      handleSessionExpiration()
+      return
+    }
+
+    const apiData = (response.data && typeof response.data === "object") ? response.data : response
+    const mergedData = normalizeClientPortfolioData({
+      ...state.data,
+      nombre: apiData.nombre || state.data.nombre || state.data.user,
+      plan: apiData.plan || state.data.plan || "-",
+      tipoplan: apiData.tipoplan || state.data.tipoplan || "",
+      cuota: apiData.cuota || state.data.cuota || "",
+      consultasocambiosrestantes: apiData.consultasocambiosrestantes || state.data.consultasocambiosrestantes || "",
+      pagado: apiData.pagado || state.data.pagado || "-",
+      fealta: apiData.fealta || state.data.fealta || "-",
+      proxpago: apiData.proxpago || state.data.proxpago || "-",
+      dominio: apiData.dominio || state.data.dominio || "-",
+      npedido: apiData.npedido || state.data.npedido || "-",
+      planes: Array.isArray(apiData.planes) ? apiData.planes : state.data.planes,
+      totalPlanes: Number(apiData.totalPlanes || state.data.totalPlanes || 0),
+      activePlanId: state.data.activePlanId || apiData.activePlanId || ""
+    })
+
+    const apiSessionExpiresAt = parseSessionExpiry(response.sessionExpiresAt || apiData.sessionExpiresAt)
+    if(Number.isFinite(apiSessionExpiresAt)){
+      mergedData.sessionExpiresAt = apiSessionExpiresAt
+    }
+
+    const mergedRaw = JSON.stringify(mergedData)
+    if(mergedRaw !== state.raw){
+      localStorage.setItem("clientData", mergedRaw)
+    }
+  }catch(error){
+    lastValidationAt = Date.now()
+  }finally{
+    validationInFlight = false
+  }
+}
+
+function setTicketFeedback(message, type=""){
+  const feedback = document.getElementById("ticketFeedback")
+  if(!feedback) return
+  feedback.textContent = message || ""
+  feedback.className = "ticket-feedback" + (type ? " is-" + type : "")
+}
+
+function readClientTicketSeenMap(){
+  try{
+    const raw = localStorage.getItem(CLIENT_TICKET_SEEN_STORAGE_KEY)
+    if(!raw) return {}
+    const parsed = JSON.parse(raw)
+    return parsed && typeof parsed === "object" ? parsed : {}
+  }catch(_){
+    return {}
+  }
+}
+
+function writeClientTicketSeenMap(map){
+  try{
+    localStorage.setItem(CLIENT_TICKET_SEEN_STORAGE_KEY, JSON.stringify(map || {}))
+  }catch(_){}
+}
+
+function getLastTicketMessageMeta(ticket){
+  const messages = Array.isArray(ticket && ticket.messages) ? ticket.messages : []
+  if(!messages.length){
+    return { role:"", createdAtMs:0 }
+  }
+  const last = messages[messages.length - 1] || {}
+  const role = String(last.senderRole || "").trim().toLowerCase()
+  const parsedMs = Date.parse(String(last.createdAt || ""))
+  return {
+    role,
+    createdAtMs: Number.isFinite(parsedMs) ? parsedMs : 0
+  }
+}
+
+function isNewTicketForClient(ticket, seenMap){
+  const ticketId = String(ticket && ticket.ticketId || "").trim()
+  if(!ticketId){
+    return false
+  }
+  const map = seenMap && typeof seenMap === "object" ? seenMap : readClientTicketSeenMap()
+  const lastMeta = getLastTicketMessageMeta(ticket)
+  if(lastMeta.role !== "admin" || !lastMeta.createdAtMs){
+    return false
+  }
+  const seenMs = Number(map[ticketId] || 0)
+  return !Number.isFinite(seenMs) || lastMeta.createdAtMs > seenMs
+}
+
+function markTicketSeenForClient(ticketId, messageMs){
+  const id = String(ticketId || "").trim()
+  const parsedMs = Number(messageMs)
+  if(!id || !Number.isFinite(parsedMs) || parsedMs <= 0){
+    return
+  }
+  const seenMap = readClientTicketSeenMap()
+  const currentMs = Number(seenMap[id] || 0)
+  if(!Number.isFinite(currentMs) || parsedMs > currentMs){
+    seenMap[id] = parsedMs
+    writeClientTicketSeenMap(seenMap)
+  }
+}
+
+function refreshClientTicketNewSummary(){
+  const summary = document.getElementById("ticketNewSummary")
+  if(!summary){
+    return
+  }
+  const pendingCount = document.querySelectorAll("#ticketList .ticket-item.has-new").length
+  if(pendingCount > 0){
+    summary.textContent = "Tienes " + pendingCount + " ticket(s) con nuevos mensajes del soporte."
+    summary.classList.add("is-visible")
+  }else{
+    summary.textContent = ""
+    summary.classList.remove("is-visible")
+  }
+}
+
+function renderTicketMessages(messages){
+  const list = Array.isArray(messages) ? messages : []
+  if(!list.length){
+    return '<p class="empty">Sin mensajes todavía.</p>'
+  }
+
+  return list.map((msg)=>{
+    const roleRaw = String(msg.senderRole || "client").toLowerCase()
+    const role = roleRaw === "admin" ? "admin" : "client"
+    const roleLabel = role === "admin" ? "Soporte LuckyBase" : "Tú"
+    return `\
+      <div class="ticket-msg is-${escapeHtml(role)}">
+        <div class="ticket-msg-head">
+          <strong>${escapeHtml(roleLabel)}</strong>
+          <span>${escapeHtml(formatDateTime(msg.createdAt))}</span>
+        </div>
+        <div class="ticket-msg-body">${escapeHtml(msg.message || "")}</div>
+      </div>
+    `
+  }).join("")
+}
+
+function bindTicketReplyButtons(){
+  const buttons = document.querySelectorAll(".ticket-reply-send")
+  buttons.forEach((button)=>{
+    button.addEventListener("click", async ()=>{
+      if(button.hasAttribute("data-closed")){
+        return
+      }
+      const ticketId = String(button.getAttribute("data-ticket-id") || "")
+      const card = button.closest(".ticket-item")
+      const textEl = card ? card.querySelector(".ticket-reply-text") : null
+      const feedbackEl = card ? card.querySelector(".ticket-reply-feedback") : null
+      const message = textEl ? String(textEl.value || "").trim() : ""
+
+      if(!ticketId){
+        return
+      }
+      if(!message || message.length < 2){
+        if(feedbackEl){
+          feedbackEl.textContent = "El mensaje debe tener al menos 2 caracteres."
+          feedbackEl.className = "ticket-reply-feedback is-error"
+        }
+        return
+      }
+
+      const state = readClientData()
+      const sessionToken = state.data && state.data.sessionToken ? String(state.data.sessionToken).trim() : ""
+      if(!sessionToken){
+        if(feedbackEl){
+          feedbackEl.textContent = "Sesión no activa."
+          feedbackEl.className = "ticket-reply-feedback is-error"
+        }
+        return
+      }
+
+      button.disabled = true
+      if(feedbackEl){
+        feedbackEl.textContent = "Enviando..."
+        feedbackEl.className = "ticket-reply-feedback"
+      }
+      try{
+        const response = await apiPostRequest({
+          action: "client_reply_ticket",
+          sessionToken,
+          ticketId,
+          message
+        }, 30000)
+
+        if(!response || response.success !== true){
+          const errorMessage = response && response.message ? response.message : "No se pudo enviar la respuesta."
+          if(feedbackEl){
+            feedbackEl.textContent = errorMessage
+            feedbackEl.className = "ticket-reply-feedback is-error"
+          }
+          return
+        }
+
+        if(textEl){
+          textEl.value = ""
+        }
+        if(feedbackEl){
+          feedbackEl.textContent = "Mensaje enviado."
+          feedbackEl.className = "ticket-reply-feedback is-success"
+        }
+        loadTickets(false)
+      }catch(error){
+        if(feedbackEl){
+          feedbackEl.textContent = "No se pudo enviar la respuesta."
+          feedbackEl.className = "ticket-reply-feedback is-error"
+        }
+      }finally{
+        button.disabled = false
+      }
+    })
+  })
+}
+
+function bindTicketThreadToggles(){
+  const detailsList = document.querySelectorAll(".ticket-thread-wrap")
+  detailsList.forEach((detailEl)=>{
+    detailEl.addEventListener("toggle", ()=>{
+      if(!detailEl.open){
+        return
+      }
+      const ticketId = String(detailEl.getAttribute("data-ticket-id") || "")
+      const lastRole = String(detailEl.getAttribute("data-last-role") || "").trim().toLowerCase()
+      const lastMs = Number(detailEl.getAttribute("data-last-ms") || 0)
+      if(lastRole !== "admin" || !Number.isFinite(lastMs) || lastMs <= 0){
+        return
+      }
+      markTicketSeenForClient(ticketId, lastMs)
+      const card = detailEl.closest(".ticket-item")
+      if(card){
+        card.classList.remove("has-new")
+        const badge = card.querySelector(".ticket-new-pill")
+        if(badge){
+          badge.remove()
+        }
+      }
+      refreshClientTicketNewSummary()
+    })
+  })
+}
+
+function normalizeTicketStatus(raw){
+  const value = String(raw || "").toLowerCase().trim()
+  if(value === "resuelto"){
+    return "resuelto"
+  }
+  if(value === "en_proceso" || value === "enproceso"){
+    return "enproceso"
+  }
+  return "abierto"
+}
+
+function renderTicketList(tickets){
+  const container = document.getElementById("ticketList")
+  if(!container) return
+  if(!Array.isArray(tickets) || !tickets.length){
+    container.innerHTML = '<p class="empty">Todavía no has creado tickets.</p>'
+    return
+  }
+
+  const seenMap = readClientTicketSeenMap()
+  const orderedTickets = tickets.slice().sort((a,b)=>{
+    const aStatus = normalizeTicketStatus(String(a && a.estado || "abierto"))
+    const bStatus = normalizeTicketStatus(String(b && b.estado || "abierto"))
+    const aClosed = aStatus === "resuelto" ? 1 : 0
+    const bClosed = bStatus === "resuelto" ? 1 : 0
+    if(aClosed !== bClosed){
+      return aClosed - bClosed
+    }
+
+    const aNew = isNewTicketForClient(a, seenMap) ? 1 : 0
+    const bNew = isNewTicketForClient(b, seenMap) ? 1 : 0
+    if(aNew !== bNew){
+      return bNew - aNew
+    }
+
+    const aUpdated = Date.parse(String(a && (a.updatedAt || a.createdAt) || ""))
+    const bUpdated = Date.parse(String(b && (b.updatedAt || b.createdAt) || ""))
+    const aMs = Number.isFinite(aUpdated) ? aUpdated : 0
+    const bMs = Number.isFinite(bUpdated) ? bUpdated : 0
+    return bMs - aMs
+  })
+
+  let newTicketsCount = 0
+  const html = orderedTickets.map((ticket)=>{
+    const priorityRaw = String(ticket.prioridad || "media").toLowerCase()
+    const statusRaw = String(ticket.estado || "abierto").toLowerCase()
+    const priority = priorityRaw === "alta" ? "alta" : (priorityRaw === "baja" ? "baja" : "media")
+    const status = statusRaw === "resuelto" ? "resuelto" : (statusRaw === "en_proceso" ? "enproceso" : "abierto")
+    const statusLabel = status === "enproceso" ? "en proceso" : status
+    const ticketPlan = String(ticket.ticketPlan || "").trim()
+    const ticketPlanType = String(ticket.ticketPlanType || "").trim()
+    const ticketPlanDomain = String(ticket.ticketPlanDomain || "").trim()
+    const ticketPlanOrder = String(ticket.ticketPlanOrder || ticket.ticketPlanId || "").trim()
+    const planParts = []
+    if(ticketPlan) planParts.push("Plan: " + ticketPlan)
+    if(ticketPlanType) planParts.push("Tipo: " + ticketPlanType)
+    if(ticketPlanDomain) planParts.push("Dominio: " + ticketPlanDomain)
+    if(ticketPlanOrder) planParts.push("Pedido: " + ticketPlanOrder)
+    const planRefHtml = planParts.length
+      ? '<span class="ticket-plan-ref">' + escapeHtml(planParts.join(" · ")) + '</span>'
+      : ""
+    const messagesHtml = renderTicketMessages(ticket.messages || [])
+    const isClosed = status === "resuelto"
+    const lastMessageMeta = getLastTicketMessageMeta(ticket)
+    const hasNew = isNewTicketForClient(ticket, seenMap)
+    if(hasNew){
+      newTicketsCount += 1
+    }
+    const updatedAtText = ticket.updatedAt ? formatDateTime(ticket.updatedAt) : formatDateTime(ticket.createdAt)
+    const toggleLabel = isClosed ? "Ticket cerrado: ver conversación" : "Abrir chat y responder"
+    const newBadgeHtml = hasNew ? '<span class="ticket-new-pill">Nuevo mensaje</span>' : ''
+
+    return `\
+      <article class="ticket-item ${isClosed ? 'is-resolved' : ''} ${hasNew ? 'has-new' : ''}">
+        <div class="ticket-top">
+          <div>
+            <div class="ticket-title">${escapeHtml(ticket.asunto || "-")}</div>
+            <div class="ticket-id">${escapeHtml(ticket.ticketId || "-")} · ${escapeHtml(formatDateTime(ticket.createdAt))}</div>
+            ${planRefHtml}
+            <span class="ticket-last-update">Última actualización: ${escapeHtml(updatedAtText)}</span>
+          </div>
+          <div class="ticket-meta">
+            <span class="ticket-tag priority-${escapeHtml(priority)}">${escapeHtml(priority)}</span>
+            <span class="ticket-tag status-${escapeHtml(status)}">${escapeHtml(statusLabel)}</span>
+            ${newBadgeHtml}
+          </div>
+        </div>
+        <details class="ticket-thread-wrap" data-ticket-id="${escapeHtml(ticket.ticketId || "")}" data-last-role="${escapeHtml(lastMessageMeta.role)}" data-last-ms="${escapeHtml(String(lastMessageMeta.createdAtMs || 0))}">
+          <summary>${escapeHtml(toggleLabel)}</summary>
+          <div class="ticket-thread-body">
+            <div class="ticket-chat">
+              <div class="ticket-chat-title">Conversación</div>
+              ${messagesHtml}
+            </div>
+            <div class="ticket-reply-box">
+              ${isClosed ? '<span class="ticket-closed-note">Ticket resuelto. No se admiten más respuestas.</span>' : ''}
+              <textarea class="ticket-reply-text" maxlength="4000" placeholder="Escribe una respuesta para continuar el ticket..." ${isClosed ? 'disabled' : ''}></textarea>
+              <div class="ticket-reply-actions">
+                <span class="ticket-reply-feedback"></span>
+                <button class="ticket-reply-send" type="button" data-ticket-id="${escapeHtml(ticket.ticketId || "")}" ${isClosed ? 'data-closed disabled' : ''}>Responder</button>
+              </div>
+            </div>
+          </div>
+        </details>
+      </article>
+    `
+  }).join("")
+
+  container.innerHTML = '<div id="ticketNewSummary" class="ticket-new-summary' + (newTicketsCount > 0 ? ' is-visible' : '') + '">' +
+    (newTicketsCount > 0 ? ('Tienes ' + newTicketsCount + ' ticket(s) con nuevos mensajes del soporte.') : '') +
+    '</div>' + html
+  bindTicketReplyButtons()
+  bindTicketThreadToggles()
+}
+
+async function loadTickets(showLoading=true){
+  const container = document.getElementById("ticketList")
+  if(!container){
+    return
+  }
+  const state = readClientData()
+  const sessionToken = state.data && state.data.sessionToken ? String(state.data.sessionToken).trim() : ""
+  if(!sessionToken){
+    container.innerHTML = '<p class="empty">No hay sesión activa.</p>'
+    return
+  }
+
+  if(showLoading){
+    container.innerHTML = '<p class="empty">Cargando tickets...</p>'
+  }
+
+  try{
+    const response = await apiPostRequest({
+      action: "list_tickets",
+      sessionToken
+    }, 30000)
+    if(!response || response.success !== true){
+      throw new Error("LIST_FAILED")
+    }
+    renderTicketList(response.tickets || [])
+  }catch(error){
+    container.innerHTML = '<p class="empty">No se pudieron cargar tus tickets.</p>'
+  }
+}
+
+function bindTicketModule(){
+  const form = document.getElementById("ticketForm")
+  const refreshBtn = document.getElementById("refreshTicketsBtn")
+  const submitBtn = document.getElementById("ticketSubmitBtn")
+
+  if(refreshBtn){
+    refreshBtn.addEventListener("click",()=>{
+      setTicketFeedback("")
+      loadTickets(true)
+    })
+  }
+
+  if(!form || !submitBtn){
+    return
+  }
+
+  form.addEventListener("submit", async (event)=>{
+    event.preventDefault()
+    const subjectInput = document.getElementById("ticketSubject")
+    const priorityInput = document.getElementById("ticketPriority")
+    const planInput = document.getElementById("ticketPlanSelect")
+    const messageInput = document.getElementById("ticketMessage")
+    const asunto = subjectInput ? String(subjectInput.value || "").trim() : ""
+    const prioridad = priorityInput ? String(priorityInput.value || "media").trim() : "media"
+    const state = readClientData()
+    const ticketPlanId = planInput
+      ? String(planInput.value || "").trim()
+      : String((state.data && state.data.activePlanId) || "").trim()
+    const mensaje = messageInput ? String(messageInput.value || "").trim() : ""
+    const sessionToken = state.data && state.data.sessionToken ? String(state.data.sessionToken).trim() : ""
+
+    if(!sessionToken){
+      setTicketFeedback("Tu sesión no está activa.", "error")
+      return
+    }
+    if(asunto.length < 4){
+      setTicketFeedback("El asunto debe tener al menos 4 caracteres.", "error")
+      return
+    }
+    if(mensaje.length < 10){
+      setTicketFeedback("El mensaje debe tener al menos 10 caracteres.", "error")
+      return
+    }
+
+    submitBtn.disabled = true
+    setTicketFeedback("Enviando ticket...")
+    try{
+      const response = await apiPostRequest({
+        action: "create_ticket",
+        sessionToken,
+        asunto,
+        prioridad,
+        ticketPlanId,
+        mensaje,
+        source: "panel_cliente"
+      }, 30000)
+
+      if(!response || response.success !== true){
+        const message = response && response.message ? response.message : "No se pudo crear el ticket."
+        setTicketFeedback(message, "error")
+        return
+      }
+
+      form.reset()
+      if(planInput){
+        const latestState = readClientData()
+        const activePlanId = latestState.data ? String(latestState.data.activePlanId || "").trim() : ""
+        if(activePlanId){
+          planInput.value = activePlanId
+        }
+      }
+      setTicketFeedback("Ticket enviado correctamente.", "success")
+      loadTickets(false)
+    }catch(error){
+      setTicketFeedback("No se pudo crear el ticket.", "error")
+    }finally{
+      submitBtn.disabled = false
+    }
+  })
+
+  loadTickets(true)
+}
+
+function renderPanel(raw){
+  if(!panel) return
+  if(raw){
+    let data = null
+    try{
+      data = normalizeClientPortfolioData(JSON.parse(raw))
+    }catch(error){
+      panel.innerHTML = '<p class="empty">Error al leer la sesión. Vuelve a iniciar sesión.</p>'
+      return
+    }
+
+    const plans = Array.isArray(data.planes) ? data.planes : []
+    const planKey = String(data.plan || '').toLowerCase()
+    let planDoc = ''
+    if(planKey.includes('basic')){
+      planDoc = '<a class=\"secondary\" href=\"TyC-LuckyWeb-Basic.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">TyC LuckyWeb Basic</a>'
+    }else if(planKey.includes('corporativa')){
+      planDoc = '<a class=\"secondary\" href=\"TyC-LuckyWeb-Corporativa.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">TyC LuckyWeb Corporativa</a>'
+    }else if(planKey.includes('ecommerce') || planKey.includes('e-commerce')){
+      planDoc = '<a class=\"secondary\" href=\"TyC-LuckyWeb-Ecommerce.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">TyC LuckyWeb Ecommerce</a>'
+    }else{
+      planDoc = '<a class=\"secondary\" href=\"terminos-contratacion-web/\">Ver documentación completa</a>'
+    }
+
+    const pagadoValue = data.pagado || '-'
+    const isUnpaid = /^no\\b/i.test(String(pagadoValue).trim())
+    const cuotaDisplay = formatEuro(data.cuota)
+    const plansSwitchHtml = plans.length > 1
+      ? `<div class="plan-switcher">
+          <strong>Tus planes (${plans.length})</strong>
+          <div class="plan-switcher-list">
+            ${plans.map((plan) => {
+              const planId = String(plan.planId || "")
+              const isActive = planId === String(data.activePlanId || "")
+              return `<button class="plan-switch-btn ${isActive ? "is-active" : ""}" type="button" data-plan-id="${escapeHtml(planId)}">
+                <span class="line1">${escapeHtml(plan.plan || "-")}</span>
+                <span class="line2">${escapeHtml(plan.npedido || planId || "-")}</span>
+              </button>`
+            }).join("")}
+          </div>
+        </div>`
+      : ''
+
+    panel.innerHTML = `\
+      ${plansSwitchHtml}
+      <div class="panel-header">
+        <div class="panel-title">
+          <h3>Hola, ${data.nombre || data.user}</h3>
+          <p>Resumen de tu plan activo y datos clave del servicio.</p>
+        </div>
+        <div class="panel-status ${isUnpaid ? 'is-bad' : ''}">
+          <span>Estado de pago</span>
+          <strong>${pagadoValue}</strong>
+          <small>Cuota mensual: ${cuotaDisplay}</small>
+        </div>
+      </div>
+      <div class="panel-toolbar">
+        <span class="panel-chip">Soporte prioritario</span>
+        <span class="panel-chip">Actualizaciones incluidas</span>
+        <span class="panel-chip">Estado en tiempo real</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-top">
+            <span class="stat-label">Plan activo</span>
+            <span class="stat-badge ${isUnpaid ? 'is-bad' : ''}">${isUnpaid ? 'Pendiente' : 'Activo'}</span>
+          </div>
+          <div class="stat-value">${data.plan || '-'}</div>
+          <div class="stat-note">Tipo: ${data.tipoplan || '-'}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-top">
+            <span class="stat-label">Próximo pago</span>
+            <span class="stat-badge">Calendario</span>
+          </div>
+          <div class="stat-value">${data.proxpago || '-'}</div>
+          <div class="stat-note">Cuota: ${cuotaDisplay}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-top">
+            <span class="stat-label">Dominio</span>
+            <span class="stat-badge">Web</span>
+          </div>
+          <div class="stat-value">${data.dominio || '-'}</div>
+          <div class="stat-note">Pedido: ${data.npedido || '-'}</div>
+        </div>
+      </div>
+      <div class="details">
+        <div class="detail"><span>Tipo plan</span><strong>${data.tipoplan || '-'}</strong></div>
+        <div class="detail"><span>Plan</span><strong>${data.plan}</strong></div>
+        <div class="detail"><span>Cuota mensual</span><strong>${cuotaDisplay}</strong></div>
+        <div class="detail"><span>Estado pago</span><strong class="${isUnpaid ? 'status-bad' : ''}">${pagadoValue}</strong></div>
+        <div class="detail"><span>Fecha alta</span><strong>${data.fealta || '-'}</strong></div>
+        <div class="detail"><span>Próximo pago</span><strong>${data.proxpago}</strong></div>
+        <div class="detail"><span>Dominio</span><strong>${data.dominio}</strong></div>
+        <div class="detail"><span>Nº pedido</span><strong>${data.npedido}</strong></div>
+        <div class="detail"><span>Consultas o cambios restantes este mes</span><strong>${data.consultasocambiosrestantes || '-'}</strong></div>
+      </div>
+      <section class="tickets">
+        <div class="tickets-header">
+          <h4>Soporte y tickets</h4>
+          <button class="ticket-refresh" id="refreshTicketsBtn" type="button">Actualizar</button>
+        </div>
+        <p class="tickets-help">Abre tickets y responde en el mismo hilo tipo chat. Si el estado es <strong>resuelto</strong>, el ticket queda cerrado.</p>
+        <form id="ticketForm" class="ticket-form" novalidate>
+          <div class="ticket-grid ${plans.length > 1 ? "has-plan" : ""}">
+            <label class="ticket-field">
+              <span>Asunto</span>
+              <input id="ticketSubject" type="text" maxlength="140" placeholder="Ej: Cambio en la home">
+            </label>
+            <label class="ticket-field">
+              <span>Prioridad</span>
+              <select id="ticketPriority">
+                <option value="baja">Baja</option>
+                <option value="media" selected>Media</option>
+                <option value="alta">Alta</option>
+              </select>
+            </label>
+            ${plans.length > 1 ? `
+            <label class="ticket-field">
+              <span>Plan al que pertenece</span>
+              <select id="ticketPlanSelect">
+                ${plans.map((plan) => {
+                  const planId = String(plan.planId || plan.npedido || "").trim()
+                  const isSelected = planId === String(data.activePlanId || "")
+                  return '<option value="' + escapeHtml(planId) + '"' + (isSelected ? ' selected' : '') + '>' +
+                    escapeHtml(String(plan.plan || "-")) + ' · ' + escapeHtml(String(plan.npedido || planId || "-")) +
+                  '</option>'
+                }).join("")}
+              </select>
+            </label>` : ""}
+          </div>
+          <label class="ticket-field">
+            <span>Mensaje</span>
+            <textarea id="ticketMessage" maxlength="4000" placeholder="Describe tu solicitud con detalle."></textarea>
+          </label>
+          <div class="ticket-actions">
+            <span id="ticketFeedback" class="ticket-feedback"></span>
+            <button class="ticket-submit" id="ticketSubmitBtn" type="submit">Enviar ticket</button>
+          </div>
+        </form>
+        <div id="ticketList" class="ticket-list">
+          <p class="empty">Cargando tickets...</p>
+        </div>
+      </section>
+      <div class="actions">
+        ${planDoc}
+        <a class="secondary" href="REQUERIMIENTOS-WEBS.pdf" target="_blank" rel="noopener noreferrer">Requerimientos</a>
+        <a class="secondary" href="TyC-Dominios-Web.pdf" target="_blank" rel="noopener noreferrer">TyC Dominios Web</a>
+        <a class="secondary" href="AVISO LEGAL Y CONDICIONES DE USO.pdf" target="_blank" rel="noopener noreferrer">Aviso Legal</a>
+        <button class="secondary" id="logoutBtn">Cerrar sesión</button>
+      </div>
+    `
+    panel.querySelectorAll(".plan-switch-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        const planId = String(button.getAttribute("data-plan-id") || "").trim()
+        if(!planId){
+          return
+        }
+        setActivePlan(planId)
+      })
+    })
+    const logoutBtn = document.getElementById("logoutBtn")
+    if(logoutBtn){
+      logoutBtn.addEventListener("click",()=>{
+        clearClientSession(true, "logout")
+      })
+    }
+    bindTicketModule()
+  }else{
+    panel.innerHTML = `\
+      <div class="panel-title">
+        <h3>Acceso no disponible</h3>
+        <p class="empty">No hay una sesión activa. Inicia sesión para ver tu panel.</p>
+      </div>
+      <div class="actions">
+        <a class="primary" href="login/">Iniciar Sesion</a>
+      </div>
+    `
+  }
+}
+
+function refreshPanel(force=false){
+  const sessionState = getSessionState()
+  if(sessionState.expired){
+    handleSessionExpiration()
+    return
+  }
+
+  if(!force && sessionState.raw === lastRaw){
+    validateSessionWithApi(false)
+    return
+  }
+  lastRaw = sessionState.raw
+  renderPanel(sessionState.raw)
+  validateSessionWithApi(force)
+}
+
+refreshPanel(true)
+setInterval(()=>refreshPanel(false),2000)
+
+window.addEventListener("storage",(event)=>{
+  if(event.key === "clientData"){
+    refreshPanel(true)
+  }
+})
+
+window.addEventListener("focus",()=>refreshPanel(true))
+document.addEventListener("visibilitychange",()=>{
+  if(!document.hidden){
+    refreshPanel(true)
+  }
+})
+</script>
+
+</body>
+</html>

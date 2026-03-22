@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <base href="/">
+  <link rel="stylesheet" href="cookie-consent.css">
+  <script src="cookie-consent.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="LuckyBase: acceso de clientes y panel de gestión.">
+<meta name="robots" content="noindex, nofollow">
+<title>Iniciar sesión | LuckyBase</title>
+<meta property="og:title" content="Iniciar sesión | LuckyBase">
+<meta property="og:description" content="LuckyBase: acceso de clientes y panel de gestión.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://luckybase.es/login/">
+<meta property="og:site_name" content="LuckyBase">
+<meta property="og:image" content="https://luckybase.es/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Iniciar sesión | LuckyBase">
+<meta name="twitter:description" content="LuckyBase: acceso de clientes y panel de gestión.">
+<meta name="twitter:image" content="https://luckybase.es/og-image.png">
+<meta name="theme-color" content="#1565ff">
+<link rel="canonical" href="https://luckybase.es/login/">
+<link rel="apple-touch-icon" href="https://luckybase.es/apple-touch-icon.png">
+<link rel="icon" href="https://luckybase.es/favicon.ico" type="image/x-icon">
+<link rel="icon" sizes="32x32" href="https://luckybase.es/favicon-32x32.png">
+<link rel="icon" sizes="16x16" href="https://luckybase.es/favicon-16x16.png">
+<link rel="manifest" href="https://luckybase.es/site.webmanifest">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon.png" type="image/png">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K96JRDLJ');</script><!-- End Google Tag Manager -->
+<style>
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible{
+outline:3px solid rgba(59,130,246,0.6);
+outline-offset:2px;
+}
+img{max-width:100%;height:auto;}
+body{overflow-x:hidden;}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#060d1f;
+color:#e2e8f0;
+min-height:100vh;
+display:flex;
+flex-direction:column;
+overflow-x:hidden;
+}
+
+/* ── ANIMATED BG ── */
+.bg-orbs{
+position:fixed;
+inset:0;
+z-index:0;
+overflow:hidden;
+pointer-events:none;
+}
+.bg-orbs span{
+position:absolute;
+border-radius:50%;
+filter:blur(90px);
+opacity:0.5;
+animation:drift 18s ease-in-out infinite alternate;
+}
+.bg-orbs span:nth-child(1){width:560px;height:560px;background:radial-gradient(circle,#1565ff,transparent 70%);top:-140px;left:-120px;animation-duration:22s;}
+.bg-orbs span:nth-child(2){width:420px;height:420px;background:radial-gradient(circle,#3b82f6,transparent 70%);top:25%;right:-100px;animation-duration:16s;animation-delay:-6s;}
+.bg-orbs span:nth-child(3){width:380px;height:380px;background:radial-gradient(circle,#6366f1,transparent 70%);bottom:-80px;left:28%;animation-duration:24s;animation-delay:-10s;}
+@keyframes drift{
+0%{transform:translate(0,0) scale(1);}
+100%{transform:translate(50px,35px) scale(1.1);}
+}
+
+/* ── HEADER ── */
+header{
+position:relative;
+z-index:100;
+background:rgba(6,13,31,0.65);
+backdrop-filter:blur(18px);
+-webkit-backdrop-filter:blur(18px);
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:14px 8%;
+border-bottom:1px solid rgba(255,255,255,0.07);
+}
+
+.logo img{height:44px;width:auto;display:block;}
+
+nav{display:flex;gap:22px;}
+
+nav a{
+text-decoration:none;
+color:rgba(255,255,255,0.88);
+font-weight:500;
+font-size:14px;
+transition:color 0.2s;
+}
+nav a:hover{color:#fff;}
+
+.nav-toggle{
+display:none;
+border:1px solid rgba(59,130,246,0.35);
+background:rgba(59,130,246,0.18);
+color:#93c5fd;
+padding:7px 14px;
+border-radius:10px;
+font-weight:600;
+cursor:pointer;
+font-size:13px;
+}
+
+.theme-toggle{
+width:38px;height:38px;padding:0;
+border:1px solid rgba(255,255,255,0.12);
+border-radius:50%;
+background:rgba(255,255,255,0.07);
+color:#e2e8f0;
+cursor:pointer;
+display:inline-flex;align-items:center;justify-content:center;
+transition:0.25s;
+}
+.theme-toggle:hover{background:rgba(255,255,255,0.14);}
+.theme-toggle svg{width:18px;height:18px;display:block;}
+
+/* ── LOGIN MAIN ── */
+.login-page{
+flex:1;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:44px 16px 60px;
+position:relative;
+z-index:1;
+}
+
+.login-card{
+width:100%;
+max-width:420px;
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.11);
+border-radius:24px;
+padding:42px 38px;
+backdrop-filter:blur(28px);
+-webkit-backdrop-filter:blur(28px);
+box-shadow:0 32px 80px rgba(0,0,0,0.55),inset 0 1px 0 rgba(255,255,255,0.09);
+animation:slideUp 0.5s cubic-bezier(0.23,1,0.32,1) both;
+}
+
+@keyframes slideUp{
+from{opacity:0;transform:translateY(28px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+.login-card-icon{
+width:58px;height:58px;
+background:linear-gradient(135deg,#1565ff,#6366f1);
+border-radius:17px;
+display:flex;align-items:center;justify-content:center;
+margin:0 auto 22px;
+box-shadow:0 10px 28px rgba(21,101,255,0.42);
+}
+.login-card-icon svg{width:27px;height:27px;stroke:#fff;fill:none;stroke-width:2;}
+
+.login-card h1{
+font-size:23px;
+font-weight:700;
+color:#fff;
+text-align:center;
+margin-bottom:6px;
+}
+
+.login-subtitle{
+text-align:center;
+font-size:13px;
+color:rgba(226,232,240,0.82);
+margin-bottom:30px;
+}
+
+/* ── BANNER ERROR ── */
+.login-banner{
+display:none;
+align-items:center;
+gap:9px;
+background:rgba(239,68,68,0.12);
+color:#fca5a5;
+border:1px solid rgba(239,68,68,0.28);
+border-radius:12px;
+padding:11px 14px;
+margin-bottom:16px;
+font-size:13px;
+font-weight:500;
+}
+.login-banner.show{display:flex;animation:fadeIn 0.25s ease;}
+.login-banner svg{flex-shrink:0;width:15px;height:15px;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── FORM ── */
+#seccion-login{
+display:flex;
+flex-direction:column;
+gap:16px;
+background:none;
+padding:0;
+border-radius:0;
+box-shadow:none;
+border:none;
+max-width:none;
+margin:0;
+}
+
+.input-group{
+display:flex;
+flex-direction:column;
+gap:7px;
+}
+
+.input-group label{
+font-size:11px;
+font-weight:600;
+color:rgba(226,232,240,0.84);
+letter-spacing:0.06em;
+text-transform:uppercase;
+}
+
+.input-wrap{
+position:relative;
+display:flex;
+align-items:center;
+}
+
+.input-icon{
+position:absolute;
+left:14px;
+color:rgba(226,232,240,0.72);
+display:flex;align-items:center;
+pointer-events:none;
+transition:color 0.2s;
+}
+.input-icon svg{width:17px;height:17px;}
+
+.input-wrap:focus-within .input-icon{color:#93c5fd;}
+
+.input-wrap input{
+width:100%;
+padding:13px 42px;
+border-radius:12px;
+border:1px solid rgba(255,255,255,0.22);
+font-size:14px;
+font-family:'Poppins',sans-serif;
+background:rgba(255,255,255,0.1);
+color:#fff;
+transition:border-color 0.22s,box-shadow 0.22s,background 0.22s;
+}
+.input-wrap input::placeholder{color:rgba(226,232,240,0.66);}
+.input-wrap input:focus{
+outline:none;
+border-color:rgba(59,130,246,0.65);
+background:rgba(255,255,255,0.14);
+box-shadow:0 0 0 4px rgba(59,130,246,0.14);
+}
+
+.toggle-pass{
+position:absolute;
+right:12px;
+background:none;
+border:none;
+cursor:pointer;
+color:rgba(226,232,240,0.72);
+display:flex;align-items:center;justify-content:center;
+padding:5px;
+border-radius:8px;
+transition:color 0.2s;
+}
+.toggle-pass:hover{color:#ffffff;}
+.toggle-pass svg{width:18px;height:18px;}
+
+/* ── SUBMIT BTN ── */
+#btnLogin{
+width:100%;
+padding:14px;
+border-radius:14px;
+border:none;
+background:linear-gradient(135deg,#1565ff 0%,#4f8aff 100%);
+color:#fff;
+font-weight:700;
+font-size:15px;
+font-family:'Poppins',sans-serif;
+cursor:pointer;
+letter-spacing:0.02em;
+transition:transform 0.2s,box-shadow 0.2s,opacity 0.2s;
+box-shadow:0 8px 26px rgba(21,101,255,0.38);
+}
+#btnLogin:hover:not(:disabled){
+transform:translateY(-2px);
+box-shadow:0 14px 34px rgba(21,101,255,0.5);
+}
+#btnLogin:active:not(:disabled){transform:translateY(0);}
+#btnLogin:disabled{opacity:0.55;cursor:not-allowed;transform:none;}
+
+/* ── STATUS ── */
+#loginStatus{
+min-height:18px;
+transition:opacity 0.2s;
+text-align:center;
+font-size:13px;
+color:rgba(226,232,240,0.88);
+}
+
+.status-loading{
+display:flex;justify-content:center;align-items:center;min-height:24px;
+}
+
+.spinner{
+width:20px;height:20px;border-radius:50%;
+border:2.5px solid rgba(59,130,246,0.2);
+border-top-color:#60a5fa;
+animation:spin 0.75s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.login-help{
+text-align:center;
+margin-top:20px;
+font-size:12px;
+color:rgba(226,232,240,0.72);
+}
+.login-help a{color:#93c5fd;text-decoration:none;}
+.login-help a:hover{text-decoration:underline;}
+
+/* ── FOOTER ── */
+footer{
+background:#1565ff;
+color:white;
+text-align:center;
+padding:35px;
+margin-top:0;
+position:relative;
+z-index:1;
+}
+
+.footer-copy{
+display:flex;align-items:center;justify-content:center;gap:10px;
+}
+.footer-copy img{width:30px;height:30px;object-fit:contain;display:block;}
+
+.footer-socials{display:flex;justify-content:center;gap:10px;margin-top:12px;}
+
+.footer-instagram{
+display:inline-flex;align-items:center;justify-content:center;
+width:34px;height:34px;border-radius:50%;
+background:#fff;
+color:#1565ff;
+text-decoration:none;
+transition:0.3s;
+}
+.footer-instagram:hover{background:#f3f6ff;transform:scale(1.08);}
+.footer-instagram svg{width:18px;height:18px;display:block;}
+
+.footer-preferences{
+display:inline-block;padding:6px 10px;border-radius:8px;
+background:#fff;color:#1565ff;
+text-decoration:none;font-size:12px;font-weight:600;transition:0.3s;
+position:absolute;right:35px;bottom:35px;
+}
+.footer-preferences:hover{background:#f3f6ff;}
+
+.footer-legal{margin-top:10px;}
+.footer-legal a{color:#dbeafe;font-size:13px;text-decoration:none;}
+.footer-legal a:hover{text-decoration:underline;}
+
+/* ── LIGHT MODE (default) ── */
+body:not(.dark-mode){
+background:#f0f4ff;
+background-image:
+  radial-gradient(circle at 15% 20%,rgba(21,101,255,0.12),transparent 45%),
+  radial-gradient(circle at 85% 10%,rgba(96,165,250,0.18),transparent 42%),
+  radial-gradient(circle at 50% 95%,rgba(99,102,241,0.12),transparent 40%);
+}
+body:not(.dark-mode) .bg-orbs span{ opacity:0.2; }
+
+body:not(.dark-mode) header{
+background:rgba(255,255,255,0.85);
+border-bottom:1px solid rgba(0,0,0,0.07);
+}
+body:not(.dark-mode) nav a{ color:#334155; }
+body:not(.dark-mode) nav a:hover{ color:#1565ff; }
+body:not(.dark-mode) .nav-toggle{
+background:rgba(21,101,255,0.1);
+color:#1565ff;
+border:1px solid rgba(21,101,255,0.2);
+}
+body:not(.dark-mode) .theme-toggle{
+background:rgba(255,255,255,0.9);
+border:1px solid #d1d5db;
+color:#374151;
+}
+
+body:not(.dark-mode) .login-card{
+background:rgba(255,255,255,0.85);
+border:1px solid rgba(148,163,184,0.25);
+box-shadow:0 24px 70px rgba(21,101,255,0.1),0 4px 16px rgba(0,0,0,0.06);
+}
+body:not(.dark-mode) .login-card h1{ color:#0f172a; }
+body:not(.dark-mode) .login-subtitle{ color:#64748b; }
+
+body:not(.dark-mode) .input-group label{ color:#475569; }
+
+body:not(.dark-mode) .input-wrap input{
+background:#f8faff;
+border:1px solid #dbe4f5;
+color:#1e293b;
+}
+body:not(.dark-mode) .input-wrap input::placeholder{ color:#94a3b8; }
+body:not(.dark-mode) .input-wrap input:focus{
+background:#fff;
+border-color:rgba(59,130,246,0.55);
+}
+body:not(.dark-mode) .input-icon{ color:#94a3b8; }
+body:not(.dark-mode) .input-wrap:focus-within .input-icon{ color:#3b82f6; }
+body:not(.dark-mode) .toggle-pass{ color:#94a3b8; }
+body:not(.dark-mode) .toggle-pass:hover{ color:#3b82f6; }
+
+body:not(.dark-mode) #loginStatus{ color:#64748b; }
+
+body:not(.dark-mode) .login-banner{
+background:rgba(239,68,68,0.08);
+color:#b91c1c;
+border-color:rgba(239,68,68,0.2);
+}
+
+body:not(.dark-mode) .login-help{ color:#94a3b8; }
+body:not(.dark-mode) .login-help a{ color:#3b82f6; }
+
+body:not(.dark-mode) footer{
+background:#1565ff;
+color:white;
+}
+body:not(.dark-mode) .footer-instagram{
+background:#fff;
+color:#1565ff;
+border:none;
+}
+body:not(.dark-mode) .footer-instagram:hover{ background:#f3f6ff; }
+body:not(.dark-mode) .footer-preferences{
+background:#fff;
+color:#1565ff;
+border:none;
+}
+body:not(.dark-mode) .footer-legal a{ color:#dbeafe; }
+
+
+
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+header{padding:10px 4%;flex-wrap:wrap;gap:8px;}
+
+nav{
+width:100%;display:none;flex-direction:column;align-items:center;
+gap:8px;padding:12px 0 6px;
+background:rgba(6,13,31,0.96);
+border-radius:14px;border:1px solid rgba(255,255,255,0.08);
+margin-top:4px;
+}
+nav a{font-size:13px;}
+nav.is-open{display:flex;}
+
+.nav-toggle{display:inline-flex;align-items:center;justify-content:center;}
+.theme-toggle{width:34px;height:34px;}
+.logo img{height:32px;}
+
+.login-card{padding:30px 22px;}
+
+.footer-preferences{position:static;margin-top:14px;}
+}
+</style>
+<link rel="stylesheet" href="premium.css"></head>
+<body>
+
+<div class="bg-orbs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K96JRDLJ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<header>
+<div class="logo">
+<img loading="lazy" src="LUCKYBASE logo letras.png" alt="Logo Lucky Base">
+</div>
+<nav>
+<a href="/">Inicio</a>
+<a href="planes/">Planes</a>
+<a href="comparador-planes-web/">Comparador</a>
+<a href="/#contacto">Contacto</a>
+</nav>
+<button id="navToggle" class="nav-toggle" type="button" aria-label="Abrir menú">Menú</button>
+<button id="themeToggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema"></button>
+</header>
+
+<main class="login-page">
+<div class="login-card">
+  <div class="login-card-icon">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+  </div>
+  <h1>Iniciar sesión</h1>
+  <p class="login-subtitle">Acceso reservado para clientes con credenciales activas.</p>
+
+  <div id="loginBanner" class="login-banner" role="alert">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span id="loginBannerText"></span>
+  </div>
+
+  <form id="seccion-login" onsubmit="ejecutarLogin(event)">
+    <div class="input-group">
+      <label for="usuario">Usuario</label>
+      <div class="input-wrap">
+        <span class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></span>
+        <input type="text" id="usuario" placeholder="Tu usuario" autocomplete="username">
+      </div>
+    </div>
+    <div class="input-group">
+      <label for="password">Contraseña</label>
+      <div class="input-wrap">
+        <span class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+        <input type="password" id="password" placeholder="Tu contraseña" autocomplete="current-password">
+        <button type="button" id="togglePassword" class="toggle-pass" aria-label="Mostrar contraseña">
+          <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12C3.3 7 7.3 4 12 4s8.7 3 11 8c-2.3 5-6.3 8-11 8S3.3 17 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+    </div>
+    <button type="submit" id="btnLogin">Entrar</button>
+  </form>
+
+  <p id="loginStatus" aria-live="polite"></p>
+  <p class="login-help">¿Necesitas acceso? <a href="mailto:contacto@luckybase.es">contacto@luckybase.es</a></p>
+</div>
+</main>
+
+<footer>
+<p class="footer-copy">
+<img loading="lazy" src="logoluckyblancosinfondo.png" alt="Logo Lucky Base">
+<span>© 2026 LuckyBase — Todos los derechos reservados</span>
+</p>
+
+<div class="footer-socials">
+<a class="footer-instagram" href="https://www.instagram.com/luckybaseofficial/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Lucky Base">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+<rect x="2.5" y="2.5" width="19" height="19" rx="5"></rect>
+<circle cx="12" cy="12" r="4.5"></circle>
+<circle cx="18" cy="6" r="1.2" fill="currentColor" stroke="none"></circle>
+</svg>
+</a>
+
+<a class="footer-instagram" href="https://www.tiktok.com/@luckybaseofficial" target="_blank" rel="noopener noreferrer" aria-label="TikTok Lucky Base">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+<path d="M14.5 3c.4 1.8 1.8 3.2 3.5 3.7v2.6c-1.4 0-2.7-.4-3.8-1.2v6.5c0 3.3-2.7 5.9-6 5.9s-6-2.6-6-5.9 2.7-5.9 6-5.9c.3 0 .7 0 1 .1v2.8c-.3-.1-.6-.2-1-.2-1.7 0-3.1 1.4-3.1 3.1s1.4 3.1 3.1 3.1 3.1-1.4 3.1-3.1V3h3.2z"></path>
+</svg>
+</a>
+
+<a class="footer-instagram" href="https://discord.com/invite/GYJN7kEwU2" target="_blank" rel="noopener noreferrer" aria-label="Discord Lucky Base">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+<path d="M20 4.5a17.4 17.4 0 0 0-4.1-1.3 12.2 12.2 0 0 0-.5 1.1 16.8 16.8 0 0 0-6.8 0 12 12 0 0 0-.5-1.1A17.3 17.3 0 0 0 4 4.5C1.5 8 1 11.4 1.2 14.8c1.7 1.3 3.4 2.1 5.2 2.6.4-.6.8-1.2 1.1-1.9-.6-.2-1.2-.5-1.7-.8.1-.1.3-.2.4-.3 3.3 1.5 6.9 1.5 10.2 0 .1.1.3.2.4.3-.6.3-1.1.6-1.7.8.3.7.7 1.3 1.1 1.9 1.8-.5 3.5-1.3 5.2-2.6.3-3.9-.7-7.3-3.2-10.3zM8.5 13.1c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm7 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z"/>
+</svg>
+</a>
+</div>
+
+<a href="#" class="footer-preferences">Cambiar mis preferencias</a>
+
+<div class="footer-legal">
+<a href="privacy-policy/">Política de Privacidad</a>
+</div>
+</footer>
+
+<script>
+const themeToggle=document.getElementById("themeToggle")
+const sunIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="5"></line><line x1="12" y1="19" x2="12" y2="22"></line><line x1="2" y1="12" x2="5" y2="12"></line><line x1="19" y1="12" x2="22" y2="12"></line><line x1="4.9" y1="4.9" x2="7" y2="7"></line><line x1="17" y1="17" x2="19.1" y2="19.1"></line><line x1="17" y1="7" x2="19.1" y2="4.9"></line><line x1="4.9" y1="19.1" x2="7" y2="17"></line></svg>'
+const moonIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8z"></path></svg>'
+
+function updateThemeLabel(){
+const isDarkMode=document.body.classList.contains("dark-mode")
+if(themeToggle){
+themeToggle.innerHTML=isDarkMode?moonIcon:sunIcon
+themeToggle.setAttribute("aria-label",isDarkMode?"Modo oscuro":"Modo claro")
+themeToggle.setAttribute("title",isDarkMode?"Modo oscuro":"Modo claro")
+}
+}
+
+if(localStorage.getItem("theme")==="dark"){
+document.body.classList.add("dark-mode")
+}
+updateThemeLabel()
+
+if(themeToggle){
+themeToggle.addEventListener("click",()=>{
+document.body.classList.toggle("dark-mode")
+const currentTheme=document.body.classList.contains("dark-mode")?"dark":"light"
+localStorage.setItem("theme",currentTheme)
+updateThemeLabel()
+})
+}
+
+const mainNav=document.querySelector("nav")
+const navToggle=document.getElementById("navToggle")
+if(navToggle && mainNav){
+  navToggle.addEventListener("click",()=>{
+    const isOpen=mainNav.classList.toggle("is-open")
+    navToggle.setAttribute("aria-label",isOpen?"Cerrar menú":"Abrir menú")
+    navToggle.textContent=isOpen?"Cerrar":"Menú"
+  })
+
+  mainNav.querySelectorAll("a").forEach((link)=>{
+    link.addEventListener("click",()=>{
+      if(window.innerWidth<=768){
+        mainNav.classList.remove("is-open")
+        navToggle.setAttribute("aria-label","Abrir menú")
+        navToggle.textContent="Menú"
+      }
+    })
+  })
+}
+
+const togglePassword=document.getElementById("togglePassword")
+const passwordInput=document.getElementById("password")
+const eyeIcon=document.getElementById("eyeIcon")
+const eyeOpen='<path d="M1 12C3.3 7 7.3 4 12 4s8.7 3 11 8c-2.3 5-6.3 8-11 8S3.3 17 1 12z"/><circle cx="12" cy="12" r="3"/>'
+const eyeClosed='<path d="M17.9 17.9A10.5 10.5 0 0 1 12 20C7.3 20 3.3 17 1 12c1-2.3 2.7-4.3 4.9-5.7M9.9 4.2A10 10 0 0 1 12 4c4.7 0 8.7 3 11 8a11.2 11.2 0 0 1-1.7 2.8M3 3l18 18"/>';
+if(togglePassword && passwordInput && eyeIcon){
+  togglePassword.addEventListener("click",()=>{
+    const isHidden=passwordInput.getAttribute("type")==="password"
+    passwordInput.setAttribute("type",isHidden?"text":"password")
+    eyeIcon.innerHTML=isHidden?eyeClosed:eyeOpen
+    togglePassword.setAttribute("aria-label",isHidden?"Ocultar contraseña":"Mostrar contraseña")
+  })
+}
+
+const URL_API = "https://script.google.com/macros/s/AKfycbxZeMApnIjxoF4aAPxNhcLbUb09JluFb4E7jP67bINuODTv08q9xDFtzC5updMnV_Gi/exec"
+const SESSION_DURATION_MS = 8 * 60 * 60 * 1000
+const REQUIRE_SERVER_SESSION = true
+
+async function apiPostRequest(payload, timeoutMs=12000){
+  const controller = new AbortController()
+  const timeoutId = setTimeout(()=>controller.abort(), timeoutMs)
+  try{
+    const response = await fetch(URL_API, {
+      method: "POST",
+      mode: "cors",
+      cache: "no-store",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload || {}),
+      signal: controller.signal
+    })
+    if(!response.ok){
+      throw new Error("HTTP_" + response.status)
+    }
+    return await response.json()
+  }catch(error){
+    if(error && error.name === "AbortError"){
+      throw new Error("TIMEOUT")
+    }
+    throw error
+  }finally{
+    clearTimeout(timeoutId)
+  }
+}
+
+function parseSessionExpiry(value){
+  const numeric = Number(value)
+  if(Number.isFinite(numeric) && numeric > 0){
+    return numeric
+  }
+  const parsedDate = Date.parse(String(value || ""))
+  if(Number.isFinite(parsedDate) && parsedDate > 0){
+    return parsedDate
+  }
+  return NaN
+}
+
+function extractPayloadData(datos){
+  if(datos && typeof datos.data === "object" && datos.data !== null){
+    return datos.data
+  }
+  return datos || {}
+}
+
+function normalizePlanEntry_(plan, fallbackIndex){
+  const source = (plan && typeof plan === "object") ? plan : {}
+  const npedido = String(source.npedido || source.planId || "").trim()
+  const planId = npedido || ("plan_" + String((Number(fallbackIndex) || 0) + 1))
+  return {
+    planId,
+    plan: String(source.plan || "-").trim() || "-",
+    tipoplan: String(source.tipoplan || "").trim(),
+    cuota: String(source.cuota || "").trim(),
+    consultasocambiosrestantes: String(source.consultasocambiosrestantes || "").trim(),
+    pagado: String(source.pagado || "-").trim() || "-",
+    fealta: String(source.fealta || "-").trim() || "-",
+    proxpago: String(source.proxpago || "-").trim() || "-",
+    dominio: String(source.dominio || "-").trim() || "-",
+    npedido: npedido || planId
+  }
+}
+
+function normalizePortfolioData_(data){
+  const source = (data && typeof data === "object") ? data : {}
+  const planes = (Array.isArray(source.planes) ? source.planes : []).map((plan, index) => normalizePlanEntry_(plan, index))
+  if(!planes.length){
+    planes.push(normalizePlanEntry_(source, 0))
+  }
+  const requestedPlanId = String(source.activePlanId || source.npedido || "").trim()
+  let active = planes.find((plan) => String(plan.planId) === requestedPlanId)
+  if(!active){
+    active = planes[0]
+  }
+
+  return {
+    ...source,
+    planes,
+    totalPlanes: planes.length,
+    activePlanId: String(active.planId || ""),
+    plan: active.plan || "-",
+    tipoplan: active.tipoplan || "",
+    cuota: active.cuota || "",
+    consultasocambiosrestantes: active.consultasocambiosrestantes || "",
+    pagado: active.pagado || "-",
+    fealta: active.fealta || "-",
+    proxpago: active.proxpago || "-",
+    dominio: active.dominio || "-",
+    npedido: active.npedido || "-"
+  }
+}
+
+function handleLoginResponse(datos, user){
+  const status = document.getElementById('loginStatus')
+  const btn = document.getElementById('btnLogin')
+  if(btn){ btn.disabled = false; btn.textContent = 'Entrar' }
+  if(status){
+    status.classList.remove("status-loading")
+  }
+
+  if (datos && datos.success) {
+    const sourceData = extractPayloadData(datos)
+    const sessionToken = String(datos.sessionToken || sourceData.sessionToken || "").trim()
+    const sessionExpiresAt = parseSessionExpiry(datos.sessionExpiresAt || sourceData.sessionExpiresAt)
+
+    if(REQUIRE_SERVER_SESSION && (!sessionToken || !Number.isFinite(sessionExpiresAt))){
+      if(status) status.textContent = ""
+      showLoginBanner("El backend no devolvió una sesión válida. Actualiza el script de Google Apps Script.")
+      return
+    }
+
+    const payload = normalizePortfolioData_({
+      user,
+      sessionToken: sessionToken || "",
+      sessionStartedAt: Date.now(),
+      sessionExpiresAt: Number.isFinite(sessionExpiresAt) ? sessionExpiresAt : (Date.now() + SESSION_DURATION_MS),
+      nombre: sourceData.nombre || user,
+      plan: sourceData.plan || '-',
+      tipoplan: sourceData.tipoplan || '',
+      cuota: sourceData.cuota || '',
+      consultasocambiosrestantes: sourceData.consultasocambiosrestantes || '',
+      pagado: sourceData.pagado || '-',
+      fealta: sourceData.fealta || '-',
+      proxpago: sourceData.proxpago || '-',
+      dominio: sourceData.dominio || '-',
+      npedido: sourceData.npedido || '-',
+      planes: Array.isArray(sourceData.planes) ? sourceData.planes : [],
+      totalPlanes: Number(sourceData.totalPlanes || 0),
+      activePlanId: String(sourceData.activePlanId || sourceData.npedido || '').trim()
+    })
+    localStorage.setItem('clientData', JSON.stringify(payload))
+    window.location.href = "panel/"
+  } else {
+    if(status) status.textContent = ""
+    const backendMessage = (datos && typeof datos.message === "string" && datos.message.trim())
+      ? datos.message.trim()
+      : "Usuario o contraseña incorrectos."
+    showLoginBanner(backendMessage)
+  }
+}
+
+function ejecutarLogin(e){
+  if(e) e.preventDefault()
+  const btn = document.getElementById('btnLogin')
+  if(btn){ btn.disabled = true; btn.textContent = 'Entrando...' }
+  const user = document.getElementById('usuario').value.trim()
+  const pass = document.getElementById('password').value.trim()
+  const status = document.getElementById('loginStatus')
+  if(status){
+    status.textContent = ""
+    status.classList.remove("status-loading")
+  }
+  hideLoginBanner()
+
+  if(!user || !pass){
+    if(status) status.textContent = "Completa usuario y contraseña."
+    setTimeout(()=>{ if(status) status.textContent = "" }, 4000)
+    return
+  }
+
+  if(status){
+    status.classList.add("status-loading")
+    status.innerHTML = '<span class="spinner" aria-label="Cargando"></span>'
+  }
+
+  apiPostRequest({
+    action: "login",
+    usuario: user,
+    password: pass
+  }, 12000)
+    .then((response)=>{
+      handleLoginResponse(response, user)
+    })
+    .catch((error)=>{
+      const btn = document.getElementById('btnLogin')
+      if(btn){ btn.disabled = false; btn.textContent = 'Entrar' }
+      if(status){
+        status.classList.remove("status-loading")
+        status.textContent = error && error.message === "TIMEOUT"
+          ? "Tiempo de espera agotado."
+          : "No se pudo conectar con el servidor."
+      }
+      setTimeout(()=>{ if(status) status.textContent = "" }, 5000)
+    })
+}
+
+function showLoginBanner(message){
+  const banner=document.getElementById("loginBanner")
+  const bannerText=document.getElementById("loginBannerText")
+  if(!banner) return
+  if(bannerText) bannerText.textContent=message
+  banner.classList.add("show")
+  setTimeout(()=>{ banner.classList.remove("show") }, 6000)
+}
+
+function hideLoginBanner(){
+  const banner=document.getElementById("loginBanner")
+  if(banner) banner.classList.remove("show")
+}
+
+const loginQuery = new URLSearchParams(window.location.search)
+if(loginQuery.get("expired")==="1"){
+  showLoginBanner("Tu sesión ha caducado después de 8 horas. Inicia sesión de nuevo.")
+  window.history.replaceState({}, document.title, window.location.pathname)
+}
+</script>
+
+</body>
+</html>
