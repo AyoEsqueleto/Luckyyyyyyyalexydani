@@ -1357,10 +1357,40 @@ body.dark-mode textarea::placeholder{
   color:#b6c4d7;
 }
 
+.panel-nav{
+  margin-top:18px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.panel-nav-btn{
+  border:1px solid rgba(148,163,184,0.35);
+  background:#fff;
+  color:#334155;
+  border-radius:999px;
+  padding:8px 12px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.panel-nav-btn.is-active{
+  background:#1565ff;
+  border-color:#1565ff;
+  color:#fff;
+}
+
 .panel-sections{
-  margin-top:22px;
-  display:grid;
-  gap:16px;
+  margin-top:16px;
+}
+
+.panel-view{
+  display:none;
+}
+
+.panel-view.is-active{
+  display:block;
 }
 
 .module{
@@ -1753,6 +1783,18 @@ body.dark-mode .module{
   border-color:#334155;
 }
 
+body.dark-mode .panel-nav-btn{
+  background:#0b1220;
+  border-color:#334155;
+  color:#e2e8f0;
+}
+
+body.dark-mode .panel-nav-btn.is-active{
+  background:#1d4ed8;
+  border-color:#1d4ed8;
+  color:#fff;
+}
+
 body.dark-mode .module-title h4{
   color:#f8fafc;
 }
@@ -2143,12 +2185,21 @@ const panel = document.getElementById("panelContent")
 const SESSION_DURATION_MS = 8 * 60 * 60 * 1000
 const SESSION_VALIDATE_INTERVAL_MS = 60 * 1000
 const CLIENT_TICKET_SEEN_STORAGE_KEY = "luckybase_client_ticket_seen_v1"
+const PANEL_SECTION_STORAGE_KEY = "luckybase_panel_section_v1"
 let lastRaw = null
 let hasExpiredSession = false
 let validationInFlight = false
 let lastValidationAt = 0
 let ticketFilterState = "all"
 let cachedTicketsData = []
+let panelSectionState = "resumen"
+let panelSectionLoaded = {
+  alertas:false,
+  facturacion:false,
+  solicitudes:false,
+  tickets:false,
+  seguridad:false
+}
 
 async function apiPostRequest(payload, timeoutMs=10000){
   const controller = new AbortController()
@@ -2727,7 +2778,7 @@ async function loadTickets(showLoading=true){
   }
 }
 
-function bindTicketModule(){
+function bindTicketModule(autoLoad=true){
   const form = document.getElementById("ticketForm")
   const refreshBtn = document.getElementById("refreshTicketsBtn")
   const submitBtn = document.getElementById("ticketSubmitBtn")
@@ -2807,7 +2858,9 @@ function bindTicketModule(){
     }
   })
 
-  loadTickets(true)
+  if(autoLoad){
+    loadTickets(true)
+  }
 }
 
 function getActiveSessionToken(){
@@ -3164,6 +3217,82 @@ function bindSecurityModule(){
   }
 }
 
+function normalizePanelSection(section){
+  const key = String(section || "").trim().toLowerCase()
+  const allowed = ["resumen","alertas","facturacion","solicitudes","tickets","seguridad"]
+  return allowed.includes(key) ? key : "resumen"
+}
+
+function resetPanelSectionLoaded(){
+  panelSectionLoaded = {
+    alertas:false,
+    facturacion:false,
+    solicitudes:true,
+    tickets:false,
+    seguridad:false
+  }
+}
+
+function loadPanelSectionData(section, force=false){
+  const target = normalizePanelSection(section)
+  if(target === "alertas"){
+    if(force || !panelSectionLoaded.alertas){
+      panelSectionLoaded.alertas = true
+      loadClientAlerts(true)
+    }
+    return
+  }
+  if(target === "facturacion"){
+    if(force || !panelSectionLoaded.facturacion){
+      panelSectionLoaded.facturacion = true
+      loadBillingHistory(true)
+    }
+    return
+  }
+  if(target === "tickets"){
+    if(force || !panelSectionLoaded.tickets){
+      panelSectionLoaded.tickets = true
+      loadTickets(true)
+    }
+    return
+  }
+  if(target === "seguridad"){
+    if(force || !panelSectionLoaded.seguridad){
+      panelSectionLoaded.seguridad = true
+      loadSecurityOverview(true)
+    }
+  }
+}
+
+function switchPanelSection(section, forceReload=false){
+  const target = normalizePanelSection(section)
+  panelSectionState = target
+  try{
+    localStorage.setItem(PANEL_SECTION_STORAGE_KEY, target)
+  }catch(_){}
+
+  document.querySelectorAll(".panel-nav-btn").forEach((button)=>{
+    const buttonTarget = normalizePanelSection(button.getAttribute("data-panel-target"))
+    button.classList.toggle("is-active", buttonTarget === target)
+  })
+  document.querySelectorAll(".panel-view").forEach((view)=>{
+    const viewTarget = normalizePanelSection(view.getAttribute("data-panel-view"))
+    view.classList.toggle("is-active", viewTarget === target)
+  })
+
+  loadPanelSectionData(target, forceReload)
+}
+
+function bindPanelSectionNav(initialSection){
+  document.querySelectorAll(".panel-nav-btn").forEach((button)=>{
+    button.addEventListener("click",()=>{
+      const target = button.getAttribute("data-panel-target")
+      switchPanelSection(target, false)
+    })
+  })
+  switchPanelSection(initialSection || "resumen", false)
+}
+
 function bindQuickRequestButtons(){
   const form = document.getElementById("ticketForm")
   const subjectInput = document.getElementById("ticketSubject")
@@ -3175,6 +3304,7 @@ function bindQuickRequestButtons(){
 
   document.querySelectorAll(".quick-request-btn").forEach((button)=>{
     button.addEventListener("click",()=>{
+      switchPanelSection("tickets", false)
       const subject = String(button.getAttribute("data-subject") || "").trim()
       const priority = String(button.getAttribute("data-priority") || "media").trim()
       const message = String(button.getAttribute("data-message") || "").trim()
@@ -3188,7 +3318,7 @@ function bindQuickRequestButtons(){
         messageInput.value = message
       }
       setTicketFeedback("Solicitud rápida cargada. Revisa y envía el ticket.")
-      form.scrollIntoView({ behavior:"smooth", block:"start" })
+      form.scrollIntoView({ behavior:"smooth", block:"center" })
       subjectInput.focus()
     })
   })
@@ -3257,47 +3387,100 @@ function renderPanel(raw){
         <span class="panel-chip">Seguridad reforzada con 2FA</span>
       </div>
 
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-top">
-            <span class="stat-label">Plan activo</span>
-            <span class="stat-badge ${isUnpaid ? 'is-bad' : ''}">${isUnpaid ? 'Pendiente' : 'Activo'}</span>
-          </div>
-          <div class="stat-value">${escapeHtml(data.plan || '-')}</div>
-          <div class="stat-note">Tipo: ${escapeHtml(data.tipoplan || '-')}</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-top">
-            <span class="stat-label">Próximo pago</span>
-            <span class="stat-badge">Calendario</span>
-          </div>
-          <div class="stat-value">${escapeHtml(data.proxpago || '-')}</div>
-          <div class="stat-note">Cuota: ${escapeHtml(cuotaDisplay)}</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-top">
-            <span class="stat-label">Dominio</span>
-            <span class="stat-badge">Web</span>
-          </div>
-          <div class="stat-value">${escapeHtml(data.dominio || '-')}</div>
-          <div class="stat-note">Pedido: ${escapeHtml(data.npedido || '-')}</div>
-        </div>
-      </div>
-
-      <div class="details">
-        <div class="detail"><span>Tipo plan</span><strong>${escapeHtml(data.tipoplan || '-')}</strong></div>
-        <div class="detail"><span>Plan</span><strong>${escapeHtml(data.plan || '-')}</strong></div>
-        <div class="detail"><span>Cuota mensual</span><strong>${escapeHtml(cuotaDisplay)}</strong></div>
-        <div class="detail"><span>Estado pago</span><strong class="${isUnpaid ? 'status-bad' : ''}">${escapeHtml(pagadoValue)}</strong></div>
-        <div class="detail"><span>Fecha alta</span><strong>${escapeHtml(data.fealta || '-')}</strong></div>
-        <div class="detail"><span>Próximo pago</span><strong>${escapeHtml(data.proxpago || '-')}</strong></div>
-        <div class="detail"><span>Dominio</span><strong>${escapeHtml(data.dominio || '-')}</strong></div>
-        <div class="detail"><span>Nº pedido</span><strong>${escapeHtml(data.npedido || '-')}</strong></div>
-        <div class="detail"><span>Consultas/cambios restantes</span><strong>${escapeHtml(data.consultasocambiosrestantes || '-')}</strong></div>
+      <div class="panel-nav">
+        <button type="button" class="panel-nav-btn" data-panel-target="resumen">Resumen</button>
+        <button type="button" class="panel-nav-btn" data-panel-target="alertas">Alertas</button>
+        <button type="button" class="panel-nav-btn" data-panel-target="facturacion">Facturación</button>
+        <button type="button" class="panel-nav-btn" data-panel-target="solicitudes">Solicitudes</button>
+        <button type="button" class="panel-nav-btn" data-panel-target="tickets">Tickets</button>
+        <button type="button" class="panel-nav-btn" data-panel-target="seguridad">Seguridad</button>
       </div>
 
       <div class="panel-sections">
-        <section class="module">
+        <section class="module panel-view" data-panel-view="resumen">
+          <div class="module-head">
+            <div class="module-title">
+              <h4>Resumen de servicio</h4>
+              <p>Estado general del plan seleccionado.</p>
+            </div>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-top">
+                <span class="stat-label">Plan activo</span>
+                <span class="stat-badge ${isUnpaid ? 'is-bad' : ''}">${isUnpaid ? 'Pendiente' : 'Activo'}</span>
+              </div>
+              <div class="stat-value">${escapeHtml(data.plan || '-')}</div>
+              <div class="stat-note">Tipo: ${escapeHtml(data.tipoplan || '-')}</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-top">
+                <span class="stat-label">Próximo pago</span>
+                <span class="stat-badge">Calendario</span>
+              </div>
+              <div class="stat-value">${escapeHtml(data.proxpago || '-')}</div>
+              <div class="stat-note">Cuota: ${escapeHtml(cuotaDisplay)}</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-top">
+                <span class="stat-label">Dominio</span>
+                <span class="stat-badge">Web</span>
+              </div>
+              <div class="stat-value">${escapeHtml(data.dominio || '-')}</div>
+              <div class="stat-note">Pedido: ${escapeHtml(data.npedido || '-')}</div>
+            </div>
+          </div>
+
+          <div class="details">
+            <div class="detail"><span>Tipo plan</span><strong>${escapeHtml(data.tipoplan || '-')}</strong></div>
+            <div class="detail"><span>Plan</span><strong>${escapeHtml(data.plan || '-')}</strong></div>
+            <div class="detail"><span>Cuota mensual</span><strong>${escapeHtml(cuotaDisplay)}</strong></div>
+            <div class="detail"><span>Estado pago</span><strong class="${isUnpaid ? 'status-bad' : ''}">${escapeHtml(pagadoValue)}</strong></div>
+            <div class="detail"><span>Fecha alta</span><strong>${escapeHtml(data.fealta || '-')}</strong></div>
+            <div class="detail"><span>Próximo pago</span><strong>${escapeHtml(data.proxpago || '-')}</strong></div>
+            <div class="detail"><span>Dominio</span><strong>${escapeHtml(data.dominio || '-')}</strong></div>
+            <div class="detail"><span>Nº pedido</span><strong>${escapeHtml(data.npedido || '-')}</strong></div>
+            <div class="detail"><span>Consultas/cambios restantes</span><strong>${escapeHtml(data.consultasocambiosrestantes || '-')}</strong></div>
+          </div>
+
+          <div class="actions">
+            ${planDoc}
+            <a class="secondary" href="REQUERIMIENTOS-WEBS.pdf" target="_blank" rel="noopener noreferrer">Requerimientos</a>
+            <a class="secondary" href="TyC-Dominios-Web.pdf" target="_blank" rel="noopener noreferrer">TyC Dominios Web</a>
+            <a class="secondary" href="AVISO LEGAL Y CONDICIONES DE USO.pdf" target="_blank" rel="noopener noreferrer">Aviso Legal</a>
+            <button class="secondary" id="logoutBtn">Cerrar sesión</button>
+          </div>
+        </section>
+
+        <section class="module panel-view" data-panel-view="alertas">
+          <div class="module-head">
+            <div class="module-title">
+              <h4>Centro de alertas</h4>
+              <p>Notificaciones de soporte, pagos y seguimiento operativo.</p>
+            </div>
+            <button type="button" id="refreshAlertsBtn" class="module-refresh">Actualizar</button>
+          </div>
+          <div id="alertsMeta" class="alerts-meta"></div>
+          <div id="alertsList" class="alerts-list">
+            <p class="empty">Abre este apartado para cargar alertas.</p>
+          </div>
+        </section>
+
+        <section class="module panel-view" data-panel-view="facturacion">
+          <div class="module-head">
+            <div class="module-title">
+              <h4>Historial de facturación</h4>
+              <p>Visión compacta de alta, cobros y estados por plan.</p>
+            </div>
+            <button type="button" id="refreshBillingBtn" class="module-refresh">Actualizar</button>
+          </div>
+          <div id="billingSummary" class="billing-summary"></div>
+          <div id="billingEvents" class="billing-events">
+            <p class="empty">Abre este apartado para cargar facturación.</p>
+          </div>
+        </section>
+
+        <section class="module panel-view" data-panel-view="solicitudes">
           <div class="module-head">
             <div class="module-title">
               <h4>Solicitudes rápidas</h4>
@@ -3333,66 +3516,7 @@ function renderPanel(raw){
           </div>
         </section>
 
-        <section class="module">
-          <div class="module-head">
-            <div class="module-title">
-              <h4>Centro de alertas</h4>
-              <p>Notificaciones de soporte, pagos y seguimiento operativo.</p>
-            </div>
-            <button type="button" id="refreshAlertsBtn" class="module-refresh">Actualizar</button>
-          </div>
-          <div id="alertsMeta" class="alerts-meta"></div>
-          <div id="alertsList" class="alerts-list">
-            <p class="empty">Cargando alertas...</p>
-          </div>
-        </section>
-
-        <section class="module">
-          <div class="module-head">
-            <div class="module-title">
-              <h4>Historial de facturación</h4>
-              <p>Visión compacta de alta, cobros y estados por plan.</p>
-            </div>
-            <button type="button" id="refreshBillingBtn" class="module-refresh">Actualizar</button>
-          </div>
-          <div id="billingSummary" class="billing-summary"></div>
-          <div id="billingEvents" class="billing-events">
-            <p class="empty">Cargando historial...</p>
-          </div>
-        </section>
-
-        <section class="module">
-          <div class="module-head">
-            <div class="module-title">
-              <h4>Seguridad de la cuenta</h4>
-              <p>Control de sesiones y cambio seguro de contraseña.</p>
-            </div>
-            <button type="button" id="refreshSecurityBtn" class="module-refresh">Actualizar</button>
-          </div>
-          <div class="security-grid">
-            <div class="security-card">
-              <h5>Sesiones activas</h5>
-              <p id="security2fa" class="security-note">Cargando estado de seguridad...</p>
-              <button id="closeOtherSessionsBtn" type="button" class="security-btn">Cerrar otras sesiones</button>
-              <div id="securitySessionList" class="session-list">
-                <p class="empty">Cargando sesiones...</p>
-              </div>
-            </div>
-            <div class="security-card">
-              <h5>Cambiar contraseña</h5>
-              <p class="security-note">Al cambiar la contraseña se cerrarán todas las sesiones para proteger tu cuenta.</p>
-              <form id="securityPasswordForm" class="security-form" novalidate>
-                <input id="securityCurrentPassword" type="password" autocomplete="current-password" placeholder="Contraseña actual">
-                <input id="securityNewPassword" type="password" autocomplete="new-password" placeholder="Nueva contraseña">
-                <input id="securityRepeatPassword" type="password" autocomplete="new-password" placeholder="Repite nueva contraseña">
-                <span id="securityFeedback" class="security-feedback"></span>
-                <button id="securityPasswordSubmit" type="submit" class="security-btn">Actualizar contraseña</button>
-              </form>
-            </div>
-          </div>
-        </section>
-
-        <section class="tickets module">
+        <section class="tickets module panel-view" data-panel-view="tickets">
           <div class="tickets-header">
             <h4>Soporte y tickets</h4>
             <button class="ticket-refresh" id="refreshTicketsBtn" type="button">Actualizar</button>
@@ -3436,17 +3560,40 @@ function renderPanel(raw){
             </div>
           </form>
           <div id="ticketList" class="ticket-list">
-            <p class="empty">Cargando tickets...</p>
+            <p class="empty">Abre este apartado para cargar tickets.</p>
           </div>
         </section>
-      </div>
 
-      <div class="actions">
-        ${planDoc}
-        <a class="secondary" href="REQUERIMIENTOS-WEBS.pdf" target="_blank" rel="noopener noreferrer">Requerimientos</a>
-        <a class="secondary" href="TyC-Dominios-Web.pdf" target="_blank" rel="noopener noreferrer">TyC Dominios Web</a>
-        <a class="secondary" href="AVISO LEGAL Y CONDICIONES DE USO.pdf" target="_blank" rel="noopener noreferrer">Aviso Legal</a>
-        <button class="secondary" id="logoutBtn">Cerrar sesión</button>
+        <section class="module panel-view" data-panel-view="seguridad">
+          <div class="module-head">
+            <div class="module-title">
+              <h4>Seguridad de la cuenta</h4>
+              <p>Control de sesiones y cambio seguro de contraseña.</p>
+            </div>
+            <button type="button" id="refreshSecurityBtn" class="module-refresh">Actualizar</button>
+          </div>
+          <div class="security-grid">
+            <div class="security-card">
+              <h5>Sesiones activas</h5>
+              <p id="security2fa" class="security-note">Abre este apartado para cargar seguridad.</p>
+              <button id="closeOtherSessionsBtn" type="button" class="security-btn">Cerrar otras sesiones</button>
+              <div id="securitySessionList" class="session-list">
+                <p class="empty">Abre este apartado para ver sesiones.</p>
+              </div>
+            </div>
+            <div class="security-card">
+              <h5>Cambiar contraseña</h5>
+              <p class="security-note">Al cambiar la contraseña se cerrarán todas las sesiones para proteger tu cuenta.</p>
+              <form id="securityPasswordForm" class="security-form" novalidate>
+                <input id="securityCurrentPassword" type="password" autocomplete="current-password" placeholder="Contraseña actual">
+                <input id="securityNewPassword" type="password" autocomplete="new-password" placeholder="Nueva contraseña">
+                <input id="securityRepeatPassword" type="password" autocomplete="new-password" placeholder="Repite nueva contraseña">
+                <span id="securityFeedback" class="security-feedback"></span>
+                <button id="securityPasswordSubmit" type="submit" class="security-btn">Actualizar contraseña</button>
+              </form>
+            </div>
+          </div>
+        </section>
       </div>
     `
     panel.querySelectorAll(".plan-switch-btn").forEach((button) => {
@@ -3464,19 +3611,28 @@ function renderPanel(raw){
         clearClientSession(true, "logout")
       })
     }
-    bindTicketModule()
+    bindTicketModule(false)
     bindQuickRequestButtons()
     bindSecurityModule()
-    loadClientAlerts(true)
-    loadBillingHistory(true)
-    loadSecurityOverview(true)
+    resetPanelSectionLoaded()
+    let preferredSection = "resumen"
+    try{
+      preferredSection = normalizePanelSection(localStorage.getItem(PANEL_SECTION_STORAGE_KEY) || "resumen")
+    }catch(_){}
+    bindPanelSectionNav(preferredSection)
     const refreshAlertsBtn = document.getElementById("refreshAlertsBtn")
     if(refreshAlertsBtn){
-      refreshAlertsBtn.addEventListener("click",()=>loadClientAlerts(true))
+      refreshAlertsBtn.addEventListener("click",()=>{
+        panelSectionLoaded.alertas = true
+        loadClientAlerts(true)
+      })
     }
     const refreshBillingBtn = document.getElementById("refreshBillingBtn")
     if(refreshBillingBtn){
-      refreshBillingBtn.addEventListener("click",()=>loadBillingHistory(true))
+      refreshBillingBtn.addEventListener("click",()=>{
+        panelSectionLoaded.facturacion = true
+        loadBillingHistory(true)
+      })
     }
   }else{
     panel.innerHTML = `\
