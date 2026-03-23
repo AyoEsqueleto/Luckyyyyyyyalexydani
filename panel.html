@@ -79,6 +79,10 @@ body{
   min-height:100vh;
 }
 
+body.modal-open{
+  overflow:hidden;
+}
+
 header{
   position:fixed;
   top:0;
@@ -227,14 +231,6 @@ nav a{
   to{transform:translateY(0);opacity:1;}
 }
 
-.panel-toolbar{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-  margin:18px 0 16px;
-}
-
 .plan-switcher{
   margin:0 0 14px;
   padding:12px;
@@ -287,26 +283,15 @@ nav a{
   box-shadow:0 12px 20px rgba(21,101,255,0.26);
 }
 
-.panel-chip{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 12px;
-  border-radius:999px;
-  background:#eef4ff;
-  border:1px solid rgba(59,130,246,0.2);
-  font-size:12px;
-  color:#1e3a8a;
-  font-weight:600;
-}
-
 .panel-header{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:18px;
   flex-wrap:wrap;
-  margin-bottom:18px;
+  margin-bottom:16px;
+  padding-bottom:16px;
+  border-bottom:1px solid rgba(148,163,184,0.24);
 }
 
 .panel-title h3{
@@ -476,11 +461,11 @@ nav a{
 }
 
 .tickets{
-  margin-top:22px;
+  margin-top:0;
   border:1px solid rgba(148,163,184,0.24);
-  border-radius:16px;
-  padding:16px;
-  background:#f8fbff;
+  border-radius:18px;
+  padding:18px;
+  background:linear-gradient(180deg,#fafdff,#f7fbff);
 }
 
 .tickets-header{
@@ -488,18 +473,45 @@ nav a{
   align-items:center;
   justify-content:space-between;
   gap:12px;
-  margin-bottom:8px;
+  margin-bottom:6px;
 }
 
 .tickets-header h4{
-  font-size:18px;
+  font-size:19px;
   color:#0f172a;
 }
 
 .tickets-help{
   font-size:13px;
   color:#64748b;
-  margin-bottom:12px;
+  margin-bottom:14px;
+}
+
+.ticket-quick-wrap{
+  margin-bottom:14px;
+  border:1px solid rgba(59,130,246,0.16);
+  border-radius:14px;
+  background:#f3f8ff;
+  padding:12px;
+}
+
+.ticket-quick-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
+  flex-wrap:wrap;
+}
+
+.ticket-quick-head h5{
+  font-size:14px;
+  color:#0f172a;
+}
+
+.ticket-quick-head span{
+  font-size:12px;
+  color:#475569;
 }
 
 .ticket-form{
@@ -1028,12 +1040,6 @@ body.dark-mode .panel::after{
   background:radial-gradient(circle at top,rgba(59,130,246,0.2),transparent 70%);
 }
 
-body.dark-mode .panel-chip{
-  background:#0b1220;
-  border-color:#334155;
-  color:#bfdbfe;
-}
-
 body.dark-mode .plan-switcher{
   background:#0b1220;
   border-color:#334155;
@@ -1362,27 +1368,41 @@ body.dark-mode textarea::placeholder{
   display:flex;
   flex-wrap:wrap;
   gap:8px;
+  padding:8px;
+  border-radius:14px;
+  border:1px solid rgba(59,130,246,0.16);
+  background:linear-gradient(180deg,#f9fbff,#f2f7ff);
 }
 
 .panel-nav-btn{
-  border:1px solid rgba(148,163,184,0.35);
-  background:#fff;
-  color:#334155;
+  border:1px solid transparent;
+  background:transparent;
+  color:#1f3a7a;
   border-radius:999px;
-  padding:8px 12px;
+  padding:8px 14px;
   font-size:12px;
   font-weight:700;
   cursor:pointer;
+  transition:all .2s ease;
+}
+
+.panel-nav-btn:hover{
+  border-color:rgba(59,130,246,0.25);
+  background:#fff;
+  color:#1e40af;
 }
 
 .panel-nav-btn.is-active{
   background:#1565ff;
   border-color:#1565ff;
   color:#fff;
+  box-shadow:0 8px 16px rgba(21,101,255,0.26);
 }
 
 .panel-sections{
   margin-top:16px;
+  display:grid;
+  gap:12px;
 }
 
 .panel-view{
@@ -1394,10 +1414,11 @@ body.dark-mode textarea::placeholder{
 }
 
 .module{
-  background:#f8fbff;
+  background:linear-gradient(180deg,#fafdff,#f7fbff);
   border:1px solid rgba(148,163,184,0.24);
-  border-radius:16px;
-  padding:16px;
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 12px 24px rgba(15,23,42,0.04);
 }
 
 .module-head{
@@ -1437,17 +1458,18 @@ body.dark-mode textarea::placeholder{
 
 .quick-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
   gap:10px;
 }
 
 .quick-card{
-  border:1px solid rgba(148,163,184,0.3);
-  border-radius:12px;
+  border:1px solid rgba(59,130,246,0.18);
+  border-radius:14px;
   background:#fff;
   padding:12px;
   display:grid;
-  gap:8px;
+  gap:9px;
+  box-shadow:0 8px 20px rgba(15,23,42,0.05);
 }
 
 .quick-card h5{
@@ -1457,7 +1479,7 @@ body.dark-mode textarea::placeholder{
 
 .quick-card p{
   font-size:12px;
-  color:#64748b;
+  color:#475569;
   line-height:1.45;
 }
 
@@ -1627,6 +1649,12 @@ body.dark-mode textarea::placeholder{
   gap:8px;
 }
 
+.session-list-modal{
+  max-height:min(70vh,560px);
+  overflow:auto;
+  padding-right:4px;
+}
+
 .session-item{
   border:1px solid rgba(148,163,184,0.3);
   border-radius:12px;
@@ -1708,6 +1736,18 @@ body.dark-mode textarea::placeholder{
   cursor:not-allowed;
 }
 
+.security-link-btn{
+  justify-self:flex-start;
+  border:1px solid rgba(59,130,246,0.25);
+  border-radius:999px;
+  background:#eef4ff;
+  color:#1e3a8a;
+  font-size:12px;
+  font-weight:700;
+  padding:7px 12px;
+  cursor:pointer;
+}
+
 .security-card{
   border:1px solid rgba(148,163,184,0.3);
   border-radius:12px;
@@ -1754,6 +1794,64 @@ body.dark-mode textarea::placeholder{
   color:#0f766e;
 }
 
+.panel-modal{
+  position:fixed;
+  inset:0;
+  z-index:1200;
+  display:grid;
+  place-items:center;
+}
+
+.panel-modal[hidden]{
+  display:none;
+}
+
+.panel-modal-backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(15,23,42,0.52);
+  backdrop-filter:blur(2px);
+}
+
+.panel-modal-dialog{
+  position:relative;
+  z-index:1;
+  width:min(820px,calc(100% - 24px));
+  background:#fff;
+  border:1px solid rgba(148,163,184,0.28);
+  border-radius:18px;
+  box-shadow:0 20px 56px rgba(15,23,42,0.3);
+  padding:14px;
+  display:grid;
+  gap:10px;
+  max-height:86vh;
+}
+
+.panel-modal-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.panel-modal-head h5{
+  margin:0;
+  font-size:18px;
+  color:#0f172a;
+}
+
+.panel-modal-close{
+  border:none;
+  background:#eef4ff;
+  color:#1e3a8a;
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  font-size:22px;
+  line-height:1;
+  cursor:pointer;
+}
+
 .ticket-filters{
   display:flex;
   flex-wrap:wrap;
@@ -1783,10 +1881,20 @@ body.dark-mode .module{
   border-color:#334155;
 }
 
+body.dark-mode .panel-nav{
+  background:linear-gradient(180deg,#0b1220,#111827);
+  border-color:#1f2937;
+}
+
 body.dark-mode .panel-nav-btn{
+  background:transparent;
+  border-color:transparent;
+  color:#e2e8f0;
+}
+
+body.dark-mode .panel-nav-btn:hover{
   background:#0b1220;
   border-color:#334155;
-  color:#e2e8f0;
 }
 
 body.dark-mode .panel-nav-btn.is-active{
@@ -1806,6 +1914,19 @@ body.dark-mode .module-title p{
 body.dark-mode .module-refresh{
   background:#1e293b;
   border-color:#334155;
+  color:#bfdbfe;
+}
+
+body.dark-mode .ticket-quick-wrap{
+  background:#10233e;
+  border-color:#1e3a8a;
+}
+
+body.dark-mode .ticket-quick-head h5{
+  color:#f8fafc;
+}
+
+body.dark-mode .ticket-quick-head span{
   color:#bfdbfe;
 }
 
@@ -1881,6 +2002,26 @@ body.dark-mode .ticket-filter-btn.is-active{
   border-color:#1d4ed8;
 }
 
+body.dark-mode .security-link-btn{
+  background:#0b2540;
+  border-color:#1d4ed8;
+  color:#bfdbfe;
+}
+
+body.dark-mode .panel-modal-dialog{
+  background:#0f172a;
+  border-color:#334155;
+}
+
+body.dark-mode .panel-modal-head h5{
+  color:#f8fafc;
+}
+
+body.dark-mode .panel-modal-close{
+  background:#1e293b;
+  color:#bfdbfe;
+}
+
 @media(max-width:1080px){
   .security-grid{
     grid-template-columns:1fr;
@@ -1946,8 +2087,20 @@ body.dark-mode .ticket-filter-btn.is-active{
     padding:20px;
   }
 
+  .panel-nav{
+    overflow:auto;
+    flex-wrap:nowrap;
+    white-space:nowrap;
+  }
+
   .ticket-grid{
     grid-template-columns:1fr;
+  }
+
+  .panel-modal-dialog{
+    width:calc(100% - 16px);
+    max-height:90vh;
+    padding:12px;
   }
 
   .plan-switch-btn{
@@ -2192,11 +2345,12 @@ let validationInFlight = false
 let lastValidationAt = 0
 let ticketFilterState = "all"
 let cachedTicketsData = []
+let securityModalKeyBound = false
 let panelSectionState = "resumen"
+const SECURITY_SESSION_PREVIEW_LIMIT = 3
 let panelSectionLoaded = {
   alertas:false,
   facturacion:false,
-  solicitudes:false,
   tickets:false,
   seguridad:false
 }
@@ -3013,9 +3167,80 @@ function setSecurityFeedback(message, type=""){
   feedbackEl.className = "security-feedback" + (type ? " is-" + type : "")
 }
 
+function buildSecuritySessionItemHtml(session){
+  const statusRaw = String(session && session.status || "unknown").toLowerCase()
+  const status = statusRaw === "active" ? "active" : (statusRaw === "revoked" ? "revoked" : (statusRaw === "expired" ? "expired" : "unknown"))
+  const sessionId = String(session && session.sessionId || "")
+  const isCurrent = !!(session && session.isCurrent)
+  const canRevoke = status === "active" && !isCurrent
+  return '\
+    <article class="session-item">\
+      <div class="session-item-top">\
+        <strong>' + escapeHtml(sessionId || "-") + '</strong>\
+        <div class="session-tags">\
+          <span class="session-tag ' + status + '">' + escapeHtml(status) + '</span>\
+          ' + (isCurrent ? '<span class="session-tag current">actual</span>' : '') + '\
+        </div>\
+      </div>\
+      <div class="session-meta">\
+        <span>Emitida: ' + escapeHtml(formatDateTime(session && session.issuedAt)) + '</span>\
+        <span>Última actividad: ' + escapeHtml(formatDateTime(session && session.lastSeenAt)) + '</span>\
+        <span>Caduca: ' + escapeHtml(formatDateTime(session && session.expiresAt)) + '</span>\
+      </div>\
+      <div class="session-actions">\
+        <button class="session-revoke-btn" type="button" data-session-id="' + escapeHtml(sessionId) + '"' + (canRevoke ? '' : ' disabled') + '>Cerrar sesión</button>\
+      </div>\
+    </article>'
+}
+
+function closeSecuritySessionsModal(){
+  const modal = document.getElementById("sessionsModal")
+  if(!modal){
+    return
+  }
+  modal.setAttribute("hidden","hidden")
+  modal.setAttribute("aria-hidden","true")
+  document.body.classList.remove("modal-open")
+}
+
+function openSecuritySessionsModal(){
+  const modal = document.getElementById("sessionsModal")
+  if(!modal){
+    return
+  }
+  modal.removeAttribute("hidden")
+  modal.setAttribute("aria-hidden","false")
+  document.body.classList.add("modal-open")
+}
+
+function bindSecuritySessionsModal(){
+  const openBtn = document.getElementById("openSessionsModalBtn")
+  const closeBtn = document.getElementById("closeSessionsModalBtn")
+  const backdrop = document.querySelector("#sessionsModal [data-modal-close]")
+  if(openBtn){
+    openBtn.onclick = ()=>openSecuritySessionsModal()
+  }
+  if(closeBtn){
+    closeBtn.onclick = ()=>closeSecuritySessionsModal()
+  }
+  if(backdrop){
+    backdrop.onclick = ()=>closeSecuritySessionsModal()
+  }
+  if(!securityModalKeyBound){
+    document.addEventListener("keydown",(event)=>{
+      if(event.key === "Escape"){
+        closeSecuritySessionsModal()
+      }
+    })
+    securityModalKeyBound = true
+  }
+}
+
 function renderSecurityOverview(payload){
   const listEl = document.getElementById("securitySessionList")
   const twofaEl = document.getElementById("security2fa")
+  const modalListEl = document.getElementById("sessionsModalList")
+  const openModalBtn = document.getElementById("openSessionsModalBtn")
   if(!listEl || !twofaEl){
     return
   }
@@ -3029,50 +3254,57 @@ function renderSecurityOverview(payload){
   const sessions = Array.isArray(payload && payload.sessions) ? payload.sessions : []
   if(!sessions.length){
     listEl.innerHTML = '<p class="empty">No hay sesiones registradas.</p>'
+    if(modalListEl){
+      modalListEl.innerHTML = '<p class="empty">No hay sesiones registradas.</p>'
+    }
+    if(openModalBtn){
+      openModalBtn.hidden = true
+    }
+    closeSecuritySessionsModal()
     return
   }
 
-  listEl.innerHTML = sessions.map((session)=>{
-    const statusRaw = String(session && session.status || "unknown").toLowerCase()
-    const status = statusRaw === "active" ? "active" : (statusRaw === "revoked" ? "revoked" : (statusRaw === "expired" ? "expired" : "unknown"))
-    const sessionId = String(session && session.sessionId || "")
-    const isCurrent = !!(session && session.isCurrent)
-    const canRevoke = status === "active" && !isCurrent
-    return '\
-      <article class="session-item">\
-        <div class="session-item-top">\
-          <strong>' + escapeHtml(sessionId || "-") + '</strong>\
-          <div class="session-tags">\
-            <span class="session-tag ' + status + '">' + escapeHtml(status) + '</span>\
-            ' + (isCurrent ? '<span class="session-tag current">actual</span>' : '') + '\
-          </div>\
-        </div>\
-        <div class="session-meta">\
-          <span>Emitida: ' + escapeHtml(formatDateTime(session && session.issuedAt)) + '</span>\
-          <span>Última actividad: ' + escapeHtml(formatDateTime(session && session.lastSeenAt)) + '</span>\
-          <span>Caduca: ' + escapeHtml(formatDateTime(session && session.expiresAt)) + '</span>\
-        </div>\
-        <div class="session-actions">\
-          <button class="session-revoke-btn" type="button" data-session-id="' + escapeHtml(sessionId) + '"' + (canRevoke ? '' : ' disabled') + '>Cerrar sesión</button>\
-        </div>\
-      </article>'
-  }).join("")
+  const previewSessions = sessions.slice(0, SECURITY_SESSION_PREVIEW_LIMIT)
+  const hiddenCount = Math.max(0, sessions.length - previewSessions.length)
+  listEl.innerHTML = previewSessions.map((session)=>buildSecuritySessionItemHtml(session)).join("")
+  if(modalListEl){
+    modalListEl.innerHTML = sessions.map((session)=>buildSecuritySessionItemHtml(session)).join("")
+  }
+  if(openModalBtn){
+    openModalBtn.hidden = hiddenCount <= 0
+    openModalBtn.textContent = hiddenCount > 0 ? ("Mostrar más (" + String(hiddenCount) + ")") : "Mostrar más"
+  }
 }
 
 async function loadSecurityOverview(showLoading=true){
   const listEl = document.getElementById("securitySessionList")
   const twofaEl = document.getElementById("security2fa")
+  const openModalBtn = document.getElementById("openSessionsModalBtn")
+  const modalListEl = document.getElementById("sessionsModalList")
   if(!listEl || !twofaEl){
     return
   }
   const sessionToken = getActiveSessionToken()
   if(!sessionToken){
     listEl.innerHTML = '<p class="empty">No hay sesión activa.</p>'
+    if(openModalBtn){
+      openModalBtn.hidden = true
+    }
+    if(modalListEl){
+      modalListEl.innerHTML = '<p class="empty">No hay sesión activa.</p>'
+    }
+    closeSecuritySessionsModal()
     return
   }
   if(showLoading){
     twofaEl.textContent = "Cargando estado de seguridad..."
     listEl.innerHTML = '<p class="empty">Cargando sesiones...</p>'
+    if(modalListEl){
+      modalListEl.innerHTML = '<p class="empty">Cargando sesiones...</p>'
+    }
+    if(openModalBtn){
+      openModalBtn.hidden = true
+    }
   }
   try{
     const response = await apiPostRequest({
@@ -3086,6 +3318,13 @@ async function loadSecurityOverview(showLoading=true){
     bindSecuritySessionButtons()
   }catch(_){
     listEl.innerHTML = '<p class="empty">No se pudo cargar la seguridad de la cuenta.</p>'
+    if(modalListEl){
+      modalListEl.innerHTML = '<p class="empty">No se pudo cargar la seguridad de la cuenta.</p>'
+    }
+    if(openModalBtn){
+      openModalBtn.hidden = true
+    }
+    closeSecuritySessionsModal()
   }
 }
 
@@ -3100,7 +3339,10 @@ function bindSecuritySessionButtons(){
       if(!sessionToken){
         return
       }
-      button.disabled = true
+      const linkedButtons = Array.from(document.querySelectorAll(".session-revoke-btn[data-session-id]")).filter((candidate)=>{
+        return String(candidate.getAttribute("data-session-id") || "").trim() === targetSessionId
+      })
+      linkedButtons.forEach((candidate)=>{ candidate.disabled = true })
       try{
         const response = await apiPostRequest({
           action: "client_revoke_session",
@@ -3109,14 +3351,14 @@ function bindSecuritySessionButtons(){
         }, 20000)
         if(!response || response.success !== true){
           setSecurityFeedback(response && response.message ? response.message : "No se pudo cerrar la sesión.", "error")
-          button.disabled = false
+          linkedButtons.forEach((candidate)=>{ candidate.disabled = false })
           return
         }
         setSecurityFeedback("Sesión cerrada correctamente.", "success")
         loadSecurityOverview(false)
       }catch(_){
         setSecurityFeedback("No se pudo cerrar la sesión.", "error")
-        button.disabled = false
+        linkedButtons.forEach((candidate)=>{ candidate.disabled = false })
       }
     })
   })
@@ -3126,6 +3368,7 @@ function bindSecurityModule(){
   const refreshBtn = document.getElementById("refreshSecurityBtn")
   const closeOthersBtn = document.getElementById("closeOtherSessionsBtn")
   const passwordForm = document.getElementById("securityPasswordForm")
+  bindSecuritySessionsModal()
 
   if(refreshBtn){
     refreshBtn.addEventListener("click",()=>{
@@ -3219,7 +3462,10 @@ function bindSecurityModule(){
 
 function normalizePanelSection(section){
   const key = String(section || "").trim().toLowerCase()
-  const allowed = ["resumen","alertas","facturacion","solicitudes","soporte","seguridad"]
+  if(key === "solicitudes" || key === "soporte"){
+    return "tickets"
+  }
+  const allowed = ["resumen","alertas","facturacion","tickets","seguridad"]
   return allowed.includes(key) ? key : "resumen"
 }
 
@@ -3227,7 +3473,6 @@ function resetPanelSectionLoaded(){
   panelSectionLoaded = {
     alertas:false,
     facturacion:false,
-    solicitudes:true,
     tickets:false,
     seguridad:false
   }
@@ -3327,6 +3572,7 @@ function bindQuickRequestButtons(){
 function renderPanel(raw){
   if(!panel) return
   if(raw){
+    document.body.classList.remove("modal-open")
     let data = null
     try{
       data = normalizeClientPortfolioData(JSON.parse(raw))
@@ -3381,17 +3627,10 @@ function renderPanel(raw){
         </div>
       </div>
 
-      <div class="panel-toolbar">
-        <span class="panel-chip">Centro de alertas en tiempo real</span>
-        <span class="panel-chip">Tickets en formato chat</span>
-        <span class="panel-chip">Seguridad reforzada con 2FA</span>
-      </div>
-
       <div class="panel-nav">
         <button type="button" class="panel-nav-btn" data-panel-target="resumen">Resumen</button>
         <button type="button" class="panel-nav-btn" data-panel-target="alertas">Alertas</button>
         <button type="button" class="panel-nav-btn" data-panel-target="facturacion">Facturación</button>
-        <button type="button" class="panel-nav-btn" data-panel-target="solicitudes">Solicitudes</button>
         <button type="button" class="panel-nav-btn" data-panel-target="tickets">Tickets</button>
         <button type="button" class="panel-nav-btn" data-panel-target="seguridad">Seguridad</button>
       </div>
@@ -3480,48 +3719,45 @@ function renderPanel(raw){
           </div>
         </section>
 
-        <section class="module panel-view" data-panel-view="solicitudes">
-          <div class="module-head">
-            <div class="module-title">
-              <h4>Solicitudes rápidas</h4>
-              <p>Plantillas para abrir tickets en segundos.</p>
-            </div>
-          </div>
-          <div class="quick-grid">
-            <article class="quick-card">
-              <h5>Cambio de contenido</h5>
-              <p>Textos, imágenes, bloques o secciones de tu web.</p>
-              <button type="button" class="quick-request-btn" data-subject="Actualización de contenidos web" data-priority="media" data-message="Necesito actualizar contenidos en mi web.\n\nURL afectada:\nCambios solicitados:\nFecha objetivo:">Usar plantilla</button>
-            </article>
-            <article class="quick-card">
-              <h5>SEO y rendimiento</h5>
-              <p>Mejoras SEO on-page, velocidad o indexación.</p>
-              <button type="button" class="quick-request-btn" data-subject="Solicitud SEO y rendimiento" data-priority="media" data-message="Quiero solicitar mejoras SEO/rendimiento.\n\nURLs afectadas:\nProblema detectado:\nResultado esperado:">Usar plantilla</button>
-            </article>
-            <article class="quick-card">
-              <h5>Dominio y DNS</h5>
-              <p>Incidencias de dominio, DNS, correo o SSL.</p>
-              <button type="button" class="quick-request-btn" data-subject="Soporte dominio y DNS" data-priority="alta" data-message="Necesito soporte en dominio/DNS.\n\nDominio:\nProveedor:\nTipo de cambio/incidencia:\nUrgencia:">Usar plantilla</button>
-            </article>
-            <article class="quick-card">
-              <h5>Incidencia urgente</h5>
-              <p>Caídas, errores críticos o bloqueo de servicio.</p>
-              <button type="button" class="quick-request-btn" data-subject="Incidencia técnica urgente" data-priority="alta" data-message="Tengo una incidencia urgente.\n\nDescripción:\nDesde cuándo ocurre:\nImpacto en negocio:\nAdjunta pasos para reproducir:">Usar plantilla</button>
-            </article>
-            <article class="quick-card">
-              <h5>Consulta de facturación</h5>
-              <p>Revisión de cobros, cuota o estado de pago.</p>
-              <button type="button" class="quick-request-btn" data-subject="Consulta de facturación" data-priority="baja" data-message="Necesito revisar un tema de facturación.\n\nPedido/plan:\nConsulta:\nDatos adicionales:">Usar plantilla</button>
-            </article>
-          </div>
-        </section>
-
         <section class="tickets module panel-view" data-panel-view="tickets">
           <div class="tickets-header">
-            <h4>Soporte y tickets</h4>
+            <h4>Tickets y solicitudes</h4>
             <button class="ticket-refresh" id="refreshTicketsBtn" type="button">Actualizar</button>
           </div>
-          <p class="tickets-help">Conversación tipo chat, filtros por estado y aviso de mensajes nuevos de soporte.</p>
+          <p class="tickets-help">Gestiona tus solicitudes rápidas y continúa la conversación del soporte en un mismo sitio.</p>
+          <div class="ticket-quick-wrap">
+            <div class="ticket-quick-head">
+              <h5>Solicitudes rápidas</h5>
+              <span>Plantillas para abrir tickets en segundos</span>
+            </div>
+            <div class="quick-grid">
+              <article class="quick-card">
+                <h5>Cambio de contenido</h5>
+                <p>Textos, imágenes, bloques o secciones de tu web.</p>
+                <button type="button" class="quick-request-btn" data-subject="Actualización de contenidos web" data-priority="media" data-message="Necesito actualizar contenidos en mi web.\n\nURL afectada:\nCambios solicitados:\nFecha objetivo:">Usar plantilla</button>
+              </article>
+              <article class="quick-card">
+                <h5>SEO y rendimiento</h5>
+                <p>Mejoras SEO on-page, velocidad o indexación.</p>
+                <button type="button" class="quick-request-btn" data-subject="Solicitud SEO y rendimiento" data-priority="media" data-message="Quiero solicitar mejoras SEO/rendimiento.\n\nURLs afectadas:\nProblema detectado:\nResultado esperado:">Usar plantilla</button>
+              </article>
+              <article class="quick-card">
+                <h5>Dominio y DNS</h5>
+                <p>Incidencias de dominio, DNS, correo o SSL.</p>
+                <button type="button" class="quick-request-btn" data-subject="Soporte dominio y DNS" data-priority="alta" data-message="Necesito soporte en dominio/DNS.\n\nDominio:\nProveedor:\nTipo de cambio/incidencia:\nUrgencia:">Usar plantilla</button>
+              </article>
+              <article class="quick-card">
+                <h5>Incidencia urgente</h5>
+                <p>Caídas, errores críticos o bloqueo de servicio.</p>
+                <button type="button" class="quick-request-btn" data-subject="Incidencia técnica urgente" data-priority="alta" data-message="Tengo una incidencia urgente.\n\nDescripción:\nDesde cuándo ocurre:\nImpacto en negocio:\nAdjunta pasos para reproducir:">Usar plantilla</button>
+              </article>
+              <article class="quick-card">
+                <h5>Consulta de facturación</h5>
+                <p>Revisión de cobros, cuota o estado de pago.</p>
+                <button type="button" class="quick-request-btn" data-subject="Consulta de facturación" data-priority="baja" data-message="Necesito revisar un tema de facturación.\n\nPedido/plan:\nConsulta:\nDatos adicionales:">Usar plantilla</button>
+              </article>
+            </div>
+          </div>
           <form id="ticketForm" class="ticket-form" novalidate>
             <div class="ticket-grid ${plans.length > 1 ? "has-plan" : ""}">
               <label class="ticket-field">
@@ -3580,6 +3816,7 @@ function renderPanel(raw){
               <div id="securitySessionList" class="session-list">
                 <p class="empty">Abre este apartado para ver sesiones.</p>
               </div>
+              <button id="openSessionsModalBtn" type="button" class="security-link-btn" hidden>Mostrar más</button>
             </div>
             <div class="security-card">
               <h5>Cambiar contraseña</h5>
@@ -3594,6 +3831,19 @@ function renderPanel(raw){
             </div>
           </div>
         </section>
+
+        <div id="sessionsModal" class="panel-modal" aria-hidden="true" hidden>
+          <div class="panel-modal-backdrop" data-modal-close></div>
+          <div class="panel-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="sessionsModalTitle">
+            <div class="panel-modal-head">
+              <h5 id="sessionsModalTitle">Todas tus sesiones</h5>
+              <button id="closeSessionsModalBtn" class="panel-modal-close" type="button" aria-label="Cerrar">×</button>
+            </div>
+            <div id="sessionsModalList" class="session-list session-list-modal">
+              <p class="empty">No hay sesiones registradas.</p>
+            </div>
+          </div>
+        </div>
       </div>
     `
     panel.querySelectorAll(".plan-switch-btn").forEach((button) => {
