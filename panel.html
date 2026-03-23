@@ -1357,6 +1357,494 @@ body.dark-mode textarea::placeholder{
   color:#b6c4d7;
 }
 
+.panel-sections{
+  margin-top:22px;
+  display:grid;
+  gap:16px;
+}
+
+.module{
+  background:#f8fbff;
+  border:1px solid rgba(148,163,184,0.24);
+  border-radius:16px;
+  padding:16px;
+}
+
+.module-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:12px;
+}
+
+.module-title{
+  display:grid;
+  gap:4px;
+}
+
+.module-title h4{
+  font-size:18px;
+  color:#0f172a;
+}
+
+.module-title p{
+  margin:0;
+  font-size:13px;
+  color:#64748b;
+}
+
+.module-refresh{
+  background:#e8f0ff;
+  color:#1e3a8a;
+  border:1px solid rgba(59,130,246,0.2);
+  border-radius:999px;
+  padding:8px 12px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.quick-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:10px;
+}
+
+.quick-card{
+  border:1px solid rgba(148,163,184,0.3);
+  border-radius:12px;
+  background:#fff;
+  padding:12px;
+  display:grid;
+  gap:8px;
+}
+
+.quick-card h5{
+  font-size:14px;
+  color:#0f172a;
+}
+
+.quick-card p{
+  font-size:12px;
+  color:#64748b;
+  line-height:1.45;
+}
+
+.quick-card button{
+  justify-self:flex-start;
+  border:none;
+  border-radius:999px;
+  padding:8px 12px;
+  background:#1d4ed8;
+  color:#fff;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.alerts-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:10px;
+}
+
+.meta-pill{
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+  background:#eef4ff;
+  color:#1e3a8a;
+  border:1px solid rgba(59,130,246,0.2);
+}
+
+.alerts-list{
+  display:grid;
+  gap:8px;
+}
+
+.alert-item{
+  border:1px solid rgba(148,163,184,0.3);
+  border-radius:12px;
+  padding:10px 12px;
+  background:#fff;
+  display:grid;
+  gap:4px;
+}
+
+.alert-item h5{
+  font-size:14px;
+  color:#0f172a;
+}
+
+.alert-item p{
+  margin:0;
+  font-size:13px;
+  color:#475569;
+  line-height:1.45;
+}
+
+.alert-item small{
+  color:#64748b;
+  font-size:11px;
+}
+
+.alert-item.severity-alta{
+  border-color:rgba(220,38,38,0.35);
+  background:#fff7f7;
+}
+
+.alert-item.severity-media{
+  border-color:rgba(245,158,11,0.35);
+  background:#fffaf1;
+}
+
+.alert-item.severity-baja{
+  border-color:rgba(29,78,216,0.25);
+}
+
+.billing-summary{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:8px;
+  margin-bottom:12px;
+}
+
+.billing-kpi{
+  border:1px solid rgba(148,163,184,0.28);
+  border-radius:12px;
+  background:#fff;
+  padding:10px;
+}
+
+.billing-kpi span{
+  display:block;
+  font-size:11px;
+  color:#64748b;
+}
+
+.billing-kpi strong{
+  font-size:18px;
+  color:#0f172a;
+}
+
+.billing-events{
+  display:grid;
+  gap:8px;
+}
+
+.billing-item{
+  border:1px solid rgba(148,163,184,0.28);
+  border-radius:12px;
+  background:#fff;
+  padding:10px 12px;
+  display:grid;
+  gap:4px;
+}
+
+.billing-item-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.billing-item h5{
+  font-size:14px;
+  color:#0f172a;
+}
+
+.billing-item p{
+  margin:0;
+  font-size:12px;
+  color:#475569;
+}
+
+.billing-item .status{
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.35px;
+  padding:4px 8px;
+  border-radius:999px;
+}
+
+.billing-item .status.ok{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.billing-item .status.pendiente{
+  background:#fef3c7;
+  color:#92400e;
+}
+
+.billing-item .status.vencido{
+  background:#fee2e2;
+  color:#b91c1c;
+}
+
+.security-grid{
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:12px;
+}
+
+.session-list{
+  display:grid;
+  gap:8px;
+}
+
+.session-item{
+  border:1px solid rgba(148,163,184,0.3);
+  border-radius:12px;
+  padding:10px 12px;
+  background:#fff;
+  display:grid;
+  gap:8px;
+}
+
+.session-item-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.session-meta{
+  font-size:12px;
+  color:#475569;
+  display:grid;
+  gap:2px;
+}
+
+.session-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+
+.session-tag{
+  border-radius:999px;
+  font-size:11px;
+  font-weight:700;
+  padding:4px 8px;
+  border:1px solid rgba(148,163,184,0.35);
+  color:#334155;
+  background:#f8fafc;
+}
+
+.session-tag.current{
+  background:#dbeafe;
+  border-color:#93c5fd;
+  color:#1d4ed8;
+}
+
+.session-tag.active{
+  background:#dcfce7;
+  border-color:#86efac;
+  color:#166534;
+}
+
+.session-tag.revoked,
+.session-tag.expired{
+  background:#fee2e2;
+  border-color:#fca5a5;
+  color:#b91c1c;
+}
+
+.session-actions{
+  display:flex;
+  justify-content:flex-end;
+}
+
+.session-revoke-btn,
+.security-btn{
+  border:none;
+  border-radius:999px;
+  padding:7px 11px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  background:#1e3a8a;
+  color:#fff;
+}
+
+.session-revoke-btn[disabled],
+.security-btn[disabled]{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.security-card{
+  border:1px solid rgba(148,163,184,0.3);
+  border-radius:12px;
+  background:#fff;
+  padding:12px;
+  display:grid;
+  gap:10px;
+}
+
+.security-card h5{
+  font-size:14px;
+  color:#0f172a;
+}
+
+.security-note{
+  font-size:12px;
+  color:#64748b;
+  line-height:1.45;
+}
+
+.security-form{
+  display:grid;
+  gap:8px;
+}
+
+.security-form input{
+  border:1px solid rgba(148,163,184,0.35);
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:13px;
+}
+
+.security-feedback{
+  font-size:12px;
+  color:#64748b;
+  min-height:16px;
+}
+
+.security-feedback.is-error{
+  color:#b91c1c;
+}
+
+.security-feedback.is-success{
+  color:#0f766e;
+}
+
+.ticket-filters{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:10px;
+}
+
+.ticket-filter-btn{
+  border:1px solid rgba(148,163,184,0.35);
+  background:#fff;
+  color:#334155;
+  border-radius:999px;
+  padding:6px 10px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.ticket-filter-btn.is-active{
+  background:#1565ff;
+  border-color:#1565ff;
+  color:#fff;
+}
+
+body.dark-mode .module{
+  background:#0f172a;
+  border-color:#334155;
+}
+
+body.dark-mode .module-title h4{
+  color:#f8fafc;
+}
+
+body.dark-mode .module-title p{
+  color:#cbd5e1;
+}
+
+body.dark-mode .module-refresh{
+  background:#1e293b;
+  border-color:#334155;
+  color:#bfdbfe;
+}
+
+body.dark-mode .quick-card,
+body.dark-mode .alert-item,
+body.dark-mode .billing-kpi,
+body.dark-mode .billing-item,
+body.dark-mode .session-item,
+body.dark-mode .security-card{
+  background:#0b1220;
+  border-color:#334155;
+}
+
+body.dark-mode .quick-card h5,
+body.dark-mode .alert-item h5,
+body.dark-mode .billing-item h5,
+body.dark-mode .billing-kpi strong,
+body.dark-mode .security-card h5{
+  color:#f8fafc;
+}
+
+body.dark-mode .quick-card p,
+body.dark-mode .alert-item p,
+body.dark-mode .billing-item p,
+body.dark-mode .session-meta{
+  color:#cbd5e1;
+}
+
+body.dark-mode .meta-pill{
+  background:#0b2540;
+  border-color:#1d4ed8;
+  color:#bfdbfe;
+}
+
+body.dark-mode .session-tag{
+  background:#111827;
+  border-color:#334155;
+  color:#cbd5e1;
+}
+
+body.dark-mode .session-tag.current{
+  background:#0b2540;
+  color:#bfdbfe;
+  border-color:#1d4ed8;
+}
+
+body.dark-mode .session-tag.active{
+  background:#052e2b;
+  border-color:#0f766e;
+  color:#99f6e4;
+}
+
+body.dark-mode .session-tag.revoked,
+body.dark-mode .session-tag.expired{
+  background:#3b1116;
+  border-color:#7f1d1d;
+  color:#fecaca;
+}
+
+body.dark-mode .security-note{
+  color:#cbd5e1;
+}
+
+body.dark-mode .security-form input,
+body.dark-mode .ticket-filter-btn{
+  background:#0b1220;
+  border-color:#334155;
+  color:#f8fafc;
+}
+
+body.dark-mode .ticket-filter-btn.is-active{
+  background:#1d4ed8;
+  border-color:#1d4ed8;
+}
+
+@media(max-width:1080px){
+  .security-grid{
+    grid-template-columns:1fr;
+  }
+}
+
 @media(max-width:768px){
   body{
     padding-top:104px;
@@ -1659,6 +2147,8 @@ let lastRaw = null
 let hasExpiredSession = false
 let validationInFlight = false
 let lastValidationAt = 0
+let ticketFilterState = "all"
+let cachedTicketsData = []
 
 async function apiPostRequest(payload, timeoutMs=10000){
   const controller = new AbortController()
@@ -1910,7 +2400,10 @@ function refreshClientTicketNewSummary(){
   if(!summary){
     return
   }
-  const pendingCount = document.querySelectorAll("#ticketList .ticket-item.has-new").length
+  const seenMap = readClientTicketSeenMap()
+  const pendingCount = Array.isArray(cachedTicketsData)
+    ? cachedTicketsData.filter((ticket)=>isNewTicketForClient(ticket, seenMap)).length
+    : 0
   if(pendingCount > 0){
     summary.textContent = "Tienes " + pendingCount + " ticket(s) con nuevos mensajes del soporte."
     summary.classList.add("is-visible")
@@ -2040,6 +2533,10 @@ function bindTicketThreadToggles(){
           badge.remove()
         }
       }
+      if(ticketFilterState === "new"){
+        renderTicketList(cachedTicketsData)
+        return
+      }
       refreshClientTicketNewSummary()
     })
   })
@@ -2059,13 +2556,14 @@ function normalizeTicketStatus(raw){
 function renderTicketList(tickets){
   const container = document.getElementById("ticketList")
   if(!container) return
-  if(!Array.isArray(tickets) || !tickets.length){
+  cachedTicketsData = Array.isArray(tickets) ? tickets.slice() : []
+  if(!cachedTicketsData.length){
     container.innerHTML = '<p class="empty">Todavía no has creado tickets.</p>'
     return
   }
 
   const seenMap = readClientTicketSeenMap()
-  const orderedTickets = tickets.slice().sort((a,b)=>{
+  const orderedTickets = cachedTicketsData.slice().sort((a,b)=>{
     const aStatus = normalizeTicketStatus(String(a && a.estado || "abierto"))
     const bStatus = normalizeTicketStatus(String(b && b.estado || "abierto"))
     const aClosed = aStatus === "resuelto" ? 1 : 0
@@ -2087,8 +2585,28 @@ function renderTicketList(tickets){
     return bMs - aMs
   })
 
-  let newTicketsCount = 0
-  const html = orderedTickets.map((ticket)=>{
+  const allCount = orderedTickets.length
+  const openCount = orderedTickets.filter((ticket) => normalizeTicketStatus(ticket && ticket.estado) !== "resuelto").length
+  const closedCount = orderedTickets.filter((ticket) => normalizeTicketStatus(ticket && ticket.estado) === "resuelto").length
+  const newCount = orderedTickets.filter((ticket) => isNewTicketForClient(ticket, seenMap)).length
+
+  const normalizedFilter = ["all","open","closed","new"].includes(ticketFilterState) ? ticketFilterState : "all"
+  ticketFilterState = normalizedFilter
+  const filteredTickets = orderedTickets.filter((ticket) => {
+    const status = normalizeTicketStatus(ticket && ticket.estado)
+    if(normalizedFilter === "open"){
+      return status !== "resuelto"
+    }
+    if(normalizedFilter === "closed"){
+      return status === "resuelto"
+    }
+    if(normalizedFilter === "new"){
+      return isNewTicketForClient(ticket, seenMap)
+    }
+    return true
+  })
+
+  const html = filteredTickets.map((ticket)=>{
     const priorityRaw = String(ticket.prioridad || "media").toLowerCase()
     const statusRaw = String(ticket.estado || "abierto").toLowerCase()
     const priority = priorityRaw === "alta" ? "alta" : (priorityRaw === "baja" ? "baja" : "media")
@@ -2110,9 +2628,6 @@ function renderTicketList(tickets){
     const isClosed = status === "resuelto"
     const lastMessageMeta = getLastTicketMessageMeta(ticket)
     const hasNew = isNewTicketForClient(ticket, seenMap)
-    if(hasNew){
-      newTicketsCount += 1
-    }
     const updatedAtText = ticket.updatedAt ? formatDateTime(ticket.updatedAt) : formatDateTime(ticket.createdAt)
     const toggleLabel = isClosed ? "Ticket cerrado: ver conversación" : "Abrir chat y responder"
     const newBadgeHtml = hasNew ? '<span class="ticket-new-pill">Nuevo mensaje</span>' : ''
@@ -2153,11 +2668,33 @@ function renderTicketList(tickets){
     `
   }).join("")
 
-  container.innerHTML = '<div id="ticketNewSummary" class="ticket-new-summary' + (newTicketsCount > 0 ? ' is-visible' : '') + '">' +
-    (newTicketsCount > 0 ? ('Tienes ' + newTicketsCount + ' ticket(s) con nuevos mensajes del soporte.') : '') +
-    '</div>' + html
+  const filtersHtml = '\
+    <div class="ticket-filters">\
+      <button class="ticket-filter-btn ' + (normalizedFilter === "all" ? 'is-active' : '') + '" type="button" data-ticket-filter="all">Todos (' + String(allCount) + ')</button>\
+      <button class="ticket-filter-btn ' + (normalizedFilter === "open" ? 'is-active' : '') + '" type="button" data-ticket-filter="open">Abiertos (' + String(openCount) + ')</button>\
+      <button class="ticket-filter-btn ' + (normalizedFilter === "closed" ? 'is-active' : '') + '" type="button" data-ticket-filter="closed">Cerrados (' + String(closedCount) + ')</button>\
+      <button class="ticket-filter-btn ' + (normalizedFilter === "new" ? 'is-active' : '') + '" type="button" data-ticket-filter="new">Nuevos (' + String(newCount) + ')</button>\
+    </div>'
+
+  const summaryHtml = '<div id="ticketNewSummary" class="ticket-new-summary' + (newCount > 0 ? ' is-visible' : '') + '">' +
+    (newCount > 0 ? ('Tienes ' + newCount + ' ticket(s) con nuevos mensajes del soporte.') : '') +
+    '</div>'
+
+  const contentHtml = html || '<p class="empty">No hay tickets para este filtro.</p>'
+  container.innerHTML = filtersHtml + summaryHtml + contentHtml
+  bindTicketFilters()
   bindTicketReplyButtons()
   bindTicketThreadToggles()
+}
+
+function bindTicketFilters(){
+  document.querySelectorAll(".ticket-filter-btn").forEach((button)=>{
+    button.addEventListener("click",()=>{
+      const nextFilter = String(button.getAttribute("data-ticket-filter") || "all").trim().toLowerCase()
+      ticketFilterState = nextFilter || "all"
+      renderTicketList(cachedTicketsData)
+    })
+  })
 }
 
 async function loadTickets(showLoading=true){
@@ -2273,6 +2810,390 @@ function bindTicketModule(){
   loadTickets(true)
 }
 
+function getActiveSessionToken(){
+  const state = readClientData()
+  return state.data && state.data.sessionToken ? String(state.data.sessionToken).trim() : ""
+}
+
+function renderClientAlerts(payload){
+  const listEl = document.getElementById("alertsList")
+  const metaEl = document.getElementById("alertsMeta")
+  if(!listEl || !metaEl){
+    return
+  }
+
+  const alerts = Array.isArray(payload && payload.alerts) ? payload.alerts : []
+  const unreadSupport = Number(payload && payload.unreadSupportReplies || 0)
+  const openTickets = Number(payload && payload.openTickets || 0)
+  metaEl.innerHTML = '\
+    <span class="meta-pill">Alertas: ' + String(alerts.length) + '</span>\
+    <span class="meta-pill">Respuestas soporte: ' + String(Math.max(0, unreadSupport)) + '</span>\
+    <span class="meta-pill">Tickets abiertos: ' + String(Math.max(0, openTickets)) + '</span>'
+
+  if(!alerts.length){
+    listEl.innerHTML = '<p class="empty">No hay alertas críticas ahora mismo.</p>'
+    return
+  }
+
+  listEl.innerHTML = alerts.map((alert)=>{
+    const severity = String(alert && alert.severity || "baja").toLowerCase()
+    const severityClass = severity === "alta" ? "severity-alta" : (severity === "media" ? "severity-media" : "severity-baja")
+    return '\
+      <article class="alert-item ' + severityClass + '">\
+        <h5>' + escapeHtml(String(alert && alert.title || "Alerta")) + '</h5>\
+        <p>' + escapeHtml(String(alert && alert.message || "")) + '</p>\
+        <small>' + escapeHtml(formatDateTime(alert && alert.createdAt)) + '</small>\
+      </article>'
+  }).join("")
+}
+
+async function loadClientAlerts(showLoading=true){
+  const listEl = document.getElementById("alertsList")
+  const metaEl = document.getElementById("alertsMeta")
+  if(!listEl || !metaEl){
+    return
+  }
+  const sessionToken = getActiveSessionToken()
+  if(!sessionToken){
+    listEl.innerHTML = '<p class="empty">No hay sesión activa.</p>'
+    return
+  }
+  if(showLoading){
+    metaEl.innerHTML = ""
+    listEl.innerHTML = '<p class="empty">Cargando alertas...</p>'
+  }
+
+  try{
+    const response = await apiPostRequest({
+      action: "client_alerts",
+      sessionToken
+    }, 20000)
+    if(!response || response.success !== true){
+      throw new Error("ALERTS_FAILED")
+    }
+    renderClientAlerts(response)
+  }catch(_){
+    listEl.innerHTML = '<p class="empty">No se pudieron cargar las alertas.</p>'
+  }
+}
+
+function renderBillingHistory(payload){
+  const summaryEl = document.getElementById("billingSummary")
+  const eventsEl = document.getElementById("billingEvents")
+  if(!summaryEl || !eventsEl){
+    return
+  }
+
+  const summary = payload && typeof payload.summary === "object" ? payload.summary : {}
+  const totalPlanes = Number(summary.totalPlanes || 0)
+  const pendingCount = Number(summary.pendingCount || 0)
+  const overdueCount = Number(summary.overdueCount || 0)
+  const monthlyEstimate = Number(summary.monthlyEstimate || 0)
+  const monthlyEstimateText = Number.isFinite(monthlyEstimate)
+    ? new Intl.NumberFormat("es-ES",{ style:"currency", currency:"EUR" }).format(monthlyEstimate)
+    : "-"
+
+  summaryEl.innerHTML = '\
+    <div class="billing-kpi"><span>Planes activos</span><strong>' + String(Math.max(0,totalPlanes)) + '</strong></div>\
+    <div class="billing-kpi"><span>Pagos pendientes</span><strong>' + String(Math.max(0,pendingCount)) + '</strong></div>\
+    <div class="billing-kpi"><span>Vencidos</span><strong>' + String(Math.max(0,overdueCount)) + '</strong></div>\
+    <div class="billing-kpi"><span>Cuota mensual total</span><strong>' + escapeHtml(monthlyEstimateText) + '</strong></div>'
+
+  const events = Array.isArray(payload && payload.events) ? payload.events : []
+  if(!events.length){
+    eventsEl.innerHTML = '<p class="empty">No hay movimientos de facturación disponibles.</p>'
+    return
+  }
+
+  eventsEl.innerHTML = events.map((event)=>{
+    const status = String(event && event.status || "").toLowerCase()
+    const statusClass = status === "ok" ? "ok" : (status === "vencido" ? "vencido" : "pendiente")
+    return '\
+      <article class="billing-item">\
+        <div class="billing-item-top">\
+          <h5>' + escapeHtml(String(event && event.title || "-")) + '</h5>\
+          <span class="status ' + statusClass + '">' + escapeHtml(status || "pendiente") + '</span>\
+        </div>\
+        <p>' + escapeHtml(String(event && event.description || "")) + '</p>\
+        <p><strong>' + escapeHtml(String(event && event.amount || "-")) + '</strong> · ' + escapeHtml(formatDateTime(event && event.date)) + '</p>\
+      </article>'
+  }).join("")
+}
+
+async function loadBillingHistory(showLoading=true){
+  const summaryEl = document.getElementById("billingSummary")
+  const eventsEl = document.getElementById("billingEvents")
+  if(!summaryEl || !eventsEl){
+    return
+  }
+  const sessionToken = getActiveSessionToken()
+  if(!sessionToken){
+    eventsEl.innerHTML = '<p class="empty">No hay sesión activa.</p>'
+    return
+  }
+  if(showLoading){
+    summaryEl.innerHTML = ""
+    eventsEl.innerHTML = '<p class="empty">Cargando historial...</p>'
+  }
+
+  try{
+    const response = await apiPostRequest({
+      action: "client_billing_history",
+      sessionToken,
+      limit: 30
+    }, 20000)
+    if(!response || response.success !== true){
+      throw new Error("BILLING_FAILED")
+    }
+    renderBillingHistory(response)
+  }catch(_){
+    eventsEl.innerHTML = '<p class="empty">No se pudo cargar el historial de facturación.</p>'
+  }
+}
+
+function setSecurityFeedback(message, type=""){
+  const feedbackEl = document.getElementById("securityFeedback")
+  if(!feedbackEl){
+    return
+  }
+  feedbackEl.textContent = message || ""
+  feedbackEl.className = "security-feedback" + (type ? " is-" + type : "")
+}
+
+function renderSecurityOverview(payload){
+  const listEl = document.getElementById("securitySessionList")
+  const twofaEl = document.getElementById("security2fa")
+  if(!listEl || !twofaEl){
+    return
+  }
+
+  const twoFactor = payload && payload.twoFactor ? payload.twoFactor : {}
+  const ttl = Number(twoFactor.codeTtlMinutes || 5)
+  const maxAttempts = Number(twoFactor.maxAttempts || 3)
+  const lockMinutes = Number(twoFactor.lockMinutes || 15)
+  twofaEl.textContent = "2FA activo · Código de " + String(ttl) + " min · " + String(maxAttempts) + " intentos · bloqueo " + String(lockMinutes) + " min."
+
+  const sessions = Array.isArray(payload && payload.sessions) ? payload.sessions : []
+  if(!sessions.length){
+    listEl.innerHTML = '<p class="empty">No hay sesiones registradas.</p>'
+    return
+  }
+
+  listEl.innerHTML = sessions.map((session)=>{
+    const statusRaw = String(session && session.status || "unknown").toLowerCase()
+    const status = statusRaw === "active" ? "active" : (statusRaw === "revoked" ? "revoked" : (statusRaw === "expired" ? "expired" : "unknown"))
+    const sessionId = String(session && session.sessionId || "")
+    const isCurrent = !!(session && session.isCurrent)
+    const canRevoke = status === "active" && !isCurrent
+    return '\
+      <article class="session-item">\
+        <div class="session-item-top">\
+          <strong>' + escapeHtml(sessionId || "-") + '</strong>\
+          <div class="session-tags">\
+            <span class="session-tag ' + status + '">' + escapeHtml(status) + '</span>\
+            ' + (isCurrent ? '<span class="session-tag current">actual</span>' : '') + '\
+          </div>\
+        </div>\
+        <div class="session-meta">\
+          <span>Emitida: ' + escapeHtml(formatDateTime(session && session.issuedAt)) + '</span>\
+          <span>Última actividad: ' + escapeHtml(formatDateTime(session && session.lastSeenAt)) + '</span>\
+          <span>Caduca: ' + escapeHtml(formatDateTime(session && session.expiresAt)) + '</span>\
+        </div>\
+        <div class="session-actions">\
+          <button class="session-revoke-btn" type="button" data-session-id="' + escapeHtml(sessionId) + '"' + (canRevoke ? '' : ' disabled') + '>Cerrar sesión</button>\
+        </div>\
+      </article>'
+  }).join("")
+}
+
+async function loadSecurityOverview(showLoading=true){
+  const listEl = document.getElementById("securitySessionList")
+  const twofaEl = document.getElementById("security2fa")
+  if(!listEl || !twofaEl){
+    return
+  }
+  const sessionToken = getActiveSessionToken()
+  if(!sessionToken){
+    listEl.innerHTML = '<p class="empty">No hay sesión activa.</p>'
+    return
+  }
+  if(showLoading){
+    twofaEl.textContent = "Cargando estado de seguridad..."
+    listEl.innerHTML = '<p class="empty">Cargando sesiones...</p>'
+  }
+  try{
+    const response = await apiPostRequest({
+      action: "client_security_overview",
+      sessionToken
+    }, 20000)
+    if(!response || response.success !== true){
+      throw new Error("SECURITY_FAILED")
+    }
+    renderSecurityOverview(response)
+    bindSecuritySessionButtons()
+  }catch(_){
+    listEl.innerHTML = '<p class="empty">No se pudo cargar la seguridad de la cuenta.</p>'
+  }
+}
+
+function bindSecuritySessionButtons(){
+  document.querySelectorAll(".session-revoke-btn[data-session-id]").forEach((button)=>{
+    button.addEventListener("click", async ()=>{
+      const targetSessionId = String(button.getAttribute("data-session-id") || "").trim()
+      if(!targetSessionId){
+        return
+      }
+      const sessionToken = getActiveSessionToken()
+      if(!sessionToken){
+        return
+      }
+      button.disabled = true
+      try{
+        const response = await apiPostRequest({
+          action: "client_revoke_session",
+          sessionToken,
+          targetSessionId
+        }, 20000)
+        if(!response || response.success !== true){
+          setSecurityFeedback(response && response.message ? response.message : "No se pudo cerrar la sesión.", "error")
+          button.disabled = false
+          return
+        }
+        setSecurityFeedback("Sesión cerrada correctamente.", "success")
+        loadSecurityOverview(false)
+      }catch(_){
+        setSecurityFeedback("No se pudo cerrar la sesión.", "error")
+        button.disabled = false
+      }
+    })
+  })
+}
+
+function bindSecurityModule(){
+  const refreshBtn = document.getElementById("refreshSecurityBtn")
+  const closeOthersBtn = document.getElementById("closeOtherSessionsBtn")
+  const passwordForm = document.getElementById("securityPasswordForm")
+
+  if(refreshBtn){
+    refreshBtn.addEventListener("click",()=>{
+      setSecurityFeedback("")
+      loadSecurityOverview(true)
+    })
+  }
+
+  if(closeOthersBtn){
+    closeOthersBtn.addEventListener("click", async ()=>{
+      const sessionToken = getActiveSessionToken()
+      if(!sessionToken){
+        setSecurityFeedback("No hay sesión activa.", "error")
+        return
+      }
+      closeOthersBtn.disabled = true
+      setSecurityFeedback("Cerrando otras sesiones...")
+      try{
+        const response = await apiPostRequest({
+          action: "client_revoke_session",
+          sessionToken,
+          mode: "all_others"
+        }, 20000)
+        if(!response || response.success !== true){
+          setSecurityFeedback(response && response.message ? response.message : "No se pudieron cerrar otras sesiones.", "error")
+          return
+        }
+        setSecurityFeedback("Otras sesiones cerradas correctamente.", "success")
+        loadSecurityOverview(false)
+      }catch(_){
+        setSecurityFeedback("No se pudieron cerrar otras sesiones.", "error")
+      }finally{
+        closeOthersBtn.disabled = false
+      }
+    })
+  }
+
+  if(passwordForm){
+    passwordForm.addEventListener("submit", async (event)=>{
+      event.preventDefault()
+      const currentInput = document.getElementById("securityCurrentPassword")
+      const newInput = document.getElementById("securityNewPassword")
+      const repeatInput = document.getElementById("securityRepeatPassword")
+      const currentPassword = currentInput ? String(currentInput.value || "").trim() : ""
+      const newPassword = newInput ? String(newInput.value || "").trim() : ""
+      const repeatPassword = repeatInput ? String(repeatInput.value || "").trim() : ""
+      const sessionToken = getActiveSessionToken()
+
+      if(!sessionToken){
+        setSecurityFeedback("No hay sesión activa.", "error")
+        return
+      }
+      if(!currentPassword || !newPassword || !repeatPassword){
+        setSecurityFeedback("Completa todos los campos.", "error")
+        return
+      }
+      if(newPassword !== repeatPassword){
+        setSecurityFeedback("La nueva contraseña y la confirmación no coinciden.", "error")
+        return
+      }
+
+      setSecurityFeedback("Actualizando contraseña...")
+      const submitBtn = document.getElementById("securityPasswordSubmit")
+      if(submitBtn){
+        submitBtn.disabled = true
+      }
+      try{
+        const response = await apiPostRequest({
+          action: "client_change_password",
+          sessionToken,
+          currentPassword,
+          newPassword
+        }, 25000)
+        if(!response || response.success !== true){
+          setSecurityFeedback(response && response.message ? response.message : "No se pudo actualizar la contraseña.", "error")
+          return
+        }
+        setSecurityFeedback("Contraseña actualizada. Se cerrará tu sesión por seguridad.", "success")
+        passwordForm.reset()
+        setTimeout(()=>clearClientSession(true, "logout"), 1000)
+      }catch(_){
+        setSecurityFeedback("No se pudo actualizar la contraseña.", "error")
+      }finally{
+        if(submitBtn){
+          submitBtn.disabled = false
+        }
+      }
+    })
+  }
+}
+
+function bindQuickRequestButtons(){
+  const form = document.getElementById("ticketForm")
+  const subjectInput = document.getElementById("ticketSubject")
+  const priorityInput = document.getElementById("ticketPriority")
+  const messageInput = document.getElementById("ticketMessage")
+  if(!form || !subjectInput || !priorityInput || !messageInput){
+    return
+  }
+
+  document.querySelectorAll(".quick-request-btn").forEach((button)=>{
+    button.addEventListener("click",()=>{
+      const subject = String(button.getAttribute("data-subject") || "").trim()
+      const priority = String(button.getAttribute("data-priority") || "media").trim()
+      const message = String(button.getAttribute("data-message") || "").trim()
+      if(subject){
+        subjectInput.value = subject
+      }
+      if(priority){
+        priorityInput.value = priority
+      }
+      if(message){
+        messageInput.value = message
+      }
+      setTicketFeedback("Solicitud rápida cargada. Revisa y envía el ticket.")
+      form.scrollIntoView({ behavior:"smooth", block:"start" })
+      subjectInput.focus()
+    })
+  })
+}
+
 function renderPanel(raw){
   if(!panel) return
   if(raw){
@@ -2320,104 +3241,206 @@ function renderPanel(raw){
       ${plansSwitchHtml}
       <div class="panel-header">
         <div class="panel-title">
-          <h3>Hola, ${data.nombre || data.user}</h3>
-          <p>Resumen de tu plan activo y datos clave del servicio.</p>
+          <h3>Hola, ${escapeHtml(data.nombre || data.user || "cliente")}</h3>
+          <p>Panel unificado de alertas, facturación, tickets y seguridad de cuenta.</p>
         </div>
         <div class="panel-status ${isUnpaid ? 'is-bad' : ''}">
           <span>Estado de pago</span>
-          <strong>${pagadoValue}</strong>
-          <small>Cuota mensual: ${cuotaDisplay}</small>
+          <strong>${escapeHtml(pagadoValue)}</strong>
+          <small>Cuota mensual: ${escapeHtml(cuotaDisplay)}</small>
         </div>
       </div>
+
       <div class="panel-toolbar">
-        <span class="panel-chip">Soporte prioritario</span>
-        <span class="panel-chip">Actualizaciones incluidas</span>
-        <span class="panel-chip">Estado en tiempo real</span>
+        <span class="panel-chip">Centro de alertas en tiempo real</span>
+        <span class="panel-chip">Tickets en formato chat</span>
+        <span class="panel-chip">Seguridad reforzada con 2FA</span>
       </div>
+
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-top">
             <span class="stat-label">Plan activo</span>
             <span class="stat-badge ${isUnpaid ? 'is-bad' : ''}">${isUnpaid ? 'Pendiente' : 'Activo'}</span>
           </div>
-          <div class="stat-value">${data.plan || '-'}</div>
-          <div class="stat-note">Tipo: ${data.tipoplan || '-'}</div>
+          <div class="stat-value">${escapeHtml(data.plan || '-')}</div>
+          <div class="stat-note">Tipo: ${escapeHtml(data.tipoplan || '-')}</div>
         </div>
         <div class="stat-card">
           <div class="stat-top">
             <span class="stat-label">Próximo pago</span>
             <span class="stat-badge">Calendario</span>
           </div>
-          <div class="stat-value">${data.proxpago || '-'}</div>
-          <div class="stat-note">Cuota: ${cuotaDisplay}</div>
+          <div class="stat-value">${escapeHtml(data.proxpago || '-')}</div>
+          <div class="stat-note">Cuota: ${escapeHtml(cuotaDisplay)}</div>
         </div>
         <div class="stat-card">
           <div class="stat-top">
             <span class="stat-label">Dominio</span>
             <span class="stat-badge">Web</span>
           </div>
-          <div class="stat-value">${data.dominio || '-'}</div>
-          <div class="stat-note">Pedido: ${data.npedido || '-'}</div>
+          <div class="stat-value">${escapeHtml(data.dominio || '-')}</div>
+          <div class="stat-note">Pedido: ${escapeHtml(data.npedido || '-')}</div>
         </div>
       </div>
+
       <div class="details">
-        <div class="detail"><span>Tipo plan</span><strong>${data.tipoplan || '-'}</strong></div>
-        <div class="detail"><span>Plan</span><strong>${data.plan}</strong></div>
-        <div class="detail"><span>Cuota mensual</span><strong>${cuotaDisplay}</strong></div>
-        <div class="detail"><span>Estado pago</span><strong class="${isUnpaid ? 'status-bad' : ''}">${pagadoValue}</strong></div>
-        <div class="detail"><span>Fecha alta</span><strong>${data.fealta || '-'}</strong></div>
-        <div class="detail"><span>Próximo pago</span><strong>${data.proxpago}</strong></div>
-        <div class="detail"><span>Dominio</span><strong>${data.dominio}</strong></div>
-        <div class="detail"><span>Nº pedido</span><strong>${data.npedido}</strong></div>
-        <div class="detail"><span>Consultas o cambios restantes este mes</span><strong>${data.consultasocambiosrestantes || '-'}</strong></div>
+        <div class="detail"><span>Tipo plan</span><strong>${escapeHtml(data.tipoplan || '-')}</strong></div>
+        <div class="detail"><span>Plan</span><strong>${escapeHtml(data.plan || '-')}</strong></div>
+        <div class="detail"><span>Cuota mensual</span><strong>${escapeHtml(cuotaDisplay)}</strong></div>
+        <div class="detail"><span>Estado pago</span><strong class="${isUnpaid ? 'status-bad' : ''}">${escapeHtml(pagadoValue)}</strong></div>
+        <div class="detail"><span>Fecha alta</span><strong>${escapeHtml(data.fealta || '-')}</strong></div>
+        <div class="detail"><span>Próximo pago</span><strong>${escapeHtml(data.proxpago || '-')}</strong></div>
+        <div class="detail"><span>Dominio</span><strong>${escapeHtml(data.dominio || '-')}</strong></div>
+        <div class="detail"><span>Nº pedido</span><strong>${escapeHtml(data.npedido || '-')}</strong></div>
+        <div class="detail"><span>Consultas/cambios restantes</span><strong>${escapeHtml(data.consultasocambiosrestantes || '-')}</strong></div>
       </div>
-      <section class="tickets">
-        <div class="tickets-header">
-          <h4>Soporte y tickets</h4>
-          <button class="ticket-refresh" id="refreshTicketsBtn" type="button">Actualizar</button>
-        </div>
-        <p class="tickets-help">Abre tickets y responde en el mismo hilo tipo chat. Si el estado es <strong>resuelto</strong>, el ticket queda cerrado.</p>
-        <form id="ticketForm" class="ticket-form" novalidate>
-          <div class="ticket-grid ${plans.length > 1 ? "has-plan" : ""}">
-            <label class="ticket-field">
-              <span>Asunto</span>
-              <input id="ticketSubject" type="text" maxlength="140" placeholder="Ej: Cambio en la home">
-            </label>
-            <label class="ticket-field">
-              <span>Prioridad</span>
-              <select id="ticketPriority">
-                <option value="baja">Baja</option>
-                <option value="media" selected>Media</option>
-                <option value="alta">Alta</option>
-              </select>
-            </label>
-            ${plans.length > 1 ? `
-            <label class="ticket-field">
-              <span>Plan al que pertenece</span>
-              <select id="ticketPlanSelect">
-                ${plans.map((plan) => {
-                  const planId = String(plan.planId || plan.npedido || "").trim()
-                  const isSelected = planId === String(data.activePlanId || "")
-                  return '<option value="' + escapeHtml(planId) + '"' + (isSelected ? ' selected' : '') + '>' +
-                    escapeHtml(String(plan.plan || "-")) + ' · ' + escapeHtml(String(plan.npedido || planId || "-")) +
-                  '</option>'
-                }).join("")}
-              </select>
-            </label>` : ""}
+
+      <div class="panel-sections">
+        <section class="module">
+          <div class="module-head">
+            <div class="module-title">
+              <h4>Solicitudes rápidas</h4>
+              <p>Plantillas para abrir tickets en segundos.</p>
+            </div>
           </div>
-          <label class="ticket-field">
-            <span>Mensaje</span>
-            <textarea id="ticketMessage" maxlength="4000" placeholder="Describe tu solicitud con detalle."></textarea>
-          </label>
-          <div class="ticket-actions">
-            <span id="ticketFeedback" class="ticket-feedback"></span>
-            <button class="ticket-submit" id="ticketSubmitBtn" type="submit">Enviar ticket</button>
+          <div class="quick-grid">
+            <article class="quick-card">
+              <h5>Cambio de contenido</h5>
+              <p>Textos, imágenes, bloques o secciones de tu web.</p>
+              <button type="button" class="quick-request-btn" data-subject="Actualización de contenidos web" data-priority="media" data-message="Necesito actualizar contenidos en mi web.\n\nURL afectada:\nCambios solicitados:\nFecha objetivo:">Usar plantilla</button>
+            </article>
+            <article class="quick-card">
+              <h5>SEO y rendimiento</h5>
+              <p>Mejoras SEO on-page, velocidad o indexación.</p>
+              <button type="button" class="quick-request-btn" data-subject="Solicitud SEO y rendimiento" data-priority="media" data-message="Quiero solicitar mejoras SEO/rendimiento.\n\nURLs afectadas:\nProblema detectado:\nResultado esperado:">Usar plantilla</button>
+            </article>
+            <article class="quick-card">
+              <h5>Dominio y DNS</h5>
+              <p>Incidencias de dominio, DNS, correo o SSL.</p>
+              <button type="button" class="quick-request-btn" data-subject="Soporte dominio y DNS" data-priority="alta" data-message="Necesito soporte en dominio/DNS.\n\nDominio:\nProveedor:\nTipo de cambio/incidencia:\nUrgencia:">Usar plantilla</button>
+            </article>
+            <article class="quick-card">
+              <h5>Incidencia urgente</h5>
+              <p>Caídas, errores críticos o bloqueo de servicio.</p>
+              <button type="button" class="quick-request-btn" data-subject="Incidencia técnica urgente" data-priority="alta" data-message="Tengo una incidencia urgente.\n\nDescripción:\nDesde cuándo ocurre:\nImpacto en negocio:\nAdjunta pasos para reproducir:">Usar plantilla</button>
+            </article>
+            <article class="quick-card">
+              <h5>Consulta de facturación</h5>
+              <p>Revisión de cobros, cuota o estado de pago.</p>
+              <button type="button" class="quick-request-btn" data-subject="Consulta de facturación" data-priority="baja" data-message="Necesito revisar un tema de facturación.\n\nPedido/plan:\nConsulta:\nDatos adicionales:">Usar plantilla</button>
+            </article>
           </div>
-        </form>
-        <div id="ticketList" class="ticket-list">
-          <p class="empty">Cargando tickets...</p>
-        </div>
-      </section>
+        </section>
+
+        <section class="module">
+          <div class="module-head">
+            <div class="module-title">
+              <h4>Centro de alertas</h4>
+              <p>Notificaciones de soporte, pagos y seguimiento operativo.</p>
+            </div>
+            <button type="button" id="refreshAlertsBtn" class="module-refresh">Actualizar</button>
+          </div>
+          <div id="alertsMeta" class="alerts-meta"></div>
+          <div id="alertsList" class="alerts-list">
+            <p class="empty">Cargando alertas...</p>
+          </div>
+        </section>
+
+        <section class="module">
+          <div class="module-head">
+            <div class="module-title">
+              <h4>Historial de facturación</h4>
+              <p>Visión compacta de alta, cobros y estados por plan.</p>
+            </div>
+            <button type="button" id="refreshBillingBtn" class="module-refresh">Actualizar</button>
+          </div>
+          <div id="billingSummary" class="billing-summary"></div>
+          <div id="billingEvents" class="billing-events">
+            <p class="empty">Cargando historial...</p>
+          </div>
+        </section>
+
+        <section class="module">
+          <div class="module-head">
+            <div class="module-title">
+              <h4>Seguridad de la cuenta</h4>
+              <p>Control de sesiones y cambio seguro de contraseña.</p>
+            </div>
+            <button type="button" id="refreshSecurityBtn" class="module-refresh">Actualizar</button>
+          </div>
+          <div class="security-grid">
+            <div class="security-card">
+              <h5>Sesiones activas</h5>
+              <p id="security2fa" class="security-note">Cargando estado de seguridad...</p>
+              <button id="closeOtherSessionsBtn" type="button" class="security-btn">Cerrar otras sesiones</button>
+              <div id="securitySessionList" class="session-list">
+                <p class="empty">Cargando sesiones...</p>
+              </div>
+            </div>
+            <div class="security-card">
+              <h5>Cambiar contraseña</h5>
+              <p class="security-note">Al cambiar la contraseña se cerrarán todas las sesiones para proteger tu cuenta.</p>
+              <form id="securityPasswordForm" class="security-form" novalidate>
+                <input id="securityCurrentPassword" type="password" autocomplete="current-password" placeholder="Contraseña actual">
+                <input id="securityNewPassword" type="password" autocomplete="new-password" placeholder="Nueva contraseña">
+                <input id="securityRepeatPassword" type="password" autocomplete="new-password" placeholder="Repite nueva contraseña">
+                <span id="securityFeedback" class="security-feedback"></span>
+                <button id="securityPasswordSubmit" type="submit" class="security-btn">Actualizar contraseña</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section class="tickets module">
+          <div class="tickets-header">
+            <h4>Soporte y tickets</h4>
+            <button class="ticket-refresh" id="refreshTicketsBtn" type="button">Actualizar</button>
+          </div>
+          <p class="tickets-help">Conversación tipo chat, filtros por estado y aviso de mensajes nuevos de soporte.</p>
+          <form id="ticketForm" class="ticket-form" novalidate>
+            <div class="ticket-grid ${plans.length > 1 ? "has-plan" : ""}">
+              <label class="ticket-field">
+                <span>Asunto</span>
+                <input id="ticketSubject" type="text" maxlength="140" placeholder="Ej: Cambio en la home">
+              </label>
+              <label class="ticket-field">
+                <span>Prioridad</span>
+                <select id="ticketPriority">
+                  <option value="baja">Baja</option>
+                  <option value="media" selected>Media</option>
+                  <option value="alta">Alta</option>
+                </select>
+              </label>
+              ${plans.length > 1 ? `
+              <label class="ticket-field">
+                <span>Plan al que pertenece</span>
+                <select id="ticketPlanSelect">
+                  ${plans.map((plan) => {
+                    const planId = String(plan.planId || plan.npedido || "").trim()
+                    const isSelected = planId === String(data.activePlanId || "")
+                    return '<option value="' + escapeHtml(planId) + '"' + (isSelected ? ' selected' : '') + '>' +
+                      escapeHtml(String(plan.plan || "-")) + ' · ' + escapeHtml(String(plan.npedido || planId || "-")) +
+                    '</option>'
+                  }).join("")}
+                </select>
+              </label>` : ""}
+            </div>
+            <label class="ticket-field">
+              <span>Mensaje</span>
+              <textarea id="ticketMessage" maxlength="4000" placeholder="Describe tu solicitud con detalle."></textarea>
+            </label>
+            <div class="ticket-actions">
+              <span id="ticketFeedback" class="ticket-feedback"></span>
+              <button class="ticket-submit" id="ticketSubmitBtn" type="submit">Enviar ticket</button>
+            </div>
+          </form>
+          <div id="ticketList" class="ticket-list">
+            <p class="empty">Cargando tickets...</p>
+          </div>
+        </section>
+      </div>
+
       <div class="actions">
         ${planDoc}
         <a class="secondary" href="REQUERIMIENTOS-WEBS.pdf" target="_blank" rel="noopener noreferrer">Requerimientos</a>
@@ -2442,6 +3465,19 @@ function renderPanel(raw){
       })
     }
     bindTicketModule()
+    bindQuickRequestButtons()
+    bindSecurityModule()
+    loadClientAlerts(true)
+    loadBillingHistory(true)
+    loadSecurityOverview(true)
+    const refreshAlertsBtn = document.getElementById("refreshAlertsBtn")
+    if(refreshAlertsBtn){
+      refreshAlertsBtn.addEventListener("click",()=>loadClientAlerts(true))
+    }
+    const refreshBillingBtn = document.getElementById("refreshBillingBtn")
+    if(refreshBillingBtn){
+      refreshBillingBtn.addEventListener("click",()=>loadBillingHistory(true))
+    }
   }else{
     panel.innerHTML = `\
       <div class="panel-title">
