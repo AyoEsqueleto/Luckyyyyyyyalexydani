@@ -237,6 +237,15 @@ letter-spacing:0.06em;
 text-transform:uppercase;
 }
 
+.otp-group{display:none;}
+.otp-group.show{display:flex;}
+.otp-hint{
+font-size:12px;
+line-height:1.45;
+color:rgba(226,232,240,0.72);
+margin-top:2px;
+}
+
 .input-wrap{
 position:relative;
 display:flex;
@@ -419,6 +428,7 @@ body:not(.dark-mode) .login-card h1{ color:#0f172a; }
 body:not(.dark-mode) .login-subtitle{ color:#64748b; }
 
 body:not(.dark-mode) .input-group label{ color:#475569; }
+body:not(.dark-mode) .otp-hint{ color:#64748b; }
 
 body:not(.dark-mode) .input-wrap input{
 background:#f8faff;
@@ -544,6 +554,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </button>
       </div>
     </div>
+    <div id="otpGroup" class="input-group otp-group">
+      <label for="loginCode">Código 2FA</label>
+      <div class="input-wrap">
+        <span class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l3 6 6 .9-4.5 4.4 1.1 6.2L12 17l-5.6 2.9 1.1-6.2L3 8.9 9 8z"/></svg></span>
+        <input type="text" id="loginCode" placeholder="123456" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6">
+      </div>
+      <p id="otpHint" class="otp-hint"></p>
+    </div>
     <button type="submit" id="btnLogin">Entrar</button>
   </form>
 
@@ -652,6 +670,7 @@ if(togglePassword && passwordInput && eyeIcon){
 const URL_API = "https://script.google.com/macros/s/AKfycbxZeMApnIjxoF4aAPxNhcLbUb09JluFb4E7jP67bINuODTv08q9xDFtzC5updMnV_Gi/exec"
 const SESSION_DURATION_MS = 8 * 60 * 60 * 1000
 const REQUIRE_SERVER_SESSION = true
+let pendingClient2fa = null
 
 async function apiPostRequest(payload, timeoutMs=12000){
   const controller = new AbortController()
@@ -745,15 +764,79 @@ function normalizePortfolioData_(data){
   }
 }
 
+function isTwoFactorPending_(){
+  return !!(pendingClient2fa && pendingClient2fa.challengeId)
+}
+
+function setTwoFactorMode_(enabled, options){
+  const otpGroup = document.getElementById("otpGroup")
+  const otpInput = document.getElementById("loginCode")
+  const otpHint = document.getElementById("otpHint")
+  const userInput = document.getElementById("usuario")
+  const passInput = document.getElementById("password")
+  const btn = document.getElementById("btnLogin")
+  const config = options || {}
+
+  if(enabled){
+    pendingClient2fa = {
+      challengeId: String(config.challengeId || "").trim(),
+      usuario: String(config.usuario || "").trim()
+    }
+    if(otpGroup) otpGroup.classList.add("show")
+    if(otpHint){
+      const target = String(config.maskedEmail || "").trim()
+      otpHint.textContent = target
+        ? ("Hemos enviado el código a " + target + ". Caduca en 5 minutos.")
+        : "Introduce el código de 6 dígitos enviado por correo."
+    }
+    if(userInput) userInput.readOnly = true
+    if(passInput) passInput.readOnly = true
+    if(btn){
+      btn.disabled = false
+      btn.textContent = "Verificar código"
+    }
+    if(otpInput){
+      otpInput.value = ""
+      otpInput.focus()
+    }
+    return
+  }
+
+  pendingClient2fa = null
+  if(otpGroup) otpGroup.classList.remove("show")
+  if(otpHint) otpHint.textContent = ""
+  if(otpInput) otpInput.value = ""
+  if(userInput) userInput.readOnly = false
+  if(passInput) passInput.readOnly = false
+  if(btn){
+    btn.disabled = false
+    btn.textContent = "Entrar"
+  }
+}
+
 function handleLoginResponse(datos, user){
   const status = document.getElementById('loginStatus')
   const btn = document.getElementById('btnLogin')
-  if(btn){ btn.disabled = false; btn.textContent = 'Entrar' }
+  if(btn){
+    btn.disabled = false
+    btn.textContent = isTwoFactorPending_() ? "Verificar código" : "Entrar"
+  }
   if(status){
     status.classList.remove("status-loading")
   }
 
+  if (datos && datos.success && datos.twoFactorRequired === true) {
+    setTwoFactorMode_(true, {
+      challengeId: datos.challengeId,
+      maskedEmail: datos.maskedEmail,
+      usuario: user
+    })
+    if(status) status.textContent = String(datos.message || "Código enviado. Revisa tu correo.")
+    return
+  }
+
   if (datos && datos.success) {
+    setTwoFactorMode_(false)
     const sourceData = extractPayloadData(datos)
     const sessionToken = String(datos.sessionToken || sourceData.sessionToken || "").trim()
     const sessionExpiresAt = parseSessionExpiry(datos.sessionExpiresAt || sourceData.sessionExpiresAt)
@@ -787,6 +870,13 @@ function handleLoginResponse(datos, user){
     window.location.href = "panel.html"
   } else {
     if(status) status.textContent = ""
+    const errorCode = String(datos && datos.error || "").trim()
+    if(errorCode === "TWO_FA_CODE_EXPIRED" ||
+       errorCode === "TWO_FA_CHALLENGE_CLOSED" ||
+       errorCode === "TWO_FA_CHALLENGE_INVALID" ||
+       errorCode === "TWO_FA_TEMP_LOCKED"){
+      setTwoFactorMode_(false)
+    }
     const backendMessage = (datos && typeof datos.message === "string" && datos.message.trim())
       ? datos.message.trim()
       : "Usuario o contraseña incorrectos."
@@ -797,9 +887,14 @@ function handleLoginResponse(datos, user){
 function ejecutarLogin(e){
   if(e) e.preventDefault()
   const btn = document.getElementById('btnLogin')
-  if(btn){ btn.disabled = true; btn.textContent = 'Entrando...' }
+  const twoFactorPending = isTwoFactorPending_()
+  if(btn){
+    btn.disabled = true
+    btn.textContent = twoFactorPending ? "Verificando..." : "Entrando..."
+  }
   const user = document.getElementById('usuario').value.trim()
   const pass = document.getElementById('password').value.trim()
+  const loginCode = String(document.getElementById('loginCode').value || '').replace(/\s+/g, '').trim()
   const status = document.getElementById('loginStatus')
   if(status){
     status.textContent = ""
@@ -809,8 +904,24 @@ function ejecutarLogin(e){
 
   if(!user || !pass){
     if(status) status.textContent = "Completa usuario y contraseña."
+    if(btn){
+      btn.disabled = false
+      btn.textContent = twoFactorPending ? "Verificar código" : "Entrar"
+    }
     setTimeout(()=>{ if(status) status.textContent = "" }, 4000)
     return
+  }
+
+  if(twoFactorPending){
+    if(!/^\d{6}$/.test(loginCode)){
+      if(status) status.textContent = "Introduce un código de 6 dígitos."
+      if(btn){
+        btn.disabled = false
+        btn.textContent = "Verificar código"
+      }
+      setTimeout(()=>{ if(status) status.textContent = "" }, 4000)
+      return
+    }
   }
 
   if(status){
@@ -818,17 +929,28 @@ function ejecutarLogin(e){
     status.innerHTML = '<span class="spinner" aria-label="Cargando"></span>'
   }
 
-  apiPostRequest({
-    action: "login",
-    usuario: user,
-    password: pass
-  }, 12000)
+  const payload = twoFactorPending
+    ? {
+        action: "verify_2fa",
+        challengeId: String(pendingClient2fa && pendingClient2fa.challengeId || ""),
+        code: loginCode
+      }
+    : {
+        action: "login",
+        usuario: user,
+        password: pass
+      }
+
+  apiPostRequest(payload, 12000)
     .then((response)=>{
       handleLoginResponse(response, user)
     })
     .catch((error)=>{
       const btn = document.getElementById('btnLogin')
-      if(btn){ btn.disabled = false; btn.textContent = 'Entrar' }
+      if(btn){
+        btn.disabled = false
+        btn.textContent = isTwoFactorPending_() ? "Verificar código" : "Entrar"
+      }
       if(status){
         status.classList.remove("status-loading")
         status.textContent = error && error.message === "TIMEOUT"
