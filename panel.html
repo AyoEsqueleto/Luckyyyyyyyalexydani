@@ -3219,7 +3219,7 @@ function bindSecurityModule(){
 
 function normalizePanelSection(section){
   const key = String(section || "").trim().toLowerCase()
-  const allowed = ["resumen","alertas","facturacion","solicitudes","tickets","seguridad"]
+  const allowed = ["resumen","alertas","facturacion","solicitudes","soporte","seguridad"]
   return allowed.includes(key) ? key : "resumen"
 }
 
