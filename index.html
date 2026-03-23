@@ -5,11 +5,13 @@
   <script src="cookie-consent.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="description" content="LuckyBase: diseño web profesional, automatizaciones y soluciones digitales para negocios que quieren crecer online.">
 <title>LuckyBase — Tu negocio digital, listo para crecer</title>
 <meta property="og:title" content="LuckyBase — Tu negocio digital, listo para crecer">
 <meta property="og:description" content="LuckyBase: diseño web profesional, automatizaciones y soluciones digitales para negocios que quieren crecer online.">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
 <meta property="og:url" content="https://luckybase.es/">
 <meta property="og:site_name" content="LuckyBase">
 <meta property="og:image" content="https://luckybase.es/og-image.png">
@@ -19,6 +21,8 @@
 <meta name="twitter:image" content="https://luckybase.es/og-image.png">
 <meta name="theme-color" content="#1565ff">
 <link rel="canonical" href="https://luckybase.es/">
+<link rel="alternate" hreflang="es-ES" href="https://luckybase.es/">
+<link rel="alternate" hreflang="x-default" href="https://luckybase.es/">
 <link rel="apple-touch-icon" href="https://luckybase.es/apple-touch-icon.png">
 <link rel="icon" href="https://luckybase.es/favicon.ico" type="image/x-icon">
 <link rel="icon" sizes="32x32" href="https://luckybase.es/favicon-32x32.png">
@@ -27,20 +31,82 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "LuckyBase",
-  "url": "https://luckybase.es/",
-  "logo": "https://luckybase.es/logoluckyblancosinfondo.png",
-  "sameAs": [
-    "https://www.instagram.com/luckybaseofficial/",
-    "https://www.tiktok.com/@luckybaseofficial",
-    "https://discord.gg/GYJN7kEwU2"
-  ],
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "email": "luckybaseprin@gmail.com",
-    "contactType": "customer support"
-  }
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://luckybase.es/#organization",
+      "name": "LuckyBase",
+      "url": "https://luckybase.es/",
+      "logo": "https://luckybase.es/logoluckyblancosinfondo.png",
+      "sameAs": [
+        "https://www.instagram.com/luckybaseofficial/",
+        "https://www.tiktok.com/@luckybaseofficial",
+        "https://discord.gg/GYJN7kEwU2"
+      ],
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "email": "luckybaseprin@gmail.com",
+          "contactType": "customer support",
+          "areaServed": "ES",
+          "availableLanguage": ["es"]
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://luckybase.es/#website",
+      "url": "https://luckybase.es/",
+      "name": "LuckyBase",
+      "inLanguage": "es-ES",
+      "publisher": {
+        "@id": "https://luckybase.es/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://luckybase.es/#webpage",
+      "url": "https://luckybase.es/",
+      "name": "LuckyBase — Tu negocio digital, listo para crecer",
+      "isPartOf": {
+        "@id": "https://luckybase.es/#website"
+      },
+      "about": {
+        "@id": "https://luckybase.es/#organization"
+      },
+      "inLanguage": "es-ES"
+    },
+    {
+      "@type": "ItemList",
+      "name": "Secciones principales LuckyBase",
+      "itemListElement": [
+        {
+          "@type": "SiteNavigationElement",
+          "position": 1,
+          "name": "Planes",
+          "url": "https://luckybase.es/planes.html"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 2,
+          "name": "Comparador de planes",
+          "url": "https://luckybase.es/comparador-planes-web.html"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 3,
+          "name": "LuckyWeb",
+          "url": "https://luckybase.es/luckyweb.html"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 4,
+          "name": "Reventa Vinted",
+          "url": "https://luckybase.es/reventa-vinted.html"
+        }
+      ]
+    }
+  ]
 }
 </script>
 

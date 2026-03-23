@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /login.html
+Disallow: /panel.html
 Disallow: /admin-tickets.html
 
 Sitemap: https://luckybase.es/sitemap.xml
