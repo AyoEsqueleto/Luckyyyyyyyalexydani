@@ -124,12 +124,49 @@ nav a{
 .nav-toggle{
   display:none;
   border:none;
-  background:var(--primary);
-  color:#fff;
-  padding:8px 12px;
-  border-radius:10px;
-  font-weight:600;
+  background:transparent;
+  color:var(--primary);
+  width:44px;
+  height:44px;
+  border-radius:12px;
   cursor:pointer;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  transition:0.3s;
+}
+
+.nav-toggle .bar{
+  position:absolute;
+  left:11px;
+  right:11px;
+  height:2px;
+  background:currentColor;
+  transition:transform 0.25s ease,opacity 0.2s ease;
+}
+
+.nav-toggle .bar:nth-child(1){
+  top:14px;
+}
+
+.nav-toggle .bar:nth-child(2){
+  top:21px;
+}
+
+.nav-toggle .bar:nth-child(3){
+  top:28px;
+}
+
+.nav-toggle.is-open .bar:nth-child(1){
+  transform:translateY(7px) rotate(45deg);
+}
+
+.nav-toggle.is-open .bar:nth-child(2){
+  opacity:0;
+}
+
+.nav-toggle.is-open .bar:nth-child(3){
+  transform:translateY(-7px) rotate(-45deg);
 }
 
 .theme-toggle{
@@ -1131,6 +1168,10 @@ body.dark-mode header{
 
 body.dark-mode nav a{
   color:#e5e7eb;
+}
+
+body.dark-mode .nav-toggle{
+  color:#93c5fd;
 }
 
 body.dark-mode .theme-toggle{
@@ -2162,6 +2203,7 @@ body.dark-mode .panel-modal-close{
   }
 
   nav{
+    order:3;
     width:100%;
     display:none;
     flex-direction:column;
@@ -2265,7 +2307,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a href="index.html#contacto">Contacto</a>
 </nav>
 <div class="header-right">
-<button id="navToggle" class="nav-toggle" type="button" aria-label="Abrir menú">Menú</button>
+<button id="navToggle" class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">
+<span class="bar"></span>
+<span class="bar"></span>
+<span class="bar"></span>
+</button>
 <button id="themeToggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema"></button>
 </div>
 </header>
@@ -2395,16 +2441,18 @@ updateThemeLabel()
 if(navToggle && mainNav){
   navToggle.addEventListener("click",()=>{
     const isOpen=mainNav.classList.toggle("is-open")
+    navToggle.classList.toggle("is-open",isOpen)
     navToggle.setAttribute("aria-label",isOpen?"Cerrar menú":"Abrir menú")
-    navToggle.textContent=isOpen?"Cerrar":"Menú"
+    navToggle.setAttribute("aria-expanded",isOpen?"true":"false")
   })
 
   mainNav.querySelectorAll("a").forEach((link)=>{
     link.addEventListener("click",()=>{
       if(window.innerWidth<=768){
         mainNav.classList.remove("is-open")
+        navToggle.classList.remove("is-open")
         navToggle.setAttribute("aria-label","Abrir menú")
-        navToggle.textContent="Menú"
+        navToggle.setAttribute("aria-expanded","false")
       }
     })
   })
