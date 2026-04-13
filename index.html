@@ -1806,6 +1806,147 @@ transform:translateY(0);
 50%{transform:scale(1.25);opacity:0.7;}
 }
 
+/* TABLET */
+
+@media(max-width:1024px){
+
+header{
+top:44px;
+padding:12px 5%;
+gap:10px;
+}
+
+.logo img{
+height:34px;
+}
+
+nav{
+order:3;
+width:100%;
+display:none;
+flex-direction:column;
+align-items:stretch;
+gap:6px;
+padding:12px;
+background:#fff;
+border-radius:14px;
+box-shadow:0 12px 30px rgba(15,23,42,0.12);
+}
+
+nav a{
+margin-left:0;
+font-size:14px;
+padding:8px 10px;
+text-align:center;
+border-radius:10px;
+}
+
+nav a::after{
+display:none;
+}
+
+#mainNav.is-open{
+display:flex;
+}
+
+.nav-login{
+margin:2px 0 0;
+padding:8px 12px;
+width:100%;
+}
+
+.nav-toggle{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+}
+
+.theme-toggle{
+margin-left:auto;
+}
+
+body.dark-mode nav{
+background:#111827;
+box-shadow:0 12px 30px rgba(0,0,0,0.35);
+}
+
+section{
+scroll-margin-top:124px;
+}
+
+section:not(.card){
+padding-left:6%;
+padding-right:6%;
+}
+
+.hero{
+height:auto;
+min-height:820px;
+padding:150px 6% 90px;
+}
+
+.hero-content{
+max-width:680px;
+}
+
+.hero h1{
+font-size:54px;
+}
+
+.hero p{
+font-size:18px;
+max-width:540px;
+margin-left:auto;
+margin-right:auto;
+}
+
+.hero-metrics{
+position:relative;
+left:auto;
+bottom:auto;
+transform:none;
+width:100%;
+margin-top:34px;
+grid-template-columns:repeat(3,minmax(0,1fr));
+}
+
+.metric{
+text-align:center;
+}
+
+.services{
+gap:24px;
+margin-top:36px;
+}
+
+.card{
+padding:28px;
+}
+
+.luckyweb-grid{
+gap:24px;
+}
+
+.preview-frame{
+height:260px;
+}
+
+.about{
+gap:28px;
+}
+
+.about img{
+width:min(76%,420px);
+}
+
+.footer-inner{
+grid-template-columns:1fr 1fr;
+gap:28px;
+padding:44px 6% 34px;
+}
+
+}
+
 /* MOBILE */
 
 @media(max-width:768px){
@@ -1823,9 +1964,9 @@ order:3;
 width:100%;
 display:none;
 flex-direction:column;
-align-items:center;
+align-items:stretch;
 gap:8px;
-padding:10px 0 4px;
+padding:10px;
 background:#fff;
 border-radius:12px;
 box-shadow:0 12px 30px rgba(15,23,42,0.12);
@@ -1833,9 +1974,12 @@ box-shadow:0 12px 30px rgba(15,23,42,0.12);
 
 nav a{
 margin-left:0;
-font-size:13px;
-white-space:nowrap;
+font-size:14px;
+white-space:normal;
 flex:0 0 auto;
+padding:8px 10px;
+text-align:center;
+border-radius:10px;
 }
 
 #mainNav.is-open{
@@ -1843,9 +1987,10 @@ display:flex;
 }
 
 .nav-login{
-padding:6px 10px;
+padding:8px 12px;
 margin:0;
 flex:0 0 auto;
+width:100%;
 }
 
 .nav-toggle{
@@ -1883,7 +2028,12 @@ scroll-margin-top:118px;
 .hero{
 height:auto;
 min-height:auto;
-padding:130px 5% 70px;
+padding:126px 5% 70px;
+}
+
+section:not(.card){
+padding-left:5%;
+padding-right:5%;
 }
 
 .hero-content{
@@ -1926,7 +2076,7 @@ bottom:22%;
 }
 
 .hero h1{
-font-size:38px;
+font-size:42px;
 }
 
 .brand-title{
@@ -1938,7 +2088,7 @@ text-align:center;
 }
 
 .hero p{
-font-size:17px;
+font-size:16px;
 max-width:100%;
 }
 
@@ -1970,6 +2120,10 @@ text-align:center;
 padding:20px;
 }
 
+.card{
+padding:22px;
+}
+
 .footer-preferences{
 position:static;
 margin-top:12px;
@@ -1996,6 +2150,26 @@ right:20px;
 bottom:132px;
 text-align:center;
 padding:9px 12px;
+font-size:12px;
+}
+
+}
+
+@media(max-width:560px){
+
+.hero h1{
+font-size:34px;
+}
+
+.hero p{
+font-size:15px;
+}
+
+.metric strong{
+font-size:20px;
+}
+
+.metric span{
 font-size:12px;
 }
 
@@ -2656,6 +2830,7 @@ const brandDynamic=document.getElementById("brandDynamic")
 const mainNav=document.getElementById("mainNav")
 const navToggle=document.getElementById("navToggle")
 const prefersReducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches
+const tabletBreakpoint=1024
 
 if(navToggle && mainNav){
   navToggle.addEventListener("click",()=>{
@@ -2666,12 +2841,20 @@ if(navToggle && mainNav){
 
   mainNav.querySelectorAll("a").forEach((link)=>{
     link.addEventListener("click",()=>{
-      if(window.innerWidth<=768){
+      if(window.innerWidth<=tabletBreakpoint){
         mainNav.classList.remove("is-open")
         navToggle.classList.remove("is-open")
         navToggle.setAttribute("aria-label","Abrir menú")
       }
     })
+  })
+
+  window.addEventListener("resize",()=>{
+    if(window.innerWidth>tabletBreakpoint){
+      mainNav.classList.remove("is-open")
+      navToggle.classList.remove("is-open")
+      navToggle.setAttribute("aria-label","Abrir menú")
+    }
   })
 }
 
@@ -2755,7 +2938,7 @@ heroContent.style.transform=`translate3d(0,${progress*42}px,0) scale(${1-progres
 heroContent.style.opacity=String(1-progress*0.72)
 
 if(heroMetrics){
-const mobileView=window.innerWidth<=768
+const mobileView=window.innerWidth<=tabletBreakpoint
 heroMetrics.style.transform=mobileView?`translate3d(0,${progress*24}px,0)`:`translate3d(-50%,${progress*70}px,0)`
 heroMetrics.style.opacity=String(1-progress*0.82)
 }
@@ -2777,6 +2960,7 @@ ticking=false
 }
 
 window.addEventListener("scroll",requestVisualTick,{passive:true})
+window.addEventListener("resize",requestVisualTick,{passive:true})
 requestVisualTick()
 
 /* SCROLL BUTTON */
