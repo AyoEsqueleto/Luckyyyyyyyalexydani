@@ -60,6 +60,7 @@ min-height:100vh;
 display:flex;
 flex-direction:column;
 overflow-x:hidden;
+padding-top:100px;
 }
 
 /* ── ANIMATED BG ── */
@@ -87,30 +88,89 @@ animation:drift 18s ease-in-out infinite alternate;
 
 /* ── HEADER ── */
 header{
-position:relative;
-z-index:100;
-background:rgba(6,13,31,0.65);
-backdrop-filter:blur(18px);
--webkit-backdrop-filter:blur(18px);
+position:fixed;
+top:0;
+width:100%;
+background:rgba(255,255,255,0.9);
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:14px 8%;
-border-bottom:1px solid rgba(255,255,255,0.07);
+padding:16px 6%;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+border-bottom:1px solid rgba(15,23,42,0.08);
+backdrop-filter:saturate(140%) blur(10px);
+z-index:1000;
+flex-wrap:wrap;
+gap:16px;
 }
 
-.logo img{height:44px;width:auto;display:block;}
+.logo{
+display:flex;
+align-items:center;
+gap:12px;
+}
 
-nav{display:flex;gap:22px;}
+.logo img{
+height:48px;
+width:auto;
+display:block;
+}
+
+@media(max-width:980px){
+.logo img{height:40px;}
+}
+
+nav{
+display:flex;
+flex-wrap:wrap;
+row-gap:4px;
+column-gap:14px;
+justify-content:flex-end;
+flex:1 1 auto;
+min-width:0;
+}
 
 nav a{
 text-decoration:none;
-color:rgba(255,255,255,0.88);
-font-weight:500;
+color:#1f2937;
+font-weight:600;
+margin-left:0;
+position:relative;
+white-space:nowrap;
 font-size:14px;
+letter-spacing:0.01em;
 transition:color 0.2s;
 }
-nav a:hover{color:#fff;}
+nav a:hover{color:#1565ff;}
+
+nav a::after{
+content:"";
+position:absolute;
+bottom:-5px;
+left:0;
+width:0%;
+height:2px;
+background:#1565ff;
+transition:0.3s;
+}
+
+nav a:hover::after{width:100%;}
+
+@media(max-width:1200px){
+nav{column-gap:12px;}
+nav a{font-size:14px;white-space:nowrap;}
+.nav-login{margin:0;flex:0 0 auto;}
+}
+
+@media(max-width:1320px){
+nav{
+flex:1 1 100%;
+width:100%;
+justify-content:center;
+column-gap:12px;
+}
+}
+
 .nav-login{
 padding:6px 12px;
 border-radius:999px;
@@ -120,6 +180,8 @@ font-weight:600;
 display:inline-flex;
 align-items:center;
 justify-content:center;
+width:fit-content;
+white-space:nowrap;
 font-size:13px;
 }
 .nav-login:hover{background:#0e49c9!important;}
@@ -128,28 +190,57 @@ nav a.nav-login::after{display:none;}
 
 .nav-toggle{
 display:none;
-border:1px solid rgba(59,130,246,0.35);
-background:rgba(59,130,246,0.18);
-color:#93c5fd;
-padding:7px 14px;
-border-radius:10px;
-font-weight:600;
+border:none;
+background:transparent;
+color:#1565ff;
+width:44px;
+height:44px;
+border-radius:12px;
 cursor:pointer;
-font-size:13px;
+align-items:center;
+justify-content:center;
+position:relative;
+transition:0.3s;
+}
+
+.nav-toggle .bar{
+position:absolute;
+left:11px;
+right:11px;
+height:2px;
+background:currentColor;
+transition:transform 0.25s ease,opacity 0.2s ease;
+}
+
+.nav-toggle .bar:nth-child(1){top:14px;}
+.nav-toggle .bar:nth-child(2){top:21px;}
+.nav-toggle .bar:nth-child(3){top:28px;}
+
+.nav-toggle.is-open .bar:nth-child(1){
+transform:translateY(7px) rotate(45deg);
+}
+
+.nav-toggle.is-open .bar:nth-child(2){
+opacity:0;
+}
+
+.nav-toggle.is-open .bar:nth-child(3){
+transform:translateY(-7px) rotate(-45deg);
 }
 
 .theme-toggle{
-width:38px;height:38px;padding:0;
-border:1px solid rgba(255,255,255,0.12);
+margin-left:20px;
+width:40px;height:40px;padding:0;
+border:1px solid #d1d5db;
 border-radius:50%;
-background:rgba(255,255,255,0.07);
-color:#e2e8f0;
+background:#fff;
+color:#1f2937;
 cursor:pointer;
 display:inline-flex;align-items:center;justify-content:center;
-transition:0.25s;
+transition:0.3s;
 }
-.theme-toggle:hover{background:rgba(255,255,255,0.14);}
-.theme-toggle svg{width:18px;height:18px;display:block;}
+.theme-toggle:hover{background:#f3f4f6;}
+.theme-toggle svg{width:20px;height:20px;display:block;}
 
 /* ── LOGIN MAIN ── */
 .login-page{
@@ -160,7 +251,7 @@ justify-content:center;
 padding:16px;
 position:relative;
 z-index:1;
-min-height:calc(100svh - 84px);
+min-height:calc(100svh - 100px);
 }
 
 /* ── CARD STACK (grid overlap) ── */
@@ -595,23 +686,6 @@ background-image:
 }
 body:not(.dark-mode) .bg-orbs span{ opacity:0.2; }
 
-body:not(.dark-mode) header{
-background:rgba(255,255,255,0.85);
-border-bottom:1px solid rgba(0,0,0,0.07);
-}
-body:not(.dark-mode) nav a{ color:#334155; }
-body:not(.dark-mode) nav a:hover{ color:#1565ff; }
-body:not(.dark-mode) .nav-toggle{
-background:rgba(21,101,255,0.1);
-color:#1565ff;
-border:1px solid rgba(21,101,255,0.2);
-}
-body:not(.dark-mode) .theme-toggle{
-background:rgba(255,255,255,0.9);
-border:1px solid #d1d5db;
-color:#374151;
-}
-
 body:not(.dark-mode) .login-card{
 background:rgba(255,255,255,0.85);
 border:1px solid rgba(148,163,184,0.25);
@@ -666,26 +740,119 @@ border:none;
 }
 body:not(.dark-mode) .footer-legal a{ color:#dbeafe; }
 
+body.dark-mode header{
+background:#111827;
+box-shadow:0 5px 20px rgba(0,0,0,0.35);
+}
+
+body.dark-mode nav a{
+color:#e5e7eb;
+}
+
+body.dark-mode .nav-login{
+background:#1565ff;
+color:#fff;
+}
+
+body.dark-mode .nav-toggle{
+color:#bfdbfe;
+}
+
+body.dark-mode .theme-toggle{
+background:#1f2937;
+border-color:#374151;
+color:#f9fafb;
+}
+
+body.dark-mode .theme-toggle:hover{
+background:#374151;
+}
+
 
 
 
 /* ── MOBILE ── */
+@media(max-width:1024px){
+header{padding:12px 5%;gap:10px;}
+.logo img{height:34px;}
+
+nav{
+order:3;
+width:100%;
+display:none;
+flex-direction:column;
+align-items:stretch;
+gap:6px;
+padding:12px;
+background:#fff;
+border-radius:14px;
+box-shadow:0 12px 30px rgba(15,23,42,0.12);
+}
+nav a{
+margin-left:0;
+font-size:14px;
+padding:8px 10px;
+text-align:center;
+border-radius:10px;
+}
+nav a::after{display:none;}
+#mainNav.is-open{display:flex;}
+
+.nav-login{
+margin:2px 0 0;
+padding:8px 12px;
+width:100%;
+}
+
+.nav-toggle{display:inline-flex;align-items:center;justify-content:center;}
+.theme-toggle{margin-left:auto;}
+
+body.dark-mode nav{
+background:#111827;
+box-shadow:0 12px 30px rgba(0,0,0,0.35);
+}
+}
+
 @media(max-width:768px){
 header{padding:10px 4%;flex-wrap:wrap;gap:8px;}
 
 nav{
-width:100%;display:none;flex-direction:column;align-items:center;
-gap:8px;padding:12px 0 6px;
-background:rgba(6,13,31,0.96);
-border-radius:14px;border:1px solid rgba(255,255,255,0.08);
-margin-top:4px;
+order:3;
+width:100%;
+display:none;
+flex-direction:column;
+align-items:stretch;
+gap:8px;
+padding:10px;
+background:#fff;
+border-radius:12px;
+box-shadow:0 12px 30px rgba(15,23,42,0.12);
 }
-nav a{font-size:13px;}
-nav.is-open{display:flex;}
+nav a{
+margin-left:0;
+font-size:14px;
+white-space:normal;
+flex:0 0 auto;
+padding:8px 10px;
+text-align:center;
+border-radius:10px;
+}
+#mainNav.is-open{display:flex;}
+
+.nav-login{
+padding:8px 12px;
+margin:0;
+width:100%;
+}
 
 .nav-toggle{display:inline-flex;align-items:center;justify-content:center;}
-.theme-toggle{width:34px;height:34px;}
+.theme-toggle{margin-left:auto;width:34px;height:34px;}
 .logo img{height:32px;}
+
+body.dark-mode nav{
+background:#111827;
+box-shadow:0 12px 30px rgba(0,0,0,0.35);
+}
 
 .login-card{padding:30px 22px;}
 
@@ -706,7 +873,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="logo">
 <img loading="lazy" src="LUCKYBASE logo letras.png" alt="Logo Lucky Base">
 </div>
-<nav>
+<nav id="mainNav">
 <a href="index.html#inicio">Inicio</a>
 <a href="index.html#servicios">Servicios</a>
 <a href="luckyweb.html">LuckyWeb</a>
@@ -717,7 +884,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a href="index.html#contacto">Contacto</a>
 <a class="nav-login" href="panel.html">Panel Cliente</a>
 </nav>
-<button id="navToggle" class="nav-toggle" type="button" aria-label="Abrir menú">Menú</button>
+<button id="navToggle" class="nav-toggle" type="button" aria-label="Abrir menú">
+<span class="bar"></span>
+<span class="bar"></span>
+<span class="bar"></span>
+</button>
 <button id="themeToggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema"></button>
 </header>
 
@@ -868,23 +1039,32 @@ updateThemeLabel()
 })
 }
 
-const mainNav=document.querySelector("nav")
+const mainNav=document.getElementById("mainNav")
 const navToggle=document.getElementById("navToggle")
+const tabletBreakpoint=1024
 if(navToggle && mainNav){
   navToggle.addEventListener("click",()=>{
     const isOpen=mainNav.classList.toggle("is-open")
+    navToggle.classList.toggle("is-open",isOpen)
     navToggle.setAttribute("aria-label",isOpen?"Cerrar menú":"Abrir menú")
-    navToggle.textContent=isOpen?"Cerrar":"Menú"
   })
 
   mainNav.querySelectorAll("a").forEach((link)=>{
     link.addEventListener("click",()=>{
-      if(window.innerWidth<=768){
+      if(window.innerWidth<=tabletBreakpoint){
         mainNav.classList.remove("is-open")
+        navToggle.classList.remove("is-open")
         navToggle.setAttribute("aria-label","Abrir menú")
-        navToggle.textContent="Menú"
       }
     })
+  })
+
+  window.addEventListener("resize",()=>{
+    if(window.innerWidth>tabletBreakpoint){
+      mainNav.classList.remove("is-open")
+      navToggle.classList.remove("is-open")
+      navToggle.setAttribute("aria-label","Abrir menú")
+    }
   })
 }
 

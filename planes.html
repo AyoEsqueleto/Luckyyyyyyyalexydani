@@ -118,13 +118,17 @@
       position: fixed;
       top: 0;
       width: 100%;
-      background: white;
+      background: rgba(255, 255, 255, 0.9);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 8%;
+      padding: 16px 6%;
       box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+      backdrop-filter: saturate(140%) blur(10px);
       z-index: 1000;
+      flex-wrap: wrap;
+      gap: 16px;
     }
 
     .logo {
@@ -134,17 +138,40 @@
     }
 
     .logo img {
-      height: 56px;
+      height: 48px;
       width: auto;
       display: block;
     }
 
+    @media(max-width:980px) {
+      .logo img {
+        height: 40px;
+      }
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      row-gap: 4px;
+      column-gap: 14px;
+      justify-content: flex-end;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
     nav a {
-      margin-left: 30px;
+      margin-left: 0;
       text-decoration: none;
-      color: #333;
-      font-weight: 500;
+      color: #1f2937;
+      font-weight: 600;
       position: relative;
+      white-space: nowrap;
+      font-size: 14px;
+      letter-spacing: 0.01em;
+    }
+
+    nav a:hover {
+      color: #1565ff;
     }
 
     .nav-login {
@@ -156,6 +183,8 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      width: fit-content;
+      white-space: nowrap;
       font-size: 13px;
     }
 
@@ -180,6 +209,79 @@
 
     nav a:hover::after {
       width: 100%;
+    }
+
+    @media(max-width:1200px) {
+      nav {
+        column-gap: 12px;
+      }
+
+      nav a {
+        font-size: 14px;
+        white-space: nowrap;
+      }
+
+      .nav-login {
+        margin: 0;
+        flex: 0 0 auto;
+      }
+    }
+
+    @media(max-width:1320px) {
+      nav {
+        flex: 1 1 100%;
+        width: 100%;
+        justify-content: center;
+        column-gap: 12px;
+      }
+    }
+
+    .nav-toggle {
+      display: none;
+      border: none;
+      background: transparent;
+      color: #1565ff;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: 0.3s;
+    }
+
+    .nav-toggle .bar {
+      position: absolute;
+      left: 11px;
+      right: 11px;
+      height: 2px;
+      background: currentColor;
+      transition: transform 0.25s ease, opacity 0.2s ease;
+    }
+
+    .nav-toggle .bar:nth-child(1) {
+      top: 14px;
+    }
+
+    .nav-toggle .bar:nth-child(2) {
+      top: 21px;
+    }
+
+    .nav-toggle .bar:nth-child(3) {
+      top: 28px;
+    }
+
+    .nav-toggle.is-open .bar:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .nav-toggle.is-open .bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-toggle.is-open .bar:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
     }
 
     .theme-toggle {
@@ -668,6 +770,10 @@
       color: #e5e7eb;
     }
 
+    body.dark-mode .nav-toggle {
+      color: #bfdbfe;
+    }
+
     body.dark-mode .theme-toggle {
       background: #1f2937;
       border-color: #374151;
@@ -809,6 +915,71 @@
       filter: blur(0);
     }
 
+    @media(max-width:1024px) {
+      body {
+        padding-top: 124px;
+      }
+
+      header {
+        padding: 12px 5%;
+        gap: 10px;
+      }
+
+      .logo img {
+        height: 34px;
+      }
+
+      nav {
+        order: 3;
+        width: 100%;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+        padding: 12px;
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+      }
+
+      nav a {
+        margin-left: 0;
+        font-size: 14px;
+        padding: 8px 10px;
+        text-align: center;
+        border-radius: 10px;
+      }
+
+      nav a::after {
+        display: none;
+      }
+
+      #mainNav.is-open {
+        display: flex;
+      }
+
+      .nav-login {
+        margin: 2px 0 0;
+        padding: 8px 12px;
+        width: 100%;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .theme-toggle {
+        margin-left: auto;
+      }
+
+      body.dark-mode nav {
+        background: #111827;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+      }
+    }
+
     @media(max-width:768px) {
       body {
         padding-top: 124px;
@@ -824,30 +995,55 @@
       nav {
         order: 3;
         width: 100%;
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        gap: 10px;
-        overflow-x: auto;
-        padding-bottom: 2px;
-        -webkit-overflow-scrolling: touch;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 10px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
       }
 
       nav a {
         margin-left: 0;
-        font-size: 13px;
-        white-space: nowrap;
+        font-size: 14px;
+        white-space: normal;
         flex: 0 0 auto;
+        padding: 8px 10px;
+        text-align: center;
+        border-radius: 10px;
+      }
+
+      #mainNav.is-open {
+        display: flex;
+      }
+
+      .nav-login {
+        padding: 8px 12px;
+        margin: 0;
+        width: 100%;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
       }
 
       .theme-toggle {
-        margin-left: 0;
+        margin-left: auto;
         width: 34px;
         height: 34px;
       }
 
       .logo img {
         height: 28px;
+      }
+
+      body.dark-mode nav {
+        background: #111827;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
       }
 
       .hero {
@@ -935,7 +1131,7 @@
       <img loading="lazy" src="LUCKYBASE logo letras.png" alt="Logo Lucky Base">
     </div>
 
-    <nav>
+    <nav id="mainNav">
       <a href="index.html#inicio">Inicio</a>
       <a href="index.html#servicios">Servicios</a>
       <a href="luckyweb.html">LuckyWeb</a>
@@ -947,6 +1143,11 @@
       <a class="nav-login" href="panel.html">Panel Cliente</a>
     </nav>
 
+    <button id="navToggle" class="nav-toggle" type="button" aria-label="Abrir menú">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
     <button id="themeToggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema"></button>
   </header>
 
@@ -1155,8 +1356,11 @@
 
   <script>
     const btn = document.getElementById("topBtn")
+    const mainNav = document.getElementById("mainNav")
+    const navToggle = document.getElementById("navToggle")
     const themeToggle = document.getElementById("themeToggle")
     const footerLogo = document.getElementById("footerLogo")
+    const tabletBreakpoint = 1024
 
     const sunIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="5"></line><line x1="12" y1="19" x2="12" y2="22"></line><line x1="2" y1="12" x2="5" y2="12"></line><line x1="19" y1="12" x2="22" y2="12"></line><line x1="4.9" y1="4.9" x2="7" y2="7"></line><line x1="17" y1="17" x2="19.1" y2="19.1"></line><line x1="17" y1="7" x2="19.1" y2="4.9"></line><line x1="4.9" y1="19.1" x2="7" y2="17"></line></svg>'
     const moonIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8z"></path></svg>'
@@ -1226,6 +1430,32 @@
         const currentTheme = document.body.classList.contains("dark-mode") ? "dark" : "light"
         localStorage.setItem("theme", currentTheme)
         updateThemeLabel()
+      })
+    }
+
+    if (navToggle && mainNav) {
+      navToggle.addEventListener("click", () => {
+        const isOpen = mainNav.classList.toggle("is-open")
+        navToggle.classList.toggle("is-open", isOpen)
+        navToggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú")
+      })
+
+      mainNav.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          if (window.innerWidth <= tabletBreakpoint) {
+            mainNav.classList.remove("is-open")
+            navToggle.classList.remove("is-open")
+            navToggle.setAttribute("aria-label", "Abrir menú")
+          }
+        })
+      })
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > tabletBreakpoint) {
+          mainNav.classList.remove("is-open")
+          navToggle.classList.remove("is-open")
+          navToggle.setAttribute("aria-label", "Abrir menú")
+        }
       })
     }
 
