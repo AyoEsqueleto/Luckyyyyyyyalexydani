@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="stylesheet" href="cookie-consent.css">
+  <script src="cookie-consent.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="description" content="Compara los planes de automatización Basic, Pro y Lucky: integraciones, IA, CRM y flujos de trabajo.">
+<title>Comparador Auto | LuckyBase</title>
+<meta property="og:title" content="Comparador Auto | LuckyBase">
+<meta property="og:description" content="Compara los planes de automatización Basic, Pro y Lucky: integraciones, IA, CRM y flujos de trabajo.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:url" content="https://luckybase.es/comparador-planes-auto.html">
+<meta property="og:site_name" content="LuckyBase">
+<meta property="og:image" content="https://luckybase.es/og-image.png">
+<meta name="theme-color" content="#1565ff">
+<link rel="canonical" href="https://luckybase.es/comparador-planes-auto.html">
+<link rel="icon" href="favicon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{ outline:3px solid rgba(21,101,255,0.55); outline-offset:2px; }
+img{max-width:100%;height:auto;}
+body{overflow-x:hidden;}
+*{ margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+body{ background:#f7f9ff; color:#111827; padding-top:110px; }
+header{ position:fixed; top:0; width:100%; background:#ffffff; display:flex; justify-content:space-between; align-items:center; padding:18px 8%; box-shadow:0 5px 20px rgba(0,0,0,0.06); z-index:1000; }
+.logo img{ height:54px; width:auto; display:block; }
+nav{ display:flex; align-items:center; gap:24px; }
+nav a{ text-decoration:none; color:#374151; font-weight:500; }
+.hero{ padding:72px 8% 36px; background:linear-gradient(120deg,#1565ff 0%,#3b82f6 55%,#60a5fa 100%); color:#fff; }
+.hero h1{ font-size:44px; line-height:1.1; margin-bottom:12px; }
+.hero p{ max-width:760px; font-size:18px; opacity:0.96; }
+.main{ padding:38px 8% 78px; }
+.controls{ background:#ffffff; border-radius:14px; padding:24px; box-shadow:0 10px 30px rgba(15,23,42,0.08); display:grid; grid-template-columns:repeat(2,minmax(220px,1fr)); gap:16px 18px; align-items:end; margin-bottom:24px; }
+.field{ display:flex; flex-direction:column; gap:8px; }
+.field label{ font-size:14px; font-weight:600; color:#334155; }
+select{ height:44px; padding:0 12px; border:1px solid #d1d5db; border-radius:10px; background:#fff; color:#111827; font-size:15px; }
+.checkbox-line{ display:flex; align-items:center; gap:10px; font-size:14px; font-weight:500; color:#334155; }
+.status{ grid-column:1 / -1; font-size:14px; font-weight:600; color:#2563eb; }
+.table-wrap{ background:#fff; border-radius:14px; box-shadow:0 10px 30px rgba(15,23,42,0.08); overflow:auto; }
+table{ width:100%; border-collapse:collapse; min-width:680px; }
+thead th{ text-align:left; padding:16px; background:#eff6ff; color:#1e3a8a; font-size:14px; font-weight:700; border-bottom:1px solid #dbeafe; }
+tbody td{ padding:14px 16px; border-bottom:1px solid #eef2ff; font-size:14px; }
+tbody tr:last-child td{ border-bottom:none; }
+td.label{ font-weight:600; color:#334155; width:34%; }
+td.value{ color:#111827; }
+.win{ background:#ecfdf5; color:#065f46; font-weight:600; }
+.muted{ color:#64748b; }
+.actions{ margin-top:18px; display:flex; gap:10px; flex-wrap:wrap; }
+.btn{ display:inline-block; padding:10px 16px; border-radius:8px; text-decoration:none; font-weight:600; border:none; cursor:pointer; }
+.btn-primary{ background:#1565ff; color:#fff; }
+.btn-secondary{ background:#e5edff; color:#1e40af; }
+footer{ background:#1565ff; color:white; text-align:center; padding:35px; margin-top:80px; position:relative; }
+.footer-instagram{ display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:50%; background:#fff; color:#1565ff; text-decoration:none; transition:0.3s; }
+.footer-instagram:hover{ transform:scale(1.08); background:#f3f6ff; }
+.footer-instagram svg{ width:18px; height:18px; display:block; }
+.footer-copy{ display:flex; align-items:center; justify-content:center; gap:10px; }
+.footer-copy img{ width:30px; height:30px; object-fit:contain; display:block; }
+.footer-preferences{ display:inline-block; padding:6px 10px; border-radius:8px; background:#fff; color:#1565ff; text-decoration:none; font-size:12px; font-weight:600; transition:0.3s; position:absolute; right:35px; bottom:35px; }
+.footer-preferences:hover{ background:#f3f6ff; }
+.footer-socials{ display:flex; justify-content:center; gap:10px; margin-top:12px; }
+.footer-legal{ margin-top:10px; }
+.footer-legal a{ color:#dbeafe; font-size:13px; text-decoration:none; }
+.footer-legal a:hover{ text-decoration:underline; }
+@media(max-width:900px){
+header{ padding:8px 4% 10px; gap:8px; flex-wrap:wrap; align-items:center; }
+body{ padding-top:124px; }
+nav{ order:3; width:100%; display:flex; flex-wrap:nowrap; justify-content:flex-start; gap:10px; overflow-x:auto; padding-bottom:2px; -webkit-overflow-scrolling:touch; }
+nav a{ font-size:13px; white-space:nowrap; flex:0 0 auto; }
+.hero{ padding:46px 5% 28px; }
+.hero h1{ font-size:34px; }
+.hero p{ font-size:16px; }
+.main{ padding:24px 5% 60px; }
+.controls{ grid-template-columns:1fr; padding:18px; }
+.footer-preferences{ position:static; margin-top:12px; }
+}
+
+/* ── FOOTER ── */
+.site-footer{
+background:linear-gradient(135deg,#0f3aa8,#1565ff 55%,#1f6bff);
+color:white;margin-top:80px;position:relative;
+box-shadow:0 -12px 40px rgba(15,23,42,0.22);
+}
+.footer-inner{
+display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+gap:40px;max-width:1200px;margin:0 auto;padding:52px 8% 40px;
+}
+.footer-brand img{height:40px;width:auto;display:block;margin-bottom:14px;}
+.footer-brand p{font-size:13px;color:rgba(255,255,255,0.75);line-height:1.6;max-width:280px;}
+.footer-col h4{font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:14px;}
+.footer-col ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;}
+.footer-col ul li a{font-size:14px;color:rgba(255,255,255,0.85);text-decoration:none;transition:0.2s;}
+.footer-col ul li a:hover{color:#fff;}
+.footer-social-link{
+display:inline-flex;align-items:center;justify-content:center;
+width:36px;height:36px;border-radius:50%;
+background:rgba(255,255,255,0.15);color:#fff;text-decoration:none;transition:0.3s;
+}
+.footer-social-link:hover{background:rgba(255,255,255,0.28);transform:scale(1.08);}
+.footer-social-link svg{width:18px;height:18px;display:block;}
+.footer-bottom{text-align:center;padding:16px 8%;border-top:1px solid rgba(255,255,255,0.12);font-size:13px;color:rgba(255,255,255,0.55);}
+@media(max-width:900px){.footer-inner{grid-template-columns:1fr 1fr;gap:28px;}}
+@media(max-width:560px){.footer-inner{grid-template-columns:1fr;gap:22px;padding:36px 5% 28px;}}
+
+.footer-copy{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+}
+.footer-copy img{
+width:30px;
+height:30px;
+object-fit:contain;
+display:block;
+}
+.footer-socials{
+display:flex;
+justify-content:center;
+gap:10px;
+margin-top:12px;
+}
+.footer-instagram{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+width:34px;
+height:34px;
+border-radius:50%;
+background:#fff;
+color:#1565ff;
+text-decoration:none;
+transition:transform 0.2s ease, background 0.2s ease;
+}
+.footer-instagram:hover{
+transform:scale(1.08);
+background:#dbeafe;
+}
+.footer-instagram svg{
+width:18px;
+height:18px;
+display:block;
+}
+.footer-preferences{
+display:inline-block;
+padding:6px 10px;
+border-radius:8px;
+background:#fff;
+color:#1565ff;
+text-decoration:none;
+font-size:12px;
+font-weight:600;
+transition:background 0.2s ease;
+position:absolute;
+right:35px;
+bottom:35px;
+}
+.footer-preferences:hover{
+background:#f3f6ff;
+}
+@media(max-width:600px){
+  .footer-preferences{
+    position:static;
+    margin-top:12px;
+  }
+}
+.footer-legal{
+margin-top:10px;
+}
+.footer-legal a{
+color:#dbeafe;
+font-size:13px;
+text-decoration:none;
+}
+.footer-legal a:hover{
+text-decoration:underline;
+}
+
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">
+<img loading="lazy" src="LUCKYBASE logo letras.png" alt="Logo Lucky Base">
+</div>
+<nav>
+<a href="index.html">Inicio</a>
+<a href="planes.html">Planes</a>
+<a href="index.html#contacto">Contacto</a>
+<a class="btn btn-primary" href="panel.html" style="border-radius: 999px; padding: 6px 14px; font-size: 14px;">Panel Cliente</a>
+</nav>
+</header>
+
+<section class="hero">
+<h1>Comparador de automatizaciones</h1>
+<p>Selecciona dos planes y revisa diferencias clave en volumen, herramientas de conexión, IA y complejidad para decidir más rápido el camino para automatizar tu empresa.</p>
+</section>
+
+<main class="main">
+<section class="controls">
+<div class="field">
+<label for="planA">Plan A</label>
+<select id="planA">
+<option value="basic">Plan Básico Auto</option>
+<option value="pro">Plan Pro Auto</option>
+<option value="lucky">Plan Lucky IA</option>
+</select>
+</div>
+<div class="field">
+<label for="planB">Plan B</label>
+<select id="planB">
+<option value="basic">Plan Básico Auto</option>
+<option value="pro" selected>Plan Pro Auto</option>
+<option value="lucky">Plan Lucky IA</option>
+</select>
+</div>
+<label class="checkbox-line" for="onlyDiffs">
+<input id="onlyDiffs" type="checkbox">
+Mostrar solo diferencias
+</label>
+<p id="status" class="status">Comparando Plan Básico Auto vs Plan Pro Auto</p>
+</section>
+
+<section class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Característica</th>
+<th id="headA">Plan A</th>
+<th id="headB">Plan B</th>
+</tr>
+</thead>
+<tbody id="comparisonBody"></tbody>
+</table>
+</section>
+
+<div class="actions">
+<a class="btn btn-primary" href="index.html#contacto">Solicitar asesoría gratuita</a>
+<a class="btn btn-secondary" href="planes.html">Volver a planes</a>
+</div>
+</main>
+
+
+
+<script>
+const plans={
+  basic:{
+    name:"Plan Básico Auto",
+    values:{
+      enfoque:"Conectividad Simple",
+      volumen:"Hasta 2 lineales",
+      herramientas:"1 (Zapier o Make)",
+      formularios:true,
+      avisos:"Sí (WhatsApp/Telegram)",
+      pasarelas:false,
+      respuestas:false,
+      inventario:false,
+      agentes:false,
+      reportes:false,
+      mantenimiento:"A consultar",
+      complejidad:"Baja"
+    }
+  },
+  pro:{
+    name:"Plan Pro Auto",
+    values:{
+      enfoque:"Flujos de Trabajo",
+      volumen:"Hasta 5 con lógica condicional",
+      herramientas:"Zapier, Make y APIs",
+      formularios:true,
+      avisos:"Avanzados (con variables)",
+      pasarelas:true,
+      respuestas:true,
+      inventario:true,
+      agentes:false,
+      reportes:false,
+      mantenimiento:"A consultar",
+      complejidad:"Media"
+    }
+  },
+  lucky:{
+    name:"Plan Lucky IA",
+    values:{
+      enfoque:"Sistemas Complejos + IA",
+      volumen:"Ilimitadas",
+      herramientas:"Ecosistema a medida",
+      formularios:true,
+      avisos:"Inteligentes (procesamiento semántico)",
+      pasarelas:true,
+      respuestas:true,
+      inventario:true,
+      agentes:true,
+      reportes:true,
+      mantenimiento:"Premium Incluido",
+      complejidad:"Alta"
+    }
+  }
+}
+
+const rows=[
+  {key:"enfoque",label:"Enfoque del plan",type:"text"},
+  {key:"volumen",label:"Volumen de automatizaciones",type:"text"},
+  {key:"herramientas",label:"Herramientas de conexión",type:"text"},
+  {key:"formularios",label:"Integración de Formularios e Hojas",type:"boolean"},
+  {key:"avisos",label:"Alertas automatizadas",type:"text"},
+  {key:"pasarelas",label:"Integración de Pasarela y Facturación",type:"boolean"},
+  {key:"respuestas",label:"Auto-respuestas CRM configuradas",type:"boolean"},
+  {key:"inventario",label:"Gestión de base de datos activa",type:"boolean"},
+  {key:"agentes",label:"Agentes de IA y GPT-4 integrados",type:"boolean"},
+  {key:"reportes",label:"Reporting analítico automatizado",type:"boolean"},
+  {key:"mantenimiento",label:"Soporte preventivo mensual",type:"text"},
+  {key:"complejidad",label:"Curva de complejidad",type:"text"}
+]
+
+const planASelect=document.getElementById("planA")
+const planBSelect=document.getElementById("planB")
+const onlyDiffs=document.getElementById("onlyDiffs")
+const headA=document.getElementById("headA")
+const headB=document.getElementById("headB")
+const body=document.getElementById("comparisonBody")
+const status=document.getElementById("status")
+
+function boolLabel(value){ return value ? "Incluido" : "No incluido" }
+
+function fmt(row,value){
+  if(row.type==="boolean"){ return boolLabel(value) }
+  return String(value)
+}
+
+function betterClass(row,a,b,forA){
+  if(row.type==="boolean"){
+    if(a===b){return ""}
+    return forA ? (a?"win":"") : (b?"win":"")
+  }
+  return ""
+}
+
+function isDifferent(row,a,b){
+  if(row.type==="text"){ return String(a)!==String(b) }
+  return a!==b
+}
+
+function render(){
+  const planA=plans[planASelect.value]
+  const planB=plans[planBSelect.value]
+  headA.textContent=planA.name
+  headB.textContent=planB.name
+  status.textContent="Comparando "+planA.name+" vs "+planB.name
+
+  if(planASelect.value===planBSelect.value){
+    status.textContent="Selecciona dos planes distintos para una comparación útil."
+  }
+
+  body.innerHTML=""
+
+  rows.forEach((row)=>{
+    const aValue=planA.values[row.key]
+    const bValue=planB.values[row.key]
+    const different=isDifferent(row,aValue,bValue)
+
+    if(onlyDiffs.checked&&!different){ return }
+
+    const tr=document.createElement("tr")
+    if(!different){ tr.classList.add("muted") }
+
+    const tdLabel=document.createElement("td")
+    tdLabel.className="label"
+    tdLabel.textContent=row.label
+
+    const tdA=document.createElement("td")
+    tdA.className="value "+betterClass(row,aValue,bValue,true)
+    tdA.textContent=fmt(row,aValue)
+
+    const tdB=document.createElement("td")
+    tdB.className="value "+betterClass(row,aValue,bValue,false)
+    tdB.textContent=fmt(row,bValue)
+
+    tr.appendChild(tdLabel)
+    tr.appendChild(tdA)
+    tr.appendChild(tdB)
+    body.appendChild(tr)
+  })
+}
+
+planASelect.addEventListener("change",render)
+planBSelect.addEventListener("change",render)
+onlyDiffs.addEventListener("change",render)
+render()
+</script>
+<footer class="site-footer">
+
+<div class="footer-inner">
+<div class="footer-col footer-brand">
+<img loading="lazy" id="footerLogo" src="logoluckyblancosinfondo.png" alt="Logo Lucky Base">
+<p>Soluciones digitales modernas para empresas que quieren crecer online.</p>
+<div style="display:flex;gap:10px;margin-top:16px;justify-content:flex-start;" class="footer-socials-wrapper">
+<a class="footer-social-link" href="https://www.instagram.com/luckybaseofficial/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Lucky Base">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="18" cy="6" r="1.2" fill="currentColor" stroke="none"/></svg>
+</a>
+<a class="footer-social-link" href="https://www.tiktok.com/@luckybaseofficial" target="_blank" rel="noopener noreferrer" aria-label="TikTok Lucky Base">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.5 3c.4 1.8 1.8 3.2 3.5 3.7v2.6c-1.4 0-2.7-.4-3.8-1.2v6.5c0 3.3-2.7 5.9-6 5.9s-6-2.6-6-5.9 2.7-5.9 6-5.9c.3 0 .7 0 1 .1v2.8c-.3-.1-.6-.2-1-.2-1.7 0-3.1 1.4-3.1 3.1s1.4 3.1 3.1 3.1 3.1-1.4 3.1-3.1V3h3.2z"/></svg>
+</a>
+<a class="footer-social-link" href="https://discord.com/invite/GYJN7kEwU2" target="_blank" rel="noopener noreferrer" aria-label="Discord Lucky Base">
+<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4.5a17.4 17.4 0 0 0-4.1-1.3 12.2 12.2 0 0 0-.5 1.1 16.8 16.8 0 0 0-6.8 0 12 12 0 0 0-.5-1.1A17.3 17.3 0 0 0 4 4.5C1.5 8 1 11.4 1.2 14.8c1.7 1.3 3.4 2.1 5.2 2.6.4-.6.8-1.2 1.1-1.9-.6-.2-1.2-.5-1.7-.8.1-.1.3-.2.4-.3 3.3 1.5 6.9 1.5 10.2 0 .1.1.3.2.4.3-.6.3-1.1.6-1.7.8.3.7.7 1.3 1.1 1.9 1.8-.5 3.5-1.3 5.2-2.6.3-3.9-.7-7.3-3.2-10.3zM8.5 13.1c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm7 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z"/></svg>
+</a>
+</div>
+</div>
+<div class="footer-col">
+<h4>Servicios</h4>
+<ul>
+<li><a href="luckyweb.html">LuckyWeb</a></li>
+<li><a href="automatizaciones.html">LuckyAuto</a></li>
+<li><a href="planes.html">Planes</a></li>
+<li><a href="comparador-planes-web.html">Comparador de planes</a></li>
+<li><a href="automatizaciones.html">Automatizaciones</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>LuckyBase</h4>
+<ul>
+<li><a href="index.html#about">Nosotros</a></li>
+<li><a href="index.html#faq">FAQ</a></li>
+<li><a href="index.html#contacto">Contacto</a></li>
+<li><a href="panel.html">Panel Cliente</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Legal</h4>
+<ul>
+<li><a href="privacy-policy.html">Privacidad</a></li>
+<li><a href="terminos-condiciones.html">Términos</a></li>
+<li><a href="cookie-policy.html">Cookies</a></li>
+<li><a href="#" class="footer-preferences">Mis preferencias</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<span style="display:block;margin:0;padding-bottom:0;">&copy; 2026 LuckyBase. Todos los derechos reservados.</span>
+</div>
+</footer>
+</body>
+</html>

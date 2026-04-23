@@ -2360,9 +2360,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <h4>Servicios</h4>
 <ul>
 <li><a href="luckyweb.html">LuckyWeb</a></li>
+<li><a href="automatizaciones.html">LuckyAuto</a></li>
 <li><a href="planes.html">Planes</a></li>
 <li><a href="comparador-planes-web.html">Comparador de planes</a></li>
-<li><a href="index.html#servicios">Automatizaciones</a></li>
+<li><a href="automatizaciones.html">Automatizaciones</a></li>
 </ul>
 </div>
 <div class="footer-col">
@@ -2513,6 +2514,8 @@ function normalizePlanEntry(plan, fallbackIndex){
     tipoplan: String(source.tipoplan || "").trim(),
     cuota: String(source.cuota || "").trim(),
     consultasocambiosrestantes: String(source.consultasocambiosrestantes || "").trim(),
+    flujosactivos: String(source.flujosactivos || "").trim(),
+    flujosinactivos: String(source.flujosinactivos || "").trim(),
     pagado: String(source.pagado || "-").trim() || "-",
     fealta: String(source.fealta || "-").trim() || "-",
     proxpago: String(source.proxpago || "-").trim() || "-",
@@ -2546,6 +2549,8 @@ function normalizeClientPortfolioData(data){
     tipoplan: activePlan.tipoplan || "",
     cuota: activePlan.cuota || "",
     consultasocambiosrestantes: activePlan.consultasocambiosrestantes || "",
+    flujosactivos: activePlan.flujosactivos || "",
+    flujosinactivos: activePlan.flujosinactivos || "",
     pagado: activePlan.pagado || "-",
     fealta: activePlan.fealta || "-",
     proxpago: activePlan.proxpago || "-",
@@ -3786,7 +3791,9 @@ function bindQuickRequestButtons(){
       switchPanelSection("tickets", false)
       const subject = String(button.getAttribute("data-subject") || "").trim()
       const priority = String(button.getAttribute("data-priority") || "media").trim()
-      const message = String(button.getAttribute("data-message") || "").trim()
+      const message = String(button.getAttribute("data-message") || "")
+        .replace(/\\n/g, "\n")
+        .trim()
       if(subject){
         subjectInput.value = subject
       }
@@ -3817,8 +3824,26 @@ function renderPanel(raw){
 
     const plans = Array.isArray(data.planes) ? data.planes : []
     const planKey = String(data.plan || '').toLowerCase()
+    const tipoplanKey = String(data.tipoplan || '').toLowerCase()
+    const isLuckyAuto = tipoplanKey.includes('auto')
+    const flujosActivosDisplay = String(data.flujosactivos || '').trim() || '0'
+    const flujosInactivosDisplay = String(data.flujosinactivos || '').trim() || '0'
+    const pagadoValue = data.pagado || '-'
+    const isUnpaid = /^no\\b/i.test(String(pagadoValue).trim())
+    const cuotaDisplay = formatEuro(data.cuota)
+
     let planDoc = ''
-    if(planKey.includes('basic')){
+    if(isLuckyAuto){
+      if(planKey.includes('pro')){
+        planDoc = '<a class=\"secondary\" href=\"TyC-Auto-Pro.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">TyC LuckyAuto Pro</a>'
+      }else if(planKey.includes('lucky')){
+        planDoc = '<a class=\"secondary\" href=\"TyC-Auto-Lucky.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">TyC LuckyAuto Lucky</a>'
+      }else if(planKey.includes('basic')){
+        planDoc = '<a class=\"secondary\" href=\"TyC-Auto-Basica.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">TyC LuckyAuto Basic</a>'
+      }else{
+        planDoc = '<a class=\"secondary\" href=\"terminos-contratacion-auto.html\">Ver documentación completa</a>'
+      }
+    }else if(planKey.includes('basic')){
       planDoc = '<a class=\"secondary\" href=\"TyC-LuckyWeb-Basic.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">TyC LuckyWeb Basic</a>'
     }else if(planKey.includes('corporativa')){
       planDoc = '<a class=\"secondary\" href=\"TyC-LuckyWeb-Corporativa.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">TyC LuckyWeb Corporativa</a>'
@@ -3828,9 +3853,75 @@ function renderPanel(raw){
       planDoc = '<a class=\"secondary\" href=\"terminos-contratacion-web.html\">Ver documentación completa</a>'
     }
 
-    const pagadoValue = data.pagado || '-'
-    const isUnpaid = /^no\\b/i.test(String(pagadoValue).trim())
-    const cuotaDisplay = formatEuro(data.cuota)
+    const panelIntroText = isLuckyAuto
+      ? "Panel unificado de automatizaciones, facturación, tickets y seguridad de cuenta."
+      : "Panel unificado de alertas, facturación, tickets y seguridad de cuenta."
+    const ticketHelpText = isLuckyAuto
+      ? "Gestiona incidencias y mejoras de tus flujos de automatización desde este mismo panel."
+      : "Gestiona tus solicitudes rápidas y continúa la conversación del soporte en un mismo sitio."
+    const ticketSubjectPlaceholder = isLuckyAuto ? "Ej: Ajuste en flujo de leads" : "Ej: Cambio en la home"
+    const domainLabel = isLuckyAuto ? "Entorno/URL" : "Dominio"
+    const consultasLabel = isLuckyAuto ? "Cobertura soporte" : "Consultas/cambios restantes"
+    const actionsHtml = isLuckyAuto
+      ? (planDoc +
+        '<a class="secondary" href="automatizaciones.html">Guía de automatizaciones</a>' +
+        '<a class="secondary" href="terminos-contratacion-auto.html">TyC automatizaciones</a>' +
+        '<a class="secondary" href="AVISO LEGAL Y CONDICIONES DE USO.pdf" target="_blank" rel="noopener noreferrer">Aviso Legal</a>')
+      : (planDoc +
+        '<a class="secondary" href="REQUERIMIENTOS-WEBS.pdf" target="_blank" rel="noopener noreferrer">Requerimientos</a>' +
+        '<a class="secondary" href="TyC-Dominios-Web.pdf" target="_blank" rel="noopener noreferrer">TyC Dominios Web</a>' +
+        '<a class="secondary" href="AVISO LEGAL Y CONDICIONES DE USO.pdf" target="_blank" rel="noopener noreferrer">Aviso Legal</a>')
+    const quickRequestCardsHtml = isLuckyAuto
+      ? '<article class="quick-card">' +
+          '<h5>Ajuste de flujo</h5>' +
+          '<p>Cambios en lógica, ramas o pasos del flujo.</p>' +
+          '<button type="button" class="quick-request-btn" data-subject="Ajuste en flujo de automatización" data-priority="media" data-message="Necesito ajustar un flujo existente.\\n\\nFlujo:\\nCambio exacto:\\nResultado esperado:\\nFecha objetivo:">Usar plantilla</button>' +
+        '</article>' +
+        '<article class="quick-card">' +
+          '<h5>Trigger o condición</h5>' +
+          '<p>Modificar disparadores y reglas de ejecución.</p>' +
+          '<button type="button" class="quick-request-btn" data-subject="Cambio de trigger/condiciones" data-priority="media" data-message="Quiero modificar triggers o condiciones.\\n\\nFlujo:\\nTrigger actual:\\nTrigger deseado:\\nValidaciones necesarias:">Usar plantilla</button>' +
+        '</article>' +
+        '<article class="quick-card">' +
+          '<h5>Integración externa</h5>' +
+          '<p>CRM, API, webhook o conexión con terceros.</p>' +
+          '<button type="button" class="quick-request-btn" data-subject="Integración API/CRM en automatización" data-priority="alta" data-message="Necesito soporte de integración en una automatización.\\n\\nFlujo:\\nSistema externo:\\nEndpoint/evento:\\nError o bloqueo actual:">Usar plantilla</button>' +
+        '</article>' +
+        '<article class="quick-card">' +
+          '<h5>Incidencia en ejecución</h5>' +
+          '<p>Errores, ejecuciones incompletas o sin disparo.</p>' +
+          '<button type="button" class="quick-request-btn" data-subject="Incidencia en ejecución de flujo" data-priority="alta" data-message="Tengo una incidencia en un flujo automático.\\n\\nFlujo:\\nHora aproximada:\\nComportamiento observado:\\nImpacto en negocio:">Usar plantilla</button>' +
+        '</article>' +
+        '<article class="quick-card">' +
+          '<h5>Revisión de métricas</h5>' +
+          '<p>Optimización por ratio de conversión o tiempos.</p>' +
+          '<button type="button" class="quick-request-btn" data-subject="Revisión de rendimiento de automatizaciones" data-priority="baja" data-message="Quiero revisar el rendimiento de mis automatizaciones.\\n\\nFlujo:\\nMétrica a mejorar:\\nPeriodo analizado:\\nObjetivo:">Usar plantilla</button>' +
+        '</article>'
+      : '<article class="quick-card">' +
+          '<h5>Cambio de contenido</h5>' +
+          '<p>Textos, imágenes, bloques o secciones de tu web.</p>' +
+          '<button type="button" class="quick-request-btn" data-subject="Actualización de contenidos web" data-priority="media" data-message="Necesito actualizar contenidos en mi web.\\n\\nURL afectada:\\nCambios solicitados:\\nFecha objetivo:">Usar plantilla</button>' +
+        '</article>' +
+        '<article class="quick-card">' +
+          '<h5>SEO y rendimiento</h5>' +
+          '<p>Mejoras SEO on-page, velocidad o indexación.</p>' +
+          '<button type="button" class="quick-request-btn" data-subject="Solicitud SEO y rendimiento" data-priority="media" data-message="Quiero solicitar mejoras SEO/rendimiento.\\n\\nURLs afectadas:\\nProblema detectado:\\nResultado esperado:">Usar plantilla</button>' +
+        '</article>' +
+        '<article class="quick-card">' +
+          '<h5>Dominio y DNS</h5>' +
+          '<p>Incidencias de dominio, DNS, correo o SSL.</p>' +
+          '<button type="button" class="quick-request-btn" data-subject="Soporte dominio y DNS" data-priority="alta" data-message="Necesito soporte en dominio/DNS.\\n\\nDominio:\\nProveedor:\\nTipo de cambio/incidencia:\\nUrgencia:">Usar plantilla</button>' +
+        '</article>' +
+        '<article class="quick-card">' +
+          '<h5>Incidencia urgente</h5>' +
+          '<p>Caídas, errores críticos o bloqueo de servicio.</p>' +
+          '<button type="button" class="quick-request-btn" data-subject="Incidencia técnica urgente" data-priority="alta" data-message="Tengo una incidencia urgente.\\n\\nDescripción:\\nDesde cuándo ocurre:\\nImpacto en negocio:\\nAdjunta pasos para reproducir:">Usar plantilla</button>' +
+        '</article>' +
+        '<article class="quick-card">' +
+          '<h5>Consulta de facturación</h5>' +
+          '<p>Revisión de cobros, cuota o estado de pago.</p>' +
+          '<button type="button" class="quick-request-btn" data-subject="Consulta de facturación" data-priority="baja" data-message="Necesito revisar un tema de facturación.\\n\\nPedido/plan:\\nConsulta:\\nDatos adicionales:">Usar plantilla</button>' +
+        '</article>'
     const plansSwitchHtml = plans.length > 1
       ? `<div class="plan-switcher">
           <strong>Tus planes (${plans.length})</strong>
@@ -3852,7 +3943,7 @@ function renderPanel(raw){
       <div class="panel-header">
         <div class="panel-title">
           <h3>Hola, ${escapeHtml(data.nombre || data.user || "cliente")}</h3>
-          <p>Panel unificado de alertas, facturación, tickets y seguridad de cuenta.</p>
+          <p>${escapeHtml(panelIntroText)}</p>
         </div>
         <div class="panel-status ${isUnpaid ? 'is-bad' : ''}">
           <span>Estado de pago</span>
@@ -3896,11 +3987,11 @@ function renderPanel(raw){
             </div>
             <div class="stat-card">
               <div class="stat-top">
-                <span class="stat-label">Dominio</span>
-                <span class="stat-badge">Web</span>
+                <span class="stat-label">${isLuckyAuto ? 'Flujos activos' : 'Dominio'}</span>
+                <span class="stat-badge">${isLuckyAuto ? 'Automatizaciones' : 'Web'}</span>
               </div>
-              <div class="stat-value">${escapeHtml(data.dominio || '-')}</div>
-              <div class="stat-note">Pedido: ${escapeHtml(data.npedido || '-')}</div>
+              <div class="stat-value">${escapeHtml(isLuckyAuto ? flujosActivosDisplay : (data.dominio || '-'))}</div>
+              <div class="stat-note">${escapeHtml(isLuckyAuto ? ('Inactivos: ' + flujosInactivosDisplay) : ('Pedido: ' + (data.npedido || '-')))}</div>
             </div>
           </div>
 
@@ -3911,16 +4002,15 @@ function renderPanel(raw){
             <div class="detail"><span>Estado pago</span><strong class="${isUnpaid ? 'status-bad' : ''}">${escapeHtml(pagadoValue)}</strong></div>
             <div class="detail"><span>Fecha alta</span><strong>${escapeHtml(data.fealta || '-')}</strong></div>
             <div class="detail"><span>Próximo pago</span><strong>${escapeHtml(data.proxpago || '-')}</strong></div>
-            <div class="detail"><span>Dominio</span><strong>${escapeHtml(data.dominio || '-')}</strong></div>
+            <div class="detail"><span>${escapeHtml(domainLabel)}</span><strong>${escapeHtml(data.dominio || '-')}</strong></div>
             <div class="detail"><span>Nº pedido</span><strong>${escapeHtml(data.npedido || '-')}</strong></div>
-            <div class="detail"><span>Consultas/cambios restantes</span><strong>${escapeHtml(data.consultasocambiosrestantes || '-')}</strong></div>
+            <div class="detail"><span>${escapeHtml(consultasLabel)}</span><strong>${escapeHtml(data.consultasocambiosrestantes || '-')}</strong></div>
+            ${isLuckyAuto ? '<div class="detail"><span>Flujos activos</span><strong>' + escapeHtml(flujosActivosDisplay) + '</strong></div>' : ''}
+            ${isLuckyAuto ? '<div class="detail"><span>Flujos inactivos</span><strong>' + escapeHtml(flujosInactivosDisplay) + '</strong></div>' : ''}
           </div>
 
           <div class="actions">
-            ${planDoc}
-            <a class="secondary" href="REQUERIMIENTOS-WEBS.pdf" target="_blank" rel="noopener noreferrer">Requerimientos</a>
-            <a class="secondary" href="TyC-Dominios-Web.pdf" target="_blank" rel="noopener noreferrer">TyC Dominios Web</a>
-            <a class="secondary" href="AVISO LEGAL Y CONDICIONES DE USO.pdf" target="_blank" rel="noopener noreferrer">Aviso Legal</a>
+            ${actionsHtml}
             <button class="secondary" id="logoutBtn">Cerrar sesión</button>
           </div>
         </section>
@@ -3958,45 +4048,21 @@ function renderPanel(raw){
             <h4>Tickets y solicitudes</h4>
             <button class="ticket-refresh" id="refreshTicketsBtn" type="button">Actualizar</button>
           </div>
-          <p class="tickets-help">Gestiona tus solicitudes rápidas y continúa la conversación del soporte en un mismo sitio.</p>
+          <p class="tickets-help">${escapeHtml(ticketHelpText)}</p>
           <div class="ticket-quick-wrap">
             <div class="ticket-quick-head">
               <h5>Solicitudes rápidas</h5>
               <span>Plantillas para abrir tickets en segundos</span>
             </div>
             <div class="quick-grid">
-              <article class="quick-card">
-                <h5>Cambio de contenido</h5>
-                <p>Textos, imágenes, bloques o secciones de tu web.</p>
-                <button type="button" class="quick-request-btn" data-subject="Actualización de contenidos web" data-priority="media" data-message="Necesito actualizar contenidos en mi web.\n\nURL afectada:\nCambios solicitados:\nFecha objetivo:">Usar plantilla</button>
-              </article>
-              <article class="quick-card">
-                <h5>SEO y rendimiento</h5>
-                <p>Mejoras SEO on-page, velocidad o indexación.</p>
-                <button type="button" class="quick-request-btn" data-subject="Solicitud SEO y rendimiento" data-priority="media" data-message="Quiero solicitar mejoras SEO/rendimiento.\n\nURLs afectadas:\nProblema detectado:\nResultado esperado:">Usar plantilla</button>
-              </article>
-              <article class="quick-card">
-                <h5>Dominio y DNS</h5>
-                <p>Incidencias de dominio, DNS, correo o SSL.</p>
-                <button type="button" class="quick-request-btn" data-subject="Soporte dominio y DNS" data-priority="alta" data-message="Necesito soporte en dominio/DNS.\n\nDominio:\nProveedor:\nTipo de cambio/incidencia:\nUrgencia:">Usar plantilla</button>
-              </article>
-              <article class="quick-card">
-                <h5>Incidencia urgente</h5>
-                <p>Caídas, errores críticos o bloqueo de servicio.</p>
-                <button type="button" class="quick-request-btn" data-subject="Incidencia técnica urgente" data-priority="alta" data-message="Tengo una incidencia urgente.\n\nDescripción:\nDesde cuándo ocurre:\nImpacto en negocio:\nAdjunta pasos para reproducir:">Usar plantilla</button>
-              </article>
-              <article class="quick-card">
-                <h5>Consulta de facturación</h5>
-                <p>Revisión de cobros, cuota o estado de pago.</p>
-                <button type="button" class="quick-request-btn" data-subject="Consulta de facturación" data-priority="baja" data-message="Necesito revisar un tema de facturación.\n\nPedido/plan:\nConsulta:\nDatos adicionales:">Usar plantilla</button>
-              </article>
+              ${quickRequestCardsHtml}
             </div>
           </div>
           <form id="ticketForm" class="ticket-form" novalidate>
             <div class="ticket-grid ${plans.length > 1 ? "has-plan" : ""}">
               <label class="ticket-field">
                 <span>Asunto</span>
-                <input id="ticketSubject" type="text" maxlength="140" placeholder="Ej: Cambio en la home">
+                <input id="ticketSubject" type="text" maxlength="140" placeholder="${escapeHtml(ticketSubjectPlaceholder)}">
               </label>
               <label class="ticket-field">
                 <span>Prioridad</span>

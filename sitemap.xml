@@ -55,6 +55,36 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://luckybase.es/automatizaciones.html</loc>
+    <lastmod>2026-04-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://luckybase.es/luckyauto-basic.html</loc>
+    <lastmod>2026-04-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://luckybase.es/luckyauto-pro.html</loc>
+    <lastmod>2026-04-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://luckybase.es/luckyauto-lucky.html</loc>
+    <lastmod>2026-04-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://luckybase.es/comparador-planes-auto.html</loc>
+    <lastmod>2026-04-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://luckybase.es/privacy-policy.html</loc>
     <lastmod>2026-03-23</lastmod>
     <changefreq>yearly</changefreq>
