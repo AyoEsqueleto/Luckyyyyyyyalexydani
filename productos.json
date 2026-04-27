@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-04-27T06:21:23.050089+00:00",
+  "generated_at": "2026-04-13T06:08:13.945567+00:00",
   "total_items": 0,
   "items": [],
   "sources": {
     "vinted": {
-      "profile_url": "https://www.vinted.es/member/3140332927",
-      "effective_url": "https://www.vinted.es/catalog?search_text=luckyyshopp&order=newest_first",
-      "login": "luckyyshopp",
+      "profile_url": "https://www.vinted.es/member/159037584",
+      "effective_url": "https://www.vinted.es/catalog?search_text=daniel132423&order=newest_first",
+      "login": "daniel132423",
       "count": 0,
       "error": "No se pudieron extraer productos. Comprueba que la URL sea publica y tenga anuncios visibles o usa directamente una URL tipo /catalog?user_id=XXXX."
     }
