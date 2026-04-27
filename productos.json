@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-27T17:44:59.797753+00:00",
+  "generated_at": "2026-04-27T18:08:52.937761+00:00",
   "total_items": 0,
   "items": [],
   "sources": {
@@ -8,7 +8,7 @@
       "effective_url": "https://www.vinted.es/catalog?search_text=luckyyshopp&order=newest_first",
       "login": "luckyyshopp",
       "count": 0,
-      "error": "No se pudieron extraer productos. Comprueba que la URL sea publica y tenga anuncios visibles o usa directamente una URL tipo /catalog?user_id=XXXX."
+      "error": "Esta cuenta de Vinted no tiene anuncios activos en este momento."
     }
   }
 }
