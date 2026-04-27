@@ -470,7 +470,7 @@
     <div class="vt-toolbar">
       <div>
         <h1 class="vt-title">Articulos en venta</h1>
-        <p id="vintedHeadline" class="vt-subtitle">Sincronizado con productos.json</p>
+        <p id="vintedHeadline" class="vt-subtitle">Artículos en venta</p>
       </div>
       <div class="vt-sort">Orden: mas recientes</div>
     </div>
@@ -618,7 +618,7 @@
             statusEl.textContent = customError
             renderEmpty(customError)
           } else if (!configuredUrl) {
-            const msg = "No hay URL de Vinted configurada todavia en la automatizacion."
+            const msg = "Perfil de Vinted no disponible temporalmente."
             statusEl.textContent = msg
             renderEmpty(msg)
           } else {
@@ -639,8 +639,8 @@
 
         if (headlineEl) {
           headlineEl.textContent = currentSellerName
-            ? `Vendedor: ${currentSellerName} · feed sincronizado automaticamente`
-            : "Feed sincronizado con productos.json"
+            ? `Vendedor: ${currentSellerName}`
+            : "Artículos en venta"
         }
       } catch (error) {
         const msg = "No se pudieron cargar los productos en este momento."
