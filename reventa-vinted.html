@@ -444,12 +444,12 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Zm8.4 2-4.1-4.1" stroke="#5b666d" stroke-width="2" stroke-linecap="round"/>
         </svg>
-        <input type="text" placeholder="Buscar articulos" value="LuckyBase Vinted" readonly>
+        <input id="vintedSearchLabel" type="text" placeholder="Buscar articulos" value="Vinted" readonly>
       </label>
 
       <div class="vt-actions">
         <a class="vt-btn" href="index.html">Volver</a>
-        <a class="vt-btn vt-btn-primary" href="https://www.vinted.es/member/159037584" target="_blank" rel="noopener noreferrer">Perfil Vinted</a>
+        <a id="vintedProfileBtn" class="vt-btn vt-btn-primary" href="https://www.vinted.es/member/159037584" target="_blank" rel="noopener noreferrer">Perfil Vinted</a>
       </div>
     </div>
 
@@ -481,7 +481,7 @@
         <div class="vt-filter-list">
           <div class="vt-filter-pill">Estado <strong>Todos</strong></div>
           <div class="vt-filter-pill">Precio <strong>EUR</strong></div>
-          <div class="vt-filter-pill">Vendedor <strong>LuckyyShopp</strong></div>
+          <div class="vt-filter-pill">Vendedor <strong id="vintedSellerLabel">LuckyShop</strong></div>
           <div class="vt-filter-pill">Publicacion <strong>Reciente</strong></div>
         </div>
       </aside>
@@ -497,6 +497,19 @@
     const grid = document.getElementById("vintedGrid")
     const statusEl = document.getElementById("vintedStatus")
     const headlineEl = document.getElementById("vintedHeadline")
+    const sellerLabelEl = document.getElementById("vintedSellerLabel")
+    const profileBtnEl = document.getElementById("vintedProfileBtn")
+    const searchLabelEl = document.getElementById("vintedSearchLabel")
+    let currentSellerName = "Vinted"
+
+    function displaySellerName(login, profileUrl) {
+      const fromLogin = String(login || "").trim()
+      if (fromLogin) return fromLogin
+
+      const match = String(profileUrl || "").match(/\/member\/(\d+(?:-[^/?#]+)?)/i)
+      if (match && match[1]) return match[1]
+      return "Vinted"
+    }
 
     function toLocaleDate(iso) {
       const d = new Date(iso || "")
@@ -539,7 +552,7 @@
 
       const meta = document.createElement("div")
       meta.className = "vt-item-meta"
-      meta.textContent = "LuckyyShopp · Vinted"
+      meta.textContent = `${currentSellerName} · Vinted`
 
       const price = document.createElement("div")
       price.className = "vt-item-price"
@@ -585,6 +598,12 @@
 
         const payload = await resp.json()
         const sourceInfo = (payload && payload.sources && payload.sources.vinted) || {}
+        const configuredUrl = String(sourceInfo.profile_url || "").trim()
+        const login = String(sourceInfo.login || "").trim()
+        currentSellerName = displaySellerName(login, configuredUrl)
+        if (sellerLabelEl) sellerLabelEl.textContent = currentSellerName
+        if (searchLabelEl) searchLabelEl.value = `Vendedor: ${currentSellerName}`
+        if (profileBtnEl && configuredUrl) profileBtnEl.href = configuredUrl
 
         const allItems = Array.isArray(payload && payload.items) ? payload.items : []
         const items = allItems
@@ -595,7 +614,6 @@
 
         if (!items.length) {
           const customError = String(sourceInfo.error || "").trim()
-          const configuredUrl = String(sourceInfo.profile_url || "").trim()
           if (customError) {
             statusEl.textContent = customError
             renderEmpty(customError)
@@ -614,15 +632,16 @@
         items.forEach((item) => grid.appendChild(createCard(item || {})))
 
         const updated = toLocaleDate(payload && payload.generated_at)
-        const login = String(sourceInfo.login || "").trim()
 
         statusEl.textContent = updated
           ? `Mostrando ${items.length} articulos. Ultima actualizacion: ${updated}.`
           : `Mostrando ${items.length} articulos.`
 
-        headlineEl.textContent = login
-          ? `Vendedor: ${login} · feed sincronizado automaticamente`
-          : "Feed sincronizado con productos.json"
+        if (headlineEl) {
+          headlineEl.textContent = currentSellerName
+            ? `Vendedor: ${currentSellerName} · feed sincronizado automaticamente`
+            : "Feed sincronizado con productos.json"
+        }
       } catch (error) {
         const msg = "No se pudieron cargar los productos en este momento."
         statusEl.textContent = msg

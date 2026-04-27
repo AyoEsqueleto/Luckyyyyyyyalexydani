@@ -31,6 +31,7 @@ except Exception:
 
 
 MAX_ITEMS_PER_SOURCE = 10
+DEFAULT_VINTED_PROFILE_URL = "https://www.vinted.es/member/159037584"
 OUTPUT_FILE = Path(__file__).resolve().with_name("productos.json")
 
 USER_AGENTS = [
@@ -353,6 +354,18 @@ def extract_vinted_login(profile_url: str, html: str) -> str:
     return ""
 
 
+def extract_vinted_item_count(html: str) -> int | None:
+    patterns = [r'"item_count"\s*:\s*(\d+)', r'\\"item_count\\":(\d+)']
+    for pattern in patterns:
+        match = re.search(pattern, html or "")
+        if match:
+            try:
+                return int(match.group(1))
+            except Exception:
+                return None
+    return None
+
+
 def build_vinted_catalog_url(profile_url: str, html: str) -> tuple[str, str]:
     parsed = urlparse(profile_url)
     query = parse_qs(parsed.query or "")
@@ -436,6 +449,7 @@ def scrape_profile(source: str, profile_url: str, limit: int = MAX_ITEMS_PER_SOU
 
     print(f"[{source}] Descargando perfil: {profile_url}")
     html = fetch_html(profile_url)
+    profile_item_count = extract_vinted_item_count(html) if source == "vinted" else None
     effective_url = profile_url
     expected_login = ""
 
@@ -491,10 +505,13 @@ def scrape_profile(source: str, profile_url: str, limit: int = MAX_ITEMS_PER_SOU
         "error": "",
     }
     if not combined:
-        info["error"] = (
-            "No se pudieron extraer productos. Comprueba que la URL sea publica y tenga anuncios visibles "
-            "o usa directamente una URL tipo /catalog?user_id=XXXX."
-        )
+        if source == "vinted" and profile_item_count == 0:
+            info["error"] = "Esta cuenta de Vinted no tiene anuncios activos en este momento."
+        else:
+            info["error"] = (
+                "No se pudieron extraer productos. Comprueba que la URL sea publica y tenga anuncios visibles "
+                "o usa directamente una URL tipo /catalog?user_id=XXXX."
+            )
 
     print(f"[{source}] Productos extraidos: {len(combined)}")
     return combined, info
@@ -519,7 +536,7 @@ def build_payload(vinted_items: list[dict[str, str]], vinted_info: dict[str, str
 
 
 def main() -> int:
-    vinted_url = clean_text(os.getenv("VINTED_PROFILE_URL", ""))
+    vinted_url = clean_text(os.getenv("VINTED_PROFILE_URL") or DEFAULT_VINTED_PROFILE_URL)
 
     vinted_items, vinted_info = scrape_profile("vinted", vinted_url, MAX_ITEMS_PER_SOURCE)
 
