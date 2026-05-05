@@ -6,10 +6,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-<meta name="description" content="LuckyBase: diseño web profesional, automatizaciones y soluciones digitales para negocios que quieren crecer online.">
+<meta name="description" content="LuckyBase: diseño web profesional, creación de apps, automatizaciones y soluciones digitales para negocios que quieren crecer online.">
 <title>LuckyBase — Tu negocio digital, listo para crecer</title>
 <meta property="og:title" content="LuckyBase — Tu negocio digital, listo para crecer">
-<meta property="og:description" content="LuckyBase: diseño web profesional, automatizaciones y soluciones digitales para negocios que quieren crecer online.">
+<meta property="og:description" content="LuckyBase: diseño web profesional, creación de apps, automatizaciones y soluciones digitales para negocios que quieren crecer online.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_ES">
 <meta property="og:url" content="https://luckybase.es/">
@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://luckybase.es/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="LuckyBase - Soluciones digitales">
-<meta name="twitter:description" content="LuckyBase: diseño web profesional, automatizaciones y soluciones digitales para negocios que quieren crecer online.">
+<meta name="twitter:description" content="LuckyBase: diseño web profesional, creación de apps, automatizaciones y soluciones digitales para negocios que quieren crecer online.">
 <meta name="twitter:image" content="https://luckybase.es/og-image.png">
 <meta name="theme-color" content="#1565ff">
 <link rel="canonical" href="https://luckybase.es/">
@@ -97,6 +97,12 @@
           "position": 3,
           "name": "LuckyWeb",
           "url": "https://luckybase.es/luckyweb.html"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 4,
+          "name": "Apps a medida",
+          "url": "https://luckybase.es/apps.html"
         }
       ]
     }
@@ -734,11 +740,25 @@ padding:40px 0 0;
 border-top:1px solid rgba(15,23,42,0.08);
 }
 
+.app-dev-highlight{
+margin-top:30px;
+padding:28px 0 0;
+border-top:1px solid rgba(15,23,42,0.08);
+}
+
 .luckyweb-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:36px;
 align-items:center;
+margin-top:30px;
+}
+
+.app-dev-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:28px;
+align-items:start;
 margin-top:30px;
 }
 
@@ -756,7 +776,27 @@ letter-spacing:0.08em;
 text-transform:uppercase;
 }
 
+.app-dev-pill{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:6px 12px;
+border-radius:999px;
+background:rgba(6,95,70,0.12);
+color:#065f46;
+font-weight:600;
+font-size:12px;
+letter-spacing:0.08em;
+text-transform:uppercase;
+}
+
 .luckyweb-copy h3{
+font-size:30px;
+margin:16px 0 12px;
+font-family:"Space Grotesk",sans-serif;
+}
+
+.app-dev-copy h3{
 font-size:30px;
 margin:16px 0 12px;
 font-family:"Space Grotesk",sans-serif;
@@ -777,6 +817,14 @@ max-width:420px;
 align-items:stretch;
 }
 
+.app-dev-actions{
+display:grid;
+grid-template-columns:repeat(2,minmax(180px,1fr));
+gap:12px;
+max-width:520px;
+align-items:stretch;
+}
+
 .luckyweb-actions a{
 display:inline-flex;
 align-items:center;
@@ -792,6 +840,22 @@ border:1px solid transparent;
 white-space:nowrap;
 }
 
+.app-dev-actions a{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+height:44px;
+padding:0 20px;
+border-radius:999px;
+font-weight:600;
+letter-spacing:0.01em;
+line-height:1;
+box-sizing:border-box;
+border:1px solid transparent;
+white-space:normal;
+text-align:center;
+}
+
 .luckyweb-actions .platform-btn,
 .luckyweb-actions .ghost-btn{
 margin-top:0;
@@ -801,6 +865,38 @@ padding:0 22px;
 display:inline-flex;
 align-items:center;
 justify-content:center;
+}
+
+.app-dev-actions .platform-btn,
+.app-dev-actions .ghost-btn{
+margin-top:0;
+border-radius:999px;
+min-height:44px;
+height:auto;
+padding:10px 20px;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+}
+
+.app-dev-bundles{
+display:grid;
+gap:12px;
+}
+
+.app-dev-bundle{
+border:1px solid rgba(15,23,42,0.1);
+border-radius:14px;
+padding:18px 16px;
+background:linear-gradient(180deg,#ffffff,#f8fbff);
+box-shadow:0 10px 22px rgba(15,23,42,0.08);
+}
+
+.app-dev-bundle strong{
+display:block;
+margin-bottom:4px;
+color:#0f172a;
+font-family:"Space Grotesk",sans-serif;
 }
 
 .ghost-btn{
@@ -868,6 +964,11 @@ display:block;
 
 @media(max-width:640px){
   .luckyweb-actions{
+    grid-template-columns:1fr;
+    max-width:none;
+  }
+
+  .app-dev-actions{
     grid-template-columns:1fr;
     max-width:none;
   }
@@ -1153,6 +1254,58 @@ border:1px solid rgba(59,130,246,0.2);
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:14px;
+}
+
+.service-select{
+appearance:none;
+-webkit-appearance:none;
+-moz-appearance:none;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%231f2937' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+background-repeat:no-repeat;
+background-position:right 14px center;
+background-size:14px 14px;
+padding-right:42px;
+}
+
+.service-select::-ms-expand{
+display:none;
+}
+
+.contact-box select.service-select{
+width:100%;
+padding:14px 42px 14px 14px;
+border-radius:10px;
+border:1px solid rgba(148,163,184,0.3);
+font-size:15px;
+color:#0f172a;
+background-color:rgba(248,251,255,0.95);
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%231f2937' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+background-repeat:no-repeat;
+background-position:right 14px center;
+background-size:14px 14px;
+transition:border-color 0.25s ease,box-shadow 0.25s ease,background-color 0.25s ease,transform 0.2s ease;
+margin:0;
+}
+
+.contact-box select.service-select:focus{
+outline:none;
+border-color:#3b82f6;
+background-color:#ffffff;
+box-shadow:0 0 0 4px rgba(59,130,246,0.14);
+transform:translateY(-1px);
+}
+
+.app-brief-fields{
+display:none;
+gap:14px;
+padding:14px;
+border-radius:12px;
+border:1px solid rgba(21,101,255,0.22);
+background:rgba(239,246,255,0.7);
+}
+
+.app-brief-fields.is-visible{
+display:grid;
 }
 
 .input-group{
@@ -1599,6 +1752,36 @@ border-color:#334155;
 color:#bfdbfe;
 }
 
+body.dark-mode .service-select{
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23e2e8f0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+}
+
+body.dark-mode .contact-box select.service-select{
+color:#e2e8f0;
+background-color:#0f172a;
+border-color:#334155;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23e2e8f0' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+background-repeat:no-repeat;
+background-position:right 14px center;
+background-size:14px 14px;
+}
+
+body.dark-mode .contact-box select.service-select:focus{
+border-color:#60a5fa;
+background-color:#0f172a;
+box-shadow:0 0 0 4px rgba(96,165,250,0.18);
+}
+
+body.dark-mode .contact-box select.service-select option{
+background:#0f172a;
+color:#e2e8f0;
+}
+
+body.dark-mode .app-brief-fields{
+background:rgba(30,41,59,0.72);
+border-color:rgba(96,165,250,0.35);
+}
+
 body.dark-mode .contact-intro h3{
 color:#e2e8f0;
 }
@@ -1705,6 +1888,94 @@ body.dark-mode .metric{
 background:rgba(15,23,42,0.42);
 border-color:rgba(191,219,254,0.35);
 box-shadow:0 10px 24px rgba(2,6,23,0.4);
+}
+
+body.dark-mode .app-dev-highlight{
+border-top-color:rgba(148,163,184,0.25);
+}
+
+body.dark-mode .luckyweb-pill{
+color:#ffffff;
+background:rgba(96,165,250,0.22);
+}
+
+body.dark-mode .app-dev-pill{
+background:rgba(16,185,129,0.2);
+color:#a7f3d0;
+}
+
+body.dark-mode .app-dev-bundle{
+background:linear-gradient(180deg,#1a2436,#132033);
+border-color:#334155;
+}
+
+body.dark-mode .app-dev-bundle strong{
+color:#f8fafc;
+}
+
+body.dark-mode .luckyweb-actions .platform-btn{
+background:linear-gradient(135deg,#60a5fa,#2563eb);
+color:#ffffff;
+border-color:rgba(96,165,250,0.55);
+box-shadow:0 16px 30px rgba(37,99,235,0.32);
+}
+
+body.dark-mode .luckyweb-actions .platform-btn:hover{
+color:#ffffff;
+background:linear-gradient(135deg,#93c5fd,#3b82f6);
+box-shadow:0 18px 34px rgba(59,130,246,0.38);
+}
+
+body.dark-mode .luckyweb-actions .ghost-btn{
+background:rgba(15,23,42,0.72);
+color:#dbeafe;
+border-color:rgba(147,197,253,0.45);
+box-shadow:inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+body.dark-mode .luckyweb-actions .ghost-btn:hover{
+background:rgba(37,99,235,0.2);
+color:#ffffff;
+border-color:rgba(191,219,254,0.72);
+}
+
+body.dark-mode #planes-destacados .platform-btn{
+color:#ffffff;
+background:linear-gradient(135deg,#60a5fa,#2563eb);
+border-color:rgba(96,165,250,0.55);
+box-shadow:0 16px 30px rgba(37,99,235,0.32);
+}
+
+body.dark-mode #planes-destacados .platform-btn:hover{
+color:#ffffff;
+background:linear-gradient(135deg,#93c5fd,#3b82f6);
+box-shadow:0 18px 34px rgba(59,130,246,0.38);
+}
+
+body.dark-mode .app-dev-actions .platform-btn{
+background:linear-gradient(135deg,#60a5fa,#2563eb);
+color:#ffffff;
+border-color:rgba(96,165,250,0.55);
+box-shadow:0 16px 30px rgba(37,99,235,0.32);
+}
+
+body.dark-mode .app-dev-actions .platform-btn:hover{
+background:linear-gradient(135deg,#93c5fd,#3b82f6);
+color:#ffffff;
+box-shadow:0 18px 34px rgba(59,130,246,0.38);
+}
+
+body.dark-mode .app-dev-actions .ghost-btn{
+background:rgba(15,23,42,0.72);
+color:#d1fae5;
+border-color:rgba(110,231,183,0.42);
+box-shadow:inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+body.dark-mode .app-dev-actions .ghost-btn:hover{
+background:rgba(16,185,129,0.18);
+color:#ffffff;
+border-color:rgba(167,243,208,0.68);
 }
 
 /* Dark mode contrast boost */
@@ -2356,6 +2627,24 @@ body.dark-mode .vinted-support-btn:hover{
 background:#ffffff;
 }
 
+#servicios{
+padding-bottom:52px;
+}
+
+#about{
+padding-top:52px;
+}
+
+@media(max-width:768px){
+  #servicios{
+    padding-bottom:40px;
+  }
+
+  #about{
+    padding-top:40px;
+  }
+}
+
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2827010027321154"
      crossorigin="anonymous"></script>
@@ -2385,6 +2674,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a href="index.html#inicio">Inicio</a>
 <a href="index.html#servicios">Servicios</a>
 <a href="luckyweb.html">LuckyWeb</a>
+<a href="apps.html">Apps</a>
 <a href="automatizaciones.html">LuckyAuto</a>
 <a href="planes.html">Planes</a>
 <a href="index.html#about">Nosotros</a>
@@ -2460,13 +2750,13 @@ Soluciones digitales modernas para empresas que quieren destacar en internet.
 <span class="card-link">Ver LuckyWeb →</span>
 </a>
 
-<a class="card" href="#servicios">
+<a class="card" href="apps.html">
 <div class="card-icon" aria-hidden="true">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l4-8 4 5 3-3 4 6"/><path d="M3 21h18"/></svg>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/><path d="M5 6h2M17 6h2"/></svg>
 </div>
-<h3>Proyectos digitales</h3>
-<p>Lanzamos productos, herramientas online y proyectos digitales desde la idea hasta la publicación.</p>
-<span class="card-link">Ver servicios →</span>
+<h3>Apps a medida</h3>
+<p>Creamos apps móviles y web apps para digitalizar procesos, vender más y ofrecer una experiencia más directa a tus clientes.</p>
+<span class="card-link">Ver servicio de apps →</span>
 </a>
 
 </div>
@@ -2547,6 +2837,19 @@ Soluciones digitales modernas para empresas que quieren destacar en internet.
 
 <div class="card">
 <div class="card-icon" aria-hidden="true">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10 6h4"/><path d="M10 17h4"/><path d="M7 12h10"/></svg>
+</div>
+<h3>Creación y Desarrollo de Apps</h3>
+<p>Desarrollamos apps móviles y web apps conectadas con tu operativa real para que puedas escalar sin fricción.</p>
+<ul class="card-features">
+<li>Apps nativas y multiplataforma</li>
+<li>Panel de administración y analítica</li>
+<li>Integración con APIs y sistemas internos</li>
+</ul>
+</div>
+
+<div class="card">
+<div class="card-icon" aria-hidden="true">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
 </div>
 <h3>Marketing Digital</h3>
@@ -2601,6 +2904,42 @@ Soluciones digitales modernas para empresas que quieren destacar en internet.
     </div>
   </div>
 </div>
+</div>
+
+<div class="app-dev-highlight" id="app-dev-highlight">
+  <h2>Apps a medida para procesos reales</h2>
+  <p>Creamos y lanzamos tu app con una ruta clara de producto, diseño y desarrollo para que salga al mercado con lógica de negocio.</p>
+
+  <div class="app-dev-grid">
+    <div class="app-dev-copy">
+      <span class="app-dev-pill">Nuevo servicio</span>
+      <h3>Cómo lo implementamos, desde hoy</h3>
+      <p>En lugar de vender solo código, empaquetamos el servicio para que cada fase tenga entregables y plazos concretos.</p>
+      <ul class="luckyweb-list">
+        <li>Fase 1: definición funcional + arquitectura de producto.</li>
+        <li>Fase 2: diseño UX/UI + prototipo navegable.</li>
+        <li>Fase 3: desarrollo + QA + publicación.</li>
+      </ul>
+      <div class="app-dev-actions">
+        <a class="platform-btn" href="index.html#contacto">Solicitar propuesta</a>
+        <a class="ghost-btn" href="automatizaciones.html">Combinar con LuckyAuto</a>
+      </div>
+    </div>
+    <div class="app-dev-bundles">
+      <div class="app-dev-bundle">
+        <strong>Pack recomendado: App + UI/UX</strong>
+        <p>Ideal cuando quieres una experiencia cuidada y validada antes de programar.</p>
+      </div>
+      <div class="app-dev-bundle">
+        <strong>Pack negocio: App + Automatizaciones</strong>
+        <p>Conecta tu app con flujos internos, CRM y tareas repetitivas para ahorrar tiempo.</p>
+      </div>
+      <div class="app-dev-bundle">
+        <strong>Pack completo: App + Web + Analítica</strong>
+        <p>Canal de captación con LuckyWeb, app operativa y métricas para escalar con datos.</p>
+      </div>
+    </div>
+  </div>
 </div>
 
 </section>
@@ -2754,6 +3093,54 @@ Soluciones digitales modernas para empresas que quieren destacar en internet.
 </div>
 
 <div class="input-group">
+<label for="contactService">Servicio de interés</label>
+<select id="contactService" class="service-select" name="servicio" required>
+  <option value="" selected disabled>Selecciona un servicio</option>
+  <option value="apps">Creación y Desarrollo de Apps</option>
+  <option value="web">LuckyWeb (Páginas Web)</option>
+  <option value="automatizaciones">LuckyAuto (Automatizaciones)</option>
+  <option value="branding">Branding / Diseño</option>
+  <option value="otro">Otro</option>
+</select>
+<div class="field-meta">Nos ayuda a responderte más rápido y con propuesta ajustada.</div>
+</div>
+
+<div id="appBriefFields" class="app-brief-fields" aria-hidden="true">
+  <div class="contact-grid">
+    <div class="input-group">
+      <label for="appPlatform">Tipo de app</label>
+      <select id="appPlatform" class="service-select" name="app_tipo">
+        <option value="" selected>Selecciona una opción</option>
+        <option value="movil-ios-android">App móvil (iOS + Android)</option>
+        <option value="web-app">Web App (navegador)</option>
+        <option value="mixta">Mixta (Móvil + Web)</option>
+        <option value="no-definido">A definir contigo</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label for="appTimeline">Plazo deseado</label>
+      <select id="appTimeline" class="service-select" name="app_plazo">
+        <option value="" selected>Selecciona una opción</option>
+        <option value="1-2-meses">1-2 meses</option>
+        <option value="2-4-meses">2-4 meses</option>
+        <option value="4m+">Más de 4 meses</option>
+        <option value="flexible">Flexible</option>
+      </select>
+    </div>
+  </div>
+  <div class="input-group">
+    <label for="appBudget">Presupuesto estimado</label>
+    <select id="appBudget" class="service-select" name="app_presupuesto">
+      <option value="" selected>Selecciona una opción</option>
+      <option value="2000-5000">2.000 € - 5.000 €</option>
+      <option value="5000-12000">5.000 € - 12.000 €</option>
+      <option value="12000+">12.000 € o más</option>
+      <option value="a-definir">A definir</option>
+    </select>
+  </div>
+</div>
+
+<div class="input-group">
 <label for="contactMessage">Mensaje</label>
 <textarea id="contactMessage" name="mensaje" rows="5" maxlength="600" placeholder="¿En qué podemos ayudarte?" required></textarea>
 <div class="field-meta">Incluye cualquier detalle importante para responderte mejor.</div>
@@ -2807,6 +3194,7 @@ Soluciones digitales modernas para empresas que quieren destacar en internet.
 <h4>Servicios</h4>
 <ul>
 <li><a href="luckyweb.html">LuckyWeb</a></li>
+<li><a href="apps.html">Apps a medida</a></li>
 <li><a href="automatizaciones.html">LuckyAuto</a></li>
 <li><a href="planes.html">Planes</a></li>
 <li><a href="comparador-planes-web.html">Comparador de planes</a></li>
@@ -2843,7 +3231,7 @@ Soluciones digitales modernas para empresas que quieren destacar en internet.
 <span class="vinted-support-kicker">Vinted</span>
 <p>Apoya este proyecto comprando en nuestro perfil de Vinted.</p>
 </div>
-<a class="vinted-support-btn" href="reventa-vinted.html" target="_blank" rel="noopener noreferrer">Ver perfil</a>
+<a class="vinted-support-btn" href="https://www.vinted.es/member/159037584" target="_blank" rel="noopener noreferrer">Ver perfil</a>
 </div>
 </div>
 
@@ -2903,7 +3291,7 @@ return new Promise((resolve)=>window.setTimeout(resolve,ms))
 
 async function runBrandLoop(){
 if(!brandTitle||!brandDynamic) return
-const words=["Base","Web","Creative","Design","IA"]
+const words=["Base","Web","Auto","App","Creative","Design","IA"]
 let index=0
 
 while(true){
@@ -2936,7 +3324,7 @@ runBrandLoop()
 const revealTargets=[
 ...document.querySelectorAll("section h2"),
 ...document.querySelectorAll(".card"),
-...document.querySelectorAll(".plans-cta,.about img,.about-text,.faq-item,.contact-note,.contact-box,.metric")
+...document.querySelectorAll(".app-dev-highlight,.plans-cta,.about img,.about-text,.faq-item,.contact-note,.contact-box,.metric")
 ]
 
 revealTargets.forEach((el,index)=>{
@@ -3069,6 +3457,9 @@ const contactForm=document.getElementById("contactForm")
 const formStatus=document.getElementById("formStatus")
 const termsCheckbox=document.querySelector('input[name="terms"]')
 const messageInput=document.getElementById("contactMessage")
+const serviceSelect=document.getElementById("contactService")
+const appBriefFields=document.getElementById("appBriefFields")
+const appBriefInputs=appBriefFields?appBriefFields.querySelectorAll("select"):null
 const CONTACT_API_URL="https://script.google.com/macros/s/AKfycbxZeMApnIjxoF4aAPxNhcLbUb09JluFb4E7jP67bINuODTv08q9xDFtzC5updMnV_Gi/exec"
 const themeToggle=document.getElementById("themeToggle")
 const footerLogo=document.getElementById("footerLogo")
@@ -3101,6 +3492,37 @@ updateThemeLabel()
 })
 }
 
+const serviceLabelMap={
+apps:"Creación y Desarrollo de Apps",
+web:"LuckyWeb (Páginas Web)",
+automatizaciones:"LuckyAuto (Automatizaciones)",
+branding:"Branding / Diseño",
+otro:"Otro"
+}
+
+function toggleAppBriefFields(){
+if(!serviceSelect||!appBriefFields||!appBriefInputs) return
+const isApps=serviceSelect.value==="apps"
+appBriefFields.classList.toggle("is-visible",isApps)
+appBriefFields.setAttribute("aria-hidden",isApps?"false":"true")
+appBriefInputs.forEach((input)=>{
+input.required=false
+if(!isApps){
+input.value=""
+}
+})
+}
+
+if(serviceSelect){
+const queryService=new URLSearchParams(window.location.search).get("servicio")
+const hasServiceOption=Array.from(serviceSelect.options).some((option)=>option.value===queryService)
+if(queryService&&hasServiceOption){
+serviceSelect.value=queryService
+}
+toggleAppBriefFields()
+serviceSelect.addEventListener("change",toggleAppBriefFields)
+}
+
 if(termsCheckbox){
 termsCheckbox.addEventListener("invalid",()=>{
 termsCheckbox.setCustomValidity("Acepta los términos y condiciones")
@@ -3119,11 +3541,32 @@ const submitBtn=contactForm.querySelector('button[type="submit"]')
 if(submitBtn){ submitBtn.disabled=true; submitBtn.textContent="Enviando..." }
 
 const data=new FormData(contactForm)
+const serviceValue=String(data.get("servicio")||"").trim()
+const appType=String(data.get("app_tipo")||"").trim()
+const appTimeline=String(data.get("app_plazo")||"").trim()
+const appBudget=String(data.get("app_presupuesto")||"").trim()
+const serviceLabel=serviceLabelMap[serviceValue]||"Sin especificar"
+const baseMessage=String(data.get("mensaje")||"").trim()
+let formattedMessage=baseMessage
+
+if(serviceValue){
+formattedMessage=`[Servicio] ${serviceLabel}\n\n${formattedMessage}`
+}
+
+if(serviceValue==="apps"){
+const appBrief=[
+`- Tipo de app: ${appType||"No definido"}`,
+`- Plazo deseado: ${appTimeline||"No definido"}`,
+`- Presupuesto: ${appBudget||"No definido"}`
+].join("\n")
+formattedMessage=`${formattedMessage}\n\n[Brief App]\n${appBrief}`
+}
+
 const payload={
 action:"contact",
 nombre:String(data.get("nombre")||"").trim(),
 email:String(data.get("email")||"").trim(),
-mensaje:String(data.get("mensaje")||"").trim(),
+mensaje:formattedMessage,
 terms:data.get("terms")?"true":"false",
 company:String(data.get("company")||"").trim(),
 originUrl:window.location.href
@@ -3155,6 +3598,7 @@ result={}
 
 if(result && result.success){
 contactForm.reset()
+toggleAppBriefFields()
 showFormStatus("Mensaje enviado correctamente. Te responderemos pronto.","success")
 }else{
 showFormStatus((result && result.message) ? result.message : "No se pudo enviar. Inténtalo de nuevo.","error")
@@ -3221,7 +3665,7 @@ if (navLinks.length && 'IntersectionObserver' in window) {
 }
 
 // ── INLINE FORM VALIDATION ──
-document.querySelectorAll('#contactForm input[required], #contactForm textarea[required]').forEach(input => {
+document.querySelectorAll('#contactForm input[required], #contactForm textarea[required], #contactForm select[required]').forEach(input => {
   input.addEventListener('blur', () => {
     if (!input.value.trim() || (input.type === 'email' && !/^[^@]+@[^@]+\.[^@]+$/.test(input.value))) {
       input.style.borderColor = '#f87171'

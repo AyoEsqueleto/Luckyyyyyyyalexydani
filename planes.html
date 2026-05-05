@@ -8,11 +8,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="description"
-    content="Planes LuckyWeb para cada etapa: Basic, Corporativa y Ecommerce, con enfoque en diseño, conversión y crecimiento digital.">
+    content="Planes de LuckyBase para web, apps y automatizaciones: opciones para cada etapa con foco en crecimiento digital.">
   <title>Planes | LuckyBase</title>
   <meta property="og:title" content="Planes | LuckyBase">
   <meta property="og:description"
-    content="Planes LuckyWeb para cada etapa: Basic, Corporativa y Ecommerce, con enfoque en diseño, conversión y crecimiento digital.">
+    content="Planes de LuckyBase para web, apps y automatizaciones con enfoque en crecimiento digital.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_ES">
   <meta property="og:url" content="https://luckybase.es/planes.html">
@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Planes | LuckyBase">
   <meta name="twitter:description"
-    content="Planes LuckyWeb para cada etapa: Basic, Corporativa y Ecommerce, con enfoque en diseño, conversión y crecimiento digital.">
+    content="Planes de LuckyBase para web, apps y automatizaciones con enfoque en crecimiento digital.">
   <meta name="twitter:image" content="https://luckybase.es/og-image.png">
   <meta name="theme-color" content="#1565ff">
   <link rel="canonical" href="https://luckybase.es/planes.html">
@@ -41,7 +41,7 @@
       "@id": "https://luckybase.es/planes.html#webpage",
       "url": "https://luckybase.es/planes.html",
       "name": "Planes | LuckyBase",
-      "description": "Planes LuckyWeb para cada etapa: Basic, Corporativa y Ecommerce.",
+      "description": "Planes de LuckyBase para web, apps y automatizaciones.",
       "inLanguage": "es-ES",
       "isPartOf": {
         "@id": "https://luckybase.es/#website"
@@ -68,7 +68,7 @@
 }
 </script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&amp;display=swap" rel="stylesheet">
   <link rel="icon" href="favicon.png" type="image/png">
 
   <!-- Google Tag Manager -->
@@ -111,7 +111,15 @@
     body {
       background: #ffffff;
       color: #1a1a1a;
-      padding-top: 110px;
+      padding-top: 72px;
+    }
+
+    body.entry-active {
+      overflow: hidden;
+    }
+
+    body.plan-auto-active {
+      background: #060a14;
     }
 
     header {
@@ -376,16 +384,86 @@
     }
 
     .hero {
-      height: 55vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      position: relative;
+      min-height: clamp(420px, 62vh, 620px);
+      display: grid;
+      align-items: start;
+      justify-items: center;
+      padding: 32px 8% 46px;
       text-align: center;
-      color: white;
-      background: linear-gradient(-45deg, #1565ff, #4f8cff, #1e40ff, #2a6bff);
-      background-size: 400% 400%;
-      animation: gradientMove 10s ease infinite;
+      color: #f8fafc;
+      overflow: hidden;
+      isolation: isolate;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(21,101,255,0.2), transparent 26%),
+        radial-gradient(circle at 86% 12%, rgba(148,163,184,0.16), transparent 30%),
+        radial-gradient(circle at 78% 82%, rgba(59,130,246,0.12), transparent 26%),
+        linear-gradient(135deg, #060a14, #0c1120 48%, #101827);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .hero::before {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px),
+        radial-gradient(circle at 24% 34%, rgba(255,255,255,0.16) 0 2px, transparent 3px),
+        radial-gradient(circle at 72% 48%, rgba(255,255,255,0.14) 0 2px, transparent 3px),
+        linear-gradient(135deg, transparent 0 58%, rgba(215,255,63,0.12) 58% 59%, transparent 59%);
+      background-size: 58px 58px, 58px 58px, auto, auto, auto;
+      animation: gridDrift 18s linear infinite;
+    }
+
+    .hero::after {
+      background:
+        radial-gradient(circle at 50% 100%, rgba(247,250,255,0.1), transparent 35%),
+        linear-gradient(180deg, transparent 0 76%, rgba(255,255,255,0.06));
+      animation: heroGlow 7s ease-in-out infinite alternate;
+    }
+
+    .hero-inner {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-logo {
+      width: min(260px, 70vw);
+      margin: 0 auto 22px;
+      padding: 14px 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 24px 52px rgba(0,0,0,0.22);
+      animation: fadeUp 0.65s ease both;
+    }
+
+    .hero-logo img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      margin-bottom: 14px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      color: #d7ff3f;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      animation: fadeUp 0.65s 0.08s ease both;
     }
 
     @keyframes gradientMove {
@@ -402,14 +480,60 @@
       }
     }
 
+    @keyframes gridDrift {
+      from {
+        transform: translate3d(0, 0, 0);
+      }
+
+      to {
+        transform: translate3d(-58px, -58px, 0);
+      }
+    }
+
+    @keyframes heroGlow {
+      from {
+        opacity: 0.72;
+        transform: scale(1);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1.04);
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+        filter: blur(4px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
     .hero h1 {
-      font-size: 58px;
+      max-width: 920px;
+      margin: 0 auto 14px;
+      font-size: clamp(46px, 8vw, 86px);
+      line-height: 0.94;
       margin-bottom: 14px;
+      letter-spacing: -0.055em;
+      text-wrap: balance;
+      animation: fadeUp 0.65s 0.16s ease both;
     }
 
     .hero p {
       max-width: 760px;
+      margin: 0 auto;
       font-size: 19px;
+      color: rgba(248,250,252,0.82);
+      line-height: 1.65;
+      animation: fadeUp 0.65s 0.24s ease both;
     }
 
     .hero .cta {
@@ -420,6 +544,80 @@
 
     .hero .cta:hover {
       background: #eaf1ff;
+    }
+
+    .hero .plan-filter-grid {
+      margin: 30px auto 0;
+      max-width: 1120px;
+    }
+
+    .hero .plan-filter {
+      min-height: 150px;
+      color: #f8fafc;
+      border-color: rgba(255,255,255,0.16);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(215,255,63,0.16), transparent 34%),
+        rgba(255,255,255,0.08);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 20px 46px rgba(0,0,0,0.18);
+      opacity: 0;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .hero .plan-filter:nth-child(1) { animation-delay: 0.34s; }
+    .hero .plan-filter:nth-child(2) { animation-delay: 0.44s; }
+    .hero .plan-filter:nth-child(3) { animation-delay: 0.54s; }
+    .hero .plan-filter:nth-child(4) { animation-delay: 0.64s; }
+
+    .hero .plan-filter:hover,
+    .hero .plan-filter.is-active {
+      border-color: rgba(215,255,63,0.48);
+      box-shadow: 0 26px 54px rgba(0,0,0,0.26);
+    }
+
+    .hero .plan-filter span {
+      color: rgba(248,250,252,0.72);
+    }
+
+    .hero .plan-filter small {
+      background: rgba(255,255,255,0.1);
+      color: #d7ff3f;
+    }
+
+    .hero .plan-filter.is-active small {
+      background: #d7ff3f;
+      color: #07140f;
+    }
+
+    .hero-quick-links {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+      animation: fadeUp 0.65s 0.74s ease both;
+    }
+
+    .hero-quick-links a,
+    .hero-quick-links button {
+      color: rgba(248,250,252,0.86);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 999px;
+      padding: 8px 11px;
+      background: rgba(255,255,255,0.06);
+      font-family: inherit;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .hero-quick-links a:hover,
+    .hero-quick-links button:hover {
+      transform: translateY(-2px);
+      color: #ffffff;
+      border-color: rgba(215,255,63,0.42);
     }
 
     .unavailable-banner {
@@ -434,8 +632,453 @@
       box-shadow: 0 8px 20px rgba(220, 38, 38, 0.18);
     }
 
+    .entry-screen {
+      position: fixed;
+      inset: 0;
+      --entry-aura-1: rgba(21,101,255,0.16);
+      --entry-aura-2: rgba(148,163,184,0.12);
+      --entry-aura-3: rgba(59,130,246,0.1);
+      --aura-color: rgba(215,255,63,0);
+      --aura-opacity: 0.38;
+      --aura-scale: 1;
+      --aura-x: 50%;
+      --aura-y: 50%;
+      z-index: 3000;
+      display: grid;
+      place-items: center;
+      padding: 28px 6%;
+      color: #f8fafc;
+      overflow-y: auto;
+      background:
+        radial-gradient(circle at 12% 18%, var(--entry-aura-1), transparent 26%),
+        radial-gradient(circle at 86% 12%, var(--entry-aura-2), transparent 30%),
+        radial-gradient(circle at 78% 82%, var(--entry-aura-3), transparent 26%),
+        linear-gradient(135deg, #060a14, #0c1120 48%, #101827);
+      transition: opacity 0.55s ease, visibility 0.55s ease, transform 0.55s ease, --entry-aura-1 0.45s ease, --entry-aura-2 0.45s ease, --entry-aura-3 0.45s ease;
+    }
+
+    .entry-screen[data-entry-tone="web"] {
+      --entry-aura-1: rgba(10,116,255,0.48);
+      --entry-aura-2: rgba(0,194,168,0.36);
+      --entry-aura-3: rgba(255,255,255,0.14);
+      --aura-color: rgba(10,116,255,0.34);
+      --aura-opacity: 1;
+      --aura-scale: 1.04;
+    }
+
+    .entry-screen[data-entry-tone="apps"] {
+      --entry-aura-1: rgba(215,255,63,0.5);
+      --entry-aura-2: rgba(24,191,136,0.38);
+      --entry-aura-3: rgba(255,138,31,0.14);
+      --aura-color: rgba(215,255,63,0.32);
+      --aura-opacity: 1;
+      --aura-scale: 1.04;
+    }
+
+    .entry-screen[data-entry-tone="auto"] {
+      --entry-aura-1: rgba(0,229,255,0.42);
+      --entry-aura-2: rgba(168,85,247,0.42);
+      --entry-aura-3: rgba(34,197,94,0.2);
+      --aura-color: rgba(0,229,255,0.3);
+      --aura-opacity: 1;
+      --aura-scale: 1.04;
+    }
+
+    .entry-screen[data-entry-tone="custom"] {
+      --entry-aura-1: rgba(215,255,63,0.38);
+      --entry-aura-2: rgba(21,101,255,0.4);
+      --entry-aura-3: rgba(18,217,183,0.2);
+      --aura-color: rgba(21,101,255,0.3);
+      --aura-opacity: 1;
+      --aura-scale: 1.04;
+    }
+
+    .entry-screen::before,
+    .entry-screen::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .entry-screen::before {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px),
+        radial-gradient(circle at 24% 34%, rgba(255,255,255,0.16) 0 2px, transparent 3px),
+        radial-gradient(circle at 72% 48%, rgba(255,255,255,0.14) 0 2px, transparent 3px),
+        linear-gradient(135deg, transparent 0 58%, rgba(59,130,246,0.12) 58% 59%, transparent 59%);
+      background-size: 58px 58px, 58px 58px, auto, auto, auto;
+      animation: gridDrift 18s linear infinite;
+    }
+
+    .entry-screen::after {
+      background:
+        radial-gradient(circle at var(--aura-x, 50%) var(--aura-y, 50%), var(--aura-color, rgba(215,255,63,0)) 0%, transparent 32%),
+        radial-gradient(circle at 50% 100%, rgba(247,250,255,0.1), transparent 35%),
+        linear-gradient(180deg, transparent 0 76%, rgba(255,255,255,0.06));
+      opacity: var(--aura-opacity, 0.74);
+      transform: scale(var(--aura-scale, 1));
+      transition: opacity 0.36s ease, transform 0.5s cubic-bezier(.2,.7,.2,1), background 0.36s ease;
+    }
+
+    .entry-screen.is-color-entering::after {
+      animation: colorBloom 0.58s cubic-bezier(.16,.84,.28,1) both;
+    }
+
+    @keyframes colorBloom {
+      0% {
+        opacity: 0;
+        transform: scale(0.62);
+        filter: blur(18px);
+      }
+
+      58% {
+        opacity: 1;
+        transform: scale(1.08);
+        filter: blur(4px);
+      }
+
+      100% {
+        opacity: var(--aura-opacity, 1);
+        transform: scale(var(--aura-scale, 1.04));
+        filter: blur(0);
+      }
+    }
+
+    .entry-screen.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: scale(1.02);
+    }
+
+    .entry-panel {
+      position: relative;
+      z-index: 1;
+      width: min(1180px, 100%);
+      text-align: center;
+    }
+
+    .entry-logo {
+      width: min(260px, 70vw);
+      margin: 0 auto 22px;
+      padding: 14px 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 24px 52px rgba(0,0,0,0.22);
+      animation: fadeUp 0.65s ease both;
+    }
+
+    .entry-logo img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .entry-kicker {
+      display: inline-flex;
+      margin-bottom: 14px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      color: #d7ff3f;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      animation: fadeUp 0.65s 0.08s ease both;
+    }
+
+    .entry-panel h2 {
+      max-width: 900px;
+      margin: 0 auto 14px;
+      color: #ffffff;
+      font-size: clamp(46px, 8vw, 92px);
+      line-height: 0.94;
+      letter-spacing: -0.055em;
+      text-wrap: balance;
+      animation: fadeUp 0.65s 0.16s ease both;
+    }
+
+    .entry-panel p {
+      max-width: 760px;
+      margin: 0 auto;
+      color: rgba(248,250,252,0.82);
+      font-size: 18px;
+      line-height: 1.65;
+      animation: fadeUp 0.65s 0.24s ease both;
+    }
+
+    .entry-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin: 30px auto 0;
+    }
+
+    .entry-choice {
+      min-height: 154px;
+      --choice-accent: #d7ff3f;
+      --choice-glow: rgba(215,255,63,0.16);
+      border: 1px solid color-mix(in srgb, var(--choice-accent) 34%, rgba(255,255,255,0.16));
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at 100% 0%, var(--choice-glow), transparent 34%),
+        rgba(255,255,255,0.08);
+      color: #f8fafc;
+      padding: 18px;
+      text-align: left;
+      cursor: pointer;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 20px 46px rgba(0,0,0,0.18);
+      opacity: 0;
+      animation: fadeUp 0.7s ease both;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+    }
+
+    .entry-choice[data-entry-filter="web"] {
+      --choice-accent: #0a74ff;
+      --choice-glow: rgba(10,116,255,0.22);
+    }
+
+    .entry-choice[data-entry-filter="apps"] {
+      --choice-accent: #d7ff3f;
+      --choice-glow: rgba(215,255,63,0.22);
+    }
+
+    .entry-choice[data-entry-filter="auto"] {
+      --choice-accent: #00e5ff;
+      --choice-glow: rgba(0,229,255,0.2);
+    }
+
+    .entry-choice[data-entry-filter="custom"] {
+      --choice-accent: #8bff7a;
+      --choice-glow: rgba(21,101,255,0.18);
+    }
+
+    .entry-choice:nth-child(1) { animation-delay: 0.34s; }
+    .entry-choice:nth-child(2) { animation-delay: 0.44s; }
+    .entry-choice:nth-child(3) { animation-delay: 0.54s; }
+    .entry-choice:nth-child(4) { animation-delay: 0.64s; }
+
+    .entry-choice:hover,
+    .entry-choice:focus-visible {
+      transform: translateY(-6px);
+      border-color: color-mix(in srgb, var(--choice-accent) 72%, #ffffff);
+      box-shadow: 0 26px 54px rgba(0,0,0,0.26), 0 0 42px color-mix(in srgb, var(--choice-accent) 24%, transparent);
+    }
+
+    .entry-screen[data-entry-tone="web"] .entry-choice[data-entry-filter="web"] {
+      border-color: rgba(10,116,255,0.62);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(10,116,255,0.28), transparent 36%),
+        radial-gradient(circle at 0% 100%, rgba(0,194,168,0.18), transparent 32%),
+        rgba(255,255,255,0.12);
+      box-shadow: 0 28px 60px rgba(10,116,255,0.2);
+    }
+
+    .entry-screen[data-entry-tone="apps"] .entry-choice[data-entry-filter="apps"] {
+      border-color: rgba(215,255,63,0.62);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(215,255,63,0.28), transparent 36%),
+        radial-gradient(circle at 0% 100%, rgba(24,191,136,0.2), transparent 32%),
+        rgba(255,255,255,0.12);
+      box-shadow: 0 28px 60px rgba(215,255,63,0.18);
+    }
+
+    .entry-screen[data-entry-tone="auto"] .entry-choice[data-entry-filter="auto"] {
+      border-color: rgba(0,229,255,0.62);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(0,229,255,0.22), transparent 36%),
+        radial-gradient(circle at 0% 100%, rgba(168,85,247,0.2), transparent 32%),
+        rgba(255,255,255,0.1);
+      box-shadow: 0 28px 60px rgba(0,229,255,0.18);
+    }
+
+    .entry-screen[data-entry-tone="custom"] .entry-choice[data-entry-filter="custom"] {
+      border-color: rgba(215,255,63,0.58);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(215,255,63,0.22), transparent 36%),
+        radial-gradient(circle at 0% 100%, rgba(21,101,255,0.2), transparent 32%),
+        rgba(255,255,255,0.12);
+      box-shadow: 0 28px 60px rgba(21,101,255,0.18);
+    }
+
+    .entry-screen[data-entry-tone="web"] .entry-choice[data-entry-filter="web"] small {
+      background: #0a74ff;
+      color: #ffffff;
+    }
+
+    .entry-screen[data-entry-tone="apps"] .entry-choice[data-entry-filter="apps"] small,
+    .entry-screen[data-entry-tone="custom"] .entry-choice[data-entry-filter="custom"] small {
+      background: #d7ff3f;
+      color: #07140f;
+    }
+
+    .entry-screen[data-entry-tone="auto"] .entry-choice[data-entry-filter="auto"] small {
+      background: #00e5ff;
+      color: #061018;
+    }
+
+    .entry-choice small {
+      display: inline-flex;
+      margin-bottom: 12px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.1);
+      color: var(--choice-accent);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .entry-choice strong {
+      display: block;
+      color: inherit;
+      font-size: 18px;
+      margin-bottom: 7px;
+    }
+
+    .entry-choice span {
+      display: block;
+      color: rgba(248,250,252,0.72);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .entry-skip {
+      display: inline-flex;
+      margin-top: 18px;
+      border: 0;
+      background: transparent;
+      color: rgba(248,250,252,0.74);
+      font-weight: 700;
+      cursor: pointer;
+      animation: fadeUp 0.65s 0.76s ease both;
+    }
+
+    .entry-skip:hover {
+      color: #ffffff;
+    }
+
+    .plan-router {
+      padding: 48px 8% 18px;
+      background:
+        linear-gradient(90deg, rgba(15,23,42,0.035) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(15,23,42,0.035) 1px, transparent 1px),
+        radial-gradient(circle at 8% 0%, rgba(21,101,255,0.1), transparent 28%),
+        #f8fbff;
+      background-size: 42px 42px, 42px 42px, auto, auto;
+    }
+
+    .plan-router-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .plan-router h2 {
+      color: #0f172a;
+      font-size: clamp(30px, 5vw, 56px);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .plan-router p {
+      max-width: 680px;
+      margin: 0 auto 22px;
+      color: #475569;
+      line-height: 1.65;
+    }
+
+    .plan-filter-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .plan-filter {
+      min-height: 120px;
+      border: 1px solid rgba(15,23,42,0.12);
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(21,101,255,0.12), transparent 35%),
+        #ffffff;
+      color: #0f172a;
+      padding: 16px;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: 0 12px 26px rgba(15,23,42,0.08);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+    }
+
+    .plan-filter:hover,
+    .plan-filter.is-active {
+      transform: translateY(-4px);
+      border-color: rgba(21,101,255,0.34);
+      box-shadow: 0 18px 34px rgba(15,23,42,0.13);
+    }
+
+    .plan-filter.is-active {
+      background:
+        radial-gradient(circle at 100% 0%, rgba(215,255,63,0.26), transparent 35%),
+        linear-gradient(135deg, #10211d, #173f36);
+      color: #ffffff;
+    }
+
+    .plan-filter strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 6px;
+      color: inherit;
+    }
+
+    .plan-filter span {
+      display: block;
+      color: #64748b;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .plan-filter.is-active span {
+      color: rgba(255,255,255,0.78);
+    }
+
+    .plan-filter small {
+      display: inline-flex;
+      margin-bottom: 10px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: #eef4ff;
+      color: #1565ff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .plan-filter.is-active small {
+      background: #d7ff3f;
+      color: #07140f;
+    }
+
+    .plan-section {
+      transition: opacity 0.24s ease, transform 0.24s ease;
+    }
+
+    .plan-section.is-hidden {
+      display: none;
+    }
+
     .web-legal-cta {
       margin-top: 28px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
       text-align: center;
     }
 
@@ -537,12 +1180,357 @@
       border-radius: 999px;
     }
 
+    #planes-apps {
+      margin: 40px 0;
+      padding: 0 6%;
+    }
+
+    .apps-pricing-shell {
+      position: relative;
+      overflow: hidden;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: clamp(28px, 5vw, 58px);
+      border: 1px solid rgba(16, 33, 29, 0.14);
+      border-radius: 30px;
+      background:
+        linear-gradient(90deg, rgba(16,33,29,0.045) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(16,33,29,0.045) 1px, transparent 1px),
+        radial-gradient(circle at 8% 4%, rgba(215,255,63,0.32), transparent 28%),
+        radial-gradient(circle at 96% 12%, rgba(18,217,183,0.2), transparent 30%),
+        radial-gradient(circle at 88% 86%, rgba(255,138,31,0.1), transparent 26%),
+        #f7fcfa;
+      background-size: 54px 54px, 54px 54px, auto, auto, auto, auto;
+      box-shadow: 0 24px 58px rgba(23, 70, 62, 0.12);
+    }
+
+    .apps-pricing-shell::before {
+      content: "";
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      right: -180px;
+      top: -180px;
+      border-radius: 999px;
+      background: rgba(215,255,63,0.18);
+      pointer-events: none;
+    }
+
+    .apps-section-head {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 0.46fr);
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 26px;
+    }
+
+    .apps-kicker {
+      display: inline-flex;
+      width: fit-content;
+      margin-bottom: 12px;
+      padding: 8px 11px;
+      border: 1px solid rgba(16,33,29,0.14);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.78);
+      color: #1f5d50;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 12px 22px rgba(23,70,62,0.08);
+    }
+
+    .apps-section-head h2 {
+      max-width: 760px;
+      color: #10211d;
+      font-size: clamp(42px, 7vw, 86px);
+      line-height: 0.94;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+    }
+
+    .apps-section-head p {
+      max-width: 560px;
+      margin-top: 12px;
+      color: #35524b;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .apps-decision {
+      display: grid;
+      gap: 10px;
+    }
+
+    .decision-pill {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: center;
+      padding: 11px 12px;
+      border: 1px solid rgba(16,33,29,0.12);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.78);
+      box-shadow: 0 10px 20px rgba(23,70,62,0.07);
+    }
+
+    .decision-pill strong {
+      color: #10211d;
+      font-size: 14px;
+    }
+
+    .decision-pill span {
+      color: #48655e;
+      font-size: 13px;
+    }
+
+    .decision-dot {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #d7ff3f, #18bf88);
+      color: #07140f;
+      font-weight: 800;
+    }
+
+    .app-plan-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .app-plan-card {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      padding: 24px;
+      border: 1px solid rgba(16,33,29,0.14);
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(215,255,63,0.16), transparent 34%),
+        linear-gradient(180deg, rgba(255,255,255,0.98), rgba(244,251,249,0.94));
+      box-shadow: 0 16px 34px rgba(23,70,62,0.1);
+      transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+    }
+
+    .app-plan-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(24,191,136,0.36);
+      box-shadow: 0 24px 48px rgba(23,70,62,0.16);
+    }
+
+    .app-plan-card.is-featured {
+      border-color: rgba(215,255,63,0.72);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(215,255,63,0.34), transparent 32%),
+        radial-gradient(circle at 100% 18%, rgba(18,217,183,0.2), transparent 32%),
+        linear-gradient(180deg, #10211d, #143c34);
+      color: #fff;
+      transform: translateY(-10px);
+    }
+
+    .app-plan-card.is-featured:hover {
+      transform: translateY(-16px);
+    }
+
+    .app-plan-card.is-featured h3,
+    .app-plan-card.is-featured .app-plan-price,
+    .app-plan-card.is-featured .app-plan-label,
+    .app-plan-card.is-featured li,
+    .app-plan-card.is-featured p {
+      color: #fff;
+    }
+
+    .app-plan-card.is-featured .app-feature-list li {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.16);
+    }
+
+    .app-plan-card.is-featured .app-secondary {
+      color: #ffffff;
+      border-color: rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .app-plan-label {
+      color: #1f5d50;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .app-plan-card h3 {
+      margin: 16px 0 10px;
+      color: #10211d;
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 0.9;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+    }
+
+    .app-plan-price {
+      margin-bottom: 10px;
+      color: #10211d;
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .app-plan-card p {
+      color: #48655e;
+      line-height: 1.65;
+      font-size: 14px;
+    }
+
+    .app-feature-list {
+      display: grid;
+      gap: 8px;
+      margin: 18px 0 22px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .app-feature-list li {
+      padding: 9px 10px;
+      border: 1px solid rgba(16,33,29,0.1);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.78);
+      color: #3b5a54;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .app-plan-actions {
+      display: grid;
+      gap: 9px;
+      margin-top: auto;
+    }
+
+    .app-primary,
+    .app-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 800;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .app-primary {
+      background: linear-gradient(135deg, #d7ff3f, #94ff22);
+      color: #07140f;
+      box-shadow: 0 14px 24px rgba(130, 210, 31, 0.24);
+    }
+
+    .app-secondary {
+      border: 1px solid rgba(16,33,29,0.16);
+      background: rgba(255,255,255,0.74);
+      color: #173b34;
+    }
+
+    .app-primary:hover,
+    .app-secondary:hover {
+      transform: translateY(-2px);
+    }
+
+    .app-plan-badge {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #d7ff3f;
+      color: #07140f;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .apps-bottom-note {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 18px;
+      padding: 16px;
+      border: 1px solid rgba(16,33,29,0.12);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.72);
+      box-shadow: 0 12px 24px rgba(23,70,62,0.07);
+    }
+
+    .apps-bottom-note p {
+      flex: 1 1 420px;
+      color: #35524b;
+      line-height: 1.6;
+    }
+
+    .apps-bottom-note strong {
+      color: #10211d;
+    }
+
+    body.dark-mode #planes-apps,
+    body.dark-mode .apps-pricing-shell,
+    body.dark-mode .apps-section-head h2,
+    body.dark-mode .apps-section-head p,
+    body.dark-mode .app-plan-card h3,
+    body.dark-mode .app-plan-price,
+    body.dark-mode .app-plan-card p,
+    body.dark-mode .app-feature-list li,
+    body.dark-mode .decision-pill strong,
+    body.dark-mode .decision-pill span,
+    body.dark-mode .apps-bottom-note p,
+    body.dark-mode .apps-bottom-note strong {
+      color: inherit;
+    }
+
+    body.dark-mode .apps-pricing-shell {
+      color: #10211d;
+    }
+
+    body.dark-mode .app-primary {
+      color: #07140f;
+    }
+
+    body.dark-mode .app-secondary {
+      color: #173b34;
+    }
+
     footer {
       background: linear-gradient(135deg, #0f3aa8, #1565ff 55%, #1f6bff);
       color: white;
       margin-top: 80px;
       position: relative;
       box-shadow: 0 -12px 40px rgba(15, 23, 42, 0.22);
+    }
+
+    body.plan-auto-active footer {
+      margin-top: 0;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(0,229,255,0.12), transparent 30%),
+        radial-gradient(circle at 82% 20%, rgba(168,85,247,0.12), transparent 32%),
+        linear-gradient(135deg, #060a14, #0c1120 62%, #060a14);
+      border-top: 1px solid rgba(0,229,255,0.16);
+      box-shadow: 0 -18px 46px rgba(0,0,0,0.35);
     }
 
     .footer-inner {
@@ -854,6 +1842,32 @@
       box-shadow: 0 8px 20px rgba(248, 113, 113, 0.15);
     }
 
+    body.dark-mode .plan-router {
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,0.035) 1px, transparent 1px),
+        radial-gradient(circle at 8% 0%, rgba(59,130,246,0.18), transparent 28%),
+        #0f172a;
+    }
+
+    body.dark-mode .plan-router h2 {
+      color: #f8fafc;
+    }
+
+    body.dark-mode .plan-router p {
+      color: #dbe4f0;
+    }
+
+    body.dark-mode .plan-filter {
+      background: #1e293b;
+      color: #f8fafc;
+      border-color: rgba(255,255,255,0.12);
+    }
+
+    body.dark-mode .plan-filter span {
+      color: #cbd5e1;
+    }
+
     body.dark-mode footer {
       background: #0b1220;
     }
@@ -900,6 +1914,404 @@
       color: #f8fafc;
     }
 
+    .plan-section-intro {
+      max-width: 720px;
+      margin: 10px auto 28px;
+      text-align: center;
+      color: #475569;
+      line-height: 1.65;
+    }
+
+    #planes-web {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 78% 8%, rgba(10,116,255,0.13), transparent 34%),
+        radial-gradient(circle at 12% 72%, rgba(0,194,168,0.1), transparent 30%),
+        linear-gradient(180deg, #ffffff, #f4f4f2 48%, #ecebe8);
+    }
+
+    #planes-web::before {
+      content: "";
+      position: absolute;
+      inset: 34px 6%;
+      border: 1px solid rgba(10,10,10,0.08);
+      border-radius: 34px;
+      pointer-events: none;
+    }
+
+    #planes-web h2 {
+      position: relative;
+      color: #0a0a0a;
+      font-size: clamp(42px, 7vw, 82px);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+    }
+
+    #planes-web .plan-section-intro {
+      position: relative;
+      color: #5b5b5b;
+    }
+
+    #planes-web .services {
+      position: relative;
+      max-width: 1180px;
+      margin-left: auto;
+      margin-right: auto;
+      gap: 18px;
+    }
+
+    #planes-web .card {
+      overflow: hidden;
+      border: 1px solid rgba(10,10,10,0.1);
+      border-radius: 24px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(247,247,244,0.94)),
+        radial-gradient(circle at 100% 0%, rgba(10,116,255,0.13), transparent 34%);
+      box-shadow: 0 22px 54px rgba(0,0,0,0.1);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    #planes-web .card::before {
+      content: "";
+      position: absolute;
+      left: 24px;
+      top: 24px;
+      width: 44px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #0a74ff, #00c2a8);
+    }
+
+    #planes-web .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(10,116,255,0.28);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.14);
+    }
+
+    #planes-web .card h3 {
+      margin-top: 20px;
+      color: #0a0a0a;
+      font-size: 30px;
+      letter-spacing: -0.04em;
+    }
+
+    #planes-web .price {
+      color: #0a74ff;
+      letter-spacing: -0.04em;
+    }
+
+    #planes-web .price-note,
+    #planes-web .card ul {
+      color: #5b5b5b;
+    }
+
+    #planes-web .cta {
+      border-radius: 999px;
+      background: #0a0a0a;
+      color: #ffffff;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.16);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    #planes-web .cta:hover {
+      transform: translateY(-2px);
+      background: #0a74ff;
+    }
+
+    #planes-web .premium-card {
+      border-color: rgba(10,116,255,0.3);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(0,194,168,0.16), transparent 34%),
+        linear-gradient(180deg, #ffffff, #eef7ff);
+    }
+
+    #planes-web .premium-badge {
+      background: #0a74ff;
+    }
+
+    #planes-web .outline-cta {
+      border-color: #0a0a0a;
+      color: #0a0a0a;
+      border-radius: 999px;
+    }
+
+    #planes-web .outline-cta:hover {
+      background: #0a0a0a;
+      color: #ffffff;
+    }
+
+    #planes-automatizaciones {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 24% 16%, rgba(0,229,255,0.16), transparent 34%),
+        radial-gradient(circle at 84% 72%, rgba(168,85,247,0.16), transparent 36%),
+        linear-gradient(180deg, #060a14, #0c1120 58%, #060a14);
+      color: #f1f5f9;
+    }
+
+    #planes-automatizaciones::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(148,163,184,0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148,163,184,0.055) 1px, transparent 1px),
+        radial-gradient(circle at 68% 42%, rgba(0,229,255,0.18) 0 2px, transparent 3px);
+      background-size: 48px 48px, 48px 48px, auto;
+      pointer-events: none;
+    }
+
+    #planes-automatizaciones h2,
+    #planes-automatizaciones .services {
+      position: relative;
+      z-index: 1;
+    }
+
+    #planes-automatizaciones h2 {
+      color: #f1f5f9;
+      font-size: clamp(42px, 7vw, 82px);
+      line-height: 0.95;
+      letter-spacing: -0.055em;
+      text-shadow: 0 0 28px rgba(0,229,255,0.2);
+    }
+
+    #planes-automatizaciones .plan-section-intro {
+      position: relative;
+      z-index: 1;
+      color: #94a3b8;
+    }
+
+    #planes-automatizaciones .services {
+      max-width: 1180px;
+      margin-left: auto;
+      margin-right: auto;
+      gap: 18px;
+    }
+
+    #planes-automatizaciones .card {
+      overflow: hidden;
+      border: 1px solid rgba(148,163,184,0.12);
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(0,229,255,0.13), transparent 34%),
+        linear-gradient(160deg, rgba(17,24,39,0.96), rgba(12,17,32,0.94));
+      color: #f1f5f9;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.34);
+      transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+    }
+
+    #planes-automatizaciones .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(0,229,255,0.34);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.44), 0 0 34px rgba(0,229,255,0.12);
+    }
+
+    #planes-automatizaciones .card h3 {
+      color: #f8fafc;
+      font-size: 30px;
+      letter-spacing: -0.04em;
+    }
+
+    #planes-automatizaciones .price {
+      color: #00e5ff;
+      text-shadow: 0 0 22px rgba(0,229,255,0.22);
+    }
+
+    #planes-automatizaciones .price-note,
+    #planes-automatizaciones .card ul {
+      color: #94a3b8;
+    }
+
+    #planes-automatizaciones .cta {
+      border-radius: 999px;
+      background: linear-gradient(135deg, #00e5ff, #22c55e);
+      color: #061018;
+      box-shadow: 0 14px 28px rgba(0,229,255,0.18);
+    }
+
+    #planes-automatizaciones .premium-card {
+      border-color: rgba(168,85,247,0.44);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(168,85,247,0.24), transparent 34%),
+        linear-gradient(160deg, rgba(17,24,39,0.98), rgba(37,20,60,0.84));
+    }
+
+    #planes-automatizaciones .premium-badge {
+      background: #a855f7;
+    }
+
+    .auto-compare-cta {
+      position: relative;
+      z-index: 1;
+      margin-top: 26px;
+      text-align: center;
+    }
+
+    .auto-compare-cta .cta {
+      border-radius: 999px;
+      background: transparent;
+      color: #00e5ff;
+      border: 1px solid rgba(0,229,255,0.34);
+      box-shadow: 0 0 28px rgba(0,229,255,0.08);
+    }
+
+    .auto-compare-cta .cta:hover {
+      background: rgba(0,229,255,0.1);
+    }
+
+    #plan-personalizado {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 10% 12%, rgba(21,101,255,0.16), transparent 30%),
+        radial-gradient(circle at 92% 26%, rgba(215,255,63,0.16), transparent 28%),
+        linear-gradient(135deg, #f8fbff, #f2f8f8);
+    }
+
+    #plan-personalizado h2 {
+      color: #10211d;
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: 0.96;
+      letter-spacing: -0.055em;
+    }
+
+    #plan-personalizado .plan-section-intro {
+      color: #35524b;
+    }
+
+    #plan-personalizado .card {
+      border: 1px solid rgba(16,33,29,0.14);
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at 92% 0%, rgba(215,255,63,0.22), transparent 32%),
+        radial-gradient(circle at 0% 100%, rgba(21,101,255,0.14), transparent 30%),
+        #ffffff;
+      box-shadow: 0 24px 58px rgba(23,70,62,0.12);
+    }
+
+    #plan-personalizado .premium-badge {
+      background: #10211d;
+      color: #d7ff3f;
+    }
+
+    #plan-personalizado .card h3,
+    #plan-personalizado .price {
+      color: #10211d;
+    }
+
+    #plan-personalizado .price-note,
+    #plan-personalizado .card ul,
+    #plan-personalizado .card li {
+      color: #2f4a44;
+    }
+
+    #plan-personalizado .cta {
+      border-radius: 999px;
+      background: linear-gradient(135deg, #10211d, #173f36);
+      color: #ffffff;
+    }
+
+    body.dark-mode #planes-web,
+    body.dark-mode #plan-personalizado {
+      color: #10211d;
+    }
+
+    body.dark-mode #planes-web h2,
+    body.dark-mode #planes-web .card h3,
+    body.dark-mode #planes-web .card ul,
+    body.dark-mode #planes-web .card li,
+    body.dark-mode #planes-web .price-note,
+    body.dark-mode #plan-personalizado h2,
+    body.dark-mode #plan-personalizado .card h3,
+    body.dark-mode #plan-personalizado .price,
+    body.dark-mode #plan-personalizado .card ul,
+    body.dark-mode #plan-personalizado .card li,
+    body.dark-mode #plan-personalizado .price-note {
+      color: inherit;
+    }
+
+    body.dark-mode #planes-web {
+      background:
+        radial-gradient(circle at 10% 12%, rgba(10,116,255,0.18), transparent 30%),
+        radial-gradient(circle at 90% 18%, rgba(0,194,168,0.16), transparent 28%),
+        linear-gradient(135deg, #07111f, #0b1727);
+    }
+
+    body.dark-mode #planes-web h2 {
+      color: #f8fbff;
+    }
+
+    body.dark-mode #planes-web .plan-section-intro {
+      color: #c7d7e8;
+    }
+
+    body.dark-mode #planes-web .card {
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.98), rgba(238,247,255,0.96)),
+        radial-gradient(circle at 100% 0%, rgba(10,116,255,0.16), transparent 34%);
+      border-color: rgba(255,255,255,0.18);
+      color: #0a0a0a;
+      box-shadow: 0 24px 58px rgba(0,0,0,0.28);
+    }
+
+    body.dark-mode #planes-web .premium-card {
+      background:
+        radial-gradient(circle at 100% 0%, rgba(0,194,168,0.16), transparent 34%),
+        linear-gradient(180deg, #ffffff, #eef7ff);
+      border-color: rgba(10,116,255,0.34);
+    }
+
+    body.dark-mode #planes-web .card h3 {
+      color: #0a0a0a;
+    }
+
+    body.dark-mode #planes-web .price {
+      color: #0a74ff;
+    }
+
+    body.dark-mode #planes-web .price-note,
+    body.dark-mode #planes-web .card ul,
+    body.dark-mode #planes-web .card li {
+      color: #475569;
+    }
+
+    body.dark-mode #planes-web .cta {
+      background: #0a0a0a;
+      color: #ffffff;
+    }
+
+    body.dark-mode #planes-web .premium-badge {
+      background: #0a74ff;
+      color: #ffffff;
+    }
+
+    body.dark-mode #planes-web .outline-cta {
+      border-color: rgba(255,255,255,0.42);
+      color: #f8fbff;
+      background: rgba(255,255,255,0.06);
+    }
+
+    body.dark-mode #plan-personalizado .card {
+      background:
+        radial-gradient(circle at 92% 0%, rgba(215,255,63,0.22), transparent 32%),
+        radial-gradient(circle at 0% 100%, rgba(21,101,255,0.14), transparent 30%),
+        #ffffff;
+      border-color: rgba(16,33,29,0.16);
+    }
+
+    body.dark-mode #plan-personalizado .card h3,
+    body.dark-mode #plan-personalizado .price {
+      color: #10211d;
+    }
+
+    body.dark-mode #plan-personalizado .price-note,
+    body.dark-mode #plan-personalizado .card ul,
+    body.dark-mode #plan-personalizado .card li {
+      color: #2f4a44;
+    }
+
     .js-enabled .reveal-item {
       opacity: 0;
       transform: translateY(32px);
@@ -915,9 +2327,20 @@
       filter: blur(0);
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
     @media(max-width:1024px) {
       body {
-        padding-top: 124px;
+        padding-top: 72px;
       }
 
       header {
@@ -978,11 +2401,40 @@
         background: #111827;
         box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
       }
+
+      #planes-apps {
+        padding: 0 5%;
+      }
+
+      .plan-filter-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .apps-section-head {
+        grid-template-columns: 1fr;
+      }
+
+      .app-plan-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .app-plan-card.is-featured {
+        transform: none;
+      }
+
+      .app-plan-card.is-featured:hover {
+        transform: translateY(-8px);
+      }
+
+      .apps-bottom-note {
+        flex-direction: column;
+        align-items: stretch;
+      }
     }
 
     @media(max-width:768px) {
       body {
-        padding-top: 124px;
+        padding-top: 56px;
       }
 
       header {
@@ -1048,12 +2500,12 @@
 
       .hero {
         height: auto;
-        min-height: 280px;
-        padding: 64px 5% 36px;
+        min-height: 420px;
+        padding: 28px 5% 36px;
       }
 
       .hero h1 {
-        font-size: 36px;
+        font-size: clamp(40px, 12vw, 58px);
       }
 
       .hero p {
@@ -1064,6 +2516,74 @@
       section {
         padding: 72px 5%;
         scroll-margin-top: 118px;
+      }
+
+      .plan-router {
+        padding: 36px 5% 10px;
+      }
+
+      .plan-filter-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .plan-filter {
+        min-height: auto;
+      }
+
+      .entry-screen {
+        padding: 22px 5%;
+      }
+
+      .entry-logo {
+        width: min(210px, 72vw);
+        margin-bottom: 16px;
+      }
+
+      .entry-panel h2 {
+        font-size: clamp(40px, 12vw, 62px);
+      }
+
+      .entry-panel p {
+        font-size: 15px;
+      }
+
+      .entry-grid {
+        grid-template-columns: 1fr;
+        gap: 9px;
+      }
+
+      .entry-choice {
+        min-height: auto;
+      }
+
+      .hero-logo {
+        width: min(210px, 72vw);
+        margin-bottom: 16px;
+      }
+
+      .hero .plan-filter {
+        min-height: auto;
+      }
+
+      #planes-apps {
+        padding: 0 4%;
+      }
+
+      .apps-pricing-shell {
+        border-radius: 22px;
+        padding: 24px;
+      }
+
+      .apps-section-head h2 {
+        font-size: clamp(36px, 12vw, 58px);
+      }
+
+      .app-plan-card {
+        padding: 20px;
+      }
+
+      .app-plan-card h3 {
+        font-size: 36px;
       }
 
       .services {
@@ -1125,6 +2645,40 @@
       style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
+  <div id="planEntryScreen" class="entry-screen" role="dialog" aria-modal="true" aria-labelledby="entryTitle">
+    <div class="entry-panel">
+      <div class="entry-logo">
+        <img loading="lazy" src="LUCKYBASE logo letras.png" alt="LuckyBase">
+      </div>
+      <span class="entry-kicker">Selector de planes LuckyBase</span>
+      <h2 id="entryTitle">Elige el tipo de servicio</h2>
+      <p>Antes de enseñarte precios, queremos quitar ruido. Escoge lo que necesitas y verás solo los planes que encajan con tu caso.</p>
+      <div class="entry-grid" aria-label="Elegir tipo de servicio">
+        <button class="entry-choice" type="button" data-entry-filter="web">
+          <small>Web</small>
+          <strong>Necesito una página web</strong>
+          <span>Landing, web corporativa o ecommerce.</span>
+        </button>
+        <button class="entry-choice" type="button" data-entry-filter="apps">
+          <small>Apps</small>
+          <strong>Quiero crear una app</strong>
+          <span>MVP, app de negocio o producto avanzado.</span>
+        </button>
+        <button class="entry-choice" type="button" data-entry-filter="auto">
+          <small>Auto</small>
+          <strong>Quiero automatizar procesos</strong>
+          <span>Ahorrar horas, conectar herramientas y escalar.</span>
+        </button>
+        <button class="entry-choice" type="button" data-entry-filter="custom">
+          <small>A medida</small>
+          <strong>No encajo en un plan cerrado</strong>
+          <span>Backend, APIs, plataforma o proyecto completo.</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
 
   <header>
     <div class="logo">
@@ -1135,6 +2689,7 @@
       <a href="index.html#inicio">Inicio</a>
       <a href="index.html#servicios">Servicios</a>
       <a href="luckyweb.html">LuckyWeb</a>
+      <a href="apps.html">Apps</a>
       <a href="automatizaciones.html">LuckyAuto</a>
       <a href="planes.html">Planes</a>
       <a href="index.html#about">Nosotros</a>
@@ -1154,17 +2709,22 @@
 
 
   <section class="hero">
-    <h1>Planes LuckyBase</h1>
-    <p>Elige el plan que mejor encaja con tu negocio en automatizaciones y desarrollo web.</p>
-    <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-top: 22px;">
-      <a class="cta" href="comparador-planes-web.html" style="margin-top:0;">Comparar planes web</a>
-      <a class="cta" href="comparador-planes-auto.html"
-        style="margin-top:0; background:transparent; color:white; border:2px solid white;">Comparar automatizaciones</a>
+    <div class="hero-inner">
+      <div class="hero-logo">
+        <img loading="lazy" src="LUCKYBASE logo letras.png" alt="LuckyBase">
+      </div>
+      <span class="hero-kicker">Planes LuckyBase</span>
+      <h1>Planes claros para avanzar sin ruido.</h1>
+      <p>La pantalla inicial te ayuda a escoger el servicio. Después verás solo los planes relacionados con esa elección.</p>
+      <div class="hero-quick-links" aria-label="Selector de servicio">
+        <button type="button" data-open-entry>Elegir otro servicio</button>
+      </div>
     </div>
   </section>
 
-  <section id="planes-web">
+  <section id="planes-web" class="plan-section" data-plan-group="web" role="tabpanel">
     <h2 class="reveal-item" style="text-align:center">Planes de Páginas Web</h2>
+    <p class="plan-section-intro reveal-item">Presencia online clara, rápida y preparada para convertir visitas en contactos, reservas o ventas.</p>
     <div class="services">
       <div class="card reveal-item">
         <h3>LuckyWeb Basic</h3>
@@ -1209,12 +2769,93 @@
       </div>
     </div>
     <div class="web-legal-cta reveal-item">
+      <a class="outline-cta" href="comparador-planes-web.html">Comparar planes web</a>
       <a class="outline-cta" href="terminos-contratacion-web.html">Ver términos y condiciones de contratación web</a>
     </div>
   </section>
 
-  <section id="plan-personalizado">
+  <section id="planes-apps" class="plan-section" data-plan-group="apps" role="tabpanel">
+    <div class="apps-pricing-shell">
+      <div class="apps-section-head">
+        <div>
+          <span class="apps-kicker reveal-item">Planes LuckyApp // producto digital</span>
+          <h2 class="reveal-item">Elige la app que necesita tu negocio ahora.</h2>
+          <p class="reveal-item">No todos los proyectos necesitan lo mismo. Por eso separamos validación, operación y escala: para invertir donde toca y avanzar con una ruta clara.</p>
+        </div>
+
+        <div class="apps-decision reveal-item" aria-label="Guía rápida para elegir plan">
+          <div class="decision-pill"><span class="decision-dot">1</span><div><strong>Validar idea</strong><span>MVP Rápido</span></div></div>
+          <div class="decision-pill"><span class="decision-dot">2</span><div><strong>Operar negocio</strong><span>App Negocio</span></div></div>
+          <div class="decision-pill"><span class="decision-dot">3</span><div><strong>Escalar producto</strong><span>App Scale</span></div></div>
+        </div>
+      </div>
+
+      <div class="app-plan-grid">
+        <article class="app-plan-card reveal-item">
+          <span class="app-plan-label">Para validar rápido</span>
+          <h3>MVP Rápido</h3>
+          <p class="app-plan-price">Desde 1.400 €</p>
+          <p>Primera versión funcional para probar mercado, enseñar producto y decidir el siguiente paso con menos riesgo.</p>
+          <ul class="app-feature-list">
+            <li>Discovery y arquitectura inicial.</li>
+            <li>Diseño UX/UI del flujo principal.</li>
+            <li>Desarrollo MVP funcional y QA base.</li>
+            <li>Publicación inicial y ruta de mejora.</li>
+          </ul>
+          <div class="app-plan-actions">
+            <a class="app-primary" href="plan-mvp-rapido.html">Ver detalle del plan</a>
+            <a class="app-secondary" href="index.html?servicio=apps&amp;plan=mvp-rapido#contacto">Solicitar MVP</a>
+          </div>
+        </article>
+
+        <article class="app-plan-card is-featured reveal-item">
+          <span class="app-plan-badge">Más elegido</span>
+          <span class="app-plan-label">Para operar de verdad</span>
+          <h3>App Negocio</h3>
+          <p class="app-plan-price">Desde 3.999 €</p>
+          <p>App más completa para empresas que necesitan panel, roles, integraciones y control desde el lanzamiento.</p>
+          <ul class="app-feature-list">
+            <li>Todo lo esencial del paquete MVP.</li>
+            <li>Panel de administración y roles.</li>
+            <li>Integración API / CRM / notificaciones.</li>
+            <li>Analítica y soporte de lanzamiento.</li>
+          </ul>
+          <div class="app-plan-actions">
+            <a class="app-primary" href="plan-app-negocio.html">Ver detalle del plan</a>
+            <a class="app-secondary" href="index.html?servicio=apps&amp;plan=app-negocio#contacto">Solicitar App Negocio</a>
+          </div>
+        </article>
+
+        <article class="app-plan-card reveal-item">
+          <span class="app-plan-label">Para escala avanzada</span>
+          <h3>App Scale</h3>
+          <p class="app-plan-price">A medida</p>
+          <p>Para productos complejos, integraciones avanzadas o una hoja de ruta evolutiva con varios hitos.</p>
+          <ul class="app-feature-list">
+            <li>Arquitectura escalable y roadmap técnico.</li>
+            <li>Integraciones avanzadas y módulos a medida.</li>
+            <li>Desarrollo por hitos de negocio.</li>
+            <li>Documentación y transferencia técnica.</li>
+          </ul>
+          <div class="app-plan-actions">
+            <a class="app-primary" href="plan-app-scale.html">Ver detalle del plan</a>
+            <a class="app-secondary" href="index.html?servicio=apps&amp;plan=app-scale#contacto">Solicitar presupuesto</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="apps-bottom-note reveal-item">
+        <p><strong>¿No sabes cuál elegir?</strong> Si tu idea todavía no está validada, empieza por MVP. Si ya tienes operación o clientes, App Negocio suele ser la opción con mejor retorno.</p>
+        <a class="app-secondary" href="comparador-planes-apps.html">Comparar planes de apps</a>
+        <a class="app-secondary" href="terminos-contratacion-apps.html">Ver documentación completa</a>
+        <a class="app-secondary" href="apps.html#planes-apps">Ver explicación completa</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="plan-personalizado" class="plan-section" data-plan-group="custom" role="tabpanel">
     <h2 class="reveal-item" style="text-align:center">Plan Personalizado</h2>
+    <p class="plan-section-intro reveal-item">Para proyectos que necesitan arquitectura propia, integración profunda o una solución que no cabe en un paquete cerrado.</p>
     <div class="services" style="max-width:720px;margin:0 auto;">
       <div class="card premium-card reveal-item" style="flex:1;">
         <span class="premium-badge">A MEDIDA</span>
@@ -1237,8 +2878,9 @@
     </div>
   </section>
 
-  <section>
+  <section id="planes-automatizaciones" class="plan-section" data-plan-group="auto" role="tabpanel">
     <h2 class="reveal-item" style="text-align:center">Planes de Automatizaciones</h2>
+    <p class="plan-section-intro reveal-item">Flujos, integraciones e IA para reducir tareas repetitivas y mover tu negocio con menos fricción.</p>
     <div class="services">
       <div class="card reveal-item">
         <h3>Plan Básico</h3>
@@ -1284,6 +2926,10 @@
         <a class="cta" href="index.html#contacto">Solicitar plan</a>
       </div>
     </div>
+    <div class="auto-compare-cta reveal-item">
+      <a class="cta" href="comparador-planes-auto.html">Comparar automatizaciones</a>
+      <a class="cta" href="terminos-contratacion-auto.html">Ver documentación</a>
+    </div>
   </section>
 
   <footer class="site-footer">
@@ -1321,9 +2967,11 @@
         <h4>Servicios</h4>
         <ul>
           <li><a href="luckyweb.html">LuckyWeb</a></li>
+          <li><a href="apps.html">Apps a medida</a></li>
           <li><a href="automatizaciones.html">LuckyAuto</a></li>
           <li><a href="planes.html">Planes</a></li>
           <li><a href="comparador-planes-web.html">Comparador de planes</a></li>
+          <li><a href="comparador-planes-apps.html">Comparador apps</a></li>
           <li><a href="automatizaciones.html">Automatizaciones</a></li>
         </ul>
       </div>
@@ -1360,6 +3008,12 @@
     const navToggle = document.getElementById("navToggle")
     const themeToggle = document.getElementById("themeToggle")
     const footerLogo = document.getElementById("footerLogo")
+    const planEntryScreen = document.getElementById("planEntryScreen")
+    const entryChoices = [...document.querySelectorAll("[data-entry-filter]")]
+    const entrySkip = document.querySelector("[data-entry-skip]")
+    const entryOpenButtons = [...document.querySelectorAll("[data-open-entry]")]
+    const planFilters = [...document.querySelectorAll("[data-plan-filter]")]
+    const planSections = [...document.querySelectorAll("[data-plan-group]")]
     const tabletBreakpoint = 1024
 
     const sunIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="5"></line><line x1="12" y1="19" x2="12" y2="22"></line><line x1="2" y1="12" x2="5" y2="12"></line><line x1="19" y1="12" x2="22" y2="12"></line><line x1="4.9" y1="4.9" x2="7" y2="7"></line><line x1="17" y1="17" x2="19.1" y2="19.1"></line><line x1="17" y1="7" x2="19.1" y2="4.9"></line><line x1="4.9" y1="19.1" x2="7" y2="17"></line></svg>'
@@ -1367,11 +3021,12 @@
 
     document.body.classList.add("js-enabled")
 
-    const revealTargets = [
+    const revealTargets = [...new Set([
       ...document.querySelectorAll("section h2"),
       ...document.querySelectorAll(".services .card"),
-      ...document.querySelectorAll(".web-legal-cta")
-    ]
+      ...document.querySelectorAll(".web-legal-cta"),
+      ...document.querySelectorAll("#planes-apps .reveal-item")
+    ])]
 
     revealTargets.forEach((el, index) => {
       el.classList.add("reveal-item")
@@ -1393,6 +3048,153 @@
 
       revealTargets.forEach((el) => revealObserver.observe(el))
     }
+
+    const hashToPlan = {
+      "#planes-web": "web",
+      "#planes-apps": "apps",
+      "#planes-automatizaciones": "auto",
+      "#plan-personalizado": "custom"
+    }
+
+    const planToHash = {
+      web: "planes-web",
+      apps: "planes-apps",
+      auto: "planes-automatizaciones",
+      custom: "plan-personalizado"
+    }
+
+    function setActivePlan(group, shouldScroll = false) {
+      const selectedGroup = planToHash[group] ? group : "web"
+
+      planFilters.forEach((button) => {
+        const isActive = button.dataset.planFilter === selectedGroup
+        button.classList.toggle("is-active", isActive)
+        button.setAttribute("aria-selected", isActive ? "true" : "false")
+      })
+
+      planSections.forEach((section) => {
+        const isActive = section.dataset.planGroup === selectedGroup
+        section.classList.toggle("is-hidden", !isActive)
+        section.setAttribute("aria-hidden", isActive ? "false" : "true")
+
+        if (isActive) {
+          section.querySelectorAll(".reveal-item").forEach((el) => el.classList.add("is-visible"))
+        }
+      })
+
+      document.body.classList.toggle("plan-auto-active", selectedGroup === "auto")
+
+      const activeSection = document.getElementById(planToHash[selectedGroup])
+      if (activeSection && shouldScroll) {
+        activeSection.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" })
+      }
+    }
+
+    const initialPlan = hashToPlan[window.location.hash] || "web"
+    setActivePlan(initialPlan)
+    if (hashToPlan[window.location.hash]) {
+      planEntryScreen?.classList.add("is-hidden")
+      document.body.classList.remove("entry-active")
+      requestAnimationFrame(() => setActivePlan(initialPlan, true))
+    } else {
+      document.body.classList.add("entry-active")
+    }
+
+    function closeEntryScreen() {
+      if (!planEntryScreen) return
+      planEntryScreen.classList.add("is-hidden")
+      planEntryScreen.setAttribute("aria-hidden", "true")
+      document.body.classList.remove("entry-active")
+    }
+
+    function openEntryScreen() {
+      if (!planEntryScreen) return
+      planEntryScreen.classList.remove("is-hidden")
+      planEntryScreen.setAttribute("aria-hidden", "false")
+      document.body.classList.add("entry-active")
+    }
+
+    entryChoices.forEach((button) => {
+      const moveEntryAura = () => {
+        if (!planEntryScreen) return
+        const screenRect = planEntryScreen.getBoundingClientRect()
+        const buttonRect = button.getBoundingClientRect()
+        const x = ((buttonRect.left + buttonRect.width / 2 - screenRect.left) / screenRect.width) * 100
+        const y = ((buttonRect.top + buttonRect.height / 2 - screenRect.top) / screenRect.height) * 100
+        planEntryScreen.style.setProperty("--aura-x", `${x}%`)
+        planEntryScreen.style.setProperty("--aura-y", `${y}%`)
+      }
+
+      const triggerEntryColor = () => {
+        if (!planEntryScreen || !button.dataset.entryFilter) return
+        moveEntryAura()
+        planEntryScreen.dataset.entryTone = button.dataset.entryFilter
+        planEntryScreen.classList.remove("is-color-entering")
+        void planEntryScreen.offsetWidth
+        planEntryScreen.classList.add("is-color-entering")
+      }
+
+      button.addEventListener("mouseenter", () => {
+        triggerEntryColor()
+      })
+
+      button.addEventListener("focus", () => {
+        triggerEntryColor()
+      })
+
+      button.addEventListener("mouseleave", () => {
+        if (planEntryScreen) {
+          planEntryScreen.classList.remove("is-color-entering")
+          delete planEntryScreen.dataset.entryTone
+        }
+      })
+
+      button.addEventListener("blur", () => {
+        if (planEntryScreen) {
+          planEntryScreen.classList.remove("is-color-entering")
+          delete planEntryScreen.dataset.entryTone
+        }
+      })
+
+      button.addEventListener("click", () => {
+        const group = button.dataset.entryFilter || "web"
+        const targetHash = planToHash[group]
+        if (targetHash) {
+          history.replaceState(null, "", `#${targetHash}`)
+        }
+        closeEntryScreen()
+        window.setTimeout(() => setActivePlan(group, true), prefersReducedMotion ? 0 : 260)
+      })
+    })
+
+    if (entrySkip) {
+      entrySkip.addEventListener("click", () => {
+        history.replaceState(null, "", "#planes-web")
+        closeEntryScreen()
+        window.setTimeout(() => setActivePlan("web", true), prefersReducedMotion ? 0 : 260)
+      })
+    }
+
+    entryOpenButtons.forEach((button) => {
+      button.addEventListener("click", openEntryScreen)
+    })
+
+    planFilters.forEach((button) => {
+      button.addEventListener("click", () => {
+        const group = button.dataset.planFilter
+        const targetHash = planToHash[group]
+        if (targetHash) {
+          history.replaceState(null, "", `#${targetHash}`)
+        }
+        setActivePlan(group, true)
+      })
+    })
+
+    window.addEventListener("hashchange", () => {
+      if (hashToPlan[window.location.hash]) {
+        setActivePlan(hashToPlan[window.location.hash], true)
+      }
+    })
 
     window.onscroll = function () {
       if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {

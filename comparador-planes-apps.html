@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="stylesheet" href="cookie-consent.css">
+  <script src="cookie-consent.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="description" content="Compara los planes de apps de LuckyBase: MVP Rápido, App Negocio y App Scale para elegir el nivel adecuado según tu objetivo.">
+  <title>Comparador Planes Apps | LuckyBase</title>
+  <meta property="og:title" content="Comparador Planes Apps | LuckyBase">
+  <meta property="og:description" content="Compara MVP Rápido, App Negocio y App Scale para elegir el plan de app adecuado.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:url" content="https://luckybase.es/comparador-planes-apps.html">
+  <meta property="og:site_name" content="LuckyBase">
+  <meta property="og:image" content="https://luckybase.es/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Comparador Planes Apps | LuckyBase">
+  <meta name="twitter:description" content="Compara MVP Rápido, App Negocio y App Scale.">
+  <meta name="twitter:image" content="https://luckybase.es/og-image.png">
+  <meta name="theme-color" content="#f7faf4">
+  <link rel="canonical" href="https://luckybase.es/comparador-planes-apps.html">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet">
+
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+      var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-K96JRDLJ');</script>
+
+  <style>
+    :root {
+      --ink: #10231f;
+      --muted: #49645f;
+      --surface: #f6faf9;
+      --paper: #ffffff;
+      --line: rgba(16,35,31,0.14);
+      --green: #19c48d;
+      --lime: #d7ff3f;
+      --dark: #0d201c;
+      --blue: #20a7ff;
+      --shadow: 0 20px 48px rgba(13,32,28,0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(16,35,31,0.04) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(16,35,31,0.04) 1px, transparent 1px),
+        radial-gradient(circle at 8% 0%, rgba(215,255,63,0.25), transparent 28%),
+        radial-gradient(circle at 92% 12%, rgba(32,167,255,0.14), transparent 30%),
+        var(--surface);
+      background-size: 52px 52px, 52px 52px, auto, auto, auto;
+      padding-top: 74px;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; }
+    img { max-width: 100%; height: auto; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.045em; }
+    p, li { color: var(--muted); line-height: 1.65; }
+    a:focus-visible, button:focus-visible { outline: 3px solid rgba(25,196,141,0.45); outline-offset: 2px; }
+
+    header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 6%;
+      background: rgba(246,250,249,0.92);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    .logo img { height: 38px; display: block; }
+    nav { display: flex; align-items: center; justify-content: flex-end; gap: 14px; flex-wrap: wrap; flex: 1 1 auto; }
+    nav a { text-decoration: none; font-size: 14px; font-weight: 800; color: #173a33; position: relative; }
+    nav a::after { content: ""; position: absolute; left: 0; bottom: -5px; width: 0; height: 2px; background: var(--green); transition: width 0.2s ease; }
+    nav a:hover::after, nav a.is-active::after { width: 100%; }
+    .nav-login { background: var(--dark); color: #fff !important; padding: 8px 12px; border-radius: 999px; }
+    nav a.nav-login::after { display: none; }
+
+    .nav-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      background: transparent;
+      color: var(--dark);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .nav-toggle .bar { position: absolute; left: 10px; right: 10px; height: 2px; background: currentColor; transition: transform 0.25s ease, opacity 0.2s ease; }
+    .nav-toggle .bar:nth-child(1) { top: 13px; }
+    .nav-toggle .bar:nth-child(2) { top: 20px; }
+    .nav-toggle .bar:nth-child(3) { top: 27px; }
+    .nav-toggle.is-open .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.is-open .bar:nth-child(2) { opacity: 0; }
+    .nav-toggle.is-open .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .theme-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(16,35,31,0.16);
+      border-radius: 50%;
+      background: rgba(255,255,255,0.84);
+      color: var(--dark);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(13,32,28,0.1);
+      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .theme-toggle svg { width: 19px; height: 19px; }
+    .theme-toggle:hover { transform: translateY(-2px); background: var(--lime); }
+
+    .hero {
+      min-height: 62vh;
+      display: grid;
+      align-items: end;
+      padding: 78px 8% 46px;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 72% 16%, rgba(215,255,63,0.38), transparent 18%),
+        radial-gradient(circle at 94% 64%, rgba(32,167,255,0.2), transparent 22%),
+        linear-gradient(135deg, transparent 0 58%, rgba(16,35,31,0.08) 58% 59%, transparent 59%);
+      z-index: -1;
+    }
+
+    .hero-inner { width: min(1160px, 100%); }
+    .eyebrow {
+      display: inline-flex;
+      padding: 8px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.78);
+      color: #1f5d50;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      max-width: 900px;
+      font-size: clamp(48px, 9vw, 108px);
+      line-height: 0.88;
+      text-transform: uppercase;
+      color: #0e211d;
+      margin-bottom: 16px;
+    }
+
+    .hero p { max-width: 720px; font-size: 18px; font-weight: 700; }
+
+    .main { padding: 64px 8% 80px; }
+    .wrap { width: min(1180px, 100%); margin: 0 auto; }
+
+    .recommend {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .rec-card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255,255,255,0.9);
+      padding: 20px;
+      box-shadow: 0 14px 30px rgba(13,32,28,0.08);
+    }
+
+    .rec-card strong {
+      display: block;
+      color: #10231f;
+      font-size: 22px;
+      margin-bottom: 6px;
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: -0.03em;
+    }
+
+    .table-wrap {
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    table {
+      width: 100%;
+      min-width: 860px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 18px;
+      border-bottom: 1px solid rgba(16,35,31,0.1);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eef8f6;
+      color: #10231f;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    td:first-child {
+      color: #10231f;
+      font-weight: 900;
+      width: 24%;
+    }
+
+    td.best {
+      background: linear-gradient(180deg, rgba(215,255,63,0.2), rgba(215,255,63,0.06));
+      color: #10231f;
+      font-weight: 800;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .cta, .cta-line {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 900;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .cta {
+      background: linear-gradient(135deg, var(--lime), #94ff22);
+      color: #07140f;
+      box-shadow: 0 14px 24px rgba(130,210,31,0.24);
+    }
+
+    .cta-line {
+      border: 1px solid rgba(16,35,31,0.18);
+      background: rgba(255,255,255,0.78);
+      color: #173b34;
+    }
+
+    .cta:hover, .cta-line:hover { transform: translateY(-2px); }
+
+    footer {
+      background: linear-gradient(135deg, #0d1315, #1a2b2e 62%, #234848);
+      color: #fff;
+      margin-top: 40px;
+      border-top: 1px solid rgba(215,255,63,0.24);
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 52px 8% 40px;
+    }
+
+    .footer-brand img { height: 40px; margin-bottom: 14px; }
+    .footer-brand p { font-size: 13px; color: rgba(255,255,255,0.86); max-width: 280px; }
+    .footer-col h4 { font-size: 13px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.72); margin-bottom: 14px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col a { font-size: 14px; color: rgba(255,255,255,0.94); text-decoration: none; }
+    .footer-bottom { text-align: center; padding: 16px 8%; border-top: 1px solid rgba(255,255,255,0.14); font-size: 13px; color: rgba(255,255,255,0.8); }
+
+    body.dark-mode {
+      --ink: #f4fff9;
+      --muted: #b9cec8;
+      --surface: #07120f;
+      --paper: #101f1b;
+      --line: rgba(215,255,63,0.16);
+      background:
+        linear-gradient(90deg, rgba(215,255,63,0.055) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(215,255,63,0.045) 1px, transparent 1px),
+        radial-gradient(circle at 8% 0%, rgba(215,255,63,0.16), transparent 26%),
+        radial-gradient(circle at 92% 12%, rgba(32,167,255,0.14), transparent 30%),
+        linear-gradient(135deg, #06110f, #0b1d19 58%, #081412);
+      background-size: 52px 52px, 52px 52px, auto, auto, auto;
+    }
+
+    body.dark-mode header {
+      background: rgba(6,17,15,0.9);
+      border-bottom-color: rgba(215,255,63,0.15);
+    }
+
+    body.dark-mode nav a { color: #eefcf7; }
+    body.dark-mode .nav-login { background: var(--lime); color: #07140f !important; }
+    body.dark-mode .nav-toggle { color: var(--lime); }
+
+    body.dark-mode .theme-toggle {
+      background: rgba(215,255,63,0.12);
+      color: var(--lime);
+      border-color: rgba(215,255,63,0.28);
+      box-shadow: 0 14px 28px rgba(0,0,0,0.22);
+    }
+
+    body.dark-mode .theme-toggle:hover {
+      background: var(--lime);
+      color: #07140f;
+    }
+
+    body.dark-mode .hero::before {
+      background:
+        radial-gradient(circle at 72% 16%, rgba(215,255,63,0.18), transparent 18%),
+        radial-gradient(circle at 94% 64%, rgba(32,167,255,0.15), transparent 22%),
+        linear-gradient(135deg, transparent 0 58%, rgba(215,255,63,0.1) 58% 59%, transparent 59%);
+    }
+
+    body.dark-mode .eyebrow {
+      background: rgba(215,255,63,0.1);
+      border-color: rgba(215,255,63,0.22);
+      color: #dcff58;
+    }
+
+    body.dark-mode .hero h1,
+    body.dark-mode .rec-card strong,
+    body.dark-mode th,
+    body.dark-mode td:first-child {
+      color: #f6fff7;
+    }
+
+    body.dark-mode p,
+    body.dark-mode li,
+    body.dark-mode td {
+      color: var(--muted);
+    }
+
+    body.dark-mode .rec-card,
+    body.dark-mode .table-wrap {
+      background: rgba(11,29,25,0.88);
+      border-color: rgba(215,255,63,0.16);
+      box-shadow: 0 22px 48px rgba(0,0,0,0.34);
+    }
+
+    body.dark-mode th {
+      background: rgba(215,255,63,0.1);
+    }
+
+    body.dark-mode th,
+    body.dark-mode td {
+      border-bottom-color: rgba(215,255,63,0.1);
+    }
+
+    body.dark-mode td.best {
+      background: linear-gradient(180deg, rgba(215,255,63,0.18), rgba(25,196,141,0.08));
+      color: #f3ffd6;
+    }
+
+    body.dark-mode .cta-line {
+      border-color: rgba(215,255,63,0.2);
+      background: rgba(255,255,255,0.06);
+      color: #f6fff7;
+    }
+
+    @media (max-width: 1024px) {
+      body { padding-top: 84px; }
+      header { padding: 10px 5%; }
+      .logo img { height: 34px; }
+      nav {
+        order: 3;
+        width: 100%;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+        padding: 12px;
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.16);
+      }
+      body.dark-mode nav {
+        background: #0d1f1b;
+        box-shadow: 0 18px 36px rgba(0,0,0,0.34);
+      }
+      nav a { text-align: center; border-radius: 10px; padding: 8px 10px; }
+      nav a::after { display: none; }
+      #mainNav.is-open { display: flex; }
+      .nav-toggle { display: inline-flex; }
+      .nav-login { width: 100%; }
+      .recommend { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 700px) {
+      body { padding-top: 76px; }
+      header { padding: 8px 4% 10px; }
+      .logo img { height: 28px; }
+      .hero { min-height: auto; padding: 46px 5% 36px; }
+      .hero h1 { font-size: clamp(42px, 14vw, 68px); }
+      .main { padding: 46px 5% 60px; }
+      .actions, .cta, .cta-line { width: 100%; }
+      .footer-inner { grid-template-columns: 1fr; gap: 22px; padding: 36px 5% 28px; }
+    }
+  </style>
+</head>
+<body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K96JRDLJ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <header>
+    <div class="logo"><img loading="lazy" src="LUCKYBASE logo letras.png" alt="Logo Lucky Base"></div>
+    <nav id="mainNav">
+      <a href="index.html#inicio">Inicio</a>
+      <a href="index.html#servicios">Servicios</a>
+      <a href="luckyweb.html">LuckyWeb</a>
+      <a href="apps.html" class="is-active">Apps</a>
+      <a href="automatizaciones.html">LuckyAuto</a>
+      <a href="planes.html#planes-apps">Planes</a>
+      <a href="index.html#about">Nosotros</a>
+      <a href="index.html#contacto">Contacto</a>
+      <a class="nav-login" href="panel.html">Panel Cliente</a>
+    </nav>
+    <button id="themeToggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema"></button>
+    <button id="navToggle" class="nav-toggle" type="button" aria-label="Abrir menú"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <span class="eyebrow">Comparador LuckyApp</span>
+        <h1>Compara antes de construir.</h1>
+        <p>Elige entre validar rápido, operar con panel e integraciones o crear una app avanzada a medida.</p>
+      </div>
+    </section>
+
+    <section class="main">
+      <div class="wrap">
+        <div class="recommend">
+          <article class="rec-card"><strong>Si quieres validar</strong><p>Empieza con MVP Rápido. Menos inversión inicial y más aprendizaje.</p></article>
+          <article class="rec-card"><strong>Si ya tienes negocio</strong><p>App Negocio suele ser la mejor opción: panel, roles e integraciones.</p></article>
+          <article class="rec-card"><strong>Si necesitas producto completo</strong><p>App Scale encaja cuando hay módulos complejos o roadmap largo.</p></article>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Criterio</th>
+                <th>MVP Rápido</th>
+                <th>App Negocio</th>
+                <th>App Scale</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Precio</td><td>Desde 1.400 €</td><td class="best">Desde 3.999 €</td><td>A medida</td></tr>
+              <tr><td>Objetivo</td><td>Validar idea y mercado.</td><td class="best">Operar con control desde el lanzamiento.</td><td>Escalar producto complejo.</td></tr>
+              <tr><td>Ideal para</td><td>Startups, validación, primera versión.</td><td class="best">Pymes, equipos y negocios con procesos reales.</td><td>Plataformas, SaaS o apps con roadmap amplio.</td></tr>
+              <tr><td>UX/UI</td><td>Flujo principal.</td><td class="best">Flujos principales + gestión interna.</td><td>Sistema de producto completo.</td></tr>
+              <tr><td>Panel interno</td><td>No incluido por defecto.</td><td class="best">Incluido.</td><td>Avanzado y a medida.</td></tr>
+              <tr><td>Roles de usuario</td><td>Básico si aplica.</td><td class="best">Incluidos.</td><td>Roles complejos y permisos avanzados.</td></tr>
+              <tr><td>Integraciones</td><td>Limitadas o esenciales.</td><td class="best">API / CRM / notificaciones clave.</td><td>Integraciones avanzadas y sistemas externos.</td></tr>
+              <tr><td>Analítica</td><td>Base de lanzamiento.</td><td class="best">Analítica inicial y soporte.</td><td>Medición avanzada por hitos.</td></tr>
+              <tr><td>Mejor elección si...</td><td>Quieres probar antes de escalar.</td><td class="best">Quieres una herramienta real de negocio.</td><td>Necesitas una app estratégica a largo plazo.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="actions">
+          <a class="cta" href="plan-app-negocio.html">Ver App Negocio</a>
+          <a class="cta-line" href="plan-mvp-rapido.html">Ver MVP Rápido</a>
+          <a class="cta-line" href="planes.html#planes-apps">Volver a planes</a>
+          <a class="cta-line" href="index.html?servicio=apps#contacto">Solicitar recomendación</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col footer-brand">
+        <img loading="lazy" src="logoluckyblancosinfondo.png" alt="Logo Lucky Base">
+        <p>Soluciones digitales modernas para empresas que quieren crecer en internet.</p>
+      </div>
+      <div class="footer-col"><h4>Servicios</h4><ul><li><a href="luckyweb.html">LuckyWeb</a></li><li><a href="apps.html">Apps a medida</a></li><li><a href="automatizaciones.html">LuckyAuto</a></li><li><a href="planes.html">Planes</a></li></ul></div>
+      <div class="footer-col"><h4>Apps</h4><ul><li><a href="plan-mvp-rapido.html">MVP Rápido</a></li><li><a href="plan-app-negocio.html">App Negocio</a></li><li><a href="planes.html#planes-apps">Planes apps</a></li></ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacidad</a></li><li><a href="terminos-condiciones.html">Términos</a></li><li><a href="cookie-policy.html">Cookies</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2026 LuckyBase. Todos los derechos reservados.</span></div>
+  </footer>
+
+  <script>
+    const mainNav = document.getElementById("mainNav")
+    const navToggle = document.getElementById("navToggle")
+    const themeToggle = document.getElementById("themeToggle")
+    const tabletBreakpoint = 1024
+    const sunIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="5"></line><line x1="12" y1="19" x2="12" y2="22"></line><line x1="2" y1="12" x2="5" y2="12"></line><line x1="19" y1="12" x2="22" y2="12"></line><line x1="4.9" y1="4.9" x2="7" y2="7"></line><line x1="17" y1="17" x2="19.1" y2="19.1"></line><line x1="17" y1="7" x2="19.1" y2="4.9"></line><line x1="4.9" y1="19.1" x2="7" y2="17"></line></svg>'
+    const moonIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8z"></path></svg>'
+
+    function updateThemeButton() {
+      const isDark = document.body.classList.contains("dark-mode")
+      if (!themeToggle) return
+      themeToggle.innerHTML = isDark ? moonIcon : sunIcon
+      themeToggle.setAttribute("aria-label", isDark ? "Modo oscuro" : "Modo claro")
+      themeToggle.setAttribute("title", isDark ? "Modo oscuro" : "Modo claro")
+    }
+
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark-mode")
+    }
+
+    updateThemeButton()
+
+    if (themeToggle) {
+      themeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode")
+        localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light")
+        updateThemeButton()
+      })
+    }
+
+    if (navToggle && mainNav) {
+      navToggle.addEventListener("click", () => {
+        const isOpen = mainNav.classList.toggle("is-open")
+        navToggle.classList.toggle("is-open", isOpen)
+        navToggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú")
+      })
+
+      mainNav.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          if (window.innerWidth <= tabletBreakpoint) {
+            mainNav.classList.remove("is-open")
+            navToggle.classList.remove("is-open")
+            navToggle.setAttribute("aria-label", "Abrir menú")
+          }
+        })
+      })
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > tabletBreakpoint) {
+          mainNav.classList.remove("is-open")
+          navToggle.classList.remove("is-open")
+          navToggle.setAttribute("aria-label", "Abrir menú")
+        }
+      })
+    }
+  </script>
+</body>
+</html>

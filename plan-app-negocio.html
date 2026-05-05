@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="stylesheet" href="cookie-consent.css">
+  <script src="cookie-consent.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="description" content="Plan App Negocio de LuckyBase: app completa para operar, integrar procesos y escalar con control.">
+  <title>Plan App Negocio | LuckyBase</title>
+  <meta property="og:title" content="Plan App Negocio | LuckyBase">
+  <meta property="og:description" content="App preparada para negocio real, con panel, roles e integraciones clave.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:url" content="https://luckybase.es/plan-app-negocio.html">
+  <meta property="og:site_name" content="LuckyBase">
+  <meta property="og:image" content="https://luckybase.es/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Plan App Negocio | LuckyBase">
+  <meta name="twitter:description" content="Tu app lista para operar, integrar procesos y escalar con control.">
+  <meta name="twitter:image" content="https://luckybase.es/og-image.png">
+  <meta name="theme-color" content="#f7faf4">
+  <link rel="canonical" href="https://luckybase.es/plan-app-negocio.html">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet">
+
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+      var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-K96JRDLJ');</script>
+
+  <style>
+    :root {
+      --ink: #11231f;
+      --muted: #526c65;
+      --surface: #f7faf4;
+      --paper: #ffffff;
+      --line: rgba(17, 35, 31, 0.14);
+      --green: #18bf88;
+      --lime: #d7ff3f;
+      --orange: #ff8a1f;
+      --blue: #20a7ff;
+      --dark: #0e211d;
+      --cream: #fff7df;
+      --radius: 10px;
+      --shadow: 0 22px 54px rgba(14, 33, 29, 0.13);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(17, 35, 31, 0.035) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(17, 35, 31, 0.035) 1px, transparent 1px),
+        radial-gradient(circle at 15% 4%, rgba(215, 255, 63, 0.28), transparent 28%),
+        radial-gradient(circle at 92% 12%, rgba(32, 167, 255, 0.16), transparent 30%),
+        var(--surface);
+      background-size: 44px 44px, 44px 44px, auto, auto, auto;
+      padding-top: 76px;
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; height: auto; }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible { outline: 3px solid rgba(24, 191, 136, 0.45); outline-offset: 2px; }
+
+    header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 6%;
+      background: rgba(247, 250, 244, 0.92);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    .logo img { height: 38px; display: block; }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 14px;
+      flex-wrap: wrap;
+      flex: 1 1 auto;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 800;
+      color: #173a33;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0;
+      height: 2px;
+      background: var(--green);
+      transition: width 0.2s ease;
+    }
+
+    nav a:hover::after, nav a.is-active::after { width: 100%; }
+
+    .nav-login {
+      background: var(--dark);
+      color: #fff !important;
+      padding: 8px 12px;
+      border-radius: 999px;
+    }
+
+    nav a.nav-login::after { display: none; }
+
+    .nav-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      background: transparent;
+      color: var(--dark);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .nav-toggle .bar {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      height: 2px;
+      background: currentColor;
+      transition: transform 0.25s ease, opacity 0.2s ease;
+    }
+
+    .nav-toggle .bar:nth-child(1) { top: 13px; }
+    .nav-toggle .bar:nth-child(2) { top: 20px; }
+    .nav-toggle .bar:nth-child(3) { top: 27px; }
+    .nav-toggle.is-open .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.is-open .bar:nth-child(2) { opacity: 0; }
+    .nav-toggle.is-open .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .theme-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(17,35,31,0.16);
+      border-radius: 50%;
+      background: rgba(255,255,255,0.86);
+      color: var(--dark);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(14,33,29,0.1);
+      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .theme-toggle svg { width: 19px; height: 19px; }
+    .theme-toggle:hover { transform: translateY(-2px); background: var(--lime); }
+
+    h1, h2, h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: -0.035em;
+    }
+
+    p, li { color: var(--muted); line-height: 1.65; }
+
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 76px);
+      display: grid;
+      align-items: stretch;
+      padding: 30px 6% 42px;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(247, 250, 244, 0.98) 0%, rgba(247, 250, 244, 0.9) 46%, rgba(247, 250, 244, 0.64) 100%),
+        radial-gradient(circle at 75% 14%, rgba(215, 255, 63, 0.42), transparent 16%),
+        radial-gradient(circle at 93% 66%, rgba(32, 167, 255, 0.24), transparent 22%),
+        linear-gradient(135deg, transparent 0 56%, rgba(14, 33, 29, 0.08) 56% 57%, transparent 57%),
+        linear-gradient(90deg, rgba(17, 35, 31, 0.065) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(17, 35, 31, 0.065) 1px, transparent 1px),
+        #f7faf4;
+      background-size: auto, auto, auto, auto, 68px 68px, 68px 68px, auto;
+      z-index: -2;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, transparent 0 74%, var(--surface) 100%),
+        radial-gradient(circle at 80% 34%, rgba(14, 33, 29, 0.12) 0 2px, transparent 3px),
+        radial-gradient(circle at 88% 45%, rgba(14, 33, 29, 0.1) 0 2px, transparent 3px),
+        radial-gradient(circle at 72% 60%, rgba(14, 33, 29, 0.1) 0 2px, transparent 3px),
+        linear-gradient(135deg, transparent 0 66%, rgba(24, 191, 136, 0.12) 66% 67%, transparent 67%);
+      z-index: -1;
+    }
+
+    .hero-shell {
+      width: min(1220px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(330px, 0.64fr);
+      gap: 18px;
+      align-items: end;
+    }
+
+    .hero-copy-block {
+      padding: 34px 0 26px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .eyebrow {
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 11px;
+      border: 1px solid rgba(17, 35, 31, 0.18);
+      background: rgba(255, 255, 255, 0.82);
+      color: #143a32;
+      font-size: 12px;
+      font-weight: 900;
+      border-radius: 999px;
+      box-shadow: 0 12px 26px rgba(14, 33, 29, 0.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero h1 {
+      max-width: 850px;
+      font-size: clamp(52px, 10vw, 128px);
+      line-height: 0.86;
+      text-transform: uppercase;
+      color: #0e211d;
+    }
+
+    .hero h1 span {
+      display: inline-block;
+      color: transparent;
+      -webkit-text-stroke: 2px #0e211d;
+      text-shadow: none;
+    }
+
+    .hero-text {
+      max-width: 650px;
+      color: #324d47;
+      font-size: 18px;
+      line-height: 1.62;
+      font-weight: 700;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 900;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      transform: translateX(-105%);
+      transition: transform 0.45s cubic-bezier(.2,.7,.2,1);
+      z-index: -1;
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-2px);
+    }
+
+    .btn:hover::before,
+    .btn:focus-visible::before {
+      transform: translateX(0);
+    }
+
+    .btn-primary {
+      color: #0a1712;
+      background: linear-gradient(135deg, var(--lime), #92ff2b);
+      box-shadow: 0 18px 30px rgba(130, 210, 31, 0.25);
+    }
+
+    .btn-primary::before {
+      background: linear-gradient(110deg, rgba(10, 23, 18, 0.08), rgba(10, 23, 18, 0.28));
+    }
+
+    .btn-secondary {
+      color: #173b34;
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(17, 35, 31, 0.18);
+      box-shadow: 0 14px 26px rgba(14, 33, 29, 0.08);
+    }
+
+    .btn-secondary::before {
+      background: linear-gradient(110deg, rgba(32, 167, 255, 0.07), rgba(32, 167, 255, 0.2));
+    }
+
+    .deal-card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(17, 35, 31, 0.15);
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at 18% 0%, rgba(215, 255, 63, 0.32), transparent 34%),
+        radial-gradient(circle at 95% 12%, rgba(32, 167, 255, 0.24), transparent 36%),
+        rgba(255, 255, 255, 0.9);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      backdrop-filter: blur(14px);
+    }
+
+    .deal-card::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(17, 35, 31, 0.08);
+      border-radius: 20px;
+      pointer-events: none;
+    }
+
+    .deal-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+      margin-bottom: 24px;
+    }
+
+    .deal-pill {
+      border-radius: 999px;
+      padding: 7px 10px;
+      background: var(--dark);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .price {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(54px, 8vw, 84px);
+      line-height: 0.86;
+      letter-spacing: -0.07em;
+      color: #0e211d;
+    }
+
+    .price small {
+      display: block;
+      margin-top: 8px;
+      font-family: 'Manrope', sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+      letter-spacing: 0;
+      color: #49645f;
+      font-weight: 800;
+    }
+
+    .included-list {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .included-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 10px 11px;
+      border: 1px solid rgba(17, 35, 31, 0.1);
+      border-radius: 13px;
+      background: rgba(255, 255, 255, 0.8);
+      color: #324d47;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .included-list li::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      margin-top: 7px;
+      flex: 0 0 auto;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--green), var(--lime));
+      box-shadow: 0 0 0 4px rgba(24, 191, 136, 0.13);
+    }
+
+    .status-board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .status {
+      min-height: 98px;
+      border: 1px solid rgba(17, 35, 31, 0.1);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.78);
+      padding: 13px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .status:hover {
+      transform: translateY(-4px);
+      border-color: rgba(24, 191, 136, 0.32);
+      box-shadow: 0 16px 30px rgba(14, 33, 29, 0.1);
+    }
+
+    .status strong {
+      display: block;
+      color: #0e211d;
+      font-size: 20px;
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: -0.03em;
+    }
+
+    .status span {
+      display: block;
+      color: #597169;
+      font-size: 12px;
+      font-weight: 800;
+      margin-top: 4px;
+    }
+
+    section {
+      position: relative;
+      padding: 78px 8%;
+      scroll-margin-top: 96px;
+    }
+
+    .section-head {
+      max-width: 900px;
+      margin: 0 auto 26px;
+      text-align: center;
+    }
+
+    .section-kicker {
+      display: inline-flex;
+      margin-bottom: 10px;
+      color: #1e5f51;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .section-head h2 {
+      font-size: clamp(42px, 7vw, 92px);
+      line-height: 0.9;
+      text-transform: uppercase;
+      color: #0e211d;
+    }
+
+    .section-head p {
+      max-width: 700px;
+      margin: 12px auto 0;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .value-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 300px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--paper);
+      padding: 22px;
+      box-shadow: 0 14px 30px rgba(14, 33, 29, 0.08);
+      transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+    }
+
+    .value-card::after {
+      content: "";
+      position: absolute;
+      width: 170px;
+      height: 170px;
+      right: -70px;
+      bottom: -70px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(215, 255, 63, 0.36), transparent 68%);
+      transition: transform 0.35s ease;
+    }
+
+    .value-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(24, 191, 136, 0.34);
+      box-shadow: var(--shadow);
+    }
+
+    .value-card:hover::after {
+      transform: scale(1.2);
+    }
+
+    .value-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      background: #0e211d;
+      color: var(--lime);
+      font-weight: 900;
+      margin-bottom: 26px;
+    }
+
+    .value-card h3 {
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 0.94;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      color: #0e211d;
+    }
+
+    .value-card p {
+      font-weight: 700;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .side-panel {
+      border-radius: 26px;
+      border: 1px solid rgba(17, 35, 31, 0.16);
+      background:
+        radial-gradient(circle at 18% 14%, rgba(255, 138, 31, 0.17), transparent 34%),
+        #10231f;
+      padding: 24px;
+      color: #fff;
+      min-height: 100%;
+      box-shadow: var(--shadow);
+    }
+
+    .side-panel h2 {
+      font-size: clamp(42px, 6vw, 78px);
+      line-height: 0.9;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      color: #fff;
+    }
+
+    .side-panel p {
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 700;
+    }
+
+    .scope-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .scope-card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      box-shadow: 0 12px 26px rgba(14, 33, 29, 0.07);
+    }
+
+    .scope-card.featured {
+      grid-column: span 2;
+      background:
+        radial-gradient(circle at 0 0, rgba(215, 255, 63, 0.22), transparent 34%),
+        #fff;
+    }
+
+    .scope-card h3 {
+      font-size: 34px;
+      line-height: 0.92;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      color: #0e211d;
+    }
+
+    .scope-card ul {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+    }
+
+    .scope-card li {
+      padding: 9px 10px;
+      border-radius: 12px;
+      background: #f6faf9;
+      border: 1px solid rgba(17, 35, 31, 0.09);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .ops-map {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .ops-map::before {
+      content: "";
+      position: absolute;
+      left: 12%;
+      right: 12%;
+      top: 50%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--lime), var(--blue));
+      transform: translateY(-50%);
+      opacity: 0.55;
+      z-index: 0;
+    }
+
+    .ops-node {
+      position: relative;
+      z-index: 1;
+      border-radius: 26px;
+      border: 1px solid rgba(17, 35, 31, 0.14);
+      background: rgba(255, 255, 255, 0.92);
+      padding: 24px;
+      min-height: 250px;
+      box-shadow: 0 18px 36px rgba(14, 33, 29, 0.1);
+      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+    }
+
+    .ops-node:hover {
+      transform: translateY(-8px) rotate(-1deg);
+      border-color: rgba(32, 167, 255, 0.34);
+      box-shadow: var(--shadow);
+    }
+
+    .ops-node:nth-child(2):hover { transform: translateY(-8px) rotate(1deg); }
+
+    .node-label {
+      display: inline-flex;
+      padding: 7px 9px;
+      border-radius: 999px;
+      background: #0e211d;
+      color: var(--lime);
+      font-size: 11px;
+      font-weight: 900;
+      margin-bottom: 44px;
+    }
+
+    .ops-node h3 {
+      font-size: 38px;
+      line-height: 0.9;
+      text-transform: uppercase;
+      margin-bottom: 9px;
+      color: #0e211d;
+    }
+
+    .ops-node p {
+      font-weight: 700;
+    }
+
+    .timeline {
+      max-width: 980px;
+      margin: 0 auto;
+      display: grid;
+      gap: 10px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 78px 1fr auto;
+      gap: 16px;
+      align-items: center;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.9);
+      padding: 16px;
+      box-shadow: 0 12px 26px rgba(14, 33, 29, 0.06);
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .step:hover {
+      transform: translateX(8px);
+      border-color: rgba(24, 191, 136, 0.34);
+      box-shadow: var(--shadow);
+    }
+
+    .idx {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 62px;
+      height: 62px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--lime), var(--green));
+      color: #0a1712;
+      font-weight: 900;
+    }
+
+    .step h3 {
+      font-size: 34px;
+      line-height: 0.92;
+      text-transform: uppercase;
+      color: #0e211d;
+      margin-bottom: 4px;
+    }
+
+    .step p {
+      font-weight: 700;
+    }
+
+    .step-tag {
+      border-radius: 999px;
+      padding: 8px 10px;
+      background: #f0f6f3;
+      color: #2f554d;
+      font-size: 11px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .final-wrap {
+      position: relative;
+      overflow: hidden;
+      max-width: 1120px;
+      margin: 0 auto;
+      border-radius: 30px;
+      border: 1px solid rgba(17, 35, 31, 0.16);
+      background:
+        radial-gradient(circle at 85% 10%, rgba(215, 255, 63, 0.22), transparent 22%),
+        radial-gradient(circle at 100% 78%, rgba(32, 167, 255, 0.16), transparent 25%),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(110deg, #0e211d, #123d34 58%, #0e211d);
+      background-size: auto, auto, 58px 58px, 58px 58px, auto;
+      color: #fff;
+      padding: clamp(28px, 6vw, 58px);
+      box-shadow: var(--shadow);
+    }
+
+    .final-wrap::after {
+      content: "";
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      right: -130px;
+      top: -140px;
+      border-radius: 999px;
+      background: rgba(215, 255, 63, 0.18);
+    }
+
+    .final-content {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+    }
+
+    .final-wrap h2 {
+      font-size: clamp(46px, 7vw, 98px);
+      line-height: 0.88;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .final-wrap p {
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    footer {
+      background: linear-gradient(135deg, #0d1315, #1a2b2e 62%, #234848);
+      color: #fff;
+      margin-top: 76px;
+      box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.28);
+      border-top: 1px solid rgba(215, 255, 63, 0.24);
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 52px 8% 40px;
+    }
+
+    .footer-brand img { height: 40px; margin-bottom: 14px; }
+    .footer-brand p { font-size: 13px; color: rgba(255, 255, 255, 0.86); max-width: 280px; }
+    .footer-col h4 { font-size: 13px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.72); margin-bottom: 14px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col a { font-size: 14px; color: rgba(255, 255, 255, 0.94); text-decoration: none; }
+    .footer-col a:hover { color: #fff; }
+    .footer-bottom { text-align: center; padding: 16px 8%; border-top: 1px solid rgba(255, 255, 255, 0.14); font-size: 13px; color: rgba(255, 255, 255, 0.8); }
+
+    .js-enabled .reveal-item {
+      opacity: 0;
+      transform: translateY(24px) scale(0.99);
+      filter: blur(1px);
+      transition: opacity 0.58s ease, transform 0.58s cubic-bezier(.2,.7,.2,1), filter 0.58s ease;
+      transition-delay: var(--delay, 0ms);
+    }
+
+    .js-enabled .reveal-item.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    body.dark-mode {
+      --ink: #f4fff9;
+      --muted: #b9cec8;
+      --surface: #07120f;
+      --paper: #101f1b;
+      --line: rgba(215,255,63,0.16);
+      background:
+        linear-gradient(90deg, rgba(215,255,63,0.055) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(215,255,63,0.045) 1px, transparent 1px),
+        radial-gradient(circle at 15% 4%, rgba(215,255,63,0.16), transparent 28%),
+        radial-gradient(circle at 92% 12%, rgba(32,167,255,0.14), transparent 30%),
+        #07120f;
+      background-size: 44px 44px, 44px 44px, auto, auto, auto;
+    }
+
+    body.dark-mode header {
+      background: rgba(7,18,15,0.9);
+      border-bottom-color: rgba(215,255,63,0.14);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.22);
+    }
+
+    body.dark-mode nav a { color: #f3fff8; }
+    body.dark-mode .nav-toggle { color: var(--lime); }
+    body.dark-mode .nav-login { background: var(--lime); color: #07140f !important; }
+
+    body.dark-mode .theme-toggle {
+      background: rgba(215,255,63,0.12);
+      color: var(--lime);
+      border-color: rgba(215,255,63,0.28);
+      box-shadow: 0 14px 28px rgba(0,0,0,0.24);
+    }
+
+    body.dark-mode .theme-toggle:hover {
+      background: var(--lime);
+      color: #07140f;
+    }
+
+    body.dark-mode .hero::before {
+      background:
+        linear-gradient(90deg, rgba(7,18,15,0.98) 0%, rgba(7,18,15,0.9) 46%, rgba(7,18,15,0.72) 100%),
+        radial-gradient(circle at 75% 14%, rgba(215,255,63,0.2), transparent 16%),
+        radial-gradient(circle at 93% 66%, rgba(32,167,255,0.16), transparent 22%),
+        linear-gradient(135deg, transparent 0 56%, rgba(215,255,63,0.09) 56% 57%, transparent 57%),
+        linear-gradient(90deg, rgba(215,255,63,0.06) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(215,255,63,0.06) 1px, transparent 1px),
+        #07120f;
+      background-size: auto, auto, auto, auto, 68px 68px, 68px 68px, auto;
+    }
+
+    body.dark-mode .hero::after {
+      background:
+        linear-gradient(180deg, transparent 0 74%, var(--surface) 100%),
+        radial-gradient(circle at 80% 34%, rgba(215,255,63,0.14) 0 2px, transparent 3px),
+        radial-gradient(circle at 88% 45%, rgba(32,167,255,0.12) 0 2px, transparent 3px),
+        radial-gradient(circle at 72% 60%, rgba(215,255,63,0.1) 0 2px, transparent 3px),
+        linear-gradient(135deg, transparent 0 66%, rgba(24,191,136,0.16) 66% 67%, transparent 67%);
+    }
+
+    body.dark-mode h1,
+    body.dark-mode h2,
+    body.dark-mode h3,
+    body.dark-mode .hero h1,
+    body.dark-mode .price,
+    body.dark-mode .status strong,
+    body.dark-mode .section-head h2,
+    body.dark-mode .value-card h3,
+    body.dark-mode .scope-card h3,
+    body.dark-mode .ops-node h3,
+    body.dark-mode .step h3 {
+      color: #f4fff9;
+    }
+
+    body.dark-mode .hero h1 span {
+      -webkit-text-stroke-color: #d7ff3f;
+      color: transparent;
+    }
+
+    body.dark-mode p,
+    body.dark-mode li,
+    body.dark-mode .hero-text,
+    body.dark-mode .price small,
+    body.dark-mode .included-list li,
+    body.dark-mode .status span,
+    body.dark-mode .section-head p,
+    body.dark-mode .value-card p,
+    body.dark-mode .scope-card li,
+    body.dark-mode .ops-node p,
+    body.dark-mode .step p {
+      color: var(--muted);
+    }
+
+    body.dark-mode .eyebrow,
+    body.dark-mode .deal-card,
+    body.dark-mode .value-card,
+    body.dark-mode .scope-card,
+    body.dark-mode .ops-node,
+    body.dark-mode .step {
+      background:
+        radial-gradient(circle at 100% 0%, rgba(215,255,63,0.1), transparent 34%),
+        linear-gradient(180deg, rgba(16,31,27,0.96), rgba(10,18,16,0.92));
+      border-color: rgba(215,255,63,0.14);
+      box-shadow: 0 18px 38px rgba(0,0,0,0.28);
+    }
+
+    body.dark-mode .eyebrow,
+    body.dark-mode .deal-top .mono,
+    body.dark-mode .section-kicker {
+      color: #dfff63 !important;
+    }
+
+    body.dark-mode .btn-secondary,
+    body.dark-mode .included-list li,
+    body.dark-mode .status,
+    body.dark-mode .scope-card li,
+    body.dark-mode .step-tag {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.12);
+      color: #f4fff9;
+    }
+
+    body.dark-mode .deal-pill,
+    body.dark-mode .value-number,
+    body.dark-mode .node-label {
+      background: var(--lime);
+      color: #07140f;
+    }
+
+    body.dark-mode .deal-pill {
+      background: rgba(255,255,255,0.1);
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.16);
+    }
+
+    @media (max-width: 1120px) {
+      .hero-shell,
+      .split {
+        grid-template-columns: 1fr;
+      }
+
+      .deal-card {
+        max-width: 620px;
+      }
+
+      .value-grid,
+      .ops-map {
+        grid-template-columns: 1fr;
+      }
+
+      .ops-map::before {
+        left: 50%;
+        right: auto;
+        top: 8%;
+        bottom: 8%;
+        width: 3px;
+        height: auto;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      body { padding-top: 84px; }
+      header { padding: 10px 5%; }
+      .logo img { height: 34px; }
+      nav {
+        order: 3;
+        width: 100%;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+        padding: 12px;
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.16);
+      }
+      body.dark-mode nav {
+        background: #0d1f1b;
+        box-shadow: 0 18px 36px rgba(0,0,0,0.34);
+      }
+
+      nav a { text-align: center; border-radius: 10px; padding: 8px 10px; }
+      nav a::after { display: none; }
+      #mainNav.is-open { display: flex; }
+      .nav-toggle { display: inline-flex; }
+      .nav-login { width: 100%; }
+      section { padding: 64px 6%; }
+    }
+
+    @media (max-width: 760px) {
+      body { padding-top: 76px; }
+      header { padding: 8px 4% 10px; }
+      .logo img { height: 28px; }
+      .hero { min-height: auto; padding: 30px 5% 38px; }
+      .hero-shell { gap: 8px; }
+      .hero-copy-block { padding: 14px 0 10px; }
+      .hero h1 { font-size: clamp(46px, 15vw, 76px); }
+      .hero h1 span { -webkit-text-stroke: 1px #0e211d; }
+      body.dark-mode .hero h1 span { -webkit-text-stroke: 1px #d7ff3f; }
+      .hero-text { font-size: 16px; }
+      .hero-actions,
+      .btn {
+        width: 100%;
+      }
+
+      .status-board {
+        grid-template-columns: 1fr;
+      }
+
+      section { padding: 54px 5%; }
+      .value-card { min-height: 240px; }
+      .scope-grid { grid-template-columns: 1fr; }
+      .scope-card.featured { grid-column: auto; }
+      .step {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .step-tag {
+        width: fit-content;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 22px;
+        padding: 36px 5% 28px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K96JRDLJ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <header>
+    <div class="logo"><img loading="lazy" src="LUCKYBASE logo letras.png" alt="Logo Lucky Base"></div>
+    <nav id="mainNav">
+      <a href="index.html#inicio">Inicio</a>
+      <a href="index.html#servicios">Servicios</a>
+      <a href="luckyweb.html">LuckyWeb</a>
+      <a href="apps.html" class="is-active">Apps</a>
+      <a href="automatizaciones.html">LuckyAuto</a>
+      <a href="planes.html">Planes</a>
+      <a href="index.html#about">Nosotros</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html#contacto">Contacto</a>
+      <a class="nav-login" href="panel.html">Panel Cliente</a>
+    </nav>
+    <button id="themeToggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema"></button>
+    <button id="navToggle" class="nav-toggle" type="button" aria-label="Abrir menú"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-shell">
+        <div class="hero-copy-block reveal-item">
+          <span class="eyebrow mono">Plan App Negocio · desde 3.999 EUR</span>
+          <h1>Una app para <span>operar</span> de verdad.</h1>
+          <p class="hero-text">Para empresas que no solo quieren una app bonita: necesitan usuarios, panel, roles, datos conectados y una base preparada para crecer sin rehacerlo todo a los pocos meses.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="index.html?servicio=apps&amp;plan=app-negocio#contacto">Pedir propuesta App Negocio</a>
+            <a class="btn btn-secondary" href="plan-mvp-rapido.html">Comparar con MVP Rápido</a>
+            <a class="btn btn-secondary" href="TyC-App-Negocio.pdf" target="_blank" rel="noopener noreferrer">Ver documentación</a>
+          </div>
+        </div>
+
+        <aside class="deal-card reveal-item" aria-label="Resumen del plan App Negocio">
+          <div class="deal-top">
+            <span class="deal-pill mono">Equipo + datos + control</span>
+            <span class="mono" style="font-size:11px;color:#426059;font-weight:900;">APP.NEGOCIO</span>
+          </div>
+          <div class="price">3.999 EUR <small>Precio de entrada para una app operativa con base de negocio, panel e integraciones clave.</small></div>
+          <ul class="included-list">
+            <li>Panel de administración para gestionar actividad y datos.</li>
+            <li>Roles de usuario para controlar accesos y flujos internos.</li>
+            <li>Integraciones API/CRM para conectar herramientas importantes.</li>
+            <li>Analítica inicial y soporte de lanzamiento.</li>
+          </ul>
+          <div class="status-board">
+            <div class="status"><strong>Panel</strong><span>Gestión interna</span></div>
+            <div class="status"><strong>API</strong><span>Conexiones clave</span></div>
+            <div class="status"><strong>Escala</strong><span>Base evolutiva</span></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="valor">
+      <div class="section-head reveal-item">
+        <span class="section-kicker mono">Por qué este plan vende mejor</span>
+        <h2>De idea a herramienta de negocio.</h2>
+        <p>App Negocio está pensado para cuando la app ya tiene que entrar en la operación: ahorrar tiempo, ordenar procesos y dar una experiencia clara a clientes o equipo.</p>
+      </div>
+
+      <div class="value-grid">
+        <article class="value-card reveal-item">
+          <span class="value-number">01</span>
+          <h3>Control interno</h3>
+          <p>No dependes de hojas sueltas o mensajes perdidos. Tienes un panel para gestionar usuarios, contenido, solicitudes, estados o datos clave del negocio.</p>
+        </article>
+        <article class="value-card reveal-item">
+          <span class="value-number">02</span>
+          <h3>Integración real</h3>
+          <p>Conectamos la app con las herramientas que ya usas cuando tiene sentido: CRM, formularios, pagos, notificaciones, automatizaciones o APIs externas.</p>
+        </article>
+        <article class="value-card reveal-item">
+          <span class="value-number">03</span>
+          <h3>Base escalable</h3>
+          <p>La app nace con estructura para evolucionar por fases, sin caer en el típico lanzamiento bonito que luego se rompe cuando llegan más usuarios o procesos.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="alcance">
+      <div class="split">
+        <aside class="side-panel reveal-item">
+          <span class="section-kicker mono" style="color:#d7ff3f;">Alcance claro</span>
+          <h2>Lo que entra y lo que no.</h2>
+          <p>Esto evita confusión, protege tu inversión y nos permite construir con foco. Si algo debe crecer después, lo dejamos preparado en una ruta de evolución.</p>
+        </aside>
+
+        <div class="scope-grid">
+          <article class="scope-card reveal-item">
+            <h3>Incluye</h3>
+            <ul>
+              <li>Todo lo esencial del plan MVP Rápido.</li>
+              <li>Panel de administración y control interno.</li>
+              <li>Roles de usuario y flujos principales.</li>
+              <li>Integraciones API/CRM priorizadas.</li>
+            </ul>
+          </article>
+
+          <article class="scope-card reveal-item">
+            <h3>No incluye</h3>
+            <ul>
+              <li>Roadmap anual ilimitado sin acuerdo posterior.</li>
+              <li>Módulos enterprise fuera del alcance inicial.</li>
+              <li>Mantenimiento evolutivo mensual no contratado.</li>
+              <li>Funcionalidades no priorizadas en la fase inicial.</li>
+            </ul>
+          </article>
+
+          <article class="scope-card featured reveal-item">
+            <h3>Resultado</h3>
+            <ul>
+              <li>Una app lista para uso real, no solo una demo.</li>
+              <li>Equipo con más control sobre operación y datos.</li>
+              <li>Base técnica para crecer por fases con menos fricción.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="sistema">
+      <div class="section-head reveal-item">
+        <span class="section-kicker mono">Sistema de trabajo</span>
+        <h2>La app conectada al negocio.</h2>
+        <p>La diferencia no está solo en desarrollar pantallas. Está en que cada parte tenga una función clara dentro de tu operación.</p>
+      </div>
+
+      <div class="ops-map">
+        <article class="ops-node reveal-item">
+          <span class="node-label mono">Usuarios</span>
+          <h3>Entrada clara</h3>
+          <p>Clientes, empleados o usuarios finales entienden qué hacer, dónde hacerlo y qué ocurre después.</p>
+        </article>
+        <article class="ops-node reveal-item">
+          <span class="node-label mono">Panel</span>
+          <h3>Gestión sin caos</h3>
+          <p>Tu equipo puede revisar, editar, validar y tomar decisiones desde un entorno centralizado.</p>
+        </article>
+        <article class="ops-node reveal-item">
+          <span class="node-label mono">Datos</span>
+          <h3>Evolución medible</h3>
+          <p>Dejamos la base preparada para saber qué pasa, qué funciona y qué conviene mejorar después.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="proceso">
+      <div class="section-head reveal-item">
+        <span class="section-kicker mono">Proceso de entrega</span>
+        <h2>Construcción con cabeza, no a ciegas.</h2>
+      </div>
+
+      <div class="timeline">
+        <article class="step reveal-item">
+          <span class="idx">01</span>
+          <div>
+            <h3>Diagnóstico</h3>
+            <p>Definimos operación, usuarios, roles, datos, integraciones y objetivos medibles.</p>
+          </div>
+          <span class="step-tag mono">Enfoque</span>
+        </article>
+
+        <article class="step reveal-item">
+          <span class="idx">02</span>
+          <div>
+            <h3>Arquitectura</h3>
+            <p>Diseñamos estructura, experiencia, panel y prioridades para evitar construir de más o de menos.</p>
+          </div>
+          <span class="step-tag mono">Sistema</span>
+        </article>
+
+        <article class="step reveal-item">
+          <span class="idx">03</span>
+          <div>
+            <h3>Desarrollo</h3>
+            <p>Construimos por bloques, validando flujo, integración y uso real antes del lanzamiento.</p>
+          </div>
+          <span class="step-tag mono">Producto</span>
+        </article>
+
+        <article class="step reveal-item">
+          <span class="idx">04</span>
+          <div>
+            <h3>Activación</h3>
+            <p>Lanzamos, medimos y dejamos una hoja clara para la siguiente fase de crecimiento.</p>
+          </div>
+          <span class="step-tag mono">Lanzamiento</span>
+        </article>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="final-wrap reveal-item">
+        <div class="final-content">
+          <span class="section-kicker mono" style="color:#d7ff3f;">Siguiente paso</span>
+          <h2>Convierte la app en una herramienta de negocio.</h2>
+          <p>Si ya tienes operación y necesitas estructura, App Negocio es la ruta más sólida para lanzar con control, panel e integraciones desde el principio.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="index.html?servicio=apps&amp;plan=app-negocio#contacto">Reservar App Negocio</a>
+            <a class="btn btn-secondary" href="TyC-App-Negocio.pdf" target="_blank" rel="noopener noreferrer">Abrir TyC del plan</a>
+            <a class="btn btn-secondary" href="planes.html#planes-apps">Volver a planes</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col footer-brand">
+        <img loading="lazy" src="logoluckyblancosinfondo.png" alt="Logo Lucky Base">
+        <p>Soluciones digitales modernas para empresas que quieren crecer en internet.</p>
+      </div>
+      <div class="footer-col"><h4>Servicios</h4><ul><li><a href="luckyweb.html">LuckyWeb</a></li><li><a href="apps.html">Apps a medida</a></li><li><a href="automatizaciones.html">LuckyAuto</a></li><li><a href="planes.html">Planes</a></li></ul></div>
+      <div class="footer-col"><h4>LuckyBase</h4><ul><li><a href="index.html#about">Nosotros</a></li><li><a href="index.html#faq">FAQ</a></li><li><a href="index.html#contacto">Contacto</a></li><li><a href="panel.html">Panel Cliente</a></li></ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacidad</a></li><li><a href="terminos-condiciones.html">Términos</a></li><li><a href="cookie-policy.html">Cookies</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2026 LuckyBase. Todos los derechos reservados.</span></div>
+  </footer>
+
+  <script>
+    const mainNav = document.getElementById("mainNav")
+    const navToggle = document.getElementById("navToggle")
+    const themeToggle = document.getElementById("themeToggle")
+    const tabletBreakpoint = 1024
+    const sunIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="5"></line><line x1="12" y1="19" x2="12" y2="22"></line><line x1="2" y1="12" x2="5" y2="12"></line><line x1="19" y1="12" x2="22" y2="12"></line><line x1="4.9" y1="4.9" x2="7" y2="7"></line><line x1="17" y1="17" x2="19.1" y2="19.1"></line><line x1="17" y1="7" x2="19.1" y2="4.9"></line><line x1="4.9" y1="19.1" x2="7" y2="17"></line></svg>'
+    const moonIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8z"></path></svg>'
+
+    document.body.classList.add("js-enabled")
+
+    function updateThemeButton() {
+      const isDark = document.body.classList.contains("dark-mode")
+      if (!themeToggle) return
+      themeToggle.innerHTML = isDark ? moonIcon : sunIcon
+      themeToggle.setAttribute("aria-label", isDark ? "Modo oscuro" : "Modo claro")
+      themeToggle.setAttribute("title", isDark ? "Modo oscuro" : "Modo claro")
+    }
+
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark-mode")
+    }
+
+    updateThemeButton()
+
+    if (themeToggle) {
+      themeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode")
+        localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light")
+        updateThemeButton()
+      })
+    }
+
+    const revealTargets = [...document.querySelectorAll(".reveal-item")]
+    revealTargets.forEach((el, index) => el.style.setProperty("--delay", `${(index % 10) * 45}ms`))
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+      revealTargets.forEach((el) => el.classList.add("is-visible"))
+    } else {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible")
+            observer.unobserve(entry.target)
+          }
+        })
+      }, { threshold: 0.2, rootMargin: "0px 0px -8% 0px" })
+      revealTargets.forEach((el) => revealObserver.observe(el))
+    }
+
+    if (navToggle && mainNav) {
+      navToggle.addEventListener("click", () => {
+        const isOpen = mainNav.classList.toggle("is-open")
+        navToggle.classList.toggle("is-open", isOpen)
+        navToggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú")
+      })
+
+      mainNav.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          if (window.innerWidth <= tabletBreakpoint) {
+            mainNav.classList.remove("is-open")
+            navToggle.classList.remove("is-open")
+            navToggle.setAttribute("aria-label", "Abrir menú")
+          }
+        })
+      })
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > tabletBreakpoint) {
+          mainNav.classList.remove("is-open")
+          navToggle.classList.remove("is-open")
+          navToggle.setAttribute("aria-label", "Abrir menú")
+        }
+      })
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="stylesheet" href="cookie-consent.css">
+  <script src="cookie-consent.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="description" content="Plan MVP Rápido de LuckyBase: una primera versión funcional de app para validar mercado sin sobredimensionar inversión.">
+  <title>Plan MVP Rápido | LuckyBase</title>
+  <meta property="og:title" content="Plan MVP Rápido | LuckyBase">
+  <meta property="og:description" content="Lanza una app funcional, valida con usuarios reales y decide el siguiente paso con datos.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:url" content="https://luckybase.es/plan-mvp-rapido.html">
+  <meta property="og:site_name" content="LuckyBase">
+  <meta property="og:image" content="https://luckybase.es/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Plan MVP Rápido | LuckyBase">
+  <meta name="twitter:description" content="Tu primera versión funcional de app para validar rápido.">
+  <meta name="twitter:image" content="https://luckybase.es/og-image.png">
+  <meta name="theme-color" content="#0f241f">
+  <link rel="canonical" href="https://luckybase.es/plan-mvp-rapido.html">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet">
+
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+      var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-K96JRDLJ');</script>
+
+  <style>
+    :root {
+      --ink: #10231f;
+      --muted: #49645f;
+      --surface: #f6faf9;
+      --paper: #ffffff;
+      --line: rgba(16, 35, 31, 0.14);
+      --green: #19c48d;
+      --lime: #d7ff3f;
+      --amber: #ff8a1f;
+      --dark: #0d201c;
+      --radius: 8px;
+      --shadow: 0 18px 42px rgba(13, 32, 28, 0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      padding-top: 76px;
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; height: auto; }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible { outline: 3px solid rgba(25, 196, 141, 0.45); outline-offset: 2px; }
+
+    header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 6%;
+      background: rgba(246, 250, 249, 0.92);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    .logo img { height: 38px; display: block; }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 14px;
+      flex-wrap: wrap;
+      flex: 1 1 auto;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 800;
+      color: #173a33;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0;
+      height: 2px;
+      background: var(--green);
+      transition: width 0.2s ease;
+    }
+
+    nav a:hover::after, nav a.is-active::after { width: 100%; }
+
+    .nav-login {
+      background: var(--dark);
+      color: #fff !important;
+      padding: 8px 12px;
+      border-radius: 999px;
+    }
+
+    nav a.nav-login::after { display: none; }
+
+    .nav-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      background: transparent;
+      color: var(--dark);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .nav-toggle .bar {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      height: 2px;
+      background: currentColor;
+      transition: transform 0.25s ease, opacity 0.2s ease;
+    }
+
+    .nav-toggle .bar:nth-child(1) { top: 13px; }
+    .nav-toggle .bar:nth-child(2) { top: 20px; }
+    .nav-toggle .bar:nth-child(3) { top: 27px; }
+    .nav-toggle.is-open .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.is-open .bar:nth-child(2) { opacity: 0; }
+    .nav-toggle.is-open .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .theme-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(16,35,31,0.16);
+      border-radius: 50%;
+      background: rgba(255,255,255,0.84);
+      color: var(--dark);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(13,32,28,0.1);
+      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .theme-toggle svg { width: 19px; height: 19px; }
+    .theme-toggle:hover { transform: translateY(-2px); background: var(--lime); }
+
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 76px);
+      display: grid;
+      align-items: end;
+      padding: 70px 8% 46px;
+      color: #fff;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(5, 18, 15, 0.96), rgba(5, 18, 15, 0.76) 50%, rgba(5, 18, 15, 0.48)),
+        radial-gradient(circle at 78% 18%, rgba(215, 255, 63, 0.34), transparent 15%),
+        radial-gradient(circle at 92% 62%, rgba(25, 196, 141, 0.24), transparent 22%),
+        linear-gradient(135deg, transparent 0 57%, rgba(255, 255, 255, 0.08) 57% 58%, transparent 58%),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+        #071713;
+      background-size: auto, auto, auto, auto, 74px 74px, 74px 74px, auto;
+      z-index: -2;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, transparent 0 72%, var(--surface) 100%),
+        linear-gradient(135deg, transparent 0 62%, rgba(215, 255, 63, 0.12) 62% 63%, transparent 63%),
+        radial-gradient(circle at 84% 42%, rgba(255, 255, 255, 0.08) 0 2px, transparent 3px),
+        radial-gradient(circle at 71% 54%, rgba(255, 255, 255, 0.1) 0 2px, transparent 3px),
+        radial-gradient(circle at 90% 72%, rgba(255, 255, 255, 0.08) 0 2px, transparent 3px);
+      z-index: -1;
+    }
+
+    .hero-inner {
+      width: min(1120px, 100%);
+      display: grid;
+      gap: 22px;
+    }
+
+    .eyebrow {
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 11px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.08);
+      color: #effff9;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      backdrop-filter: blur(10px);
+    }
+
+    h1, h2, h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: 0;
+    }
+
+    .hero h1 {
+      max-width: 840px;
+      font-size: clamp(48px, 11vw, 118px);
+      line-height: 0.92;
+      text-transform: uppercase;
+    }
+
+    .hero-copy {
+      max-width: 700px;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 18px;
+      line-height: 1.55;
+    }
+
+    .hero-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: stretch;
+      max-width: 980px;
+    }
+
+    .hero-stat {
+      min-width: 170px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      padding: 12px;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 30px;
+      line-height: 1;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .hero-stat span { color: rgba(255,255,255,0.72); font-size: 13px; }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    .btn, .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 900;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, var(--lime), #9eff18);
+      color: #07140f;
+      box-shadow: 0 14px 28px rgba(215, 255, 63, 0.26);
+    }
+
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,0.28);
+      color: #fff;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .btn:hover, .btn-secondary:hover { transform: translateY(-2px); }
+
+    section {
+      padding: 76px 8%;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin: 0 auto 26px;
+      text-align: center;
+    }
+
+    .section-head h2 {
+      font-size: clamp(34px, 6vw, 68px);
+      line-height: 0.96;
+      text-transform: uppercase;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .band {
+      background: #fff;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .value-grid, .scope-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .tile {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      min-height: 170px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .tile:hover { transform: translateY(-4px); border-color: rgba(25,196,141,0.42); }
+
+    .tile h3 {
+      font-size: 24px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .tile p, .tile li {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .tile ul {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+    }
+
+    .tile li {
+      border: 1px solid rgba(16,35,31,0.1);
+      border-radius: var(--radius);
+      background: #f7fbfa;
+      padding: 8px 10px;
+    }
+
+    .plan-strip {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--dark);
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .plan-strip h2 {
+      font-size: clamp(34px, 6vw, 72px);
+      line-height: 0.92;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .plan-strip p { color: rgba(255,255,255,0.74); line-height: 1.6; }
+
+    .price-box {
+      min-width: 260px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.08);
+      padding: 16px;
+      text-align: right;
+    }
+
+    .price {
+      display: block;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 46px;
+      line-height: 0.95;
+      color: #fff;
+    }
+
+    .price-box small { color: rgba(255,255,255,0.72); }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .step {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      padding: 16px;
+      min-height: 180px;
+      box-shadow: var(--shadow);
+    }
+
+    .step b {
+      display: inline-flex;
+      width: 34px;
+      height: 34px;
+      align-items: center;
+      justify-content: center;
+      background: var(--dark);
+      color: #fff;
+      border-radius: 50%;
+      margin-bottom: 12px;
+      font-size: 13px;
+    }
+
+    .step h3 { font-size: 22px; text-transform: uppercase; margin-bottom: 6px; }
+    .step p { color: var(--muted); line-height: 1.55; font-size: 14px; }
+
+    .final {
+      max-width: 980px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .final h2 {
+      font-size: clamp(38px, 7vw, 82px);
+      line-height: 0.94;
+      color: var(--dark);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .final p {
+      color: var(--muted);
+      margin: 0 auto 18px;
+      max-width: 720px;
+      line-height: 1.65;
+    }
+
+    footer {
+      background: #0b1614;
+      color: white;
+      margin-top: 60px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 34px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 8% 36px;
+    }
+
+    .footer-brand img { height: 38px; margin-bottom: 12px; }
+    .footer-brand p { color: rgba(255,255,255,0.72); font-size: 13px; max-width: 280px; }
+    .footer-col h4 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.58); margin-bottom: 12px; }
+    .footer-col ul { list-style: none; display: grid; gap: 8px; }
+    .footer-col a { color: rgba(255,255,255,0.88); text-decoration: none; font-size: 14px; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); text-align: center; padding: 16px 8%; color: rgba(255,255,255,0.68); font-size: 13px; }
+
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+      transition-delay: var(--delay, 0ms);
+    }
+
+    .reveal-item.is-visible { opacity: 1; transform: translateY(0); }
+
+    body.dark-mode {
+      --ink: #f3fff8;
+      --muted: #b8ccc6;
+      --surface: #07120f;
+      --paper: #101f1b;
+      --line: rgba(215,255,63,0.16);
+      background:
+        linear-gradient(90deg, rgba(215,255,63,0.055) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(215,255,63,0.045) 1px, transparent 1px),
+        radial-gradient(circle at 12% 0%, rgba(215,255,63,0.14), transparent 28%),
+        radial-gradient(circle at 92% 16%, rgba(25,196,141,0.13), transparent 30%),
+        #07120f;
+      background-size: 44px 44px, 44px 44px, auto, auto, auto;
+    }
+
+    body.dark-mode header {
+      background: rgba(7,18,15,0.9);
+      border-bottom-color: rgba(215,255,63,0.14);
+    }
+
+    body.dark-mode nav a { color: #f3fff8; }
+    body.dark-mode .nav-toggle { color: var(--lime); }
+    body.dark-mode .nav-login { background: var(--lime); color: #07140f !important; }
+
+    body.dark-mode .theme-toggle {
+      background: rgba(215,255,63,0.12);
+      color: var(--lime);
+      border-color: rgba(215,255,63,0.28);
+      box-shadow: 0 14px 28px rgba(0,0,0,0.24);
+    }
+
+    body.dark-mode .theme-toggle:hover {
+      background: var(--lime);
+      color: #07140f;
+    }
+
+    body.dark-mode .band {
+      background: #0b1b17;
+      border-color: rgba(215,255,63,0.12);
+    }
+
+    body.dark-mode .section-head h2,
+    body.dark-mode .tile h3,
+    body.dark-mode .step h3,
+    body.dark-mode .final h2 {
+      color: #f4fff9;
+    }
+
+    body.dark-mode .section-head p,
+    body.dark-mode .tile p,
+    body.dark-mode .tile li,
+    body.dark-mode .step p,
+    body.dark-mode .final p {
+      color: var(--muted);
+    }
+
+    body.dark-mode .tile,
+    body.dark-mode .step {
+      background: rgba(16,31,27,0.92);
+      border-color: rgba(215,255,63,0.14);
+      box-shadow: 0 18px 38px rgba(0,0,0,0.28);
+    }
+
+    body.dark-mode .tile li {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.1);
+    }
+
+    body.dark-mode .final .btn-secondary {
+      color: #f4fff9 !important;
+      border-color: rgba(215,255,63,0.2) !important;
+      background: rgba(255,255,255,0.08) !important;
+    }
+
+    @media (max-width: 1080px) {
+      .value-grid, .scope-grid, .timeline, .footer-inner { grid-template-columns: 1fr 1fr; }
+      .plan-strip { grid-template-columns: 1fr; }
+      .price-box { text-align: left; min-width: 0; }
+    }
+
+    @media (max-width: 980px) {
+      header { padding: 10px 5%; }
+      .logo img { height: 32px; }
+      nav {
+        order: 3;
+        width: 100%;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 12px;
+        background: #fff;
+        border: 1px solid var(--line);
+      }
+      body.dark-mode nav { background: #0d1f1b; }
+
+      nav a { text-align: center; padding: 8px; }
+      nav a::after { display: none; }
+      #mainNav.is-open { display: flex; }
+      .nav-toggle { display: inline-flex; }
+      .nav-login { width: 100%; }
+    }
+
+    @media (max-width: 720px) {
+      body { padding-top: 70px; }
+      .hero { min-height: auto; padding: 92px 5% 72px; }
+      section { padding: 58px 5%; }
+      .value-grid, .scope-grid, .timeline, .footer-inner { grid-template-columns: 1fr; }
+      .actions { flex-direction: column; }
+      .btn, .btn-secondary { width: 100%; }
+      .hero h1 { font-size: 48px; }
+    }
+  </style>
+</head>
+
+<body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K96JRDLJ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <header>
+    <div class="logo"><a href="index.html"><img loading="lazy" src="LUCKYBASE logo letras.png" alt="Logo Lucky Base"></a></div>
+    <nav id="mainNav">
+      <a href="index.html#inicio">Inicio</a>
+      <a href="apps.html" class="is-active">Apps</a>
+      <a href="planes.html">Planes</a>
+      <a href="index.html#contacto">Contacto</a>
+      <a class="nav-login" href="panel.html">Panel Cliente</a>
+    </nav>
+    <button id="navToggle" class="nav-toggle" type="button" aria-label="Abrir menu">
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+    <button id="themeToggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema"></button>
+  </header>
+
+  <section class="hero" id="inicio">
+    <div class="hero-inner reveal-item">
+      <span class="eyebrow">Plan MVP Rápido · desde 1.400 EUR</span>
+      <h1>Lanza una app real sin sobredimensionar el proyecto.</h1>
+      <p class="hero-copy">Pensado para validar mercado, enseñar producto a clientes y aprender rápido antes de invertir en una app completa.</p>
+      <div class="hero-bar">
+        <div class="hero-stat"><strong>24h</strong><span>respuesta comercial</span></div>
+        <div class="hero-stat"><strong>MVP</strong><span>flujo principal operativo</span></div>
+        <div class="hero-stat"><strong>1</strong><span>ruta clara de evolucion</span></div>
+      </div>
+      <div class="actions">
+        <a class="btn" href="index.html?servicio=apps&amp;plan=mvp-rapido#contacto">Reservar MVP Rápido</a>
+        <a class="btn-secondary" href="plan-app-negocio.html">Comparar con App Negocio</a>
+        <a class="btn-secondary" href="TyC-App-MVP-Rapido.pdf" target="_blank" rel="noopener noreferrer">Ver documentación</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="plan-strip reveal-item">
+      <div>
+        <h2>Validación antes que complejidad.</h2>
+        <p>El objetivo no es construirlo todo. Es poner en manos de usuarios una versión funcional que pruebe si la oportunidad merece escalar.</p>
+      </div>
+      <div class="price-box">
+        <span class="price">1.400 EUR</span>
+        <small>precio base desde</small>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head reveal-item">
+      <h2>Qué consigues</h2>
+      <p>Una app enfocada, util y preparada para responder la pregunta importante: merece la pena seguir invirtiendo?</p>
+    </div>
+    <div class="value-grid">
+      <article class="tile reveal-item"><h3>Salida rapida</h3><p>Reducimos el alcance a lo imprescindible para que puedas validar sin meses de desarrollo.</p></article>
+      <article class="tile reveal-item"><h3>Foco comercial</h3><p>El flujo principal se diseña alrededor de la accion que debe mover el negocio.</p></article>
+      <article class="tile reveal-item"><h3>Base evolutiva</h3><p>No es una demo tirable. Es una primera base pensada para crecer si los datos acompanian.</p></article>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="section-head reveal-item">
+      <h2>Alcance claro</h2>
+      <p>Para decidir sin ruido: que entra, que no entra y que resultado deberias esperar.</p>
+    </div>
+    <div class="scope-grid">
+      <article class="tile reveal-item">
+        <h3>Incluye</h3>
+        <ul>
+          <li>Discovery y arquitectura inicial</li>
+          <li>UX/UI del flujo principal</li>
+          <li>Desarrollo MVP funcional</li>
+          <li>QA y publicacion inicial</li>
+        </ul>
+      </article>
+      <article class="tile reveal-item">
+        <h3>No incluye</h3>
+        <ul>
+          <li>Panel avanzado multirol</li>
+          <li>Integraciones empresariales complejas</li>
+          <li>Roadmap continuo de producto</li>
+          <li>Modulos fuera del flujo principal</li>
+        </ul>
+      </article>
+      <article class="tile reveal-item">
+        <h3>Resultado</h3>
+        <ul>
+          <li>Primera app funcional</li>
+          <li>Feedback real de usuarios</li>
+          <li>Criterio para escalar o ajustar</li>
+          <li>Plan recomendado de siguiente fase</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head reveal-item">
+      <h2>Proceso</h2>
+      <p>Cuatro pasos para salir con claridad, sin convertir el arranque en un proyecto infinito.</p>
+    </div>
+    <div class="timeline">
+      <article class="step reveal-item"><b>01</b><h3>Enfoque</h3><p>Definimos objetivo, usuario y flujo minimo de valor.</p></article>
+      <article class="step reveal-item"><b>02</b><h3>Prototipo</h3><p>Ordenamos pantallas y experiencia antes de construir.</p></article>
+      <article class="step reveal-item"><b>03</b><h3>Desarrollo</h3><p>Construimos la versión funcional con QA base.</p></article>
+      <article class="step reveal-item"><b>04</b><h3>Lanzamiento</h3><p>Publicamos y dejamos clara la próxima decisión.</p></article>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="final reveal-item">
+      <h2>Tu primera versión puede estar mucho más cerca.</h2>
+      <p>Si necesitas validar con cabeza, este plan te da velocidad sin perder estructura.</p>
+      <div class="actions" style="justify-content:center;">
+        <a class="btn" href="index.html?servicio=apps&amp;plan=mvp-rapido#contacto">Pedir propuesta MVP</a>
+        <a class="btn-secondary" href="TyC-App-MVP-Rapido.pdf" target="_blank" rel="noopener noreferrer">Abrir TyC del plan</a>
+        <a class="btn-secondary" href="planes.html#planes-apps" style="color:#10231f;border-color:var(--line);background:#fff;">Volver a planes</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col footer-brand">
+        <img loading="lazy" src="logoluckyblancosinfondo.png" alt="Logo Lucky Base">
+        <p>Soluciones digitales modernas para empresas que quieren crecer en internet.</p>
+      </div>
+      <div class="footer-col"><h4>Servicios</h4><ul><li><a href="luckyweb.html">LuckyWeb</a></li><li><a href="apps.html">Apps a medida</a></li><li><a href="automatizaciones.html">LuckyAuto</a></li><li><a href="planes.html">Planes</a></li></ul></div>
+      <div class="footer-col"><h4>LuckyBase</h4><ul><li><a href="index.html#about">Nosotros</a></li><li><a href="index.html#faq">FAQ</a></li><li><a href="index.html#contacto">Contacto</a></li><li><a href="panel.html">Panel Cliente</a></li></ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacidad</a></li><li><a href="terminos-condiciones.html">Términos</a></li><li><a href="cookie-policy.html">Cookies</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">2026 LuckyBase. Todos los derechos reservados.</div>
+  </footer>
+
+  <script>
+    const mainNav = document.getElementById("mainNav")
+    const navToggle = document.getElementById("navToggle")
+    const themeToggle = document.getElementById("themeToggle")
+    const tabletBreakpoint = 980
+    const sunIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="5"></line><line x1="12" y1="19" x2="12" y2="22"></line><line x1="2" y1="12" x2="5" y2="12"></line><line x1="19" y1="12" x2="22" y2="12"></line><line x1="4.9" y1="4.9" x2="7" y2="7"></line><line x1="17" y1="17" x2="19.1" y2="19.1"></line><line x1="17" y1="7" x2="19.1" y2="4.9"></line><line x1="4.9" y1="19.1" x2="7" y2="17"></line></svg>'
+    const moonIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8z"></path></svg>'
+
+    function updateThemeButton() {
+      const isDark = document.body.classList.contains("dark-mode")
+      if (!themeToggle) return
+      themeToggle.innerHTML = isDark ? moonIcon : sunIcon
+      themeToggle.setAttribute("aria-label", isDark ? "Modo oscuro" : "Modo claro")
+      themeToggle.setAttribute("title", isDark ? "Modo oscuro" : "Modo claro")
+    }
+
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark-mode")
+    }
+
+    updateThemeButton()
+
+    if (themeToggle) {
+      themeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode")
+        localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light")
+        updateThemeButton()
+      })
+    }
+
+    if (navToggle && mainNav) {
+      navToggle.addEventListener("click", () => {
+        const isOpen = mainNav.classList.toggle("is-open")
+        navToggle.classList.toggle("is-open", isOpen)
+        navToggle.setAttribute("aria-label", isOpen ? "Cerrar menu" : "Abrir menu")
+      })
+
+      mainNav.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          if (window.innerWidth <= tabletBreakpoint) {
+            mainNav.classList.remove("is-open")
+            navToggle.classList.remove("is-open")
+            navToggle.setAttribute("aria-label", "Abrir menu")
+          }
+        })
+      })
+    }
+
+    const revealTargets = [...document.querySelectorAll(".reveal-item")]
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible")
+            obs.unobserve(entry.target)
+          }
+        })
+      }, { threshold: 0.16 })
+      revealTargets.forEach((el, index) => {
+        el.style.setProperty("--delay", `${(index % 6) * 55}ms`)
+        observer.observe(el)
+      })
+    } else {
+      revealTargets.forEach((el) => el.classList.add("is-visible"))
+    }
+  </script>
+</body>
+</html>

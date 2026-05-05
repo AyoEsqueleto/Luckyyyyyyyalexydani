@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="stylesheet" href="cookie-consent.css">
+  <script src="cookie-consent.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="description" content="Plan App Scale de LuckyBase: desarrollo de apps avanzadas, SaaS, plataformas e integraciones complejas con roadmap evolutivo.">
+  <title>Plan App Scale | LuckyBase</title>
+  <meta property="og:title" content="Plan App Scale | LuckyBase">
+  <meta property="og:description" content="App avanzada a medida para productos complejos, plataformas SaaS e integraciones críticas.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:url" content="https://luckybase.es/plan-app-scale.html">
+  <meta property="og:site_name" content="LuckyBase">
+  <meta property="og:image" content="https://luckybase.es/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Plan App Scale | LuckyBase">
+  <meta name="twitter:description" content="Apps avanzadas para escalar producto, datos e integraciones.">
+  <meta name="twitter:image" content="https://luckybase.es/og-image.png">
+  <meta name="theme-color" content="#07120f">
+  <link rel="canonical" href="https://luckybase.es/plan-app-scale.html">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet">
+
+  <script>(function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+      var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-K96JRDLJ');</script>
+
+  <style>
+    :root {
+      --ink: #0e211d;
+      --muted: #49645f;
+      --surface: #f6faf9;
+      --paper: #ffffff;
+      --line: rgba(14,33,29,0.14);
+      --green: #19c48d;
+      --lime: #d7ff3f;
+      --blue: #20a7ff;
+      --dark: #07120f;
+      --shadow: 0 24px 58px rgba(14,33,29,0.14);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Manrope', sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(14,33,29,0.035) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(14,33,29,0.035) 1px, transparent 1px),
+        radial-gradient(circle at 8% 0%, rgba(215,255,63,0.22), transparent 30%),
+        radial-gradient(circle at 92% 10%, rgba(32,167,255,0.18), transparent 30%),
+        var(--surface);
+      background-size: 48px 48px, 48px 48px, auto, auto, auto;
+      padding-top: 76px;
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; height: auto; }
+    a { color: inherit; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.045em; }
+    p, li { color: var(--muted); line-height: 1.65; }
+    a:focus-visible, button:focus-visible { outline: 3px solid rgba(25,196,141,0.45); outline-offset: 2px; }
+
+    header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 6%;
+      background: rgba(246,250,249,0.92);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    .logo img { height: 38px; display: block; }
+    nav { display: flex; align-items: center; justify-content: flex-end; gap: 14px; flex-wrap: wrap; flex: 1 1 auto; }
+    nav a { text-decoration: none; font-size: 14px; font-weight: 800; color: #173a33; position: relative; }
+    nav a::after { content: ""; position: absolute; left: 0; bottom: -5px; width: 0; height: 2px; background: var(--green); transition: width 0.2s ease; }
+    nav a:hover::after, nav a.is-active::after { width: 100%; }
+    .nav-login { background: var(--ink); color: #fff !important; padding: 8px 12px; border-radius: 999px; }
+    nav a.nav-login::after { display: none; }
+
+    .nav-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .nav-toggle .bar { position: absolute; left: 10px; right: 10px; height: 2px; background: currentColor; transition: transform 0.25s ease, opacity 0.2s ease; }
+    .nav-toggle .bar:nth-child(1) { top: 13px; }
+    .nav-toggle .bar:nth-child(2) { top: 20px; }
+    .nav-toggle .bar:nth-child(3) { top: 27px; }
+    .nav-toggle.is-open .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.is-open .bar:nth-child(2) { opacity: 0; }
+    .nav-toggle.is-open .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .theme-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(14,33,29,0.16);
+      border-radius: 50%;
+      background: rgba(255,255,255,0.86);
+      color: var(--ink);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(14,33,29,0.1);
+      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .theme-toggle svg { width: 19px; height: 19px; }
+    .theme-toggle:hover { transform: translateY(-2px); background: var(--lime); }
+
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 76px);
+      display: grid;
+      align-items: center;
+      padding: 54px 8% 62px;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 74% 18%, rgba(215,255,63,0.34), transparent 17%),
+        radial-gradient(circle at 94% 66%, rgba(32,167,255,0.22), transparent 24%),
+        linear-gradient(135deg, transparent 0 58%, rgba(14,33,29,0.08) 58% 59%, transparent 59%);
+      z-index: -1;
+    }
+
+    .hero-shell {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.05fr 0.8fr;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      width: fit-content;
+      display: inline-flex;
+      padding: 8px 11px;
+      border: 1px solid rgba(14,33,29,0.16);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.78);
+      color: #1f5d50;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      max-width: 860px;
+      font-size: clamp(52px, 10vw, 126px);
+      line-height: 0.86;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      color: #0e211d;
+    }
+
+    .hero h1 span {
+      color: transparent;
+      -webkit-text-stroke: 2px #0e211d;
+    }
+
+    .hero-text { max-width: 680px; font-size: 18px; font-weight: 700; }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .btn {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 900;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn-primary { background: linear-gradient(135deg, var(--lime), #92ff2b); color: #07140f; box-shadow: 0 18px 30px rgba(130,210,31,0.24); }
+    .btn-secondary { border: 1px solid rgba(14,33,29,0.18); background: rgba(255,255,255,0.84); color: #173b34; }
+    .btn:hover { transform: translateY(-2px); }
+
+    .scale-card {
+      border: 1px solid rgba(14,33,29,0.14);
+      border-radius: 30px;
+      padding: 24px;
+      background:
+        radial-gradient(circle at 18% 0%, rgba(215,255,63,0.3), transparent 34%),
+        radial-gradient(circle at 100% 10%, rgba(32,167,255,0.2), transparent 34%),
+        rgba(255,255,255,0.9);
+      box-shadow: var(--shadow);
+    }
+
+    .price { font-size: clamp(54px, 7vw, 82px); line-height: 0.9; color: #0e211d; margin-bottom: 10px; }
+    .scale-card p { font-weight: 700; }
+    .scale-list { list-style: none; display: grid; gap: 9px; margin-top: 20px; }
+    .scale-list li { padding: 10px 11px; border-radius: 14px; background: rgba(255,255,255,0.78); border: 1px solid rgba(14,33,29,0.1); font-weight: 700; }
+
+    section { padding: 78px 8%; }
+    .section-head { max-width: 850px; margin: 0 auto 28px; text-align: center; }
+    .section-head h2 { font-size: clamp(42px, 7vw, 88px); line-height: 0.92; text-transform: uppercase; color: #0e211d; }
+    .section-head p { max-width: 700px; margin: 12px auto 0; font-weight: 700; }
+
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .feature {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 22px;
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 14px 30px rgba(14,33,29,0.08);
+      min-height: 250px;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .feature:hover { transform: translateY(-6px); border-color: rgba(25,196,141,0.34); }
+    .feature span { display: inline-flex; margin-bottom: 22px; color: #1f5d50; font-size: 12px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
+    .feature h3 { font-size: 36px; line-height: 0.92; text-transform: uppercase; margin-bottom: 10px; color: #0e211d; }
+    .feature p { font-weight: 700; }
+
+    .scope {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .scope-panel {
+      border-radius: 28px;
+      padding: 26px;
+      background:
+        radial-gradient(circle at 0 0, rgba(215,255,63,0.2), transparent 34%),
+        linear-gradient(135deg, #0e211d, #123d34);
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .scope-panel h2 { font-size: clamp(42px, 6vw, 78px); line-height: 0.9; text-transform: uppercase; margin-bottom: 14px; color: #fff; }
+    .scope-panel p { color: rgba(255,255,255,0.8); font-weight: 700; }
+    .scope-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .scope-item { border: 1px solid var(--line); border-radius: 18px; padding: 18px; background: rgba(255,255,255,0.9); }
+    .scope-item strong { display: block; color: #0e211d; margin-bottom: 5px; font-family: 'Space Grotesk', sans-serif; font-size: 22px; }
+
+    .final {
+      max-width: 1040px;
+      margin: 0 auto;
+      border: 1px solid rgba(14,33,29,0.16);
+      border-radius: 30px;
+      padding: clamp(30px, 6vw, 58px);
+      background:
+        radial-gradient(circle at 80% 0%, rgba(215,255,63,0.22), transparent 28%),
+        linear-gradient(135deg, #0e211d, #143f36);
+      color: #fff;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .final h2 { color: #fff; font-size: clamp(42px, 7vw, 92px); line-height: 0.9; text-transform: uppercase; margin-bottom: 14px; }
+    .final p { color: rgba(255,255,255,0.82); font-weight: 700; max-width: 740px; margin: 0 auto; }
+
+    footer { background: linear-gradient(135deg, #0d1315, #1a2b2e 62%, #234848); color: #fff; margin-top: 76px; border-top: 1px solid rgba(215,255,63,0.24); }
+    .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; max-width: 1200px; margin: 0 auto; padding: 52px 8% 40px; }
+    .footer-brand img { height: 40px; margin-bottom: 14px; }
+    .footer-brand p { font-size: 13px; color: rgba(255,255,255,0.86); max-width: 280px; }
+    .footer-col h4 { font-size: 13px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.72); margin-bottom: 14px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col a { font-size: 14px; color: rgba(255,255,255,0.94); text-decoration: none; }
+    .footer-bottom { text-align: center; padding: 16px 8%; border-top: 1px solid rgba(255,255,255,0.14); font-size: 13px; color: rgba(255,255,255,0.8); }
+
+    .js-enabled .reveal-item { opacity: 0; transform: translateY(24px) scale(0.99); filter: blur(1px); transition: opacity 0.58s ease, transform 0.58s cubic-bezier(.2,.7,.2,1), filter 0.58s ease; transition-delay: var(--delay, 0ms); }
+    .js-enabled .reveal-item.is-visible { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+
+    body.dark-mode {
+      --ink: #f4fff9;
+      --muted: #b9cec8;
+      --surface: #07120f;
+      --paper: #101f1b;
+      --line: rgba(215,255,63,0.16);
+      background:
+        linear-gradient(90deg, rgba(215,255,63,0.055) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(215,255,63,0.045) 1px, transparent 1px),
+        radial-gradient(circle at 8% 0%, rgba(215,255,63,0.16), transparent 30%),
+        radial-gradient(circle at 92% 10%, rgba(32,167,255,0.14), transparent 30%),
+        #07120f;
+      background-size: 48px 48px, 48px 48px, auto, auto, auto;
+    }
+
+    body.dark-mode header { background: rgba(7,18,15,0.9); border-bottom-color: rgba(215,255,63,0.14); }
+    body.dark-mode nav a { color: #f3fff8; }
+    body.dark-mode .nav-toggle { color: var(--lime); }
+    body.dark-mode .nav-login { background: var(--lime); color: #07140f !important; }
+    body.dark-mode .theme-toggle { background: rgba(215,255,63,0.12); color: var(--lime); border-color: rgba(215,255,63,0.28); }
+    body.dark-mode .theme-toggle:hover { background: var(--lime); color: #07140f; }
+    body.dark-mode .eyebrow,
+    body.dark-mode .scale-card,
+    body.dark-mode .feature,
+    body.dark-mode .scope-item { background: rgba(16,31,27,0.92); border-color: rgba(215,255,63,0.14); box-shadow: 0 18px 38px rgba(0,0,0,0.28); }
+    body.dark-mode .hero h1,
+    body.dark-mode .price,
+    body.dark-mode .section-head h2,
+    body.dark-mode .feature h3,
+    body.dark-mode .scope-item strong { color: #f4fff9; }
+    body.dark-mode .hero h1 span { -webkit-text-stroke-color: #d7ff3f; }
+    body.dark-mode p,
+    body.dark-mode li,
+    body.dark-mode .hero-text,
+    body.dark-mode .feature p,
+    body.dark-mode .scope-item p { color: var(--muted); }
+    body.dark-mode .scale-list li { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.12); }
+    body.dark-mode .btn-secondary { background: rgba(255,255,255,0.07); color: #f4fff9; border-color: rgba(215,255,63,0.2); }
+
+    @media (max-width: 1120px) {
+      .hero-shell,
+      .scope { grid-template-columns: 1fr; }
+      .grid-3,
+      .scope-list { grid-template-columns: 1fr; }
+      .scale-card { max-width: 640px; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 28px; }
+    }
+
+    @media (max-width: 1024px) {
+      body { padding-top: 84px; }
+      header { padding: 10px 5%; }
+      .logo img { height: 34px; }
+      nav {
+        order: 3;
+        width: 100%;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+        padding: 12px;
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.16);
+      }
+      body.dark-mode nav { background: #0d1f1b; box-shadow: 0 18px 36px rgba(0,0,0,0.34); }
+      nav a { text-align: center; border-radius: 10px; padding: 8px 10px; }
+      nav a::after { display: none; }
+      #mainNav.is-open { display: flex; }
+      .nav-toggle { display: inline-flex; }
+      .nav-login { width: 100%; }
+      section { padding: 64px 6%; }
+    }
+
+    @media (max-width: 720px) {
+      body { padding-top: 76px; }
+      header { padding: 8px 4% 10px; }
+      .logo img { height: 28px; }
+      .hero { min-height: auto; padding: 44px 5% 48px; }
+      .hero h1 { font-size: clamp(46px, 15vw, 76px); }
+      .hero h1 span { -webkit-text-stroke-width: 1px; }
+      .actions, .btn { width: 100%; }
+      section { padding: 54px 5%; }
+      .footer-inner { grid-template-columns: 1fr; gap: 22px; padding: 36px 5% 28px; }
+    }
+  </style>
+</head>
+<body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K96JRDLJ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <header>
+    <div class="logo"><a href="index.html"><img loading="lazy" src="LUCKYBASE logo letras.png" alt="Logo Lucky Base"></a></div>
+    <nav id="mainNav">
+      <a href="index.html#inicio">Inicio</a>
+      <a href="index.html#servicios">Servicios</a>
+      <a href="luckyweb.html">LuckyWeb</a>
+      <a href="apps.html" class="is-active">Apps</a>
+      <a href="automatizaciones.html">LuckyAuto</a>
+      <a href="planes.html#planes-apps">Planes</a>
+      <a href="index.html#contacto">Contacto</a>
+      <a class="nav-login" href="panel.html">Panel Cliente</a>
+    </nav>
+    <button id="themeToggle" class="theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema"></button>
+    <button id="navToggle" class="nav-toggle" type="button" aria-label="Abrir menú"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-shell">
+        <div class="reveal-item">
+          <span class="eyebrow">Plan App Scale · a medida</span>
+          <h1>Escala tu app como <span>producto</span>, no como parche.</h1>
+          <p class="hero-text">Para SaaS, plataformas internas, dashboards, marketplaces o apps con módulos complejos, integraciones críticas y roadmap evolutivo.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="index.html?servicio=apps&amp;plan=app-scale#contacto">Solicitar App Scale</a>
+            <a class="btn btn-secondary" href="comparador-planes-apps.html">Comparar planes</a>
+            <a class="btn btn-secondary" href="TyC-App-Scale.pdf" target="_blank" rel="noopener noreferrer">Ver documentación</a>
+          </div>
+        </div>
+
+        <aside class="scale-card reveal-item" aria-label="Resumen del plan App Scale">
+          <span class="eyebrow">Arquitectura + roadmap</span>
+          <div class="price">A medida</div>
+          <p>Precio definido según módulos, usuarios, integraciones, seguridad, datos y fases de lanzamiento.</p>
+          <ul class="scale-list">
+            <li>Arquitectura técnica preparada para crecer.</li>
+            <li>Módulos avanzados y flujos personalizados.</li>
+            <li>Integraciones con APIs, CRM, pagos o sistemas externos.</li>
+            <li>Roadmap por hitos de negocio y soporte estratégico.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="valor">
+      <div class="section-head reveal-item">
+        <h2>Cuando la app ya es parte del negocio.</h2>
+        <p>App Scale encaja cuando necesitas una solución viva: medible, conectada, mantenible y preparada para sumar funcionalidades sin rehacerlo todo.</p>
+      </div>
+      <div class="grid-3">
+        <article class="feature reveal-item"><span>01 / Producto</span><h3>Roadmap claro</h3><p>Priorizamos módulos por impacto para lanzar por fases, medir y seguir construyendo sobre una base ordenada.</p></article>
+        <article class="feature reveal-item"><span>02 / Sistema</span><h3>Datos conectados</h3><p>Diseñamos flujos, paneles e integraciones para que la app trabaje conectada a la operación real.</p></article>
+        <article class="feature reveal-item"><span>03 / Escala</span><h3>Base sólida</h3><p>Arquitectura pensada para usuarios, permisos, rendimiento, analítica y evolución técnica sin bloqueos.</p></article>
+      </div>
+    </section>
+
+    <section id="alcance">
+      <div class="scope">
+        <aside class="scope-panel reveal-item">
+          <h2>Alcance avanzado sin caos.</h2>
+          <p>Definimos la app como sistema: qué entra ahora, qué queda para fase dos y qué decisiones técnicas protegen el crecimiento.</p>
+        </aside>
+        <div class="scope-list">
+          <article class="scope-item reveal-item"><strong>Incluye</strong><p>Discovery técnico, arquitectura, UX/UI, desarrollo por módulos, QA, documentación y soporte de lanzamiento.</p></article>
+          <article class="scope-item reveal-item"><strong>Ideal para</strong><p>SaaS, marketplaces, dashboards internos, portales de cliente o apps conectadas con varios servicios.</p></article>
+          <article class="scope-item reveal-item"><strong>Integraciones</strong><p>CRM, ERP, pagos, automatizaciones, notificaciones, APIs externas, analítica y herramientas internas.</p></article>
+          <article class="scope-item reveal-item"><strong>Resultado</strong><p>Una plataforma evolutiva con ruta de crecimiento, no una app aislada que se queda corta a los meses.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="final reveal-item">
+        <h2>Si tu app tiene que escalar, empecemos por el mapa.</h2>
+        <p>Cuéntanos qué quieres construir y te ayudamos a ordenar alcance, fases, presupuesto y riesgos técnicos antes de desarrollar.</p>
+        <div class="actions" style="justify-content:center;">
+          <a class="btn btn-primary" href="index.html?servicio=apps&amp;plan=app-scale#contacto">Pedir propuesta App Scale</a>
+          <a class="btn btn-secondary" href="TyC-App-Scale.pdf" target="_blank" rel="noopener noreferrer">Abrir TyC del plan</a>
+          <a class="btn btn-secondary" href="apps.html#planes-apps">Volver a planes</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col footer-brand">
+        <img loading="lazy" src="logoluckyblancosinfondo.png" alt="Logo Lucky Base">
+        <p>Soluciones digitales modernas para empresas que quieren crecer en internet.</p>
+      </div>
+      <div class="footer-col"><h4>Servicios</h4><ul><li><a href="luckyweb.html">LuckyWeb</a></li><li><a href="apps.html">Apps a medida</a></li><li><a href="automatizaciones.html">LuckyAuto</a></li><li><a href="planes.html">Planes</a></li></ul></div>
+      <div class="footer-col"><h4>Apps</h4><ul><li><a href="plan-mvp-rapido.html">MVP Rápido</a></li><li><a href="plan-app-negocio.html">App Negocio</a></li><li><a href="plan-app-scale.html">App Scale</a></li><li><a href="comparador-planes-apps.html">Comparador apps</a></li></ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacidad</a></li><li><a href="terminos-condiciones.html">Términos</a></li><li><a href="cookie-policy.html">Cookies</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; 2026 LuckyBase. Todos los derechos reservados.</span></div>
+  </footer>
+
+  <script>
+    const mainNav = document.getElementById("mainNav")
+    const navToggle = document.getElementById("navToggle")
+    const themeToggle = document.getElementById("themeToggle")
+    const tabletBreakpoint = 1024
+    const sunIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="5"></line><line x1="12" y1="19" x2="12" y2="22"></line><line x1="2" y1="12" x2="5" y2="12"></line><line x1="19" y1="12" x2="22" y2="12"></line><line x1="4.9" y1="4.9" x2="7" y2="7"></line><line x1="17" y1="17" x2="19.1" y2="19.1"></line><line x1="17" y1="7" x2="19.1" y2="4.9"></line><line x1="4.9" y1="19.1" x2="7" y2="17"></line></svg>'
+    const moonIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8z"></path></svg>'
+
+    document.body.classList.add("js-enabled")
+
+    function updateThemeButton() {
+      const isDark = document.body.classList.contains("dark-mode")
+      if (!themeToggle) return
+      themeToggle.innerHTML = isDark ? moonIcon : sunIcon
+      themeToggle.setAttribute("aria-label", isDark ? "Modo oscuro" : "Modo claro")
+      themeToggle.setAttribute("title", isDark ? "Modo oscuro" : "Modo claro")
+    }
+
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark-mode")
+    }
+
+    updateThemeButton()
+
+    if (themeToggle) {
+      themeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode")
+        localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light")
+        updateThemeButton()
+      })
+    }
+
+    const revealTargets = [...document.querySelectorAll(".reveal-item")]
+    revealTargets.forEach((el, index) => el.style.setProperty("--delay", `${(index % 8) * 45}ms`))
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+      revealTargets.forEach((el) => el.classList.add("is-visible"))
+    } else {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible")
+            observer.unobserve(entry.target)
+          }
+        })
+      }, { threshold: 0.2, rootMargin: "0px 0px -8% 0px" })
+      revealTargets.forEach((el) => revealObserver.observe(el))
+    }
+
+    if (navToggle && mainNav) {
+      navToggle.addEventListener("click", () => {
+        const isOpen = mainNav.classList.toggle("is-open")
+        navToggle.classList.toggle("is-open", isOpen)
+        navToggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú")
+      })
+
+      mainNav.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          if (window.innerWidth <= tabletBreakpoint) {
+            mainNav.classList.remove("is-open")
+            navToggle.classList.remove("is-open")
+            navToggle.setAttribute("aria-label", "Abrir menú")
+          }
+        })
+      })
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > tabletBreakpoint) {
+          mainNav.classList.remove("is-open")
+          navToggle.classList.remove("is-open")
+          navToggle.setAttribute("aria-label", "Abrir menú")
+        }
+      })
+    }
+  </script>
+</body>
+</html>
