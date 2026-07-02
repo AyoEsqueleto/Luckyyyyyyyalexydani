@@ -232,9 +232,9 @@
             <div class="panel-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url-pill">builder.luckybase.es/beta-1</span></div>
             <div class="beta-body">
               <span class="beta-tag">Lanzamiento BETA 1</span>
-              <h2 class="beta-title">10 dias mas para abrir la primera beta.</h2>
-              <p class="beta-copy">Estamos preparando una version centrada en crear, editar, guardar y publicar proyectos reales con una experiencia mas fluida.</p>
-              <div class="countdown" data-countdown data-launch="2026-07-01T16:00:00+02:00">
+              <h2 class="beta-title">La BETA 1 se activa el 2 de julio a las 14:00.</h2>
+              <p class="beta-copy">Estamos preparando una version centrada en crear, editar, guardar y publicar proyectos reales con una experiencia mas fluida. Cuando llegue la hora, se lanzara el evento automaticamente.</p>
+              <div class="countdown" data-countdown data-launch="2026-07-02T14:00:00+02:00">
                 <div class="timebox"><strong data-days>05</strong><span>Dias</span></div>
                 <div class="timebox"><strong data-hours>00</strong><span>Horas</span></div>
                 <div class="timebox"><strong data-minutes>00</strong><span>Min</span></div>
@@ -387,10 +387,15 @@
       var hours = countdown.querySelector('[data-hours]');
       var minutes = countdown.querySelector('[data-minutes]');
       var seconds = countdown.querySelector('[data-seconds]');
-      var stateKey = 'luckybuilder-launch-complete';
+      var stateKey = 'luckybuilder-launch-complete-20260702-1400';
       var launchActive = false;
       var launchTimers = [];
       function pad(value){ return String(value).padStart(2, '0'); }
+      function emitLaunchEvent(name, detail) {
+        try {
+          window.dispatchEvent(new CustomEvent(name, { detail: detail }));
+        } catch (_err) {}
+      }
       function clearTimers() {
         while (launchTimers.length) {
           clearTimeout(launchTimers.pop());
@@ -405,13 +410,22 @@
           overlay.hidden = true;
         }
         try { localStorage.setItem(stateKey, '1'); } catch (_err) {}
+        emitLaunchEvent('luckybuilder:launch-complete', {
+          live: true,
+          launchAt: launchDate
+        });
       }
       function startLaunchSequence() {
         if (launchActive) return;
         launchActive = true;
         document.body.classList.add('launch-pending');
+        emitLaunchEvent('luckybuilder:launch-start', {
+          live: true,
+          launchAt: launchDate
+        });
         if (overlay) {
           overlay.hidden = false;
+          overlay.classList.remove('is-dropping');
           overlay.classList.remove('is-hidden');
         }
         launchTimers.push(setTimeout(function(){
@@ -429,6 +443,14 @@
         hours.textContent = pad(h);
         minutes.textContent = pad(m);
         seconds.textContent = pad(s);
+        emitLaunchEvent('luckybuilder:countdown-tick', {
+          live: distance <= 0,
+          launchAt: launchDate,
+          days: d,
+          hours: h,
+          minutes: m,
+          seconds: s
+        });
         if (distance <= 0) {
           var title = document.querySelector('.beta-title');
           if (title) title.textContent = 'La BETA 1 ya esta disponible.';
