@@ -155,20 +155,6 @@
     .market{background:#f6f9ff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.market-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:34px;align-items:center}.market-list{display:grid;gap:14px}.market-item{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:0 12px 35px rgba(15,23,42,.05);transition:transform .2s ease}.market-item:hover{transform:translateX(6px)}.market-icon{width:42px;height:42px;border-radius:14px;background:#eaf4ff;color:var(--blue);display:flex;align-items:center;justify-content:center;font-weight:950;flex:0 0 auto}.market-item h3{font-size:20px;margin-bottom:4px}.market-item p{margin:0;color:var(--muted)}
     .two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px}.panel{border:1px solid var(--line);border-radius:30px;padding:34px;background:#fff;box-shadow:var(--soft-shadow)}.panel h3{font-size:30px;margin-bottom:12px}.panel p{color:var(--muted)}.panel ul{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:12px}.panel li{display:flex;gap:10px;color:#334155;font-weight:800}.panel li::before{content:"✓";color:var(--blue);font-weight:950}.faq{display:grid;gap:12px;max-width:920px;margin:0 auto}.faq details{border:1px solid var(--line);border-radius:20px;background:#fff;padding:18px 22px;box-shadow:0 10px 28px rgba(15,23,42,.04)}.faq summary{cursor:pointer;font-weight:950;color:#07111f}.faq p{color:var(--muted);margin:12px 0 0}
     .cta{padding:92px 0;background:#07111f;color:#fff;position:relative;overflow:hidden}.cta::before{content:"";position:absolute;inset:-20%;background:radial-gradient(circle at 25% 20%,rgba(21,94,239,.48),transparent 34%),radial-gradient(circle at 80% 30%,rgba(17,191,215,.34),transparent 36%);animation:orb 10s ease-in-out infinite alternate}.cta .shell{position:relative;z-index:1;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center}.cta h2{color:#fff;font-size:clamp(34px,5vw,66px)}.cta p{color:#cbd5e1;max-width:760px;font-size:18px}.cta .btn.secondary{background:#fff;color:#07111f}
-    body.launch-pending{overflow:hidden}
-    body.launch-pending main,
-    body.launch-pending footer,
-    body.launch-pending .topbar{filter:blur(14px);opacity:.14;transform:translateY(6px) scale(.992);pointer-events:none;user-select:none;transition:opacity .4s ease,filter .4s ease,transform .4s ease}
-    body.launch-ready main,
-    body.launch-ready footer,
-    body.launch-ready .topbar{filter:none;opacity:1;transform:none;pointer-events:auto;user-select:auto}
-    .launch-overlay{position:fixed;inset:0;z-index:2000;background:#fff;display:grid;place-items:center;padding:24px;transform:translateY(0);transition:transform 3s cubic-bezier(.22,1,.36,1),opacity .35s ease;opacity:1}
-    .launch-overlay.is-hidden{opacity:0;pointer-events:none}
-    .launch-overlay.is-dropping{transform:translateY(100%)}
-    .launch-overlay-card{width:min(560px,100%);display:grid;gap:18px;place-items:center;text-align:center}
-    .launch-overlay-logo{width:min(280px,72vw);display:block;filter:drop-shadow(0 18px 40px rgba(21,94,239,.12))}
-    .launch-overlay-chip{display:inline-flex;align-items:center;gap:8px;border-radius:999px;background:#eef6ff;border:1px solid rgba(21,94,239,.16);color:var(--blue);padding:8px 14px;font-weight:900;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
-    .launch-overlay-chip::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 6px rgba(21,94,239,.1)}
     footer{background:#f8fafc;border-top:1px solid var(--line);padding:36px 0;color:#536174}.footer-row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer-row a{font-weight:850;color:#172033}.footer-row a:hover{color:var(--blue)}
 
     [data-animate]{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}.is-visible{opacity:1!important;transform:none!important}
@@ -183,16 +169,10 @@
     @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.countdown-card{transform:none!important}}
     @media(max-width:1020px){.nav{height:auto;padding:16px 0;align-items:flex-start}.nav,.nav-links{flex-direction:column}.nav-links{align-items:flex-start;gap:12px}.hero-grid,.editor-showcase,.market-grid,.two-col,.cta .shell{grid-template-columns:1fr}.hero{min-height:auto}.hero-grid{padding:58px 0}.launch-grid,.flow-rail{grid-template-columns:1fr 1fr}.flow-rail::before{display:none}.countdown-card{animation:none}.cta{padding:66px 0}}
-    @media(max-width:680px){.shell{width:min(100% - 28px,1200px)}.launch-grid,.flow-rail{grid-template-columns:1fr}.countdown{grid-template-columns:repeat(2,1fr)}.hero-actions .btn{width:100%}.proof{gap:10px}.showcase-board{min-height:470px}.mock-title{width:82%}.mock-floating.one{right:18px;width:145px}.mock-floating.two{left:20px;width:190px}.mock-floating.three{right:26px}.footer-row{flex-direction:column}.marquee-track{animation-duration:18s}.launch-overlay{padding:20px}}
+    @media(max-width:680px){.shell{width:min(100% - 28px,1200px)}.launch-grid,.flow-rail{grid-template-columns:1fr}.countdown{grid-template-columns:repeat(2,1fr)}.hero-actions .btn{width:100%}.proof{gap:10px}.showcase-board{min-height:470px}.mock-title{width:82%}.mock-floating.one{right:18px;width:145px}.mock-floating.two{left:20px;width:190px}.mock-floating.three{right:26px}.footer-row{flex-direction:column}.marquee-track{animation-duration:18s}}
   </style>
 </head>
 <body>
-  <div class="launch-overlay" id="launchOverlay" hidden aria-hidden="true">
-    <div class="launch-overlay-card">
-      <span class="launch-overlay-chip">Lanzamiento LuckyBuilder</span>
-      <img class="launch-overlay-logo" src="../logoluckyazulsinfondo.png" alt="LuckyBase">
-    </div>
-  </div>
   <header class="topbar">
     <div class="shell nav">
       <a class="brand" href="../index.html" aria-label="Volver a LuckyBase">
@@ -216,7 +196,7 @@
           <h1>Crea webs con IA, editalas en visual y publicalas con <span class="accent-text">control total</span>.</h1>
           <p class="hero-lead">LuckyBuilder es el constructor web de LuckyBase: genera una primera web con IA, ajusta textos, colores, imagenes, secciones y SEO en un editor visual, guarda proyectos en la nube y publica webs seguras en HTTPS.</p>
           <div class="hero-actions">
-            <a class="btn primary" href="#beta">Ver estado beta</a>
+            <a class="btn primary" href="https://builder.luckybase.es/">Entrar en LuckyBuilder</a>
             <a class="btn secondary" href="#funciones">Ver funciones</a>
           </div>
           <div class="proof" aria-label="Funciones principales">
@@ -229,16 +209,20 @@
 
         <aside class="countdown-card" id="beta" aria-label="Estado de LuckyBuilder BETA 1">
           <div class="beta-panel">
-            <div class="panel-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url-pill">builder.luckybase.es/beta-1</span></div>
+            <div class="panel-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url-pill">builder.luckybase.es</span></div>
             <div class="beta-body">
               <span class="beta-tag">BETA 1 disponible</span>
               <h2 class="beta-title">La BETA 1 ya está disponible.</h2>
-              <p class="beta-copy">LuckyBuilder ya está abierto para crear, editar, guardar y publicar proyectos reales con una experiencia más fluida. Seguiremos mejorándolo con feedback real de usuarios.</p>
-              <div class="countdown" data-countdown data-launch="2026-07-02T14:00:00+02:00">
-                <div class="timebox"><strong data-days>05</strong><span>Dias</span></div>
-                <div class="timebox"><strong data-hours>00</strong><span>Horas</span></div>
-                <div class="timebox"><strong data-minutes>00</strong><span>Min</span></div>
-                <div class="timebox"><strong data-seconds>00</strong><span>Seg</span></div>
+              <p class="beta-copy">LuckyBuilder ya está abierto para crear, editar, guardar y publicar proyectos reales. Ya puedes entrar directamente al builder y empezar con la BETA 1.</p>
+              <div class="countdown">
+                <div class="timebox"><strong>IA</strong><span>Generacion</span></div>
+                <div class="timebox"><strong>EDIT</strong><span>Visual</span></div>
+                <div class="timebox"><strong>CLOUD</strong><span>Proyectos</span></div>
+                <div class="timebox"><strong>LIVE</strong><span>Publicacion</span></div>
+              </div>
+              <div class="hero-actions">
+                <a class="btn primary" href="https://builder.luckybase.es/">Abrir builder</a>
+                <a class="btn secondary" href="https://builder.luckybase.es/auth.html">Entrar o registrarse</a>
               </div>
               <div class="console" aria-hidden="true">
                 <div class="code-line"></div>
@@ -314,7 +298,7 @@
           <span class="eyebrow">Marketplace incluido</span>
           <h2 style="font-size:clamp(34px,4vw,58px);margin-top:18px">Plantillas para comprar, vender o reutilizar.</h2>
           <p style="color:var(--muted);font-size:18px">LuckyBuilder prepara un espacio para descubrir plantillas, perfiles de builders y publicaciones gratis o de pago. La idea es convertir las webs creadas en activos reutilizables.</p>
-          <div class="hero-actions"><a class="btn primary" href="#para-quien">Ver para quien es</a><a class="btn secondary" href="../index.html#contacto">Recibir informacion</a></div>
+          <div class="hero-actions"><a class="btn primary" href="https://builder.luckybase.es/">Entrar en LuckyBuilder</a><a class="btn secondary" href="https://builder.luckybase.es/auth.html">Crear cuenta</a></div>
         </div>
         <div class="market-list">
           <article class="market-item" data-animate><div class="market-icon">€</div><div><h3>Plantillas gratis o de pago</h3><p>Los builders pueden publicar recursos y gestionar precio, visibilidad y datos de venta.</p></div></article>
@@ -361,7 +345,7 @@
           <h2>LuckyBuilder BETA 1 ya está disponible.</h2>
           <p>Ya puedes entrar en la beta pública para crear webs con IA, editarlas visualmente y publicarlas desde LuckyBase.</p>
         </div>
-        <div class="hero-actions"><a class="btn primary" href="#beta">Ver estado beta</a><a class="btn ghost" href="../index.html#contacto">Hablar con LuckyBase</a></div>
+        <div class="hero-actions"><a class="btn primary" href="https://builder.luckybase.es/">Entrar ahora</a><a class="btn ghost" href="https://builder.luckybase.es/auth.html">Acceder o registrarse</a></div>
       </div>
     </section>
   </main>
@@ -378,102 +362,6 @@
   </footer>
 
   <script>
-    (function(){
-      var countdown = document.querySelector('[data-countdown]');
-      var overlay = document.getElementById('launchOverlay');
-      if (!countdown) return;
-      var launchDate = new Date(countdown.getAttribute('data-launch')).getTime();
-      var days = countdown.querySelector('[data-days]');
-      var hours = countdown.querySelector('[data-hours]');
-      var minutes = countdown.querySelector('[data-minutes]');
-      var seconds = countdown.querySelector('[data-seconds]');
-      var stateKey = 'luckybuilder-launch-complete-20260702-1400';
-      var launchActive = false;
-      var launchTimers = [];
-      function pad(value){ return String(value).padStart(2, '0'); }
-      function emitLaunchEvent(name, detail) {
-        try {
-          window.dispatchEvent(new CustomEvent(name, { detail: detail }));
-        } catch (_err) {}
-      }
-      function clearTimers() {
-        while (launchTimers.length) {
-          clearTimeout(launchTimers.pop());
-        }
-      }
-      function finishLaunch() {
-        clearTimers();
-        document.body.classList.remove('launch-pending');
-        document.body.classList.add('launch-ready');
-        if (overlay) {
-          overlay.classList.add('is-hidden');
-          overlay.hidden = true;
-        }
-        try { localStorage.setItem(stateKey, '1'); } catch (_err) {}
-        emitLaunchEvent('luckybuilder:launch-complete', {
-          live: true,
-          launchAt: launchDate
-        });
-      }
-      function startLaunchSequence() {
-        if (launchActive) return;
-        launchActive = true;
-        document.body.classList.add('launch-pending');
-        emitLaunchEvent('luckybuilder:launch-start', {
-          live: true,
-          launchAt: launchDate
-        });
-        if (overlay) {
-          overlay.hidden = false;
-          overlay.classList.remove('is-dropping');
-          overlay.classList.remove('is-hidden');
-        }
-        launchTimers.push(setTimeout(function(){
-          if (overlay) overlay.classList.add('is-dropping');
-        }, 1000));
-        launchTimers.push(setTimeout(finishLaunch, 4200));
-      }
-      function tick(){
-        var distance = Math.max(0, launchDate - Date.now());
-        var d = Math.floor(distance / 86400000);
-        var h = Math.floor((distance % 86400000) / 3600000);
-        var m = Math.floor((distance % 3600000) / 60000);
-        var s = Math.floor((distance % 60000) / 1000);
-        days.textContent = pad(d);
-        hours.textContent = pad(h);
-        minutes.textContent = pad(m);
-        seconds.textContent = pad(s);
-        emitLaunchEvent('luckybuilder:countdown-tick', {
-          live: distance <= 0,
-          launchAt: launchDate,
-          days: d,
-          hours: h,
-          minutes: m,
-          seconds: s
-        });
-        if (distance <= 0) {
-          var title = document.querySelector('.beta-title');
-          if (title) title.textContent = 'La BETA 1 ya esta disponible.';
-          if (!launchActive) startLaunchSequence();
-        } else {
-          try {
-            if (localStorage.getItem(stateKey) === '1') {
-              document.body.classList.add('launch-ready');
-              if (overlay) overlay.hidden = true;
-            }
-          } catch (_err) {}
-        }
-      }
-      try {
-        if (localStorage.getItem(stateKey) === '1' || window.matchMedia('(prefers-reduced-motion: reduce)').matches && launchDate <= Date.now()) {
-          document.body.classList.add('launch-ready');
-          if (overlay) overlay.hidden = true;
-        }
-      } catch (_err) {}
-      tick();
-      setInterval(tick, 1000);
-    })();
-
     (function(){
       var items = Array.prototype.slice.call(document.querySelectorAll('[data-animate]'));
       if (!items.length) return;
