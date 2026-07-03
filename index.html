@@ -638,6 +638,163 @@ will-change:transform,opacity;
 max-width:780px;
 }
 
+.builder-spotlight{
+position:absolute;
+right:6%;
+top:50%;
+transform:translateY(-50%);
+z-index:3;
+width:min(380px,32vw);
+max-width:380px;
+background:rgba(255,255,255,0.96);
+border:1px solid rgba(255,255,255,0.36);
+backdrop-filter:blur(16px);
+border-radius:24px;
+box-shadow:0 24px 54px rgba(7,35,105,0.22);
+padding:18px;
+text-align:left;
+transition:opacity .2s ease,transform .2s ease,box-shadow .2s ease;
+}
+
+.builder-spotlight.is-hidden{
+display:none;
+}
+
+.builder-spotlight:hover{
+box-shadow:0 28px 64px rgba(7,35,105,0.28);
+}
+
+.builder-spotlight-top{
+display:flex;
+align-items:flex-start;
+gap:12px;
+}
+
+.builder-spotlight-badge{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:7px 11px;
+border-radius:999px;
+background:rgba(21,101,255,0.1);
+color:#0e49c9;
+font-size:12px;
+font-weight:800;
+letter-spacing:.05em;
+text-transform:uppercase;
+}
+
+.builder-spotlight-badge::before{
+content:"";
+width:8px;
+height:8px;
+border-radius:50%;
+background:#12b981;
+box-shadow:0 0 0 5px rgba(18,185,129,.16);
+}
+
+.builder-spotlight-close{
+margin-left:auto;
+width:34px;
+height:34px;
+border:none;
+border-radius:50%;
+background:#edf4ff;
+color:#123b8f;
+font-size:20px;
+line-height:1;
+cursor:pointer;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+transition:transform .2s ease,background .2s ease;
+}
+
+.builder-spotlight-close:hover{
+transform:scale(1.05);
+background:#dbeafe;
+}
+
+.builder-spotlight h2{
+font-size:clamp(24px,2.4vw,34px);
+line-height:1.05;
+letter-spacing:-.045em;
+margin:14px 0 10px;
+color:#06111f;
+font-family:"Space Grotesk",sans-serif;
+}
+
+.builder-spotlight p{
+margin:0;
+color:#40536a;
+font-size:15px;
+line-height:1.65;
+}
+
+.builder-spotlight-list{
+list-style:none;
+padding:0;
+margin:16px 0 18px;
+display:grid;
+gap:10px;
+}
+
+.builder-spotlight-list li{
+display:flex;
+gap:10px;
+align-items:flex-start;
+color:#31445c;
+font-size:14px;
+line-height:1.45;
+}
+
+.builder-spotlight-list li::before{
+content:"";
+flex:0 0 auto;
+width:8px;
+height:8px;
+border-radius:50%;
+margin-top:7px;
+background:linear-gradient(135deg,#155eef,#11bfd7);
+box-shadow:0 0 0 5px rgba(21,101,255,.12);
+}
+
+.builder-spotlight-actions{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:10px;
+}
+
+.builder-spotlight-actions a{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+min-height:44px;
+padding:11px 15px;
+border-radius:999px;
+text-decoration:none;
+font-size:13px;
+font-weight:800;
+transition:transform .2s ease,box-shadow .2s ease,background .2s ease;
+}
+
+.builder-spotlight-actions a:hover{
+transform:translateY(-1px);
+}
+
+.builder-spotlight-actions .spotlight-primary{
+background:#1565ff;
+color:#fff;
+box-shadow:0 14px 28px rgba(21,101,255,.22);
+}
+
+.builder-spotlight-actions .spotlight-secondary{
+background:#fff;
+color:#155eef;
+border:1px solid rgba(21,101,255,.18);
+}
+
 .hero-metrics{
 position:absolute;
 left:50%;
@@ -2054,6 +2211,41 @@ body.dark-mode .hero-grid{
 opacity:0.22;
 }
 
+body.dark-mode .builder-spotlight{
+background:rgba(15,23,42,0.92);
+border-color:rgba(148,163,184,0.22);
+box-shadow:0 28px 64px rgba(2,6,23,0.42);
+}
+
+body.dark-mode .builder-spotlight h2{
+color:#f8fafc;
+}
+
+body.dark-mode .builder-spotlight p,
+body.dark-mode .builder-spotlight-list li{
+color:#dbe4f0;
+}
+
+body.dark-mode .builder-spotlight-badge{
+background:rgba(59,130,246,0.18);
+color:#bfdbfe;
+}
+
+body.dark-mode .builder-spotlight-close{
+background:rgba(30,41,59,0.95);
+color:#e2e8f0;
+}
+
+body.dark-mode .builder-spotlight-close:hover{
+background:#334155;
+}
+
+body.dark-mode .builder-spotlight-actions .spotlight-secondary{
+background:rgba(15,23,42,0.72);
+color:#dbeafe;
+border-color:rgba(147,197,253,0.3);
+}
+
 body.dark-mode .metric{
 background:rgba(15,23,42,0.42);
 border-color:rgba(191,219,254,0.35);
@@ -2334,6 +2526,11 @@ padding:150px 6% 90px;
 max-width:680px;
 }
 
+.builder-spotlight{
+right:5%;
+width:min(350px,34vw);
+}
+
 .hero h1{
 font-size:54px;
 }
@@ -2483,6 +2680,16 @@ padding-right:5%;
 
 .hero-content{
 width:100%;
+}
+
+.builder-spotlight{
+position:relative;
+right:auto;
+top:auto;
+transform:none;
+width:100%;
+max-width:none;
+margin:24px 0 0;
 }
 
 .hero-metrics{
@@ -2891,6 +3098,24 @@ Soluciones digitales modernas para empresas que quieren destacar en internet.
 </p>
 <button onclick="scrollToServices()">Explorar</button>
 </div>
+
+<aside class="builder-spotlight" id="builderSpotlight" aria-label="LuckyBase Builder disponible">
+<div class="builder-spotlight-top">
+<span class="builder-spotlight-badge">Disponible ahora</span>
+<button class="builder-spotlight-close" id="builderSpotlightClose" type="button" aria-label="Cerrar aviso">×</button>
+</div>
+<h2>LuckyBase Builder ya está disponible</h2>
+<p>Crea una web con IA, edítala visualmente, guarda proyectos en la nube y publícala en HTTPS desde una sola herramienta.</p>
+<ul class="builder-spotlight-list" aria-label="Funciones destacadas de LuckyBase Builder">
+<li>Generación inicial con IA para arrancar en minutos.</li>
+<li>Editor visual para ajustar bloques, textos y diseño.</li>
+<li>Acceso directo al builder y a la sección de funciones.</li>
+</ul>
+<div class="builder-spotlight-actions">
+<a class="spotlight-primary" href="https://builder.luckybase.es/">Entrar en LuckyBuilder</a>
+<a class="spotlight-secondary" href="luckybuilder/index.html">Ver funciones</a>
+</div>
+</aside>
 
 <div class="hero-metrics">
 <div class="metric">
@@ -3445,8 +3670,32 @@ const brandTitle=document.getElementById("brandTitle")
 const brandDynamic=document.getElementById("brandDynamic")
 const mainNav=document.getElementById("mainNav")
 const navToggle=document.getElementById("navToggle")
+const builderSpotlight=document.getElementById("builderSpotlight")
+const builderSpotlightClose=document.getElementById("builderSpotlightClose")
 const prefersReducedMotion=window.matchMedia("(prefers-reduced-motion: reduce)").matches
 const tabletBreakpoint=1024
+const builderSpotlightStorageKey="luckybase-builder-spotlight-hidden"
+
+if(builderSpotlight){
+  try{
+    if(window.localStorage.getItem(builderSpotlightStorageKey)==="1"){
+      builderSpotlight.classList.add("is-hidden")
+    }
+  }catch(_error){
+    // LocalStorage can be unavailable in private contexts; the banner still works.
+  }
+}
+
+if(builderSpotlightClose && builderSpotlight){
+  builderSpotlightClose.addEventListener("click",()=>{
+    builderSpotlight.classList.add("is-hidden")
+    try{
+      window.localStorage.setItem(builderSpotlightStorageKey,"1")
+    }catch(_error){
+      // Ignore storage failures and just hide for this session.
+    }
+  })
+}
 
 if(navToggle && mainNav){
   navToggle.addEventListener("click",()=>{
