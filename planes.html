@@ -2170,6 +2170,37 @@
         linear-gradient(135deg, #f8fbff, #f2f8f8);
     }
 
+    #plan-personalizado::before,
+    #plan-personalizado::after {
+      content: "";
+      position: absolute;
+      inset: auto;
+      pointer-events: none;
+      border-radius: 999px;
+      filter: blur(18px);
+      opacity: 0.7;
+      mix-blend-mode: multiply;
+      animation: customAuraFloat 14s ease-in-out infinite;
+    }
+
+    #plan-personalizado::before {
+      width: 240px;
+      height: 240px;
+      top: 4%;
+      right: -60px;
+      background: radial-gradient(circle, rgba(215,255,63,0.34), rgba(215,255,63,0));
+      animation-delay: -5s;
+    }
+
+    #plan-personalizado::after {
+      width: 280px;
+      height: 280px;
+      bottom: -90px;
+      left: -80px;
+      background: radial-gradient(circle, rgba(21,101,255,0.22), rgba(21,101,255,0));
+      animation-delay: -9s;
+    }
+
     #plan-personalizado h2 {
       color: #10211d;
       font-size: clamp(42px, 7vw, 78px);
@@ -2220,6 +2251,8 @@
       align-items: start;
       max-width: 1180px;
       margin: 36px auto 0;
+      position: relative;
+      z-index: 1;
     }
 
     #plan-personalizado .custom-plan-panel,
@@ -2235,6 +2268,7 @@
       padding: 22px;
       display: grid;
       gap: 18px;
+      transform-style: preserve-3d;
     }
 
     #plan-personalizado .custom-plan-panel h3,
@@ -2375,6 +2409,12 @@
       line-height: 0.96;
       letter-spacing: -0.05em;
       color: #10211d;
+      transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.35s ease;
+      transform-origin: left center;
+    }
+
+    #plan-personalizado .custom-plan-price.is-updated {
+      animation: pricePop 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     #plan-personalizado .custom-plan-list {
@@ -2411,6 +2451,60 @@
       font-size: 12px;
       line-height: 1.6;
       color: #56736d;
+    }
+
+    #plan-personalizado .custom-option,
+    #plan-personalizado .custom-plan-panel,
+    #plan-personalizado .custom-plan-summary {
+      animation: customCardIn 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+      animation-delay: var(--custom-delay, 0ms);
+    }
+
+    #plan-personalizado .custom-option:nth-child(1) { --custom-delay: 80ms; }
+    #plan-personalizado .custom-option:nth-child(2) { --custom-delay: 140ms; }
+    #plan-personalizado .custom-option:nth-child(3) { --custom-delay: 200ms; }
+    #plan-personalizado .custom-option:nth-child(4) { --custom-delay: 260ms; }
+    #plan-personalizado .custom-option:nth-child(5) { --custom-delay: 320ms; }
+    #plan-personalizado .custom-option:nth-child(6) { --custom-delay: 380ms; }
+    #plan-personalizado .custom-plan-summary { --custom-delay: 170ms; }
+
+    @keyframes customAuraFloat {
+      0%, 100% {
+        transform: translate3d(0, 0, 0) scale(1);
+        opacity: 0.58;
+      }
+      50% {
+        transform: translate3d(0, -14px, 0) scale(1.08);
+        opacity: 0.9;
+      }
+    }
+
+    @keyframes customCardIn {
+      from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.98);
+        filter: blur(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes pricePop {
+      0% {
+        transform: translateY(4px) scale(0.96);
+        opacity: 0.55;
+      }
+      40% {
+        transform: translateY(-2px) scale(1.04);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
     }
 
     body.dark-mode #planes-web,
@@ -3083,19 +3177,19 @@
         <div>
           <p class="price-note" style="margin-bottom:12px;">1. Elige la base principal</p>
           <div class="custom-plan-base-grid" role="radiogroup" aria-label="Base del plan personalizado">
-            <button type="button" class="custom-option is-selected" data-custom-base data-service="web" data-base-label="Web corporativa / landing" data-base-price="440">
+            <button type="button" class="custom-option is-selected" data-custom-base data-service="web" data-base-label="Web corporativa / landing" data-base-price="110">
               <strong>Web corporativa</strong>
-              <span>Desde 440 €</span>
+              <span>Desde 110 €</span>
               <small>Para presentar servicios, captar leads y lanzar con rapidez.</small>
             </button>
-            <button type="button" class="custom-option" data-custom-base data-service="apps" data-base-label="MVP o app ligera" data-base-price="1120">
+            <button type="button" class="custom-option" data-custom-base data-service="apps" data-base-label="MVP o app ligera" data-base-price="760">
               <strong>App o MVP</strong>
-              <span>Desde 1.120 €</span>
+              <span>Desde 760 €</span>
               <small>Ideal para validar producto, crear flujos y empezar con una versión útil.</small>
             </button>
-            <button type="button" class="custom-option" data-custom-base data-service="automatizaciones" data-base-label="Automatización principal" data-base-price="260">
+            <button type="button" class="custom-option" data-custom-base data-service="automatizaciones" data-base-label="Automatización principal" data-base-price="180">
               <strong>Automatización</strong>
-              <span>Desde 260 €</span>
+              <span>Desde 180 €</span>
               <small>Para conectar herramientas, ahorrar tiempo y ordenar procesos.</small>
             </button>
           </div>
@@ -3105,34 +3199,34 @@
           <p class="price-note" style="margin-bottom:12px;">2. Añade módulos compatibles</p>
           <p class="custom-plan-note" style="margin-bottom:12px;">Solo se activan los módulos que encajan con la base elegida, para que la propuesta tenga sentido desde el principio.</p>
           <div class="custom-addon-grid">
-            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Diseño premium y branding visual" data-addon-price="100" data-compatibility="web,apps,automatizaciones">
+            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Diseño premium y branding visual" data-addon-price="60" data-compatibility="web,apps,automatizaciones">
               <strong>Diseño premium</strong>
-              <span>+100 €</span>
+              <span>+60 €</span>
               <small>Más personalidad visual, coherencia de marca y acabado premium.</small>
             </button>
-            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="SEO inicial y estructura de contenido" data-addon-price="75" data-compatibility="web">
+            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="SEO inicial y estructura de contenido" data-addon-price="40" data-compatibility="web">
               <strong>SEO inicial</strong>
-              <span>+75 €</span>
+              <span>+40 €</span>
               <small>Base para posicionar mejor y ordenar la estructura del sitio.</small>
             </button>
-            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Panel de administración y control" data-addon-price="210" data-compatibility="apps,automatizaciones">
+            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Panel de administración y control" data-addon-price="120" data-compatibility="apps,automatizaciones">
               <strong>Panel admin</strong>
-              <span>+210 €</span>
+              <span>+120 €</span>
               <small>Gestión interna, accesos y control del contenido o los datos.</small>
             </button>
-            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Integraciones API, CRM o Sheets" data-addon-price="140" data-compatibility="web,apps,automatizaciones">
+            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Integraciones API, CRM o Sheets" data-addon-price="90" data-compatibility="web,apps,automatizaciones">
               <strong>Integraciones</strong>
-              <span>+140 €</span>
+              <span>+90 €</span>
               <small>Conexión con CRM, hojas de cálculo, email o servicios externos.</small>
             </button>
-            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Automatizaciones avanzadas" data-addon-price="150" data-compatibility="apps,automatizaciones">
+            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Automatizaciones avanzadas" data-addon-price="100" data-compatibility="apps,automatizaciones">
               <strong>Automatizaciones</strong>
-              <span>+150 €</span>
+              <span>+100 €</span>
               <small>Flujos automáticos, avisos, sincronizaciones y ahorro de tiempo.</small>
             </button>
-            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Pagos, ecommerce o reservas" data-addon-price="240" data-compatibility="web,apps">
+            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Pagos, ecommerce o reservas" data-addon-price="150" data-compatibility="web,apps">
               <strong>Pagos / ecommerce</strong>
-              <span>+240 €</span>
+              <span>+150 €</span>
               <small>Ideal si el proyecto necesita cobrar, reservar o vender online.</small>
             </button>
           </div>
@@ -3142,7 +3236,7 @@
       <aside class="custom-plan-summary">
         <span class="summary-pill">Estimación orientativa</span>
         <h3>Tu plan</h3>
-        <p class="custom-plan-price" data-custom-price>Desde 440 €</p>
+        <p class="custom-plan-price" data-custom-price>Desde 110 €</p>
         <p class="custom-plan-note" data-custom-base-note>Web corporativa / landing</p>
         <ul class="custom-plan-list" data-custom-summary-list>
           <li>Base: Web corporativa / landing</li>
@@ -3412,7 +3506,13 @@
         `<li>Precio aproximado: ${formatEuro(data.total)}</li>`
       ]
 
-      customPrice.textContent = `Desde ${formatEuro(data.total)}`
+      if (customPrice) {
+        customPrice.classList.remove("is-updated")
+        customPrice.textContent = `Desde ${formatEuro(data.total)}`
+        void customPrice.offsetWidth
+        customPrice.classList.add("is-updated")
+        window.setTimeout(() => customPrice.classList.remove("is-updated"), 700)
+      }
       customBaseNote.textContent = data.baseLabel
       customSummaryList.innerHTML = summaryItems.join("")
       customContact.href = `index.html?${new URLSearchParams({
