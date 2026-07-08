@@ -3900,6 +3900,7 @@ const serviceSelect=document.getElementById("contactService")
 const appBriefFields=document.getElementById("appBriefFields")
 const appBriefInputs=appBriefFields?appBriefFields.querySelectorAll("select"):null
 const CONTACT_API_URL="https://script.google.com/macros/s/AKfycbxZeMApnIjxoF4aAPxNhcLbUb09JluFb4E7jP67bINuODTv08q9xDFtzC5updMnV_Gi/exec"
+const contactQuery=new URLSearchParams(window.location.search)
 const themeToggle=document.getElementById("themeToggle")
 const footerLogo=document.getElementById("footerLogo")
 const sunIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="5"></line><line x1="12" y1="19" x2="12" y2="22"></line><line x1="2" y1="12" x2="5" y2="12"></line><line x1="19" y1="12" x2="22" y2="12"></line><line x1="4.9" y1="4.9" x2="7" y2="7"></line><line x1="17" y1="17" x2="19.1" y2="19.1"></line><line x1="17" y1="7" x2="19.1" y2="4.9"></line><line x1="4.9" y1="19.1" x2="7" y2="17"></line></svg>'
@@ -3953,13 +3954,36 @@ input.value=""
 }
 
 if(serviceSelect){
-const queryService=new URLSearchParams(window.location.search).get("servicio")
+const queryService=contactQuery.get("servicio")
 const hasServiceOption=Array.from(serviceSelect.options).some((option)=>option.value===queryService)
 if(queryService&&hasServiceOption){
 serviceSelect.value=queryService
+}else if(contactQuery.get("plan")==="custom"&&contactQuery.get("servicio")){
+serviceSelect.value=contactQuery.get("servicio")
 }
 toggleAppBriefFields()
 serviceSelect.addEventListener("change",toggleAppBriefFields)
+}
+
+if(messageInput){
+  const messageParts=[]
+  const presetMessage=String(contactQuery.get("mensaje")||"").trim()
+  const planName=String(contactQuery.get("plan")||"").trim()
+  const planType=String(contactQuery.get("tipo")||"").trim()
+  const planExtras=String(contactQuery.get("extras")||"").trim()
+  const planBudget=String(contactQuery.get("presupuesto")||"").trim()
+
+  if(presetMessage){
+    messageInput.value=presetMessage
+  }else if(planName==="custom"||planType||planExtras||planBudget){
+    messageParts.push("Hola, me interesa un plan personalizado.")
+    if(planType){ messageParts.push(`Base seleccionada: ${planType}`) }
+    if(planExtras){ messageParts.push(`Extras: ${planExtras}`) }
+    if(planBudget){ messageParts.push(`Precio aproximado: ${planBudget}`) }
+    messageParts.push("")
+    messageParts.push("Quiero que reviséis esta propuesta y me ayudéis a cerrarla.")
+    messageInput.value=messageParts.join("\n")
+  }
 }
 
 if(termsCheckbox){

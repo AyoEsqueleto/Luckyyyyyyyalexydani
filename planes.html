@@ -2213,6 +2213,192 @@
       color: #ffffff;
     }
 
+    #plan-personalizado .custom-plan-builder {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(300px, 0.85fr);
+      gap: 18px;
+      align-items: start;
+      max-width: 1180px;
+      margin: 36px auto 0;
+    }
+
+    #plan-personalizado .custom-plan-panel,
+    #plan-personalizado .custom-plan-summary {
+      border: 1px solid rgba(16, 33, 29, 0.12);
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: 0 18px 44px rgba(23, 70, 62, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    #plan-personalizado .custom-plan-panel {
+      padding: 22px;
+      display: grid;
+      gap: 18px;
+    }
+
+    #plan-personalizado .custom-plan-panel h3,
+    #plan-personalizado .custom-plan-summary h3 {
+      font-size: 28px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: #10211d;
+    }
+
+    #plan-personalizado .custom-plan-panel p,
+    #plan-personalizado .custom-plan-summary p,
+    #plan-personalizado .custom-plan-summary li {
+      color: #35524b;
+    }
+
+    #plan-personalizado .custom-plan-base-grid,
+    #plan-personalizado .custom-addon-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    #plan-personalizado .custom-plan-base-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    #plan-personalizado .custom-addon-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #plan-personalizado .custom-option {
+      width: 100%;
+      text-align: left;
+      border: 1px solid rgba(16, 33, 29, 0.12);
+      border-radius: 22px;
+      padding: 16px;
+      background: linear-gradient(180deg, #ffffff, #f5faf8);
+      cursor: pointer;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+      display: grid;
+      gap: 5px;
+    }
+
+    #plan-personalizado .custom-option strong,
+    #plan-personalizado .custom-option span,
+    #plan-personalizado .custom-option small {
+      display: block;
+    }
+
+    #plan-personalizado .custom-option strong {
+      font-size: 18px;
+      line-height: 1.1;
+      color: #10211d;
+    }
+
+    #plan-personalizado .custom-option span {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0d6d5c;
+    }
+
+    #plan-personalizado .custom-option small {
+      font-size: 12px;
+      line-height: 1.55;
+      color: #56736d;
+    }
+
+    #plan-personalizado .custom-option:hover {
+      transform: translateY(-2px);
+      border-color: rgba(16, 33, 29, 0.22);
+      box-shadow: 0 14px 34px rgba(23, 70, 62, 0.12);
+    }
+
+    #plan-personalizado .custom-option.is-selected {
+      border-color: rgba(16, 33, 29, 0.4);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(215, 255, 63, 0.2), transparent 36%),
+        linear-gradient(180deg, #ffffff, #edf6f0);
+      box-shadow: 0 16px 36px rgba(23, 70, 62, 0.16);
+    }
+
+    #plan-personalizado .custom-option.is-selected::after {
+      content: "Seleccionado";
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #10211d;
+    }
+
+    #plan-personalizado .custom-option[data-custom-addon].is-selected::after {
+      content: "Añadido";
+    }
+
+    #plan-personalizado .custom-option.is-toggle {
+      min-height: 100%;
+    }
+
+    #plan-personalizado .custom-plan-summary {
+      padding: 22px;
+      position: sticky;
+      top: 108px;
+      display: grid;
+      gap: 16px;
+    }
+
+    #plan-personalizado .custom-plan-summary .summary-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(16, 33, 29, 0.08);
+      color: #10211d;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    #plan-personalizado .custom-plan-price {
+      font-size: clamp(36px, 4.5vw, 58px);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+      color: #10211d;
+    }
+
+    #plan-personalizado .custom-plan-list {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    #plan-personalizado .custom-plan-list li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    #plan-personalizado .custom-plan-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.65em;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #10211d, #d7ff3f);
+    }
+
+    #plan-personalizado .custom-contact-cta {
+      width: 100%;
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    #plan-personalizado .custom-plan-note {
+      font-size: 12px;
+      line-height: 1.6;
+      color: #56736d;
+    }
+
     body.dark-mode #planes-web,
     body.dark-mode #plan-personalizado {
       color: #10211d;
@@ -2310,6 +2496,21 @@
     body.dark-mode #plan-personalizado .card ul,
     body.dark-mode #plan-personalizado .card li {
       color: #2f4a44;
+    }
+
+    @media (max-width: 980px) {
+      #plan-personalizado .custom-plan-builder {
+        grid-template-columns: 1fr;
+      }
+
+      #plan-personalizado .custom-plan-summary {
+        position: static;
+      }
+
+      #plan-personalizado .custom-plan-base-grid,
+      #plan-personalizado .custom-addon-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     .js-enabled .reveal-item {
@@ -2857,25 +3058,84 @@
   <section id="plan-personalizado" class="plan-section" data-plan-group="custom" role="tabpanel">
     <h2 class="reveal-item" style="text-align:center">Plan Personalizado</h2>
     <p class="plan-section-intro reveal-item">Para proyectos que necesitan arquitectura propia, integración profunda o una solución que no cabe en un paquete cerrado.</p>
-    <div class="services" style="max-width:720px;margin:0 auto;">
-      <div class="card premium-card reveal-item" style="flex:1;">
-        <span class="premium-badge">A MEDIDA</span>
-        <h3>Proyecto a medida</h3>
-        <p class="price">Precio: A consultar</p>
-        <p class="price-note">Presupuesto personalizado según alcance y complejidad del proyecto.</p>
-        <ul>
-          <li>Desarrollo web + backend completo</li>
-          <li>APIs propias e integraciones externas</li>
-          <li>Bases de datos y paneles de administración</li>
-          <li>Automatizaciones avanzadas integradas</li>
-          <li>Despliegue, hosting y mantenimiento</li>
-          <li>Consultoría técnica y escalabilidad</li>
-        </ul>
-        <p class="price-note" style="margin-top:12px;font-size:12px;">Ideal para proyectos que necesitan infraestructura
-          propia: aplicaciones web, plataformas SaaS, dashboards internos o sistemas conectados a múltiples servicios.
-        </p>
-        <a class="cta" href="index.html#contacto">Solicitar presupuesto</a>
+    <div class="custom-plan-builder reveal-item" data-custom-plan-builder>
+      <div class="custom-plan-panel">
+        <div>
+          <span class="premium-badge">A MEDIDA</span>
+          <h3>Crear tu plan personalizado</h3>
+          <p>Empieza por una base y suma piezas que sí encajan entre sí. Así podemos darte una estimación clara antes de hablar.</p>
+        </div>
+
+        <div>
+          <p class="price-note" style="margin-bottom:12px;">1. Elige la base principal</p>
+          <div class="custom-plan-base-grid" role="radiogroup" aria-label="Base del plan personalizado">
+            <button type="button" class="custom-option is-selected" data-custom-base data-service="web" data-base-label="Web corporativa / landing" data-base-price="480">
+              <strong>Web corporativa</strong>
+              <span>Desde 480 €</span>
+              <small>Para presentar servicios, captar leads y lanzar con rapidez.</small>
+            </button>
+            <button type="button" class="custom-option" data-custom-base data-service="apps" data-base-label="MVP o app ligera" data-base-price="1250">
+              <strong>App o MVP</strong>
+              <span>Desde 1.250 €</span>
+              <small>Ideal para validar producto, crear flujos y empezar con una versión útil.</small>
+            </button>
+            <button type="button" class="custom-option" data-custom-base data-service="automatizaciones" data-base-label="Automatización principal" data-base-price="290">
+              <strong>Automatización</strong>
+              <span>Desde 290 €</span>
+              <small>Para conectar herramientas, ahorrar tiempo y ordenar procesos.</small>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <p class="price-note" style="margin-bottom:12px;">2. Añade módulos compatibles</p>
+          <div class="custom-addon-grid">
+            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Diseño premium y branding visual" data-addon-price="120">
+              <strong>Diseño premium</strong>
+              <span>+120 €</span>
+              <small>Más personalidad visual, coherencia de marca y acabado premium.</small>
+            </button>
+            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="SEO inicial y estructura de contenido" data-addon-price="90">
+              <strong>SEO inicial</strong>
+              <span>+90 €</span>
+              <small>Base para posicionar mejor y ordenar la estructura del sitio.</small>
+            </button>
+            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Panel de administración y control" data-addon-price="240">
+              <strong>Panel admin</strong>
+              <span>+240 €</span>
+              <small>Gestión interna, accesos y control del contenido o los datos.</small>
+            </button>
+            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Integraciones API, CRM o Sheets" data-addon-price="160">
+              <strong>Integraciones</strong>
+              <span>+160 €</span>
+              <small>Conexión con CRM, hojas de cálculo, email o servicios externos.</small>
+            </button>
+            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Automatizaciones avanzadas" data-addon-price="180">
+              <strong>Automatizaciones</strong>
+              <span>+180 €</span>
+              <small>Flujos automáticos, avisos, sincronizaciones y ahorro de tiempo.</small>
+            </button>
+            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Pagos, ecommerce o reservas" data-addon-price="280">
+              <strong>Pagos / ecommerce</strong>
+              <span>+280 €</span>
+              <small>Ideal si el proyecto necesita cobrar, reservar o vender online.</small>
+            </button>
+          </div>
+        </div>
       </div>
+
+      <aside class="custom-plan-summary">
+        <span class="summary-pill">Estimación orientativa</span>
+        <h3>Tu plan</h3>
+        <p class="custom-plan-price" data-custom-price>Desde 480 €</p>
+        <p class="custom-plan-note" data-custom-base-note>Web corporativa / landing</p>
+        <ul class="custom-plan-list" data-custom-summary-list>
+          <li>Base: Web corporativa / landing</li>
+          <li>Extras: ninguno todavía</li>
+        </ul>
+        <p class="custom-plan-note" data-custom-summary-note>El precio es aproximado y puede ajustarse según alcance, tiempos y complejidad. Para una propuesta cerrada, lo revisamos contigo.</p>
+        <a class="cta custom-contact-cta" href="index.html#contacto" data-custom-contact>Contactar</a>
+      </aside>
     </div>
   </section>
 
@@ -2993,6 +3253,7 @@
           <li><a href="terminos-condiciones.html">Términos</a></li>
           <li><a href="cookie-policy.html">Cookies</a></li>
           <li><a href="#" class="footer-preferences">Mis preferencias</a></li>
+<li><a href="https://builder.luckybase.es/support.html" class="footer-preferences">Soporte</a></li>
         </ul>
       </div>
     </div>
@@ -3064,6 +3325,100 @@
       auto: "planes-automatizaciones",
       custom: "plan-personalizado"
     }
+
+    const customPlanBuilder = document.querySelector("[data-custom-plan-builder]")
+    const customBaseButtons = [...document.querySelectorAll("[data-custom-base]")]
+    const customAddonButtons = [...document.querySelectorAll("[data-custom-addon]")]
+    const customPrice = document.querySelector("[data-custom-price]")
+    const customBaseNote = document.querySelector("[data-custom-base-note]")
+    const customSummaryList = document.querySelector("[data-custom-summary-list]")
+    const customContact = document.querySelector("[data-custom-contact]")
+
+    function formatEuro(value) {
+      return new Intl.NumberFormat("es-ES", {
+        style: "currency",
+        currency: "EUR",
+        maximumFractionDigits: 0
+      }).format(value)
+    }
+
+    function getCustomPlanData() {
+      const baseButton = customBaseButtons.find((button) => button.classList.contains("is-selected")) || customBaseButtons[0]
+      const addonButtons = customAddonButtons.filter((button) => button.classList.contains("is-selected"))
+      const basePrice = Number(baseButton?.dataset.basePrice || 0)
+      const addons = addonButtons.map((button) => ({
+        label: button.dataset.addonLabel || "Extra",
+        price: Number(button.dataset.addonPrice || 0)
+      }))
+      const total = basePrice + addons.reduce((sum, item) => sum + item.price, 0)
+
+      return {
+        service: baseButton?.dataset.service || "otro",
+        baseLabel: baseButton?.dataset.baseLabel || "Plan personalizado",
+        basePrice,
+        addons,
+        total
+      }
+    }
+
+    function renderCustomPlan() {
+      if (!customPlanBuilder) return
+      const data = getCustomPlanData()
+      const addonText = data.addons.length
+        ? data.addons.map((item) => `${item.label} (+${formatEuro(item.price)})`).join(", ")
+        : "Ninguno todavía"
+      const summaryItems = [
+        `<li>Base: ${data.baseLabel}</li>`,
+        `<li>Extras: ${addonText}</li>`,
+        `<li>Precio aproximado: ${formatEuro(data.total)}</li>`
+      ]
+
+      customPrice.textContent = `Desde ${formatEuro(data.total)}`
+      customBaseNote.textContent = data.baseLabel
+      customSummaryList.innerHTML = summaryItems.join("")
+      customContact.href = `index.html?${new URLSearchParams({
+        servicio: data.service,
+        plan: "custom",
+        tipo: data.baseLabel,
+        extras: addonText,
+        presupuesto: formatEuro(data.total),
+        mensaje: [
+          "Hola, quiero crear un plan personalizado con estos detalles:",
+          `Base: ${data.baseLabel}`,
+          `Extras: ${data.addons.length ? data.addons.map((item) => item.label).join(", ") : "Ninguno todavía"}`,
+          `Precio aproximado: ${formatEuro(data.total)}`,
+          "",
+          "Me gustaría que reviséis la propuesta y me ayudéis a ajustarla."
+        ].join("\n")
+      }).toString()}#contacto`
+    }
+
+    function selectCustomBase(button) {
+      customBaseButtons.forEach((item) => {
+        const isSelected = item === button
+        item.classList.toggle("is-selected", isSelected)
+        item.setAttribute("aria-pressed", isSelected ? "true" : "false")
+      })
+      renderCustomPlan()
+    }
+
+    function toggleCustomAddon(button) {
+      button.classList.toggle("is-selected")
+      button.setAttribute("aria-pressed", button.classList.contains("is-selected") ? "true" : "false")
+      renderCustomPlan()
+    }
+
+    customBaseButtons.forEach((button) => {
+      button.setAttribute("aria-pressed", button.classList.contains("is-selected") ? "true" : "false")
+      button.addEventListener("click", () => selectCustomBase(button))
+    })
+
+    customAddonButtons.forEach((button) => {
+      button.setAttribute("aria-pressed", "false")
+      button.addEventListener("click", () => toggleCustomAddon(button))
+    })
+
+    renderCustomPlan()
 
     function setActivePlan(group, shouldScroll = false) {
       const selectedGroup = planToHash[group] ? group : "web"
