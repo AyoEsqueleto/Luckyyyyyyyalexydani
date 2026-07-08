@@ -2308,6 +2308,20 @@
       box-shadow: 0 14px 34px rgba(23, 70, 62, 0.12);
     }
 
+    #plan-personalizado .custom-option:disabled {
+      cursor: not-allowed;
+      opacity: 0.42;
+      transform: none;
+      box-shadow: none;
+      filter: grayscale(0.18);
+    }
+
+    #plan-personalizado .custom-option:disabled:hover {
+      transform: none;
+      border-color: rgba(16, 33, 29, 0.12);
+      box-shadow: none;
+    }
+
     #plan-personalizado .custom-option.is-selected {
       border-color: rgba(16, 33, 29, 0.4);
       background:
@@ -3069,19 +3083,19 @@
         <div>
           <p class="price-note" style="margin-bottom:12px;">1. Elige la base principal</p>
           <div class="custom-plan-base-grid" role="radiogroup" aria-label="Base del plan personalizado">
-            <button type="button" class="custom-option is-selected" data-custom-base data-service="web" data-base-label="Web corporativa / landing" data-base-price="480">
+            <button type="button" class="custom-option is-selected" data-custom-base data-service="web" data-base-label="Web corporativa / landing" data-base-price="440">
               <strong>Web corporativa</strong>
-              <span>Desde 480 €</span>
+              <span>Desde 440 €</span>
               <small>Para presentar servicios, captar leads y lanzar con rapidez.</small>
             </button>
-            <button type="button" class="custom-option" data-custom-base data-service="apps" data-base-label="MVP o app ligera" data-base-price="1250">
+            <button type="button" class="custom-option" data-custom-base data-service="apps" data-base-label="MVP o app ligera" data-base-price="1120">
               <strong>App o MVP</strong>
-              <span>Desde 1.250 €</span>
+              <span>Desde 1.120 €</span>
               <small>Ideal para validar producto, crear flujos y empezar con una versión útil.</small>
             </button>
-            <button type="button" class="custom-option" data-custom-base data-service="automatizaciones" data-base-label="Automatización principal" data-base-price="290">
+            <button type="button" class="custom-option" data-custom-base data-service="automatizaciones" data-base-label="Automatización principal" data-base-price="260">
               <strong>Automatización</strong>
-              <span>Desde 290 €</span>
+              <span>Desde 260 €</span>
               <small>Para conectar herramientas, ahorrar tiempo y ordenar procesos.</small>
             </button>
           </div>
@@ -3089,35 +3103,36 @@
 
         <div>
           <p class="price-note" style="margin-bottom:12px;">2. Añade módulos compatibles</p>
+          <p class="custom-plan-note" style="margin-bottom:12px;">Solo se activan los módulos que encajan con la base elegida, para que la propuesta tenga sentido desde el principio.</p>
           <div class="custom-addon-grid">
-            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Diseño premium y branding visual" data-addon-price="120">
+            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Diseño premium y branding visual" data-addon-price="100" data-compatibility="web,apps,automatizaciones">
               <strong>Diseño premium</strong>
-              <span>+120 €</span>
+              <span>+100 €</span>
               <small>Más personalidad visual, coherencia de marca y acabado premium.</small>
             </button>
-            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="SEO inicial y estructura de contenido" data-addon-price="90">
+            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="SEO inicial y estructura de contenido" data-addon-price="75" data-compatibility="web">
               <strong>SEO inicial</strong>
-              <span>+90 €</span>
+              <span>+75 €</span>
               <small>Base para posicionar mejor y ordenar la estructura del sitio.</small>
             </button>
-            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Panel de administración y control" data-addon-price="240">
+            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Panel de administración y control" data-addon-price="210" data-compatibility="apps,automatizaciones">
               <strong>Panel admin</strong>
-              <span>+240 €</span>
+              <span>+210 €</span>
               <small>Gestión interna, accesos y control del contenido o los datos.</small>
             </button>
-            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Integraciones API, CRM o Sheets" data-addon-price="160">
+            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Integraciones API, CRM o Sheets" data-addon-price="140" data-compatibility="web,apps,automatizaciones">
               <strong>Integraciones</strong>
-              <span>+160 €</span>
+              <span>+140 €</span>
               <small>Conexión con CRM, hojas de cálculo, email o servicios externos.</small>
             </button>
-            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Automatizaciones avanzadas" data-addon-price="180">
+            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Automatizaciones avanzadas" data-addon-price="150" data-compatibility="apps,automatizaciones">
               <strong>Automatizaciones</strong>
-              <span>+180 €</span>
+              <span>+150 €</span>
               <small>Flujos automáticos, avisos, sincronizaciones y ahorro de tiempo.</small>
             </button>
-            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Pagos, ecommerce o reservas" data-addon-price="280">
+            <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Pagos, ecommerce o reservas" data-addon-price="240" data-compatibility="web,apps">
               <strong>Pagos / ecommerce</strong>
-              <span>+280 €</span>
+              <span>+240 €</span>
               <small>Ideal si el proyecto necesita cobrar, reservar o vender online.</small>
             </button>
           </div>
@@ -3127,7 +3142,7 @@
       <aside class="custom-plan-summary">
         <span class="summary-pill">Estimación orientativa</span>
         <h3>Tu plan</h3>
-        <p class="custom-plan-price" data-custom-price>Desde 480 €</p>
+        <p class="custom-plan-price" data-custom-price>Desde 440 €</p>
         <p class="custom-plan-note" data-custom-base-note>Web corporativa / landing</p>
         <ul class="custom-plan-list" data-custom-summary-list>
           <li>Base: Web corporativa / landing</li>
@@ -3333,6 +3348,11 @@
     const customBaseNote = document.querySelector("[data-custom-base-note]")
     const customSummaryList = document.querySelector("[data-custom-summary-list]")
     const customContact = document.querySelector("[data-custom-contact]")
+    const addonCompatibilityLabels = {
+      web: "Compatible con web",
+      apps: "Compatible con apps",
+      automatizaciones: "Compatible con automatizaciones"
+    }
 
     function formatEuro(value) {
       return new Intl.NumberFormat("es-ES", {
@@ -3359,6 +3379,25 @@
         addons,
         total
       }
+    }
+
+    function updateAddonCompatibility(selectedService) {
+      customAddonButtons.forEach((button) => {
+        const compatibility = String(button.dataset.compatibility || "")
+          .split(",")
+          .map((item) => item.trim())
+          .filter(Boolean)
+        const isCompatible = compatibility.length === 0 || compatibility.includes(selectedService)
+        button.disabled = !isCompatible
+        button.classList.toggle("is-disabled", !isCompatible)
+        if (!isCompatible) {
+          button.classList.remove("is-selected")
+          button.setAttribute("aria-pressed", "false")
+          button.title = `No disponible para ${addonCompatibilityLabels[selectedService] || "esta base"}`
+        } else {
+          button.removeAttribute("title")
+        }
+      })
     }
 
     function renderCustomPlan() {
@@ -3399,6 +3438,7 @@
         item.classList.toggle("is-selected", isSelected)
         item.setAttribute("aria-pressed", isSelected ? "true" : "false")
       })
+      updateAddonCompatibility(button.dataset.service || "web")
       renderCustomPlan()
     }
 
@@ -3418,6 +3458,7 @@
       button.addEventListener("click", () => toggleCustomAddon(button))
     })
 
+    updateAddonCompatibility((customBaseButtons.find((button) => button.classList.contains("is-selected")) || customBaseButtons[0])?.dataset.service || "web")
     renderCustomPlan()
 
     function setActivePlan(group, shouldScroll = false) {
