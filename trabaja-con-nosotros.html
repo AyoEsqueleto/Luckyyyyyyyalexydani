@@ -834,7 +834,7 @@
   </footer>
 
   <script>
-    const CAREERS_API_URL = 'https://us-central1-luckybase-ia.cloudfunctions.net/lwSubmitCareersApplicationHttp';
+    const CAREERS_API_URL = 'https://script.google.com/macros/s/AKfycbxZeMApnIjxoF4aAPxNhcLbUb09JluFb4E7jP67bINuODTv08q9xDFtzC5updMnV_Gi/exec';
     const careerForm = document.getElementById('careerForm');
     const formStatus = document.getElementById('formStatus');
     const submitBtn = document.getElementById('submitBtn');
@@ -901,6 +901,7 @@
           const cvBase64 = await fileToDataUrl(file);
           const data = new FormData(careerForm);
           const payload = {
+            action: 'careerapplication',
             name: String(data.get('name') || '').trim(),
             email: String(data.get('email') || '').trim(),
             phone: String(data.get('phone') || '').trim(),
@@ -927,8 +928,8 @@
             body: JSON.stringify(payload),
           });
           const result = await response.json().catch(() => ({}));
-          if (!response.ok || !result.ok) {
-            throw new Error(result.error || `HTTP_${response.status}`);
+          if (!response.ok || !result.success) {
+            throw new Error(result.message || result.error || `HTTP_${response.status}`);
           }
           careerForm.reset();
           if (fileName) fileName.textContent = 'Ningún archivo seleccionado';
