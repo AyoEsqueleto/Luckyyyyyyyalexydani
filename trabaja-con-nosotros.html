@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="stylesheet" href="cookie-consent.css">
+  <script src="cookie-consent.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="description" content="Trabaja con nosotros en LuckyBase como captador de clientes a comisión por venta. Envíanos tu CV y recibe confirmación automática por correo.">
+  <title>Trabaja con nosotros | LuckyBase</title>
+  <link rel="canonical" href="https://luckybase.es/trabaja-con-nosotros.html">
+  <meta property="og:title" content="Trabaja con nosotros | LuckyBase">
+  <meta property="og:description" content="Únete a LuckyBase como captador de clientes a comisión por venta. CV y confirmación automática por correo.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:url" content="https://luckybase.es/trabaja-con-nosotros.html">
+  <meta property="og:site_name" content="LuckyBase">
+  <meta property="og:image" content="https://luckybase.es/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Trabaja con nosotros | LuckyBase">
+  <meta name="twitter:description" content="Captador de clientes a comisión por venta. Envíanos tu candidatura y CV.">
+  <meta name="twitter:image" content="https://luckybase.es/og-image.png">
+  <meta name="theme-color" content="#0f172a">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    "title": "Captador de clientes a comisión",
+    "description": "Puesto comercial para captar clientes para LuckyBase. Es un trabajo 100% a comisión por venta cerrada, con evaluación sencilla y confirmación automática al enviar la candidatura.",
+    "datePosted": "2026-07-09",
+    "employmentType": "CONTRACTOR",
+    "jobLocationType": "TELECOMMUTE",
+    "applicantLocationRequirements": {
+      "@type": "Country",
+      "name": "ES"
+    },
+    "hiringOrganization": {
+      "@type": "Organization",
+      "name": "LuckyBase",
+      "url": "https://luckybase.es",
+      "logo": "https://luckybase.es/logoluckyblancosinfondo.png"
+    },
+    "jobBenefits": "100% comisión por venta",
+    "baseSalary": {
+      "@type": "MonetaryAmount",
+      "currency": "EUR",
+      "value": {
+        "@type": "QuantitativeValue",
+        "minValue": 0,
+        "unitText": "SALE"
+      }
+    }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#07111f;
+      --bg2:#0f172a;
+      --panel:rgba(255,255,255,.08);
+      --panel-strong:rgba(255,255,255,.14);
+      --line:rgba(255,255,255,.14);
+      --text:#e5eefc;
+      --muted:#b9c7dc;
+      --accent:#d7ff3f;
+      --accent2:#5eead4;
+      --danger:#ff8080;
+      --shadow:0 30px 80px rgba(0,0,0,.32);
+      --radius:28px;
+      --radius-sm:18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:'Plus Jakarta Sans',system-ui,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 520px at 8% 6%, rgba(215,255,63,.18), transparent 58%),
+        radial-gradient(820px 420px at 92% 12%, rgba(94,234,212,.15), transparent 58%),
+        radial-gradient(700px 460px at 50% 100%, rgba(21,101,255,.16), transparent 62%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+    }
+    a{color:inherit}
+    .wrap{
+      width:min(1240px, calc(100% - 32px));
+      margin:0 auto;
+    }
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(7,17,31,.72);
+      backdrop-filter:blur(16px) saturate(160%);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .topbar-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:14px 0;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      font-weight:900;
+      letter-spacing:-.04em;
+    }
+    .brand img{height:40px;width:auto;display:block}
+    .nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:flex-end;
+    }
+    .nav a,.pill-link{
+      text-decoration:none;
+      min-height:42px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 15px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      font-weight:800;
+      font-size:14px;
+      transition:transform .22s ease,background .22s ease,border-color .22s ease;
+    }
+    .nav a:hover,.pill-link:hover{transform:translateY(-1px);background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.24)}
+    .hero{
+      padding:70px 0 28px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero::before,
+    .hero::after{
+      content:"";
+      position:absolute;
+      border-radius:999px;
+      filter:blur(18px);
+      pointer-events:none;
+      opacity:.75;
+      animation:floatGlow 14s ease-in-out infinite;
+    }
+    .hero::before{
+      width:220px;height:220px;right:-50px;top:20px;
+      background:radial-gradient(circle, rgba(215,255,63,.28), rgba(215,255,63,0));
+    }
+    .hero::after{
+      width:260px;height:260px;left:-70px;bottom:-80px;
+      background:radial-gradient(circle, rgba(94,234,212,.22), rgba(94,234,212,0));
+      animation-delay:-5s;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr);
+      gap:22px;
+      align-items:stretch;
+      position:relative;
+      z-index:1;
+    }
+    .hero-copy,
+    .hero-side,
+    .form-card,
+    .info-card{
+      border:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(180deg, rgba(255,255,255,.1), rgba(255,255,255,.06));
+      box-shadow:var(--shadow);
+      border-radius:var(--radius);
+      backdrop-filter:blur(16px) saturate(150%);
+    }
+    .hero-copy{
+      padding:clamp(24px,4vw,38px);
+      display:grid;
+      gap:18px;
+      align-content:start;
+    }
+    .kicker{
+      display:inline-flex;
+      width:fit-content;
+      align-items:center;
+      gap:8px;
+      border:1px solid rgba(215,255,63,.25);
+      background:rgba(215,255,63,.12);
+      color:#f5ffd5;
+      border-radius:999px;
+      padding:7px 12px;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    h1,h2,h3{
+      margin:0;
+      font-family:'Sora',system-ui,sans-serif;
+      letter-spacing:-.055em;
+    }
+    h1{
+      font-size:clamp(46px,7vw,78px);
+      line-height:.92;
+      max-width:12ch;
+    }
+    .lead{
+      margin:0;
+      font-size:clamp(17px,2vw,20px);
+      line-height:1.72;
+      color:var(--muted);
+      max-width:68ch;
+    }
+    .hero-points{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+    }
+    .point{
+      padding:14px;
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,.11);
+      background:rgba(255,255,255,.06);
+    }
+    .point b{
+      display:block;
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:#cfe0ff;
+      margin-bottom:6px;
+    }
+    .point span{color:var(--muted);font-size:14px;line-height:1.55}
+    .hero-side{
+      padding:22px;
+      display:grid;
+      gap:14px;
+      align-content:start;
+    }
+    .hero-side h2{
+      font-size:clamp(28px,3.8vw,42px);
+      line-height:.95;
+    }
+    .side-list{
+      list-style:none;
+      padding:0;
+      margin:0;
+      display:grid;
+      gap:10px;
+    }
+    .side-list li{
+      position:relative;
+      padding-left:20px;
+      color:var(--muted);
+      line-height:1.55;
+    }
+    .side-list li::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:.65em;
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background:linear-gradient(135deg, var(--accent), var(--accent2));
+    }
+    .section{
+      padding:24px 0 0;
+    }
+    .section-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:18px;
+    }
+    .info-card{
+      padding:22px;
+    }
+    .info-card h3{
+      font-size:26px;
+      margin-bottom:10px;
+    }
+    .info-card p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.7;
+    }
+    .info-metrics{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+      margin-top:16px;
+    }
+    .metric{
+      padding:14px;
+      border-radius:18px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.1);
+    }
+    .metric b{
+      display:block;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#dffbe3;
+      margin-bottom:6px;
+    }
+    .metric span{color:var(--muted);font-size:14px;line-height:1.55}
+    .form-card{
+      padding:24px;
+    }
+    .form-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+    .form-head p{
+      margin:8px 0 0;
+      color:var(--muted);
+      line-height:1.65;
+      max-width:70ch;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border-radius:999px;
+      padding:7px 12px;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      color:#f4f7ff;
+    }
+    .form-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+    }
+    .field{
+      display:grid;
+      gap:8px;
+    }
+    .field.full{grid-column:1 / -1}
+    label{
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:#d7e4ff;
+    }
+    input, select, textarea{
+      width:100%;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.08);
+      color:var(--text);
+      padding:14px 14px;
+      font:inherit;
+      outline:none;
+      transition:border-color .22s ease, background .22s ease, transform .22s ease, box-shadow .22s ease;
+    }
+    textarea{min-height:140px;resize:vertical}
+    input::placeholder, textarea::placeholder{color:#90a3bf}
+    input:focus, select:focus, textarea:focus{
+      border-color:rgba(215,255,63,.45);
+      background:rgba(255,255,255,.11);
+      box-shadow:0 0 0 4px rgba(215,255,63,.12);
+    }
+    .switch-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+    }
+    .switch{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:14px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+    }
+    .switch input{
+      width:18px;
+      height:18px;
+      margin-top:2px;
+      accent-color:#d7ff3f;
+    }
+    .switch strong{
+      display:block;
+      font-size:14px;
+      margin-bottom:4px;
+    }
+    .switch span{
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.55;
+    }
+    .file-row{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .file-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border-radius:999px;
+      padding:11px 15px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.08);
+      cursor:pointer;
+      font-weight:800;
+    }
+    .file-pill input{display:none}
+    .file-name{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.5;
+    }
+    .consent{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:14px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.05);
+    }
+    .consent input{
+      width:18px;height:18px;margin-top:2px;accent-color:#d7ff3f;
+    }
+    .consent span{
+      color:var(--muted);
+      line-height:1.6;
+      font-size:14px;
+    }
+    .actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:6px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:48px;
+      padding:12px 18px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.08);
+      color:var(--text);
+      text-decoration:none;
+      font-weight:900;
+      letter-spacing:.01em;
+      cursor:pointer;
+      transition:transform .22s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn.primary{
+      background:linear-gradient(135deg, #d7ff3f, #5eead4);
+      color:#091120;
+      border-color:transparent;
+      box-shadow:0 18px 34px rgba(94,234,212,.16);
+    }
+    .btn.primary:disabled{
+      opacity:.62;
+      cursor:not-allowed;
+      transform:none;
+      box-shadow:none;
+    }
+    .status{
+      margin-top:14px;
+      min-height:24px;
+      font-size:14px;
+      color:var(--muted);
+    }
+    .status.ok{color:#bff7d2}
+    .status.err{color:#ffb4b4}
+    .process{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+      margin:18px 0 0;
+    }
+    .step{
+      padding:18px;
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+    }
+    .step b{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:34px;
+      height:34px;
+      border-radius:999px;
+      background:rgba(215,255,63,.14);
+      color:#eefcc5;
+      margin-bottom:10px;
+    }
+    .step h3{font-size:18px;margin:0 0 8px}
+    .step p{margin:0;color:var(--muted);line-height:1.6}
+    .faq{
+      margin:18px 0 0;
+      display:grid;
+      gap:12px;
+    }
+    .faq details{
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+      border-radius:18px;
+      padding:16px 18px;
+    }
+    .faq summary{
+      cursor:pointer;
+      list-style:none;
+      font-weight:900;
+      letter-spacing:-.01em;
+    }
+    .faq summary::-webkit-details-marker{display:none}
+    .faq p{color:var(--muted);line-height:1.65;margin:10px 0 0}
+    .footer{
+      margin-top:48px;
+      border-top:1px solid rgba(255,255,255,.1);
+      padding:28px 0 42px;
+    }
+    .footer-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+    }
+    .footer-col{
+      color:var(--muted);
+    }
+    .footer-col h4{
+      margin:0 0 12px;
+      color:#f5fbff;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.09em;
+    }
+    .footer-col ul{
+      list-style:none;
+      padding:0;
+      margin:0;
+      display:grid;
+      gap:8px;
+    }
+    .footer-col a{
+      color:inherit;
+      text-decoration:none;
+    }
+    .footer-col a:hover{color:#fff}
+    .footer-bottom{
+      margin-top:18px;
+      padding-top:16px;
+      border-top:1px solid rgba(255,255,255,.08);
+      color:rgba(229,238,252,.72);
+      font-size:13px;
+    }
+    .reveal{
+      opacity:0;
+      transform:translateY(26px);
+      filter:blur(4px);
+      transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1), filter .7s ease;
+    }
+    .reveal.show{opacity:1;transform:translateY(0);filter:blur(0)}
+    @keyframes floatGlow{
+      0%,100%{transform:translateY(0) scale(1);opacity:.58}
+      50%{transform:translateY(-12px) scale(1.08);opacity:.92}
+    }
+    @media(max-width:980px){
+      .hero-grid,.section-grid,.process,.footer-grid{grid-template-columns:1fr}
+      .hero-points,.form-grid,.switch-grid{grid-template-columns:1fr}
+      .topbar-inner{flex-direction:column;align-items:flex-start}
+      .nav{justify-content:flex-start}
+      h1{max-width:100%}
+      .hero{padding-top:42px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
+      .reveal{opacity:1;transform:none;filter:none}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="index.html" aria-label="Volver a inicio">
+        <img src="LUCKYBASE logo letras.png" alt="LuckyBase">
+        <span>LuckyBase</span>
+      </a>
+      <nav class="nav" aria-label="Navegación">
+        <a href="index.html#servicios">Servicios</a>
+        <a href="planes.html">Planes</a>
+        <a href="#formulario">Candidatura</a>
+        <a href="index.html#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <article class="hero-copy reveal">
+          <span class="kicker">Trabaja con nosotros</span>
+          <h1>Captador de clientes a comisión.</h1>
+          <p class="lead">Ahora mismo buscamos una única posición: una persona con buen trato, iniciativa y mentalidad comercial para captar clientes de LuckyBase. El trabajo es 100% a comisión por venta cerrada. Sin salario fijo, sin vueltas y con una propuesta clara desde el principio.</p>
+          <div class="hero-points">
+            <div class="point"><b>Modelo</b><span>100% comisión por venta cerrada.</span></div>
+            <div class="point"><b>Ritmo</b><span>Flexible, con objetivos medibles y seguimiento claro.</span></div>
+            <div class="point"><b>Perfil</b><span>Ventas, captación o trato directo con clientes.</span></div>
+          </div>
+        </article>
+
+        <aside class="hero-side reveal">
+          <span class="badge">Solo esta vacante</span>
+          <h2>Lo que ofrecemos</h2>
+          <ul class="side-list">
+            <li>Colaboración orientada a resultados y comisión.</li>
+            <li>Producto y servicios reales que ya están en marcha.</li>
+            <li>Proceso rápido: envías la candidatura, revisamos CV y contestamos por correo.</li>
+            <li>Automatización del envío: recibirás un email automático de confirmación.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap section-grid">
+        <article class="info-card reveal">
+          <span class="badge">Qué buscamos</span>
+          <h3>Perfil comercial sencillo y directo</h3>
+          <p>Nos interesa gente que se sienta cómoda hablando con clientes, explicando servicios y cerrando oportunidades. Si tienes experiencia en captación, ventas, llamadas, seguimiento o cierre, mejor. Si no, pero tienes actitud y constancia, también queremos verte.</p>
+          <div class="info-metrics">
+            <div class="metric"><b>Experiencia</b><span>Venta, captación, atención comercial o similar.</span></div>
+            <div class="metric"><b>Disponibilidad</b><span>Idealmente flexible y con respuesta ágil.</span></div>
+          </div>
+        </article>
+
+        <article class="info-card reveal">
+          <span class="badge">Cómo funciona</span>
+          <h3>Proceso de selección simple</h3>
+          <p>Rellena el formulario, sube tu CV y cuéntanos un poco sobre tu experiencia. Si encajas con lo que buscamos, te escribiremos por correo.</p>
+          <div class="process">
+            <div class="step"><b>1</b><h3>Envías tu candidatura</h3><p>Datos básicos, experiencia y CV.</p></div>
+            <div class="step"><b>2</b><h3>Revisamos tu perfil</h3><p>Validamos si encaja con la captación comercial.</p></div>
+            <div class="step"><b>3</b><h3>Te respondemos</h3><p>Recibes un email automático y luego contacto humano.</p></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="formulario">
+      <div class="wrap">
+        <form class="form-card reveal" id="careerForm">
+          <div class="form-head">
+            <div>
+              <span class="badge">Candidatura</span>
+              <h2 style="font-size:clamp(30px,4vw,48px);margin-top:12px;">Envíanos tu perfil</h2>
+              <p>Los campos marcados como obligatorios son necesarios para revisar tu candidatura. También te llegará un correo automático de confirmación cuando lo envíes.</p>
+            </div>
+            <div class="pill-link">100% comisión por venta</div>
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="name">Nombre y apellidos</label>
+              <input id="name" name="name" type="text" placeholder="Tu nombre completo" required>
+            </div>
+            <div class="field">
+              <label for="email">Correo electrónico</label>
+              <input id="email" name="email" type="email" placeholder="tu@email.com" required>
+            </div>
+            <div class="field">
+              <label for="phone">Número de teléfono</label>
+              <input id="phone" name="phone" type="tel" placeholder="+34 600 000 000" required>
+            </div>
+            <div class="field">
+              <label for="birthDate">Fecha de nacimiento</label>
+              <input id="birthDate" name="birthDate" type="date" required>
+            </div>
+            <div class="field">
+              <label for="city">Ciudad / Provincia</label>
+              <input id="city" name="city" type="text" placeholder="Barcelona, Madrid..." required>
+            </div>
+            <div class="field">
+              <label for="availability">Disponibilidad</label>
+              <select id="availability" name="availability" required>
+                <option value="" selected disabled>Selecciona una opción</option>
+                <option value="Inmediata">Inmediata</option>
+                <option value="Esta semana">Esta semana</option>
+                <option value="En 2 semanas">En 2 semanas</option>
+                <option value="Más adelante">Más adelante</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="experienceLevel">Experiencia general</label>
+              <select id="experienceLevel" name="experienceLevel" required>
+                <option value="" selected disabled>Selecciona una opción</option>
+                <option value="Sin experiencia">Sin experiencia</option>
+                <option value="Experiencia básica">Experiencia básica</option>
+                <option value="Experiencia media">Experiencia media</option>
+                <option value="Experiencia alta">Experiencia alta</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="salesExperience">Experiencia en ventas</label>
+              <select id="salesExperience" name="salesExperience" required>
+                <option value="" selected disabled>Selecciona una opción</option>
+                <option value="Sí">Sí</option>
+                <option value="Algo">Algo</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="message">Mensaje breve</label>
+              <textarea id="message" name="message" maxlength="1200" placeholder="Cuéntanos por qué te interesa el puesto y qué puedes aportar." required></textarea>
+            </div>
+          </div>
+
+          <div class="section" style="padding:16px 0 0;">
+            <div class="switch-grid">
+              <label class="switch">
+                <input type="checkbox" name="commissionAccepted" value="Sí" required>
+                <span><strong>Acepto que el puesto es 100% a comisión</strong><span>Sí, entiendo que el pago depende de las ventas cerradas.</span></span>
+              </label>
+              <label class="switch">
+                <input type="checkbox" name="startNow" value="Sí" required>
+                <span><strong>Puedo empezar pronto</strong><span>Me puedo organizar para comenzar en breve.</span></span>
+              </label>
+              <label class="switch">
+                <input type="checkbox" name="hasOwnEquipment" value="Sí" required>
+                <span><strong>Tengo ordenador y conexión</strong><span>Dispongo de lo necesario para trabajar con normalidad.</span></span>
+              </label>
+              <label class="switch">
+                <input type="checkbox" name="salesMindset" value="Sí" required>
+                <span><strong>Me siento cómodo vendiendo</strong><span>Me gusta hablar con clientes y cerrar oportunidades.</span></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="section" style="padding:16px 0 0;">
+            <div class="field">
+              <label for="cv">Subir CV</label>
+              <div class="file-row">
+                <label class="file-pill" for="cv">
+                  <input id="cv" name="cv" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
+                  Elegir archivo
+                </label>
+                <span class="file-name" id="fileName">Ningún archivo seleccionado</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="section" style="padding:16px 0 0;">
+            <label class="consent">
+              <input type="checkbox" name="consent" value="true" required>
+              <span>Acepto que mis datos se utilicen para gestionar esta candidatura, recibir respuesta automática por correo y revisar mi CV conforme a la política de privacidad.</span>
+            </label>
+          </div>
+
+          <div class="actions">
+            <button class="btn primary" id="submitBtn" type="submit">Enviar candidatura</button>
+            <a class="btn" href="privacy-policy.html" target="_blank" rel="noopener noreferrer">Ver privacidad</a>
+          </div>
+
+          <p class="status" id="formStatus" aria-live="polite"></p>
+          <input type="text" id="company" name="company" tabindex="-1" aria-hidden="true" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;pointer-events:none;">
+        </form>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="faq reveal">
+          <details>
+            <summary>¿El trabajo tiene salario fijo?</summary>
+            <p>No. En este momento el puesto es totalmente a comisión por venta cerrada.</p>
+          </details>
+          <details>
+            <summary>¿Recibiré una respuesta automática?</summary>
+            <p>Sí. Al enviar el formulario recibirás un email automático de confirmación y después revisaremos tu candidatura.</p>
+          </details>
+          <details>
+            <summary>¿Qué CV acepta el formulario?</summary>
+            <p>Aceptamos PDF, DOC y DOCX. Si tu archivo pesa demasiado, reduce su tamaño antes de enviarlo.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-grid">
+      <div class="footer-col">
+        <h4>LuckyBase</h4>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="planes.html">Planes</a></li>
+          <li><a href="trabaja-con-nosotros.html">Trabaja con nosotros</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy-policy.html">Privacidad</a></li>
+          <li><a href="terminos-condiciones.html">Términos</a></li>
+          <li><a href="cookie-policy.html">Cookies</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="index.html#contacto">Contacto general</a></li>
+          <li><a href="mailto:contacto@luckybase.es">contacto@luckybase.es</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">&copy; 2026 LuckyBase. Todos los derechos reservados.</div>
+  </footer>
+
+  <script>
+    const CAREERS_API_URL = 'https://us-central1-luckybase-ia.cloudfunctions.net/lwSubmitCareersApplicationHttp';
+    const careerForm = document.getElementById('careerForm');
+    const formStatus = document.getElementById('formStatus');
+    const submitBtn = document.getElementById('submitBtn');
+    const fileInput = document.getElementById('cv');
+    const fileName = document.getElementById('fileName');
+    const revealItems = [...document.querySelectorAll('.reveal')];
+
+    function showStatus(message, type) {
+      if (!formStatus) return;
+      formStatus.textContent = message;
+      formStatus.className = `status ${type || ''}`.trim();
+    }
+
+    function fileToDataUrl(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(String(reader.result || ''));
+        reader.onerror = () => reject(new Error('FILE_READ_FAILED'));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    if (fileInput && fileName) {
+      fileInput.addEventListener('change', () => {
+        const file = fileInput.files && fileInput.files[0];
+        fileName.textContent = file ? `${file.name} · ${(file.size / (1024 * 1024)).toFixed(1)} MB` : 'Ningún archivo seleccionado';
+      });
+    }
+
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.14, rootMargin: '0px 0px -6% 0px' });
+      revealItems.forEach((item, index) => {
+        item.style.transitionDelay = `${index * 70}ms`;
+        observer.observe(item);
+      });
+    } else {
+      revealItems.forEach((item) => item.classList.add('show'));
+    }
+
+    if (careerForm) {
+      careerForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const file = fileInput && fileInput.files ? fileInput.files[0] : null;
+        if (!file) {
+          showStatus('Necesitamos tu CV para revisar la candidatura.', 'err');
+          return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+          showStatus('El CV es demasiado grande. Sube un archivo de hasta 5 MB.', 'err');
+          return;
+        }
+        try {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Enviando...';
+          showStatus('Enviando candidatura...', '');
+
+          const cvBase64 = await fileToDataUrl(file);
+          const data = new FormData(careerForm);
+          const payload = {
+            name: String(data.get('name') || '').trim(),
+            email: String(data.get('email') || '').trim(),
+            phone: String(data.get('phone') || '').trim(),
+            birthDate: String(data.get('birthDate') || '').trim(),
+            city: String(data.get('city') || '').trim(),
+            availability: String(data.get('availability') || '').trim(),
+            experienceLevel: String(data.get('experienceLevel') || '').trim(),
+            salesExperience: String(data.get('salesExperience') || '').trim(),
+            commissionAccepted: data.get('commissionAccepted') ? 'Sí' : 'No',
+            startNow: data.get('startNow') ? 'Sí' : 'No',
+            hasOwnEquipment: data.get('hasOwnEquipment') ? 'Sí' : 'No',
+            salesMindset: data.get('salesMindset') ? 'Sí' : 'No',
+            message: String(data.get('message') || '').trim(),
+            consent: data.get('consent') ? 'true' : 'false',
+            originUrl: window.location.href,
+            cvName: file.name,
+            cvType: file.type || 'application/octet-stream',
+            cvBase64,
+          };
+
+          const response = await fetch(CAREERS_API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          const result = await response.json().catch(() => ({}));
+          if (!response.ok || !result.ok) {
+            throw new Error(result.error || `HTTP_${response.status}`);
+          }
+          careerForm.reset();
+          if (fileName) fileName.textContent = 'Ningún archivo seleccionado';
+          showStatus('Candidatura enviada. Revisa tu correo: te llegará confirmación automática.', 'ok');
+        } catch (error) {
+          showStatus('No hemos podido enviar tu candidatura. Revisa los datos e inténtalo otra vez.', 'err');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Enviar candidatura';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
