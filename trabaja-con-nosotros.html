@@ -835,6 +835,7 @@
 
   <script>
     const CAREERS_API_URL = 'https://script.google.com/macros/s/AKfycbxZeMApnIjxoF4aAPxNhcLbUb09JluFb4E7jP67bINuODTv08q9xDFtzC5updMnV_Gi/exec';
+    const CAREERS_FRAME_NAME = 'careerSubmissionFrame';
     const careerForm = document.getElementById('careerForm');
     const formStatus = document.getElementById('formStatus');
     const submitBtn = document.getElementById('submitBtn');
@@ -854,6 +855,67 @@
         reader.onload = () => resolve(String(reader.result || ''));
         reader.onerror = () => reject(new Error('FILE_READ_FAILED'));
         reader.readAsDataURL(file);
+      });
+    }
+
+    function createHiddenFrame() {
+      let frame = document.querySelector(`iframe[name="${CAREERS_FRAME_NAME}"]`);
+      if (frame) {
+        return frame;
+      }
+      frame = document.createElement('iframe');
+      frame.name = CAREERS_FRAME_NAME;
+      frame.title = 'Formulario de candidatura';
+      frame.setAttribute('aria-hidden', 'true');
+      frame.style.position = 'absolute';
+      frame.style.width = '1px';
+      frame.style.height = '1px';
+      frame.style.left = '-9999px';
+      frame.style.opacity = '0';
+      frame.style.pointerEvents = 'none';
+      document.body.appendChild(frame);
+      return frame;
+    }
+
+    function postCareerApplication(payload) {
+      return new Promise((resolve, reject) => {
+        const frame = createHiddenFrame();
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = CAREERS_API_URL;
+        form.target = CAREERS_FRAME_NAME;
+        form.style.display = 'none';
+
+        Object.entries(payload).forEach(([key, value]) => {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = key;
+          input.value = value == null ? '' : String(value);
+          form.appendChild(input);
+        });
+
+        document.body.appendChild(form);
+
+        const timer = window.setTimeout(() => {
+          window.removeEventListener('message', onMessage);
+          form.remove();
+          reject(new Error('TIMEOUT'));
+        }, 30000);
+
+        function onMessage(event) {
+          const data = event.data || {};
+          if (!data || data.source !== 'luckybase-careers') {
+            return;
+          }
+          window.clearTimeout(timer);
+          window.removeEventListener('message', onMessage);
+          form.remove();
+          resolve(data.payload || {});
+        }
+
+        window.addEventListener('message', onMessage);
+        frame.src = 'about:blank';
+        form.submit();
       });
     }
 
@@ -902,6 +964,7 @@
           const data = new FormData(careerForm);
           const payload = {
             action: 'careerapplication',
+            responseMode: 'postMessage',
             name: String(data.get('name') || '').trim(),
             email: String(data.get('email') || '').trim(),
             phone: String(data.get('phone') || '').trim(),
@@ -922,14 +985,9 @@
             cvBase64,
           };
 
-          const response = await fetch(CAREERS_API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-          });
-          const result = await response.json().catch(() => ({}));
-          if (!response.ok || !result.success) {
-            throw new Error(result.message || result.error || `HTTP_${response.status}`);
+          const result = await postCareerApplication(payload);
+          if (!result || !result.success) {
+            throw new Error((result && result.message) || (result && result.error) || 'SEND_FAILED');
           }
           careerForm.reset();
           if (fileName) fileName.textContent = 'Ningún archivo seleccionado';
