@@ -257,9 +257,10 @@ position:fixed;
 top:0;
 left:0;
 width:100%;
-background:linear-gradient(95deg,#f97316 0%,#f43f5e 50%,#f59e0b 100%);
-background-size:240% 240%;
-animation:promoFlow 6s ease infinite;
+background:
+linear-gradient(95deg,#b91c1c 0%,#ef4444 18%,#facc15 50%,#ef4444 82%,#b91c1c 100%);
+background-size:260% 260%;
+animation:promoFlow 7s ease infinite;
 color:#fff;
 display:flex;
 align-items:center;
@@ -267,7 +268,8 @@ justify-content:center;
 gap:12px;
 padding:10px 14px;
 z-index:1100;
-box-shadow:0 10px 24px rgba(249,115,22,0.35);
+box-shadow:0 10px 24px rgba(185,28,28,0.32);
+overflow:hidden;
 }
 
 .promo-dot{
@@ -285,9 +287,56 @@ font-size:14px;
 letter-spacing:0.01em;
 }
 
+.promo-flag{
+position:relative;
+flex:0 0 auto;
+width:58px;
+height:36px;
+border-radius:10px;
+overflow:hidden;
+display:grid;
+grid-template-columns:1.1fr 1.8fr 1.1fr;
+box-shadow:inset 0 0 0 1px rgba(255,255,255,0.35),0 10px 18px rgba(127,29,29,0.24);
+border:1px solid rgba(255,255,255,0.35);
+background:#b91c1c;
+isolation:isolate;
+}
+
+.promo-flag span{
+display:block;
+height:100%;
+}
+
+.promo-flag .flag-red{
+background:#c81d25;
+}
+
+.promo-flag .flag-yellow{
+background:#facc15;
+box-shadow:inset 0 0 16px rgba(255,255,255,0.22);
+}
+
+.promo-flag::before{
+content:"";
+position:absolute;
+inset:-40% -50%;
+background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,0.7) 50%,transparent 70%);
+transform:translateX(-120%) rotate(10deg);
+animation:flagShine 3.8s ease-in-out infinite;
+mix-blend-mode:screen;
+}
+
+.promo-flag::after{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(180deg,rgba(255,255,255,0.18),transparent 38%,rgba(127,29,29,0.14));
+pointer-events:none;
+}
+
 .promo-banner a{
 background:#fff;
-color:#c2410c;
+color:#b91c1c;
 text-decoration:none;
 font-weight:700;
 font-size:13px;
@@ -301,7 +350,7 @@ box-shadow:0 0 0 0 rgba(255,255,255,0.5);
 }
 
 .promo-banner a:hover{
-background:#fff7ed;
+background:#fff8e1;
 transform:translateY(-1px) scale(1.03);
 }
 
@@ -309,6 +358,7 @@ transform:translateY(-1px) scale(1.03);
 position:relative;
 display:inline-block;
 overflow:hidden;
+text-shadow:0 1px 0 rgba(127,29,29,0.16);
 }
 
 .promo-text::after{
@@ -335,6 +385,120 @@ transition:color 0.2s;
 margin-left:4px;
 }
 .promo-close:hover{color:#fff;}
+
+.spain-promo-card{
+border-color:rgba(185,28,28,0.18);
+background:
+linear-gradient(180deg,rgba(255,255,255,0.94),rgba(255,248,220,0.9)),
+linear-gradient(135deg,rgba(185,28,28,0.08),rgba(250,204,21,0.16));
+}
+
+.spain-promo-card .spain-reflection{
+position:absolute;
+inset:-20% -14% auto auto;
+width:240px;
+height:240px;
+background:
+radial-gradient(circle at 28% 28%,rgba(255,255,255,0.85),rgba(255,255,255,0.25) 24%,transparent 54%),
+linear-gradient(135deg,rgba(185,28,28,0.62) 0 16%,rgba(250,204,21,0.7) 16% 84%,rgba(185,28,28,0.62) 84% 100%);
+opacity:0.38;
+transform:rotate(18deg);
+filter:blur(1px);
+pointer-events:none;
+mix-blend-mode:screen;
+}
+
+.spain-promo-card .spain-offer-badge{
+position:absolute;
+top:14px;
+left:50%;
+transform:translateX(-50%);
+display:inline-flex;
+align-items:center;
+justify-content:center;
+padding:7px 12px;
+border-radius:999px;
+background:linear-gradient(135deg,#b91c1c,#ef4444);
+color:#fff;
+font-size:11px;
+font-weight:800;
+letter-spacing:0.08em;
+text-transform:uppercase;
+box-shadow:0 10px 20px rgba(185,28,28,0.22);
+z-index:2;
+}
+
+.spain-promo-card .plan-price-box{
+position:relative;
+overflow:hidden;
+background:
+linear-gradient(135deg,rgba(255,255,255,0.95),rgba(255,248,220,0.95)),
+linear-gradient(90deg,rgba(185,28,28,0.08),rgba(250,204,21,0.18),rgba(185,28,28,0.08));
+border-color:rgba(185,28,28,0.18);
+box-shadow:inset 0 0 0 1px rgba(255,255,255,0.4);
+}
+
+.spain-promo-card .plan-price-box::before{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(115deg,transparent 18%,rgba(255,255,255,0.7) 38%,transparent 58%);
+transform:translateX(-120%);
+animation:priceSweep 4.5s ease-in-out infinite;
+pointer-events:none;
+}
+
+.spain-price-label{
+display:inline-flex;
+align-items:center;
+gap:6px;
+font-size:11px;
+font-weight:800;
+letter-spacing:0.08em;
+text-transform:uppercase;
+color:#991b1b;
+margin-bottom:4px;
+position:relative;
+z-index:1;
+}
+
+.spain-price-label::before{
+content:"";
+width:8px;
+height:8px;
+border-radius:50%;
+background:#facc15;
+box-shadow:0 0 0 4px rgba(250,204,21,0.22);
+}
+
+.spain-price-old{
+display:block;
+font-size:12px;
+color:#7c2d12;
+text-decoration:line-through;
+margin-top:2px;
+position:relative;
+z-index:1;
+}
+
+.spain-price-new{
+display:block;
+font-size:26px;
+line-height:1.05;
+color:#111827;
+font-family:"Space Grotesk",sans-serif;
+position:relative;
+z-index:1;
+}
+
+.spain-price-note{
+display:block;
+font-size:12px;
+color:#4b5563;
+margin-top:4px;
+position:relative;
+z-index:1;
+}
 
 /* ACTIVE NAV LINK */
 nav a.is-active{
@@ -2444,6 +2608,18 @@ transform:translateY(0);
 100%{left:120%;}
 }
 
+@keyframes flagShine{
+0%{transform:translateX(-120%) rotate(10deg);}
+60%{transform:translateX(180%) rotate(10deg);}
+100%{transform:translateX(180%) rotate(10deg);}
+}
+
+@keyframes priceSweep{
+0%{transform:translateX(-120%);}
+55%{transform:translateX(120%);}
+100%{transform:translateX(120%);}
+}
+
 /* TABLET */
 
 @media(max-width:1024px){
@@ -2652,6 +2828,12 @@ flex-wrap:wrap;
 text-align:center;
 padding:8px 10px;
 gap:8px;
+}
+
+.promo-flag{
+width:48px;
+height:30px;
+border-radius:8px;
 }
 
 .promo-banner span{
@@ -2997,6 +3179,39 @@ body.dark-mode .card-link{color:#93c5fd;}
 body.dark-mode .card-features li::before{color:#93c5fd;}
 body.dark-mode .plan-price-box{background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.2);}
 body.dark-mode .plan-price-box strong{color:#f8fafc;}
+body.dark-mode .spain-promo-card{
+background:
+linear-gradient(180deg,rgba(15,23,42,0.94),rgba(30,41,59,0.96)),
+linear-gradient(135deg,rgba(185,28,28,0.16),rgba(250,204,21,0.14));
+border-color:rgba(250,204,21,0.18);
+}
+body.dark-mode .spain-promo-card .spain-reflection{
+opacity:0.24;
+mix-blend-mode:screen;
+}
+body.dark-mode .spain-promo-card .spain-offer-badge{
+background:linear-gradient(135deg,#facc15,#f59e0b);
+color:#111827;
+box-shadow:0 10px 20px rgba(250,204,21,0.16);
+}
+body.dark-mode .spain-promo-card .plan-price-box{
+background:
+linear-gradient(135deg,rgba(15,23,42,0.94),rgba(30,41,59,0.96)),
+linear-gradient(90deg,rgba(185,28,28,0.12),rgba(250,204,21,0.2),rgba(185,28,28,0.12));
+border-color:rgba(250,204,21,0.18);
+}
+body.dark-mode .spain-price-label{
+color:#fde68a;
+}
+body.dark-mode .spain-price-old{
+color:#fca5a5;
+}
+body.dark-mode .spain-price-new{
+color:#f8fafc;
+}
+body.dark-mode .spain-price-note{
+color:#cbd5e1;
+}
 body.dark-mode .about-value svg{color:#93c5fd;}
 body.dark-mode .about-value strong{color:#f8fafc;}
 body.dark-mode .about-metric strong{color:#93c5fd;}
@@ -3048,9 +3263,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
 <div class="promo-banner" id="promoBanner">
-<span class="promo-dot"></span>
-<span class="promo-text">5% de descuento en planes web por tiempo limitado</span>
-<a href="planes.html#planes-web">Ver planes web</a>
+<span class="promo-flag" aria-hidden="true">
+<span class="flag-red"></span>
+<span class="flag-yellow"></span>
+<span class="flag-red"></span>
+</span>
+<span class="promo-text">Vamos con España en el Mundial: 15% de descuento en todos los planes</span>
+<a href="planes.html">Ver descuento</a>
 <button class="promo-close" id="promoClose" aria-label="Cerrar banner">&times;</button>
 </div>
 
@@ -3181,25 +3400,33 @@ Soluciones digitales modernas para empresas que quieren destacar en internet.
 <div class="services">
 
 <div class="card premium-card">
+<div class="spain-reflection" aria-hidden="true"></div>
 <span class="premium-type">AUTOMATIZACIONES</span>
 <span class="premium-badge">DESTACADO</span>
+<span class="spain-offer-badge">-15% Mundial</span>
 <h3>Plan Lucky</h3>
 <p>Automatizaciones sin límite con lógica avanzada, integración de pasarelas y CRMs, reportes inteligentes y Agentes de IA para atención al cliente.</p>
 <div class="plan-price-box">
-<strong>650 €</strong>
-<span>+ 60 €/mes mantenimiento</span>
+<span class="spain-price-label">Nuevo precio con España</span>
+<strong class="spain-price-new">552,50 €</strong>
+<span class="spain-price-old">Antes 650 €</span>
+<span class="spain-price-note">+ 51 €/mes mantenimiento</span>
 </div>
 <a class="platform-btn" href="luckyauto-lucky.html" style="margin-top:16px;display:inline-flex;">Ver detalles</a>
 </div>
 
 <div class="card premium-card">
+<div class="spain-reflection" aria-hidden="true"></div>
 <span class="premium-type">WEB</span>
 <span class="premium-badge">DESTACADO</span>
+<span class="spain-offer-badge">-15% Mundial</span>
 <h3>LuckyWeb Ecommerce</h3>
 <p>Tienda online completa con pasarela de pago, estructura optimizada y preparación inicial para empezar a vender.</p>
 <div class="plan-price-box">
-<strong>300 €</strong>
-<span>+ 30 €/mes mantenimiento</span>
+<span class="spain-price-label">Nuevo precio con España</span>
+<strong class="spain-price-new">255 €</strong>
+<span class="spain-price-old">Antes 300 €</span>
+<span class="spain-price-note">+ 25,50 €/mes mantenimiento</span>
 </div>
 <a class="platform-btn" href="luckyweb-ecommerce.html" style="margin-top:16px;display:inline-flex;">Ver detalles</a>
 </div>
@@ -3617,6 +3844,7 @@ Soluciones digitales modernas para empresas que quieren destacar en internet.
 <li><a href="index.html#about">Nosotros</a></li>
 <li><a href="index.html#faq">FAQ</a></li>
 <li><a href="index.html#contacto">Contacto</a></li>
+          <li><a href="trabaja-con-nosotros.html">Trabaja con nosotros</a></li>
 <li><a href="https://builder.luckybase.es/">LuckyBase Builder</a></li>
 </ul>
 </div>

@@ -111,7 +111,7 @@
     body {
       background: #ffffff;
       color: #1a1a1a;
-      padding-top: 72px;
+      padding-top: 116px;
     }
 
     body.entry-active {
@@ -122,9 +122,142 @@
       background: #060a14;
     }
 
-    header {
+    body.banner-hidden {
+      padding-top: 72px;
+    }
+
+    body.banner-hidden header {
+      top: 0;
+    }
+
+    .promo-banner {
       position: fixed;
       top: 0;
+      left: 0;
+      width: 100%;
+      background:
+        linear-gradient(95deg, #b91c1c 0%, #ef4444 18%, #facc15 50%, #ef4444 82%, #b91c1c 100%);
+      background-size: 260% 260%;
+      animation: promoFlow 7s ease infinite;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 10px 14px;
+      z-index: 1100;
+      box-shadow: 0 10px 24px rgba(185, 28, 28, 0.32);
+      overflow: hidden;
+    }
+
+    .promo-flag {
+      position: relative;
+      flex: 0 0 auto;
+      width: 58px;
+      height: 36px;
+      border-radius: 10px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.1fr 1.8fr 1.1fr;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35), 0 10px 18px rgba(127,29,29,0.24);
+      border: 1px solid rgba(255,255,255,0.35);
+      background: #b91c1c;
+      isolation: isolate;
+    }
+
+    .promo-flag span {
+      display: block;
+      height: 100%;
+    }
+
+    .promo-flag .flag-red {
+      background: #c81d25;
+    }
+
+    .promo-flag .flag-yellow {
+      background: #facc15;
+      box-shadow: inset 0 0 16px rgba(255,255,255,0.22);
+    }
+
+    .promo-flag::before {
+      content: "";
+      position: absolute;
+      inset: -40% -50%;
+      background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.7) 50%, transparent 70%);
+      transform: translateX(-120%) rotate(10deg);
+      animation: flagShine 3.8s ease-in-out infinite;
+      mix-blend-mode: screen;
+    }
+
+    .promo-flag::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.18), transparent 38%, rgba(127,29,29,0.14));
+      pointer-events: none;
+    }
+
+    .promo-text {
+      position: relative;
+      display: inline-block;
+      overflow: hidden;
+      text-shadow: 0 1px 0 rgba(127,29,29,0.16);
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.01em;
+    }
+
+    .promo-text::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -45%;
+      width: 35%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
+      transform: skewX(-20deg);
+      animation: promoShine 2.8s ease-in-out infinite;
+    }
+
+    .promo-banner a {
+      background: #fff;
+      color: #b91c1c;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      animation: promoCtaPulse 1.8s ease-in-out infinite;
+      box-shadow: 0 0 0 0 rgba(255,255,255,0.5);
+    }
+
+    .promo-banner a:hover {
+      background: #fff8e1;
+      transform: translateY(-1px) scale(1.03);
+    }
+
+    .promo-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: rgba(255,255,255,0.7);
+      font-size: 18px;
+      line-height: 1;
+      padding: 0 4px;
+      transition: color 0.2s;
+      margin-left: 4px;
+    }
+
+    .promo-close:hover {
+      color: #fff;
+    }
+
+    header {
+      position: fixed;
+      top: 44px;
       width: 100%;
       background: rgba(255, 255, 255, 0.9);
       display: flex;
@@ -514,6 +647,28 @@
         transform: translateY(0);
         filter: blur(0);
       }
+    }
+
+    @keyframes promoFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes promoShine {
+      0% { left: -45%; }
+      100% { left: 120%; }
+    }
+
+    @keyframes promoCtaPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0.45); }
+      50% { transform: scale(1.05); box-shadow: 0 0 0 8px rgba(255,255,255,0); }
+    }
+
+    @keyframes flagShine {
+      0% { transform: translateX(-120%) rotate(10deg); }
+      60% { transform: translateX(180%) rotate(10deg); }
+      100% { transform: translateX(180%) rotate(10deg); }
     }
 
     .hero h1 {
@@ -1145,6 +1300,27 @@
       margin-right: 8px;
     }
 
+    .price-current {
+      color: #b91c1c;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .price-discount-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 0;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(185,28,28,0.08);
+      color: #991b1b;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
     .card ul {
       padding-left: 18px;
       line-height: 1.7;
@@ -1163,8 +1339,44 @@
     }
 
     .premium-card {
+      position: relative;
       border: 2px solid #d4a017;
       background: linear-gradient(180deg, #fffdf5, #fff7dd);
+      overflow: hidden;
+    }
+
+    .premium-card .spain-reflection {
+      position: absolute;
+      inset: -20% -14% auto auto;
+      width: 240px;
+      height: 240px;
+      background:
+        radial-gradient(circle at 28% 28%, rgba(255,255,255,0.85), rgba(255,255,255,0.25) 24%, transparent 54%),
+        linear-gradient(135deg, rgba(185,28,28,0.62) 0 16%, rgba(250,204,21,0.7) 16% 84%, rgba(185,28,28,0.62) 84% 100%);
+      opacity: 0.34;
+      transform: rotate(18deg);
+      filter: blur(1px);
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    .world-cup-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #b91c1c, #ef4444);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 10px 20px rgba(185,28,28,0.22);
+      z-index: 2;
     }
 
     .premium-badge {
@@ -1362,6 +1574,20 @@
       background: rgba(255,255,255,0.08);
     }
 
+    .app-plan-card.is-featured .price-old {
+      color: rgba(255,255,255,0.72);
+    }
+
+    .app-plan-card.is-featured .price-current {
+      color: #d7ff3f;
+    }
+
+    .app-plan-card.is-featured .price-discount-note {
+      background: rgba(255,255,255,0.1);
+      color: #d7ff3f;
+      border: 1px solid rgba(255,255,255,0.14);
+    }
+
     .app-plan-label {
       color: #1f5d50;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
@@ -1386,6 +1612,16 @@
       font-size: 34px;
       font-weight: 800;
       letter-spacing: -0.04em;
+    }
+
+    .app-plan-price .price-old {
+      font-size: 18px;
+      margin-right: 10px;
+    }
+
+    .app-plan-price .price-current {
+      font-size: 34px;
+      line-height: 1;
     }
 
     .app-plan-card p {
@@ -1963,6 +2199,8 @@
 
     #planes-web .card {
       overflow: hidden;
+      position: relative;
+      padding-top: 56px;
       border: 1px solid rgba(10,10,10,0.1);
       border-radius: 24px;
       background:
@@ -1999,6 +2237,14 @@
     #planes-web .price {
       color: #0a74ff;
       letter-spacing: -0.04em;
+    }
+
+    #planes-web .price .price-old {
+      font-size: 18px;
+    }
+
+    #planes-web .price .price-current {
+      font-size: 30px;
     }
 
     #planes-web .price-note,
@@ -2091,6 +2337,7 @@
     }
 
     #planes-automatizaciones .card {
+      position: relative;
       overflow: hidden;
       border: 1px solid rgba(148,163,184,0.12);
       border-radius: 22px;
@@ -2119,6 +2366,14 @@
       text-shadow: 0 0 22px rgba(0,229,255,0.22);
     }
 
+    #planes-automatizaciones .price .price-old {
+      font-size: 18px;
+    }
+
+    #planes-automatizaciones .price .price-current {
+      font-size: 30px;
+    }
+
     #planes-automatizaciones .price-note,
     #planes-automatizaciones .card ul {
       color: #94a3b8;
@@ -2132,6 +2387,7 @@
     }
 
     #planes-automatizaciones .premium-card {
+      padding-top: 56px;
       border-color: rgba(168,85,247,0.44);
       background:
         radial-gradient(circle at 100% 0%, rgba(168,85,247,0.24), transparent 34%),
@@ -2581,6 +2837,29 @@
       color: #ffffff;
     }
 
+    body.dark-mode .promo-banner a {
+      background: #fffaf0;
+      color: #9f1239;
+    }
+
+    body.dark-mode .promo-banner a:hover {
+      background: #fff1d6;
+    }
+
+    body.dark-mode .world-cup-badge {
+      background: linear-gradient(135deg, #facc15, #f59e0b);
+      color: #111827;
+    }
+
+    body.dark-mode .price-current {
+      color: #fda4af;
+    }
+
+    body.dark-mode .price-discount-note {
+      background: rgba(250,204,21,0.12);
+      color: #fcd34d;
+    }
+
     body.dark-mode #planes-web .outline-cta {
       border-color: rgba(255,255,255,0.42);
       color: #f8fbff;
@@ -2743,7 +3022,33 @@
 
     @media(max-width:768px) {
       body {
+        padding-top: 100px;
+      }
+
+      body.banner-hidden {
         padding-top: 56px;
+      }
+
+      .promo-banner {
+        flex-wrap: wrap;
+        text-align: center;
+        padding: 8px 10px;
+        gap: 8px;
+      }
+
+      .promo-flag {
+        width: 48px;
+        height: 30px;
+        border-radius: 8px;
+      }
+
+      .promo-text {
+        font-size: 12px;
+      }
+
+      .promo-banner a {
+        font-size: 12px;
+        padding: 6px 12px;
       }
 
       header {
@@ -2954,6 +3259,17 @@
       style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
+  <div class="promo-banner" id="promoBanner">
+    <span class="promo-flag" aria-hidden="true">
+      <span class="flag-red"></span>
+      <span class="flag-yellow"></span>
+      <span class="flag-red"></span>
+    </span>
+    <span class="promo-text">Vamos con España en el Mundial: 15% de descuento en todos los planes</span>
+    <a href="#planes-web">Ver descuento</a>
+    <button class="promo-close" id="promoClose" aria-label="Cerrar banner">&times;</button>
+  </div>
+
   <div id="planEntryScreen" class="entry-screen" role="dialog" aria-modal="true" aria-labelledby="entryTitle">
     <div class="entry-panel">
       <div class="entry-logo">
@@ -3037,10 +3353,10 @@
     <p class="plan-section-intro reveal-item">Presencia online clara, rápida y preparada para convertir visitas en contactos, reservas o ventas.</p>
     <div class="services">
       <div class="card reveal-item">
+        <span class="world-cup-badge">-15% Mundial</span>
         <h3>LuckyWeb Basic</h3>
-        <p class="price">Precio web: 50€</p>
-        <p class="price-note">Cuota mensual: 3,50 € (5 consultas/cambios y dominio standard) o 6,50 € (ilimitadas y
-          dominio personalizado)</p>
+        <p class="price">Precio web: <span class="price-old">50€</span> <span class="price-current">42,50€</span></p>
+        <p class="price-note">Cuota mensual con descuento: 2,98 € (5 consultas/cambios y dominio standard) o 5,53 € (ilimitadas y dominio personalizado)</p>
         <ul>
           <li>Diseño responsive</li>
           <li>Hasta 5 secciones</li>
@@ -3051,9 +3367,10 @@
         <a class="cta" href="index.html#contacto">Solicitar plan</a>
       </div>
       <div class="card reveal-item">
+        <span class="world-cup-badge">-15% Mundial</span>
         <h3>LuckyWeb Corporativa</h3>
-        <p class="price">Precio web: <span class="price-old">150€</span> 110€</p>
-        <p class="price-note">Cuota mensual: 5,50 €</p>
+        <p class="price">Precio web: <span class="price-old">150€</span> <span class="price-current">93,50€</span></p>
+        <p class="price-note">Cuota mensual con descuento: 4,68 €</p>
         <ul>
           <li>Hasta 6 páginas internas</li>
           <li>Diseño personalizado</li>
@@ -3064,10 +3381,12 @@
         <a class="cta" href="index.html#contacto">Solicitar plan</a>
       </div>
       <div class="card premium-card reveal-item">
+        <div class="spain-reflection" aria-hidden="true"></div>
         <span class="premium-badge">PREMIUM</span>
+        <span class="world-cup-badge">-15% Mundial</span>
         <h3>LuckyWeb Ecommerce</h3>
-        <p class="price">Precio web: 300€</p>
-        <p class="price-note">Cuota mensual: 30 €</p>
+        <p class="price">Precio web: <span class="price-old">300€</span> <span class="price-current">255€</span></p>
+        <p class="price-note">Cuota mensual con descuento: 25,50 €</p>
         <ul>
           <li>Tienda online completa</li>
           <li>Pasarela de pago</li>
@@ -3104,7 +3423,8 @@
         <article class="app-plan-card reveal-item">
           <span class="app-plan-label">Para validar rápido</span>
           <h3>MVP Rápido</h3>
-          <p class="app-plan-price">Desde 1.400 €</p>
+          <p class="app-plan-price"><span class="price-old">1.400 €</span> <span class="price-current">1.190 €</span></p>
+          <p class="price-note price-discount-note">15% Mundial aplicado</p>
           <p>Primera versión funcional para probar mercado, enseñar producto y decidir el siguiente paso con menos riesgo.</p>
           <ul class="app-feature-list">
             <li>Discovery y arquitectura inicial.</li>
@@ -3122,7 +3442,8 @@
           <span class="app-plan-badge">Más elegido</span>
           <span class="app-plan-label">Para operar de verdad</span>
           <h3>App Negocio</h3>
-          <p class="app-plan-price">Desde 3.999 €</p>
+          <p class="app-plan-price"><span class="price-old">3.999 €</span> <span class="price-current">3.399,15 €</span></p>
+          <p class="price-note price-discount-note">15% Mundial aplicado</p>
           <p>App más completa para empresas que necesitan panel, roles, integraciones y control desde el lanzamiento.</p>
           <ul class="app-feature-list">
             <li>Todo lo esencial del paquete MVP.</li>
@@ -3140,6 +3461,7 @@
           <span class="app-plan-label">Para escala avanzada</span>
           <h3>App Scale</h3>
           <p class="app-plan-price">A medida</p>
+          <p class="price-note price-discount-note">15% Mundial aplicado a la propuesta</p>
           <p>Para productos complejos, integraciones avanzadas o una hoja de ruta evolutiva con varios hitos.</p>
           <ul class="app-feature-list">
             <li>Arquitectura escalable y roadmap técnico.</li>
@@ -3177,19 +3499,19 @@
         <div>
           <p class="price-note" style="margin-bottom:12px;">1. Elige la base principal</p>
           <div class="custom-plan-base-grid" role="radiogroup" aria-label="Base del plan personalizado">
-            <button type="button" class="custom-option is-selected" data-custom-base data-service="web" data-base-label="Web corporativa / landing" data-base-price="110">
+            <button type="button" class="custom-option is-selected" data-custom-base data-service="web" data-base-label="Web corporativa / landing" data-base-price="93.5">
               <strong>Web corporativa</strong>
-              <span>Desde 110 €</span>
+              <span>Desde 93,50 €</span>
               <small>Para presentar servicios, captar leads y lanzar con rapidez.</small>
             </button>
-            <button type="button" class="custom-option" data-custom-base data-service="apps" data-base-label="MVP o app ligera" data-base-price="760">
+            <button type="button" class="custom-option" data-custom-base data-service="apps" data-base-label="MVP o app ligera" data-base-price="646">
               <strong>App o MVP</strong>
-              <span>Desde 760 €</span>
+              <span>Desde 646 €</span>
               <small>Ideal para validar producto, crear flujos y empezar con una versión útil.</small>
             </button>
-            <button type="button" class="custom-option" data-custom-base data-service="automatizaciones" data-base-label="Automatización principal" data-base-price="180">
+            <button type="button" class="custom-option" data-custom-base data-service="automatizaciones" data-base-label="Automatización principal" data-base-price="153">
               <strong>Automatización</strong>
-              <span>Desde 180 €</span>
+              <span>Desde 153 €</span>
               <small>Para conectar herramientas, ahorrar tiempo y ordenar procesos.</small>
             </button>
           </div>
@@ -3201,32 +3523,32 @@
           <div class="custom-addon-grid">
             <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Diseño premium y branding visual" data-addon-price="60" data-compatibility="web,apps,automatizaciones">
               <strong>Diseño premium</strong>
-              <span>+60 €</span>
+              <span>+51 €</span>
               <small>Más personalidad visual, coherencia de marca y acabado premium.</small>
             </button>
             <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="SEO inicial y estructura de contenido" data-addon-price="40" data-compatibility="web">
               <strong>SEO inicial</strong>
-              <span>+40 €</span>
+              <span>+34 €</span>
               <small>Base para posicionar mejor y ordenar la estructura del sitio.</small>
             </button>
             <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Panel de administración y control" data-addon-price="120" data-compatibility="apps,automatizaciones">
               <strong>Panel admin</strong>
-              <span>+120 €</span>
+              <span>+102 €</span>
               <small>Gestión interna, accesos y control del contenido o los datos.</small>
             </button>
             <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Integraciones API, CRM o Sheets" data-addon-price="90" data-compatibility="web,apps,automatizaciones">
               <strong>Integraciones</strong>
-              <span>+90 €</span>
+              <span>+76,50 €</span>
               <small>Conexión con CRM, hojas de cálculo, email o servicios externos.</small>
             </button>
             <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Automatizaciones avanzadas" data-addon-price="100" data-compatibility="apps,automatizaciones">
               <strong>Automatizaciones</strong>
-              <span>+100 €</span>
+              <span>+85 €</span>
               <small>Flujos automáticos, avisos, sincronizaciones y ahorro de tiempo.</small>
             </button>
             <button type="button" class="custom-option is-toggle" data-custom-addon data-addon-label="Pagos, ecommerce o reservas" data-addon-price="150" data-compatibility="web,apps">
               <strong>Pagos / ecommerce</strong>
-              <span>+150 €</span>
+              <span>+127,50 €</span>
               <small>Ideal si el proyecto necesita cobrar, reservar o vender online.</small>
             </button>
           </div>
@@ -3236,7 +3558,7 @@
       <aside class="custom-plan-summary">
         <span class="summary-pill">Estimación orientativa</span>
         <h3>Tu plan</h3>
-        <p class="custom-plan-price" data-custom-price>Desde 110 €</p>
+        <p class="custom-plan-price" data-custom-price>Desde 93,50 €</p>
         <p class="custom-plan-note" data-custom-base-note>Web corporativa / landing</p>
         <ul class="custom-plan-list" data-custom-summary-list>
           <li>Base: Web corporativa / landing</li>
@@ -3254,8 +3576,8 @@
     <div class="services">
       <div class="card reveal-item">
         <h3>Plan Básico</h3>
-        <p class="price">Precio: 120€</p>
-        <p class="price-note">Cuota mensual: 15€/mes. Ahorra tus primeras 5 horas semanales.</p>
+        <p class="price">Precio: <span class="price-old">120€</span> <span class="price-current">102€</span></p>
+        <p class="price-note">Cuota mensual con descuento: 12,75€/mes. Ahorra tus primeras 5 horas semanales.</p>
         <ul>
           <li>Hasta 2 automatizaciones lineales</li>
           <li>Integración de formularios con Sheets</li>
@@ -3268,8 +3590,8 @@
       </div>
       <div class="card reveal-item">
         <h3>Plan Pro </h3>
-        <p class="price">Precio: 350€</p>
-        <p class="price-note">Cuota mensual: 30€/mes. Tu negocio funcionando en piloto automático.</p>
+        <p class="price">Precio: <span class="price-old">350€</span> <span class="price-current">297,50€</span></p>
+        <p class="price-note">Cuota mensual con descuento: 25,50€/mes. Tu negocio funcionando en piloto automático.</p>
         <ul>
           <li>Hasta 5 automatizaciones (lógica condicional)</li>
           <li>Integración de pago, facturación y CRM</li>
@@ -3281,10 +3603,12 @@
         <a class="cta" href="index.html#contacto">Solicitar plan</a>
       </div>
       <div class="card premium-card reveal-item">
+        <div class="spain-reflection" aria-hidden="true"></div>
         <span class="premium-badge">PREMIUM</span>
+        <span class="world-cup-badge">-15% Mundial</span>
         <h3>Plan Lucky</h3>
-        <p class="price">Precio: 650€</p>
-        <p class="price-note">Cuota mensual: 60€/mes. Lleva tu empresa al siguiente nivel tecnológico.</p>
+        <p class="price">Precio: <span class="price-old">650€</span> <span class="price-current">552,50€</span></p>
+        <p class="price-note">Cuota mensual con descuento: 51€/mes. Lleva tu empresa al siguiente nivel tecnológico.</p>
         <ul>
           <li>Automatizaciones sin límite</li>
           <li>Agentes de IA para atención al cliente</li>
@@ -3352,6 +3676,7 @@
           <li><a href="index.html#about">Nosotros</a></li>
           <li><a href="index.html#faq">FAQ</a></li>
           <li><a href="index.html#contacto">Contacto</a></li>
+          <li><a href="trabaja-con-nosotros.html">Trabaja con nosotros</a></li>
           <li><a href="panel.html">Panel Cliente</a></li>
         </ul>
       </div>
@@ -3449,11 +3774,13 @@
     }
 
     function formatEuro(value) {
+      const numericValue = Number(value || 0)
       return new Intl.NumberFormat("es-ES", {
         style: "currency",
         currency: "EUR",
-        maximumFractionDigits: 0
-      }).format(value)
+        minimumFractionDigits: Number.isInteger(numericValue) ? 0 : 2,
+        maximumFractionDigits: Number.isInteger(numericValue) ? 0 : 2
+      }).format(numericValue)
     }
 
     function getCustomPlanData() {
@@ -3717,6 +4044,42 @@
       if (footerLogo) {
         footerLogo.src = isDarkMode ? "logoluckyazulsinfondo.png" : "logoluckyblancosinfondo.png"
       }
+    }
+
+    const promoBanner = document.getElementById("promoBanner")
+    const promoClose = document.getElementById("promoClose")
+
+    function syncPromoOffsets(isHidden) {
+      document.body.classList.toggle("banner-hidden", isHidden)
+    }
+
+    if (promoBanner) {
+      let bannerClosed = false
+      try {
+        bannerClosed = localStorage.getItem("worldCupSpainBannerClosed") === "1"
+      } catch (_error) {
+        bannerClosed = false
+      }
+      syncPromoOffsets(bannerClosed)
+      if (bannerClosed) {
+        promoBanner.style.display = "none"
+      }
+    }
+
+    if (promoClose && promoBanner) {
+      promoClose.addEventListener("click", () => {
+        promoBanner.style.transition = "opacity 0.3s ease"
+        promoBanner.style.opacity = "0"
+        try {
+          localStorage.setItem("worldCupSpainBannerClosed", "1")
+        } catch (_error) {
+          // Ignore storage failures and just hide the banner for this session.
+        }
+        syncPromoOffsets(true)
+        setTimeout(() => {
+          promoBanner.style.display = "none"
+        }, 320)
+      })
     }
 
     if (localStorage.getItem("theme") === "dark") {
