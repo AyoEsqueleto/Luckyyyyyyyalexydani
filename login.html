@@ -273,53 +273,6 @@ backdrop-filter:blur(28px);
 box-shadow:0 32px 80px rgba(0,0,0,0.55),inset 0 1px 0 rgba(255,255,255,0.09);
 }
 
-/* ── OTP GROUP (hidden — replaced by separate card) ── */
-.otp-group{display:none!important;}
-
-/* ── 2FA CARD (separate card, shares grid cell) ── */
-.otp-card{
-grid-area:1/1;
-width:100%;
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.11);
-border-radius:24px;
-padding:42px 38px;
-backdrop-filter:blur(28px);
--webkit-backdrop-filter:blur(28px);
-box-shadow:0 32px 80px rgba(0,0,0,0.55),inset 0 1px 0 rgba(255,255,255,0.09);
-}
-
-/* Card state transitions — no absolute positioning needed */
-.login-card,
-.otp-card{
-transition:opacity 0.38s cubic-bezier(0.23,1,0.32,1),transform 0.38s cubic-bezier(0.23,1,0.32,1);
-}
-
-.card-visible{
-opacity:1;
-transform:translateX(0);
-pointer-events:auto;
-z-index:2;
-position:relative;
-}
-
-.card-hidden-left{
-opacity:0;
-transform:translateX(-60px);
-pointer-events:none;
-z-index:1;
-visibility:hidden;
-}
-
-.card-hidden-right{
-opacity:0;
-transform:translateX(60px);
-pointer-events:none;
-z-index:1;
-visibility:hidden;
-}
-
-
 .login-card-icon{
 width:58px;height:58px;
 background:linear-gradient(135deg,#1565ff,#6366f1);
@@ -390,128 +343,6 @@ color:rgba(226,232,240,0.84);
 letter-spacing:0.06em;
 text-transform:uppercase;
 }
-
-
-.otp-card-icon{
-  width:58px;height:58px;
-  background:linear-gradient(135deg,#10b981,#059669);
-  border-radius:17px;
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 22px;
-  box-shadow:0 10px 28px rgba(16,185,129,0.42);
-}
-.otp-card-icon svg{width:27px;height:27px;stroke:#fff;fill:none;stroke-width:2;}
-
-.otp-card h2{
-  font-size:23px;
-  font-weight:700;
-  color:#fff;
-  text-align:center;
-  margin-bottom:6px;
-}
-
-.otp-card-subtitle{
-  text-align:center;
-  font-size:13px;
-  color:rgba(226,232,240,0.82);
-  margin-bottom:28px;
-  line-height:1.5;
-}
-
-.otp-digits{
-  display:flex;
-  gap:10px;
-  justify-content:center;
-  margin-bottom:22px;
-}
-
-.otp-digit{
-  width:46px;
-  height:56px;
-  border-radius:12px;
-  border:1.5px solid rgba(255,255,255,0.22);
-  background:rgba(255,255,255,0.1);
-  color:#fff;
-  font-size:22px;
-  font-weight:700;
-  text-align:center;
-  font-family:'Poppins',sans-serif;
-  transition:border-color 0.2s,box-shadow 0.2s,background 0.2s;
-}
-.otp-digit:focus{
-  outline:none;
-  border-color:rgba(59,130,246,0.8);
-  background:rgba(255,255,255,0.16);
-  box-shadow:0 0 0 4px rgba(59,130,246,0.18);
-}
-.otp-digit.is-filled{
-  border-color:rgba(16,185,129,0.6);
-}
-
-#btnVerify{
-  width:100%;
-  padding:14px;
-  border-radius:14px;
-  border:none;
-  background:linear-gradient(135deg,#10b981 0%,#059669 100%);
-  color:#fff;
-  font-weight:700;
-  font-size:15px;
-  font-family:'Poppins',sans-serif;
-  cursor:pointer;
-  letter-spacing:0.02em;
-  transition:transform 0.2s,box-shadow 0.2s,opacity 0.2s;
-  box-shadow:0 8px 26px rgba(16,185,129,0.38);
-}
-#btnVerify:hover:not(:disabled){
-  transform:translateY(-2px);
-  box-shadow:0 14px 34px rgba(16,185,129,0.5);
-}
-#btnVerify:disabled{opacity:0.55;cursor:not-allowed;transform:none;}
-
-.otp-back-btn{
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  width:100%;
-  margin-top:14px;
-  background:none;
-  border:none;
-  cursor:pointer;
-  color:rgba(226,232,240,0.7);
-  font-size:13px;
-  font-family:'Poppins',sans-serif;
-  transition:color 0.2s;
-}
-.otp-back-btn:hover{color:#fff;}
-.otp-back-btn svg{width:14px;height:14px;}
-
-#otpStatus{
-  min-height:18px;
-  text-align:center;
-  font-size:13px;
-  color:rgba(226,232,240,0.88);
-  margin-bottom:10px;
-}
-
-/* Light mode 2FA card */
-body:not(.dark-mode) .otp-card{
-  background:rgba(255,255,255,0.88);
-  border:1px solid rgba(148,163,184,0.25);
-  box-shadow:0 24px 70px rgba(16,185,129,0.1),0 4px 16px rgba(0,0,0,0.06);
-}
-body:not(.dark-mode) .otp-card h2{color:#0f172a;}
-body:not(.dark-mode) .otp-card-subtitle{color:#64748b;}
-body:not(.dark-mode) .otp-digit{
-  background:#f8faff;
-  border-color:#dbe4f5;
-  color:#1e293b;
-}
-body:not(.dark-mode) .otp-digit:focus{
-  background:#fff;
-  border-color:rgba(59,130,246,0.55);
-}
-body:not(.dark-mode) .otp-back-btn{color:#64748b;}
-body:not(.dark-mode) .otp-back-btn:hover{color:#1565ff;}
-body:not(.dark-mode) #otpStatus{color:#475569;}
 
 
 .input-wrap{
@@ -931,31 +762,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p class="login-help">¿Necesitas acceso? <a href="mailto:contacto@luckybase.es">contacto@luckybase.es</a></p>
 </div>
 
-<!-- 2FA CARD -->
-<div class="otp-card card-hidden-right" id="otpCard" aria-hidden="true">
-  <div class="otp-card-icon">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><circle cx="12" cy="16" r="1.2" fill="#fff" stroke="none"/></svg>
-  </div>
-  <h2>Verificación en 2 pasos</h2>
-  <p class="otp-card-subtitle" id="otpHint">Introduce el código de 6 dígitos enviado a tu correo.</p>
-  <p id="otpStatus" aria-live="polite"></p>
-  <form id="seccion-otp" onsubmit="ejecutarVerificacion(event)">
-    <div class="otp-digits">
-      <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" autocomplete="one-time-code" aria-label="Dígito 1">
-      <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Dígito 2">
-      <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Dígito 3">
-      <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Dígito 4">
-      <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Dígito 5">
-      <input class="otp-digit" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Dígito 6">
-    </div>
-    <button type="submit" id="btnVerify">Verificar código</button>
-  </form>
-  <button class="otp-back-btn" id="otpBackBtn" type="button">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-    Volver al inicio de sesión
-  </button>
-</div>
-
 </div><!-- /.card-stack -->
 </main>
 
@@ -993,6 +799,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <li><a href="index.html#about">Nosotros</a></li>
 <li><a href="index.html#faq">FAQ</a></li>
 <li><a href="index.html#contacto">Contacto</a></li>
+          <li><a href="trabaja-con-nosotros.html">Trabaja con nosotros</a></li>
 <li><a href="panel.html">Panel Cliente</a></li>
 </ul>
 </div>
@@ -1003,6 +810,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <li><a href="terminos-condiciones.html">Términos</a></li>
 <li><a href="cookie-policy.html">Cookies</a></li>
 <li><a href="#" class="footer-preferences">Mis preferencias</a></li>
+<li><a href="https://builder.luckybase.es/support.html" class="footer-preferences">Soporte</a></li>
 </ul>
 </div>
 </div>
@@ -1082,10 +890,10 @@ if(togglePassword && passwordInput && eyeIcon){
   })
 }
 
-const URL_API = "https://script.google.com/macros/s/AKfycbxZeMApnIjxoF4aAPxNhcLbUb09JluFb4E7jP67bINuODTv08q9xDFtzC5updMnV_Gi/exec"
+const DEFAULT_LUCKYBASE_API_URL = "https://luckybasepanelapi-zt2dhgbzma-uc.a.run.app"
+const URL_API = window.LUCKYBASE_CLIENT_API_URL || window.LUCKYBASE_API_URL || DEFAULT_LUCKYBASE_API_URL
 const SESSION_DURATION_MS = 8 * 60 * 60 * 1000
 const REQUIRE_SERVER_SESSION = true
-let pendingClient2fa = null
 
 async function apiPostRequest(payload, timeoutMs=12000){
   const controller = new AbortController()
@@ -1179,105 +987,18 @@ function normalizePortfolioData_(data){
   }
 }
 
-function isTwoFactorPending_(){
-  return !!(pendingClient2fa && pendingClient2fa.challengeId)
-}
-
-function setTwoFactorMode_(enabled, options){
-  const loginCard = document.querySelector(".login-card")
-  const otpCard = document.getElementById("otpCard")
-  const otpHint = document.getElementById("otpHint")
-  const otpStatus = document.getElementById("otpStatus")
-  const userInput = document.getElementById("usuario")
-  const passInput = document.getElementById("password")
-  const btn = document.getElementById("btnLogin")
-  const config = options || {}
-
-  if(enabled){
-    pendingClient2fa = {
-      challengeId: String(config.challengeId || "").trim(),
-      usuario: String(config.usuario || "").trim()
-    }
-    // Update hint
-    if(otpHint){
-      const target = String(config.maskedEmail || "").trim()
-      otpHint.textContent = target
-        ? ("Hemos enviado el código a " + target + ". Caduca en 5 minutos.")
-        : "Introduce el código de 6 dígitos enviado por correo."
-    }
-    if(otpStatus) otpStatus.textContent = ""
-    if(userInput) userInput.readOnly = true
-    if(passInput) passInput.readOnly = true
-    if(btn){
-      btn.disabled = false
-      btn.textContent = "Entrar"
-    }
-    // Clear and focus digits
-    document.querySelectorAll(".otp-digit").forEach(d => { d.value = ""; d.classList.remove("is-filled"); })
-    // Swap cards: login card slides left, otp card slides in from right
-    if(loginCard){
-      loginCard.classList.remove("card-visible", "card-hidden-right")
-      loginCard.classList.add("card-hidden-left")
-      loginCard.setAttribute("aria-hidden", "true")
-    }
-    if(otpCard){
-      otpCard.classList.remove("card-hidden-right", "card-hidden-left")
-      otpCard.classList.add("card-visible")
-      otpCard.removeAttribute("aria-hidden")
-      setTimeout(() => {
-        const firstDigit = otpCard.querySelector(".otp-digit")
-        if(firstDigit) firstDigit.focus()
-      }, 420)
-    }
-    return
-  }
-
-  pendingClient2fa = null
-  if(otpHint) otpHint.textContent = ""
-  if(otpStatus) otpStatus.textContent = ""
-  document.querySelectorAll(".otp-digit").forEach(d => { d.value = ""; d.classList.remove("is-filled"); })
-  if(userInput) userInput.readOnly = false
-  if(passInput) passInput.readOnly = false
-  if(btn){
-    btn.disabled = false
-    btn.textContent = "Entrar"
-  }
-  // Swap back: otp card slides right, login card returns
-  if(otpCard){
-    otpCard.classList.remove("card-visible", "card-hidden-left")
-    otpCard.classList.add("card-hidden-right")
-    otpCard.setAttribute("aria-hidden", "true")
-  }
-  if(loginCard){
-    loginCard.classList.remove("card-hidden-left", "card-hidden-right")
-    loginCard.classList.add("card-visible")
-    loginCard.removeAttribute("aria-hidden")
-  }
-}
-
 function handleLoginResponse(datos, user){
   const status = document.getElementById('loginStatus')
   const btn = document.getElementById('btnLogin')
   if(btn){
     btn.disabled = false
-    btn.textContent = isTwoFactorPending_() ? "Verificar código" : "Entrar"
+    btn.textContent = "Entrar"
   }
   if(status){
     status.classList.remove("status-loading")
   }
 
-  if (datos && datos.success && datos.twoFactorRequired === true) {
-    setTwoFactorMode_(true, {
-      challengeId: datos.challengeId,
-      maskedEmail: datos.maskedEmail,
-      usuario: user
-    })
-    if(status) status.textContent = String(datos.message || "Código enviado. Revisa tu correo.")
-    return
-  }
-
   if (datos && datos.success) {
-    setTwoFactorMode_(false)
     const sourceData = extractPayloadData(datos)
     const sessionToken = String(datos.sessionToken || sourceData.sessionToken || "").trim()
     const sessionExpiresAt = parseSessionExpiry(datos.sessionExpiresAt || sourceData.sessionExpiresAt)
@@ -1311,13 +1032,6 @@ function handleLoginResponse(datos, user){
     window.location.href = "panel.html"
   } else {
     if(status) status.textContent = ""
-    const errorCode = String(datos && datos.error || "").trim()
-    if(errorCode === "TWO_FA_CODE_EXPIRED" ||
-       errorCode === "TWO_FA_CHALLENGE_CLOSED" ||
-       errorCode === "TWO_FA_CHALLENGE_INVALID" ||
-       errorCode === "TWO_FA_TEMP_LOCKED"){
-      setTwoFactorMode_(false)
-    }
     const backendMessage = (datos && typeof datos.message === "string" && datos.message.trim())
       ? datos.message.trim()
       : "Usuario o contraseña incorrectos."
@@ -1328,10 +1042,9 @@ function handleLoginResponse(datos, user){
 function ejecutarLogin(e){
   if(e) e.preventDefault()
   const btn = document.getElementById('btnLogin')
-  const twoFactorPending = isTwoFactorPending_()
   if(btn){
     btn.disabled = true
-    btn.textContent = twoFactorPending ? "Verificando..." : "Entrando..."
+    btn.textContent = "Entrando..."
   }
   const user = document.getElementById('usuario').value.trim()
   const pass = document.getElementById('password').value.trim()
@@ -1346,18 +1059,9 @@ function ejecutarLogin(e){
     if(status) status.textContent = "Completa usuario y contraseña."
     if(btn){
       btn.disabled = false
-      btn.textContent = twoFactorPending ? "Verificar código" : "Entrar"
-    }
-    setTimeout(()=>{ if(status) status.textContent = "" }, 4000)
-    return
-  }
-
-  if(twoFactorPending){
-    // 2FA is now handled by ejecutarVerificacion, guard here as fallback
-    if(btn){
-      btn.disabled = false
       btn.textContent = "Entrar"
     }
+    setTimeout(()=>{ if(status) status.textContent = "" }, 4000)
     return
   }
 
@@ -1380,7 +1084,7 @@ function ejecutarLogin(e){
       const btn = document.getElementById('btnLogin')
       if(btn){
         btn.disabled = false
-        btn.textContent = isTwoFactorPending_() ? "Verificar código" : "Entrar"
+        btn.textContent = "Entrar"
       }
       if(status){
         status.classList.remove("status-loading")
@@ -1404,128 +1108,6 @@ function showLoginBanner(message){
 function hideLoginBanner(){
   const banner=document.getElementById("loginBanner")
   if(banner) banner.classList.remove("show")
-}
-
-// ── OTP DIGIT INPUT BEHAVIOR ──
-document.querySelectorAll(".otp-digit").forEach((input, idx, arr) => {
-  input.addEventListener("input", (e) => {
-    const val = e.target.value.replace(/[^0-9]/g, "")
-    e.target.value = val.slice(0, 1)
-    e.target.classList.toggle("is-filled", !!e.target.value)
-    // Paste handling: distribute across digits
-    if(val.length > 1){
-      [...val.slice(0,6)].forEach((ch, i) => {
-        if(arr[i]){ arr[i].value = ch; arr[i].classList.add("is-filled"); }
-      })
-      const last = arr[Math.min(val.length, arr.length) - 1]
-      if(last) last.focus()
-      return
-    }
-    if(e.target.value && idx < arr.length - 1) arr[idx+1].focus()
-  })
-  input.addEventListener("keydown", (e) => {
-    if(e.key === "Backspace" && !input.value && idx > 0){
-      arr[idx-1].value = ""
-      arr[idx-1].classList.remove("is-filled")
-      arr[idx-1].focus()
-    }
-  })
-})
-
-// ── 2FA VERIFY FUNCTION ──
-async function ejecutarVerificacion(e){
-  if(e) e.preventDefault()
-  if(!isTwoFactorPending_()) return
-  const digits = [...document.querySelectorAll(".otp-digit")].map(d => d.value).join("")
-  const otpStatus = document.getElementById("otpStatus")
-  const btnVerify = document.getElementById("btnVerify")
-
-  if(!/^\d{6}$/.test(digits)){
-    if(otpStatus){ otpStatus.textContent = "Introduce los 6 dígitos del código."; setTimeout(()=>{ otpStatus.textContent="" },4000) }
-    return
-  }
-
-  if(btnVerify){ btnVerify.disabled = true; btnVerify.textContent = "Verificando..." }
-  if(otpStatus){ otpStatus.innerHTML = '<span class="spinner" aria-label="Cargando"></span>' }
-
-  const payload = {
-    action: "verify_2fa",
-    challengeId: String(pendingClient2fa && pendingClient2fa.challengeId || ""),
-    code: digits
-  }
-  const user = (pendingClient2fa && pendingClient2fa.usuario) || ""
-
-  try{
-    const response = await apiPostRequest(payload, 12000)
-    if(response && response.success){
-      if(btnVerify){ btnVerify.disabled = false; btnVerify.textContent = "Verificar código" }
-      if(otpStatus) otpStatus.textContent = ""
-      handleLoginResponse(response, user)
-      return
-    }
-
-    if(btnVerify){ btnVerify.disabled = false; btnVerify.textContent = "Verificar código" }
-    const errorCode = String(response && response.error || "").trim().toUpperCase()
-    const attemptsRaw = response && (
-      response.attemptsRemaining ??
-      response.remainingAttempts ??
-      response.intentosRestantes ??
-      response.attempts_left ??
-      response.remaining_attempts
-    )
-    const attemptsRemaining = Number(attemptsRaw)
-    const hasAttemptsRemaining = Number.isFinite(attemptsRemaining)
-    const isInvalidCode = (
-      errorCode === "TWO_FA_CODE_INVALID" ||
-      errorCode === "TWO_FA_INVALID_CODE" ||
-      errorCode === "INVALID_2FA_CODE" ||
-      errorCode === "TWOFA_CODE_INVALID"
-    )
-
-    let statusMessage = (response && typeof response.message === "string" && response.message.trim())
-      ? response.message.trim()
-      : "No se pudo verificar el código."
-
-    if(isInvalidCode){
-      statusMessage = hasAttemptsRemaining
-        ? ("Código incorrecto. Te quedan " + String(Math.max(0, Math.floor(attemptsRemaining))) + " " + (Math.floor(attemptsRemaining) === 1 ? "intento." : "intentos."))
-        : "Código incorrecto. Inténtalo de nuevo."
-      document.querySelectorAll(".otp-digit").forEach((digit)=>{ digit.value = ""; digit.classList.remove("is-filled") })
-      const firstDigit = document.querySelector(".otp-digit")
-      if(firstDigit) firstDigit.focus()
-    }else if(hasAttemptsRemaining && !/intentos?/i.test(statusMessage)){
-      statusMessage += " Intentos restantes: " + String(Math.max(0, Math.floor(attemptsRemaining))) + "."
-    }
-
-    if(otpStatus) otpStatus.textContent = statusMessage
-
-    const shouldCloseTwoFactor = (
-      errorCode === "TWO_FA_CODE_EXPIRED" ||
-      errorCode === "TWO_FA_CHALLENGE_CLOSED" ||
-      errorCode === "TWO_FA_CHALLENGE_INVALID" ||
-      errorCode === "TWO_FA_TEMP_LOCKED"
-    )
-    if(shouldCloseTwoFactor){
-      setTwoFactorMode_(false)
-      showLoginBanner(statusMessage)
-    }
-  }catch(error){
-    if(btnVerify){ btnVerify.disabled = false; btnVerify.textContent = "Verificar código" }
-    if(otpStatus){
-      otpStatus.textContent = error && error.message === "TIMEOUT"
-        ? "Tiempo de espera agotado."
-        : "No se pudo conectar con el servidor."
-      setTimeout(()=>{ otpStatus.textContent="" },5000)
-    }
-  }
-}
-
-// ── BACK BUTTON ──
-const otpBackBtn = document.getElementById("otpBackBtn")
-if(otpBackBtn){
-  otpBackBtn.addEventListener("click", () => {
-    setTwoFactorMode_(false)
-  })
 }
 
 const loginQuery = new URLSearchParams(window.location.search)
