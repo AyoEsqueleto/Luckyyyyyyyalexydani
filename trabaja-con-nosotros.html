@@ -267,6 +267,192 @@
       border-radius:999px;
       background:linear-gradient(135deg, var(--accent), var(--accent2));
     }
+    .vacancies-section{
+      padding:12px 0 0;
+    }
+    .vacancies-shell{
+      display:grid;
+      gap:18px;
+    }
+    .vacancies-toolbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-bottom:6px;
+    }
+    .vacancies-toolbar p{
+      margin:0;
+      color:var(--muted);
+      max-width:76ch;
+      line-height:1.6;
+    }
+    .vacancy-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+    }
+    .vacancy-card{
+      position:relative;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      padding:20px;
+      display:grid;
+      gap:14px;
+      min-height:100%;
+      transition:transform .2s ease, border-color .2s ease, background .2s ease;
+      cursor:pointer;
+      text-align:left;
+    }
+    .vacancy-card:hover{
+      transform:translateY(-3px);
+      border-color:rgba(215,255,63,.28);
+      background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.07));
+    }
+    .vacancy-card.active{
+      border-color:rgba(215,255,63,.48);
+      box-shadow:0 26px 70px rgba(0,0,0,.34), 0 0 0 1px rgba(215,255,63,.12) inset;
+    }
+    .vacancy-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+    }
+    .vacancy-name{
+      font-family:'Sora',system-ui,sans-serif;
+      font-size:22px;
+      line-height:1.05;
+      letter-spacing:-.05em;
+      margin:0 0 8px;
+    }
+    .vacancy-meta{
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.5;
+    }
+    .vacancy-copy{
+      color:var(--muted);
+      line-height:1.65;
+      font-size:15px;
+      margin:0;
+    }
+    .vacancy-bullets{
+      display:grid;
+      gap:8px;
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+    .vacancy-bullets li{
+      position:relative;
+      padding-left:16px;
+      line-height:1.5;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .vacancy-bullets li::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:.62em;
+      width:7px;
+      height:7px;
+      border-radius:999px;
+      background:var(--accent);
+      box-shadow:0 0 0 4px rgba(215,255,63,.12);
+    }
+    .vacancy-chip-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .vacancy-chip{
+      display:inline-flex;
+      align-items:center;
+      min-height:32px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      color:#eef5ff;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.01em;
+    }
+    .vacancy-detail{
+      border:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.06));
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:clamp(22px,4vw,32px);
+      display:grid;
+      gap:18px;
+    }
+    .vacancy-detail-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .vacancy-detail-head h3{
+      font-size:clamp(30px,4vw,54px);
+      line-height:.95;
+      max-width:14ch;
+    }
+    .vacancy-detail-body{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(300px,.95fr);
+      gap:18px;
+      align-items:start;
+    }
+    .vacancy-panel{
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:22px;
+      background:rgba(255,255,255,.06);
+      padding:18px;
+      display:grid;
+      gap:12px;
+    }
+    .vacancy-panel h4{
+      margin:0;
+      font-size:15px;
+      letter-spacing:.02em;
+      text-transform:uppercase;
+      color:#d8e8ff;
+    }
+    .vacancy-panel p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.68;
+    }
+    .vacancy-detail-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+    }
+    .btn-outline{
+      text-decoration:none;
+      min-height:48px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:0 18px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      font-weight:800;
+    }
+    .btn-outline:hover{
+      background:rgba(255,255,255,.1);
+    }
     .section{
       padding:24px 0 0;
     }
@@ -584,6 +770,7 @@
     }
     @media(max-width:980px){
       .hero-grid,.section-grid,.process,.footer-grid{grid-template-columns:1fr}
+      .vacancy-grid,.vacancy-detail-body{grid-template-columns:1fr}
       .hero-points,.form-grid,.switch-grid{grid-template-columns:1fr}
       .topbar-inner{flex-direction:column;align-items:flex-start}
       .nav{justify-content:flex-start}
@@ -627,7 +814,7 @@
         </article>
 
         <aside class="hero-side reveal">
-          <span class="badge" id="careerVacancyBadge">Solo esta vacante</span>
+          <span class="badge" id="careerHeroBadge">Vacante principal</span>
           <h2 id="careerSideTitle">Lo que ofrecemos</h2>
           <ul class="side-list" id="careerSideList">
             <li>Colaboración orientada a resultados y comisión.</li>
@@ -636,6 +823,53 @@
             <li>Automatización del envío: recibirás un email automático de confirmación.</li>
           </ul>
         </aside>
+      </div>
+    </section>
+
+    <section class="vacancies-section" id="vacantes">
+      <div class="wrap vacancies-shell">
+        <div class="vacancies-toolbar reveal">
+          <div>
+            <span class="badge">Vacantes activas</span>
+            <h2 style="font-size:clamp(32px,4.8vw,56px);margin-top:12px;">Elige una vacante y entra en su detalle</h2>
+          </div>
+          <p>Te mostramos las posiciones disponibles como tarjetas. Entra en la vacante que te interese para ver el detalle completo y postularte directamente desde su propio formulario.</p>
+        </div>
+        <div id="careerVacancyGrid" class="vacancy-grid"></div>
+        <article id="careerVacancyDetail" class="vacancy-detail reveal" aria-live="polite">
+          <div class="vacancy-detail-head">
+            <div>
+              <span class="badge" id="careerVacancyBadge">Cargando vacantes</span>
+              <h3 id="careerVacancyDetailTitle">Estamos preparando las posiciones abiertas</h3>
+            </div>
+            <div class="vacancy-detail-actions">
+              <a class="btn-outline" href="#formulario">Ir al formulario</a>
+            </div>
+          </div>
+          <div class="vacancy-detail-body">
+            <div class="vacancy-panel">
+              <h4>Descripción</h4>
+              <p id="careerVacancyDetailDescription">En breve verás aquí el detalle de cada vacante. Selecciona una tarjeta para abrir su descripción completa, condiciones y ventajas.</p>
+              <ul class="vacancy-bullets" id="careerVacancyDetailBullets">
+                <li>Selecciona una vacante para ver sus requisitos.</li>
+                <li>Después podrás enviar tu candidatura en el formulario de abajo.</li>
+                <li>La candidatura quedará asociada a la vacante elegida.</li>
+              </ul>
+            </div>
+            <div class="vacancy-panel">
+              <h4>Datos rápidos</h4>
+              <div class="vacancy-chip-row" id="careerVacancyDetailChips">
+                <span class="vacancy-chip">Vacantes activas</span>
+                <span class="vacancy-chip">Proceso automático</span>
+                <span class="vacancy-chip">Respuesta por correo</span>
+              </div>
+              <p id="careerVacancyDetailExtra">Cuando abras una vacante, aquí verás la ubicación, el tipo de empleo y la compensación.</p>
+              <div class="vacancy-detail-actions">
+                <button class="btn primary" type="button" id="careerVacancyDetailApplyBtn">Quiero postularme</button>
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -672,6 +906,7 @@
               <span class="badge">Candidatura</span>
               <h2 style="font-size:clamp(30px,4vw,48px);margin-top:12px;">Envíanos tu perfil</h2>
               <p>Los campos marcados como obligatorios son necesarios para revisar tu candidatura. También te llegará un correo automático de confirmación cuando lo envíes.</p>
+              <p id="careerFormVacancyHint" style="margin-top:10px;color:#dffbe3;font-weight:700;">Selecciona una vacante arriba para enlazar esta candidatura.</p>
             </div>
             <div class="pill-link">100% comisión por venta</div>
           </div>
@@ -842,7 +1077,23 @@
     const submitBtn = document.getElementById('submitBtn');
     const fileInput = document.getElementById('cv');
     const fileName = document.getElementById('fileName');
+    const careerHeroTitle = document.getElementById('careerHeroTitle');
+    const careerHeroLead = document.getElementById('careerHeroLead');
+    const careerHeroBadge = document.getElementById('careerHeroBadge');
+    const careerSideTitle = document.getElementById('careerSideTitle');
+    const careerSideList = document.getElementById('careerSideList');
+    const vacancyGrid = document.getElementById('careerVacancyGrid');
+    const vacancyDetailBadge = document.getElementById('careerVacancyBadge');
+    const vacancyDetailTitle = document.getElementById('careerVacancyDetailTitle');
+    const vacancyDetailDescription = document.getElementById('careerVacancyDetailDescription');
+    const vacancyDetailBullets = document.getElementById('careerVacancyDetailBullets');
+    const vacancyDetailChips = document.getElementById('careerVacancyDetailChips');
+    const vacancyDetailExtra = document.getElementById('careerVacancyDetailExtra');
+    const vacancyDetailApplyBtn = document.getElementById('careerVacancyDetailApplyBtn');
+    const vacancyFormHint = document.getElementById('careerFormVacancyHint');
     const revealItems = [...document.querySelectorAll('.reveal')];
+    let careerVacanciesCache = [];
+    let careerSelectedVacancyId = '';
 
     function showStatus(message, type) {
       if (!formStatus) return;
@@ -857,6 +1108,15 @@
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;');
+    }
+
+    function normalizeText(value) {
+      return String(value || '')
+        .trim()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '');
     }
 
     function fileToDataUrl(file) {
@@ -899,37 +1159,194 @@
       });
     }
 
-    async function loadCareerVacancy() {
+    function normalizeVacancyStatus(value) {
+      const status = String(value || '').trim().toLowerCase();
+      if (status === 'closed' || status === 'inactive' || status === 'paused') return 'closed';
+      if (status === 'draft') return 'draft';
+      return 'active';
+    }
+
+    function getVacancyId(vacancy) {
+      return String((vacancy && (vacancy.vacancyId || vacancy.slug)) || '').trim();
+    }
+
+    function getVacancyTitle(vacancy) {
+      return String((vacancy && vacancy.title) || '').trim() || 'Vacante abierta';
+    }
+
+    function formatVacancyChips(vacancy) {
+      const chips = [];
+      if (vacancy.location) chips.push(vacancy.location);
+      if (vacancy.employmentType) chips.push(vacancy.employmentType);
+      if (vacancy.compensationText) chips.push(vacancy.compensationText);
+      if (vacancy.currency) chips.push(vacancy.currency);
+      return chips;
+    }
+
+    function formatVacancyBullets(vacancy) {
+      return [
+        vacancy.description,
+        vacancy.requirements ? `Requisitos: ${vacancy.requirements}` : '',
+        vacancy.benefits ? `Beneficios: ${vacancy.benefits}` : '',
+        vacancy.applicationUrl ? `Solicitud vinculada: ${vacancy.applicationUrl}` : ''
+      ].filter(Boolean);
+    }
+
+    function setCareerVacancyInForm(vacancy) {
+      const vacancyIdField = document.getElementById('vacancyId');
+      if (vacancyIdField) {
+        vacancyIdField.value = getVacancyId(vacancy);
+      }
+      if (vacancyFormHint) {
+        if (vacancy) {
+          vacancyFormHint.textContent = `Vas a postularte a: ${getVacancyTitle(vacancy)}.`;
+        } else {
+          vacancyFormHint.textContent = 'Selecciona una vacante arriba para enlazar esta candidatura.';
+        }
+      }
+    }
+
+    function renderCareerVacancyDetail(vacancy) {
+      const active = vacancy || null;
+      if (vacancyDetailBadge) {
+        vacancyDetailBadge.textContent = active
+          ? (active.featured ? 'Vacante destacada' : 'Vacante activa')
+          : 'Cargando vacantes';
+      }
+      if (vacancyDetailTitle) {
+        vacancyDetailTitle.textContent = active
+          ? getVacancyTitle(active)
+          : 'Estamos preparando las posiciones abiertas';
+      }
+      if (vacancyDetailDescription) {
+        vacancyDetailDescription.textContent = active && active.description
+          ? active.description
+          : 'En breve verás aquí el detalle de cada vacante. Selecciona una tarjeta para abrir su descripción completa, condiciones y ventajas.';
+      }
+      if (vacancyDetailBullets) {
+        const bullets = active ? formatVacancyBullets(active) : [
+          'Selecciona una vacante para ver sus requisitos.',
+          'Después podrás enviar tu candidatura en el formulario de abajo.',
+          'La candidatura quedará asociada a la vacante elegida.'
+        ];
+        vacancyDetailBullets.innerHTML = bullets.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
+      }
+      if (vacancyDetailChips) {
+        const chips = active ? formatVacancyChips(active) : ['Vacantes activas', 'Proceso automático', 'Respuesta por correo'];
+        vacancyDetailChips.innerHTML = chips.map((chip) => `<span class="vacancy-chip">${escapeHtml(chip)}</span>`).join('');
+      }
+      if (vacancyDetailExtra) {
+        vacancyDetailExtra.textContent = active
+          ? [
+              active.location ? `Ubicación: ${active.location}` : '',
+              active.employmentType ? `Tipo: ${active.employmentType}` : '',
+              active.compensationText ? `Compensación: ${active.compensationText}` : '',
+              active.orderIndex ? `Orden: ${active.orderIndex}` : ''
+            ].filter(Boolean).join(' · ')
+          : 'Cuando abras una vacante, aquí verás la ubicación, el tipo de empleo y la compensación.';
+      }
+      if (vacancyDetailApplyBtn) {
+        vacancyDetailApplyBtn.disabled = !active;
+        vacancyDetailApplyBtn.textContent = active ? `Postularme a ${getVacancyTitle(active)}` : 'Quiero postularme';
+      }
+      setCareerVacancyInForm(active);
+    }
+
+    function renderCareerVacancyGrid(vacancies) {
+      if (!vacancyGrid) return;
+      const list = Array.isArray(vacancies) ? vacancies : [];
+      if (!list.length) {
+        vacancyGrid.innerHTML = '<p class="empty-state">No hay vacantes activas ahora mismo.</p>';
+        return;
+      }
+
+      vacancyGrid.innerHTML = list.map((vacancy) => {
+        const vacancyId = getVacancyId(vacancy);
+        const status = normalizeVacancyStatus(vacancy.status);
+        const isActive = vacancyId && normalizeText(vacancyId) === normalizeText(careerSelectedVacancyId || '');
+        const chipParts = [
+          vacancy.location || '',
+          vacancy.employmentType || '',
+          vacancy.compensationText || ''
+        ].filter(Boolean);
+        return '<button type="button" class="vacancy-card' + (isActive ? ' active' : '') + '" data-vacancy-id="' + escapeHtml(vacancyId) + '">' +
+          '<div class="vacancy-top">' +
+            '<div>' +
+              '<div class="badge">' + escapeHtml(status === 'closed' ? 'Vacante cerrada' : (vacancy.featured ? 'Destacada' : 'Activa')) + '</div>' +
+              '<h3 class="vacancy-name">' + escapeHtml(getVacancyTitle(vacancy)) + '</h3>' +
+              '<div class="vacancy-meta">' + escapeHtml(vacancy.location || 'Teletrabajo') + ' · ' + escapeHtml(vacancy.employmentType || 'CONTRACTOR') + '</div>' +
+            '</div>' +
+            '<span class="vacancy-chip">' + escapeHtml(vacancy.currency || 'EUR') + '</span>' +
+          '</div>' +
+          '<p class="vacancy-copy">' + escapeHtml(vacancy.description || 'Haz clic para ver más detalles.') + '</p>' +
+          '<ul class="vacancy-bullets">' +
+            (vacancy.requirements ? '<li>' + escapeHtml(vacancy.requirements) + '</li>' : '') +
+            (vacancy.benefits ? '<li>' + escapeHtml(vacancy.benefits) + '</li>' : '') +
+            (vacancy.compensationText ? '<li>' + escapeHtml(vacancy.compensationText) + '</li>' : '') +
+          '</ul>' +
+          '<div class="vacancy-chip-row">' + chipParts.map((chip) => '<span class="vacancy-chip">' + escapeHtml(chip) + '</span>').join('') + '</div>' +
+          '<div class="vacancy-detail-actions">' +
+            '<span class="btn-outline">Ver detalle</span>' +
+          '</div>' +
+        '</button>';
+      }).join('');
+    }
+
+    function selectCareerVacancy(vacancyId, options = {}) {
+      const id = String(vacancyId || '').trim();
+      const selected = careerVacanciesCache.find((vacancy) => normalizeText(getVacancyId(vacancy)) === normalizeText(id)) || careerVacanciesCache[0] || null;
+      careerSelectedVacancyId = selected ? getVacancyId(selected) : '';
+      renderCareerVacancyGrid(careerVacanciesCache);
+      renderCareerVacancyDetail(selected);
+      if (options.scroll !== false && selected) {
+        const target = document.getElementById('formulario');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }
+
+    async function loadCareerVacancies() {
       try {
         const result = await jsonpRequest(CAREERS_API_URL, { action: 'careerjobs' });
-        const vacancy = result && result.vacancy ? result.vacancy : null;
-        const vacancyIdField = document.getElementById('vacancyId');
-        if (vacancyIdField && vacancy && (vacancy.vacancyId || vacancy.slug)) {
-          vacancyIdField.value = vacancy.vacancyId || vacancy.slug || '';
+        const vacancies = Array.isArray(result && result.vacancies) ? result.vacancies : [];
+        const fallbackVacancy = result && result.vacancy ? result.vacancy : null;
+        const normalizedVacancies = (vacancies.length ? vacancies : (fallbackVacancy ? [fallbackVacancy] : [])).filter(Boolean);
+        careerVacanciesCache = normalizedVacancies;
+        const activeVacancy = normalizedVacancies.find((vacancy) => normalizeVacancyStatus(vacancy.status) === 'active')
+          || normalizedVacancies[0]
+          || null;
+        careerSelectedVacancyId = activeVacancy ? getVacancyId(activeVacancy) : '';
+        renderCareerVacancyGrid(careerVacanciesCache);
+        renderCareerVacancyDetail(activeVacancy);
+        if (careerHeroTitle && activeVacancy) {
+          careerHeroTitle.textContent = getVacancyTitle(activeVacancy);
         }
-        if (!vacancy) {
-          return;
+        if (careerHeroLead && activeVacancy && activeVacancy.description) {
+          careerHeroLead.textContent = activeVacancy.description;
         }
-
-        const badge = document.getElementById('careerVacancyBadge');
-        const heroTitle = document.getElementById('careerHeroTitle');
-        const heroLead = document.getElementById('careerHeroLead');
-        const sideTitle = document.getElementById('careerSideTitle');
-        const sideList = document.getElementById('careerSideList');
-        const title = vacancy.title || 'Captador de clientes a comisión';
-
-        if (badge) badge.textContent = vacancy.featured ? 'Vacante destacada' : 'Vacante activa';
-        if (heroTitle) heroTitle.textContent = title;
-        if (heroLead && vacancy.description) heroLead.textContent = vacancy.description;
-        if (sideTitle) sideTitle.textContent = 'Lo que buscamos';
-        if (sideList) {
+        if (careerHeroBadge) {
+          careerHeroBadge.textContent = normalizedVacancies.length > 1
+            ? `${normalizedVacancies.length} vacantes publicadas`
+            : 'Vacante principal';
+        }
+        if (careerSideTitle && activeVacancy) {
+          careerSideTitle.textContent = 'Lo que ofrece esta vacante';
+        }
+        if (careerSideList && activeVacancy) {
           const items = [
-            vacancy.location ? `Ubicación: ${vacancy.location}` : '',
-            vacancy.compensationText ? `Compensación: ${vacancy.compensationText}` : '',
-            vacancy.benefits || '',
-            vacancy.requirements || ''
+            activeVacancy.location ? `Ubicación: ${activeVacancy.location}` : '',
+            activeVacancy.employmentType ? `Tipo de empleo: ${activeVacancy.employmentType}` : '',
+            activeVacancy.compensationText ? `Compensación: ${activeVacancy.compensationText}` : '',
+            activeVacancy.requirements || '',
+            activeVacancy.benefits || ''
           ].filter(Boolean);
-          sideList.innerHTML = items.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
+          careerSideList.innerHTML = items.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
+        }
+        if (careerVacancyBadge) {
+          careerVacancyBadge.textContent = careerVacanciesCache.length > 1
+            ? `${careerVacanciesCache.length} vacantes activas`
+            : 'Una vacante activa';
         }
       } catch (error) {
         console.warn('career vacancy load failed', error);
@@ -1080,7 +1497,26 @@
       });
     }
 
-    loadCareerVacancy();
+    if (vacancyDetailApplyBtn) {
+      vacancyDetailApplyBtn.addEventListener('click', () => {
+        const target = document.getElementById('formulario');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    }
+
+    if (vacancyGrid) {
+      vacancyGrid.addEventListener('click', (event) => {
+        const card = event.target.closest('.vacancy-card');
+        if (!card) return;
+        const vacancyId = String(card.getAttribute('data-vacancy-id') || '').trim();
+        if (!vacancyId) return;
+        selectCareerVacancy(vacancyId, { scroll: true });
+      });
+    }
+
+    loadCareerVacancies();
   </script>
 </body>
 </html>
