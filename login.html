@@ -420,6 +420,74 @@ box-shadow:0 14px 34px rgba(21,101,255,0.5);
 #btnLogin:active:not(:disabled){transform:translateY(0);}
 #btnLogin:disabled{opacity:0.55;cursor:not-allowed;transform:none;}
 
+.twofa-panel{
+display:none;
+margin-top:10px;
+padding-top:18px;
+border-top:1px solid rgba(255,255,255,0.14);
+gap:14px;
+flex-direction:column;
+}
+.twofa-panel.is-visible{display:flex;}
+.twofa-title{
+font-size:15px;
+font-weight:700;
+color:#fff;
+text-align:center;
+}
+.twofa-help{
+font-size:12px;
+line-height:1.55;
+color:rgba(226,232,240,0.8);
+text-align:center;
+}
+.twofa-actions{
+display:flex;
+gap:10px;
+flex-direction:column;
+}
+#twoFactorCode{
+letter-spacing:0.22em;
+text-transform:uppercase;
+text-align:center;
+font-weight:700;
+}
+#btnVerify2fa,
+#btnBackToLogin{
+width:100%;
+padding:13px 14px;
+border-radius:14px;
+border:none;
+cursor:pointer;
+font-weight:700;
+font-size:14px;
+font-family:'Poppins',sans-serif;
+transition:transform 0.2s,box-shadow 0.2s,opacity 0.2s;
+}
+#btnVerify2fa{
+background:linear-gradient(135deg,#22c55e 0%,#16a34a 100%);
+color:#fff;
+box-shadow:0 8px 22px rgba(34,197,94,0.28);
+}
+#btnVerify2fa:hover:not(:disabled){
+transform:translateY(-2px);
+box-shadow:0 12px 28px rgba(34,197,94,0.34);
+}
+#btnVerify2fa:disabled,
+#btnBackToLogin:disabled{
+opacity:0.6;
+cursor:not-allowed;
+transform:none;
+}
+#btnBackToLogin{
+background:rgba(255,255,255,0.08);
+color:#e2e8f0;
+border:1px solid rgba(255,255,255,0.16);
+}
+#btnBackToLogin:hover:not(:disabled){
+background:rgba(255,255,255,0.12);
+}
+
 /* ── STATUS ── */
 #loginStatus{
 min-height:18px;
@@ -758,6 +826,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <button type="submit" id="btnLogin">Entrar</button>
   </form>
 
+  <form id="seccion-2fa" class="twofa-panel" onsubmit="verificarCodigo2fa(event)" hidden>
+    <p class="twofa-title">Verificación en dos pasos</p>
+    <p id="twoFactorHelp" class="twofa-help">Te hemos enviado un código de 6 dígitos al correo registrado.</p>
+    <div class="input-group">
+      <label for="twoFactorCode">Código</label>
+      <div class="input-wrap">
+        <span class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12h8M8 8h8M8 16h5"/></svg></span>
+        <input type="text" id="twoFactorCode" placeholder="123456" inputmode="numeric" maxlength="6" autocomplete="one-time-code">
+      </div>
+    </div>
+    <div class="twofa-actions">
+      <button type="submit" id="btnVerify2fa">Verificar código</button>
+      <button type="button" id="btnBackToLogin">Volver al login</button>
+    </div>
+  </form>
+
   <p id="loginStatus" aria-live="polite"></p>
   <p class="login-help">¿Necesitas acceso? <a href="mailto:contacto@luckybase.es">contacto@luckybase.es</a></p>
 </div>
@@ -894,6 +978,7 @@ const DEFAULT_LUCKYBASE_API_URL = "https://script.google.com/macros/s/AKfycbxZeM
 const URL_API = window.LUCKYBASE_CLIENT_API_URL || DEFAULT_LUCKYBASE_API_URL
 const SESSION_DURATION_MS = 8 * 60 * 60 * 1000
 const REQUIRE_SERVER_SESSION = true
+let pendingLoginChallenge = null
 
 async function apiPostRequest(payload, timeoutMs=12000){
   const controller = new AbortController()
@@ -938,6 +1023,39 @@ function extractPayloadData(datos){
     return datos.data
   }
   return datos || {}
+}
+
+function clearTwoFactorState(){
+  pendingLoginChallenge = null
+  const panel = document.getElementById("seccion-2fa")
+  const input = document.getElementById("twoFactorCode")
+  const help = document.getElementById("twoFactorHelp")
+  if(panel){
+    panel.hidden = true
+    panel.classList.remove("is-visible")
+  }
+  if(input){
+    input.value = ""
+  }
+  if(help){
+    help.textContent = "Te hemos enviado un código de 6 dígitos al correo registrado."
+  }
+}
+
+function showTwoFactorState(message, maskedEmail){
+  const panel = document.getElementById("seccion-2fa")
+  const help = document.getElementById("twoFactorHelp")
+  if(panel){
+    panel.hidden = false
+    panel.classList.add("is-visible")
+  }
+  if(help){
+    help.textContent = message || ("Te hemos enviado un código de 6 dígitos" + (maskedEmail ? (" a " + maskedEmail) : "") + ".")
+  }
+  const input = document.getElementById("twoFactorCode")
+  if(input){
+    input.focus()
+  }
 }
 
 function normalizePlanEntry_(plan, fallbackIndex){
@@ -990,9 +1108,14 @@ function normalizePortfolioData_(data){
 function handleLoginResponse(datos, user){
   const status = document.getElementById('loginStatus')
   const btn = document.getElementById('btnLogin')
+  const verifyBtn = document.getElementById('btnVerify2fa')
   if(btn){
     btn.disabled = false
     btn.textContent = "Entrar"
+  }
+  if(verifyBtn){
+    verifyBtn.disabled = false
+    verifyBtn.textContent = "Verificar código"
   }
   if(status){
     status.classList.remove("status-loading")
@@ -1000,15 +1123,49 @@ function handleLoginResponse(datos, user){
 
   if (datos && datos.success) {
     const sourceData = extractPayloadData(datos)
+    if(datos.twoFactorRequired || sourceData.twoFactorRequired){
+      const challengeId = String(datos.challengeId || sourceData.challengeId || "").trim()
+      const challengeExpiresAt = parseSessionExpiry(datos.challengeExpiresAt || sourceData.challengeExpiresAt)
+      const maskedEmail = String(datos.maskedEmail || sourceData.maskedEmail || "").trim()
+      if(!challengeId){
+        if(status) status.textContent = ""
+        showLoginBanner("No se pudo iniciar la verificación en dos pasos. Inténtalo de nuevo.")
+        clearTwoFactorState()
+        return
+      }
+
+      pendingLoginChallenge = {
+        challengeId,
+        usuario: user,
+        challengeExpiresAt: Number.isFinite(challengeExpiresAt) ? challengeExpiresAt : 0,
+        maskedEmail
+      }
+
+      if(status){
+        status.textContent = ""
+      }
+      showTwoFactorState(
+        "Te hemos enviado un código de 6 dígitos" + (maskedEmail ? (" a " + maskedEmail) : "") + ".",
+        maskedEmail
+      )
+      const password = document.getElementById('password')
+      if(password){
+        password.value = ""
+      }
+      return
+    }
+
     const sessionToken = String(datos.sessionToken || sourceData.sessionToken || "").trim()
     const sessionExpiresAt = parseSessionExpiry(datos.sessionExpiresAt || sourceData.sessionExpiresAt)
 
     if(REQUIRE_SERVER_SESSION && (!sessionToken || !Number.isFinite(sessionExpiresAt))){
       if(status) status.textContent = ""
+      clearTwoFactorState()
       showLoginBanner("El backend no devolvió una sesión válida. Actualiza el script de Google Apps Script.")
       return
     }
 
+    clearTwoFactorState()
     const payload = normalizePortfolioData_({
       user,
       sessionToken: sessionToken || "",
@@ -1031,11 +1188,122 @@ function handleLoginResponse(datos, user){
     localStorage.setItem('clientData', JSON.stringify(payload))
     window.location.href = "panel.html"
   } else {
+    clearTwoFactorState()
     if(status) status.textContent = ""
     const backendMessage = (datos && typeof datos.message === "string" && datos.message.trim())
       ? datos.message.trim()
       : "Usuario o contraseña incorrectos."
     showLoginBanner(backendMessage)
+  }
+}
+
+async function verificarCodigo2fa(e){
+  if(e) e.preventDefault()
+
+  const status = document.getElementById('loginStatus')
+  const btn = document.getElementById('btnVerify2fa')
+  if(btn){
+    btn.disabled = true
+    btn.textContent = "Verificando..."
+  }
+  if(status){
+    status.textContent = ""
+    status.classList.remove("status-loading")
+  }
+
+  if(!pendingLoginChallenge || !pendingLoginChallenge.challengeId){
+    if(btn){
+      btn.disabled = false
+      btn.textContent = "Verificar código"
+    }
+    showLoginBanner("La verificación ha caducado. Vuelve a iniciar sesión.")
+    clearTwoFactorState()
+    return
+  }
+
+  const codeInput = document.getElementById('twoFactorCode')
+  const code = codeInput ? String(codeInput.value || "").replace(/\s+/g, "").trim() : ""
+  if(code.length !== 6){
+    if(status) status.textContent = "Introduce el código de 6 dígitos."
+    if(btn){
+      btn.disabled = false
+      btn.textContent = "Verificar código"
+    }
+    return
+  }
+
+  if(status){
+    status.classList.add("status-loading")
+    status.innerHTML = '<span class="spinner" aria-label="Cargando"></span>'
+  }
+
+  try{
+    const response = await apiPostRequest({
+      action: "verify2fa",
+      challengeId: pendingLoginChallenge.challengeId,
+      code
+    }, 12000)
+    if(!response || response.success !== true){
+      const errorKey = String(response && response.error || "").trim()
+      if(errorKey === "INVALID_2FA_CODE"){
+        if(status){
+          status.classList.remove("status-loading")
+          status.textContent = response.message || "Código incorrecto. Inténtalo de nuevo."
+        }
+        if(btn){
+          btn.disabled = false
+          btn.textContent = "Verificar código"
+        }
+        return
+      }
+
+      clearTwoFactorState()
+      if(status){
+        status.classList.remove("status-loading")
+        status.textContent = ""
+      }
+      showLoginBanner((response && response.message) || "No se pudo completar la verificación.")
+      if(btn){
+        btn.disabled = false
+        btn.textContent = "Verificar código"
+      }
+      return
+    }
+    handleLoginResponse(response, pendingLoginChallenge.usuario || "")
+  }catch(error){
+    if(btn){
+      btn.disabled = false
+      btn.textContent = "Verificar código"
+    }
+    if(status){
+      status.classList.remove("status-loading")
+      status.textContent = error && error.message === "TIMEOUT"
+        ? "Tiempo de espera agotado."
+        : "No se pudo conectar con el servidor."
+    }
+    setTimeout(()=>{ if(status) status.textContent = "" }, 5000)
+  }
+}
+
+function volverAlLogin(){
+  clearTwoFactorState()
+  const status = document.getElementById('loginStatus')
+  if(status){
+    status.textContent = ""
+    status.classList.remove("status-loading")
+  }
+  const btn = document.getElementById('btnLogin')
+  if(btn){
+    btn.disabled = false
+    btn.textContent = "Entrar"
+  }
+  const userInput = document.getElementById('usuario')
+  const passInput = document.getElementById('password')
+  if(passInput){
+    passInput.value = ""
+  }
+  if(userInput){
+    userInput.focus()
   }
 }
 
@@ -1114,6 +1382,18 @@ const loginQuery = new URLSearchParams(window.location.search)
 if(loginQuery.get("expired")==="1"){
   showLoginBanner("Tu sesión ha caducado después de 8 horas. Inicia sesión de nuevo.")
   window.history.replaceState({}, document.title, window.location.pathname)
+}
+
+const backToLoginBtn = document.getElementById('btnBackToLogin')
+if(backToLoginBtn){
+  backToLoginBtn.addEventListener('click', volverAlLogin)
+}
+
+const twoFactorInput = document.getElementById('twoFactorCode')
+if(twoFactorInput){
+  twoFactorInput.addEventListener('input', ()=>{
+    twoFactorInput.value = twoFactorInput.value.replace(/[^0-9]/g, '').slice(0, 6)
+  })
 }
 </script>
 
