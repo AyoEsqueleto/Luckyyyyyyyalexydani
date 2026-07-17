@@ -437,6 +437,37 @@
       gap:10px;
       align-items:center;
     }
+    .vacancy-sections{
+      display:grid;
+      gap:22px;
+      margin-top:18px;
+    }
+    .vacancy-section{
+      display:grid;
+      gap:16px;
+      scroll-margin-top:96px;
+    }
+    .vacancy-section-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(360px,1.05fr);
+      gap:16px;
+      align-items:start;
+    }
+    .vacancy-section-form .form-head{
+      margin-bottom:14px;
+    }
+    .vacancy-section-form .form-head h2{
+      margin:0;
+    }
+    .vacancy-section-form .form-head p{
+      margin-top:8px;
+    }
+    .vacancy-section-form .field label{
+      color:#d6e4ff;
+    }
+    .vacancy-section-form .status{
+      min-height:24px;
+    }
     .btn-outline{
       text-decoration:none;
       min-height:48px;
@@ -770,7 +801,7 @@
     }
     @media(max-width:980px){
       .hero-grid,.section-grid,.process,.footer-grid{grid-template-columns:1fr}
-      .vacancy-grid,.vacancy-detail-body{grid-template-columns:1fr}
+      .vacancy-grid,.vacancy-detail-body,.vacancy-section-grid{grid-template-columns:1fr}
       .hero-points,.form-grid,.switch-grid{grid-template-columns:1fr}
       .topbar-inner{flex-direction:column;align-items:flex-start}
       .nav{justify-content:flex-start}
@@ -900,123 +931,14 @@
 
     <section class="section" id="formulario">
       <div class="wrap">
-        <form class="form-card reveal" id="careerForm">
-          <div class="form-head">
-            <div>
-              <span class="badge">Candidatura</span>
-              <h2 style="font-size:clamp(30px,4vw,48px);margin-top:12px;">Envíanos tu perfil</h2>
-              <p>Los campos marcados como obligatorios son necesarios para revisar tu candidatura. También te llegará un correo automático de confirmación cuando lo envíes.</p>
-              <p id="careerFormVacancyHint" style="margin-top:10px;color:#dffbe3;font-weight:700;">Selecciona una vacante arriba para enlazar esta candidatura.</p>
-            </div>
-            <div class="pill-link">100% comisión por venta</div>
+        <div class="vacancies-toolbar reveal">
+          <div>
+            <span class="badge">Candidaturas</span>
+            <h2 style="font-size:clamp(30px,4vw,48px);margin-top:12px;">Cada vacante tiene su propio formulario</h2>
           </div>
-
-          <div class="form-grid">
-            <div class="field">
-              <label for="name">Nombre y apellidos</label>
-              <input id="name" name="name" type="text" placeholder="Tu nombre completo" required>
-            </div>
-            <div class="field">
-              <label for="email">Correo electrónico</label>
-              <input id="email" name="email" type="email" placeholder="tu@email.com" required>
-            </div>
-            <div class="field">
-              <label for="phone">Número de teléfono</label>
-              <input id="phone" name="phone" type="tel" placeholder="+34 600 000 000" required>
-            </div>
-            <div class="field">
-              <label for="birthDate">Fecha de nacimiento</label>
-              <input id="birthDate" name="birthDate" type="date" required>
-            </div>
-            <div class="field">
-              <label for="city">Ciudad / Provincia</label>
-              <input id="city" name="city" type="text" placeholder="Barcelona, Madrid..." required>
-            </div>
-            <div class="field">
-              <label for="availability">Disponibilidad</label>
-              <select id="availability" name="availability" required>
-                <option value="" selected disabled>Selecciona una opción</option>
-                <option value="Inmediata">Inmediata</option>
-                <option value="Esta semana">Esta semana</option>
-                <option value="En 2 semanas">En 2 semanas</option>
-                <option value="Más adelante">Más adelante</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="experienceLevel">Experiencia general</label>
-              <select id="experienceLevel" name="experienceLevel" required>
-                <option value="" selected disabled>Selecciona una opción</option>
-                <option value="Sin experiencia">Sin experiencia</option>
-                <option value="Experiencia básica">Experiencia básica</option>
-                <option value="Experiencia media">Experiencia media</option>
-                <option value="Experiencia alta">Experiencia alta</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="salesExperience">Experiencia en ventas</label>
-              <select id="salesExperience" name="salesExperience" required>
-                <option value="" selected disabled>Selecciona una opción</option>
-                <option value="Sí">Sí</option>
-                <option value="Algo">Algo</option>
-                <option value="No">No</option>
-              </select>
-            </div>
-            <div class="field full">
-              <label for="message">Mensaje breve</label>
-              <textarea id="message" name="message" maxlength="1200" placeholder="Cuéntanos por qué te interesa el puesto y qué puedes aportar." required></textarea>
-            </div>
-          </div>
-
-          <div class="section" style="padding:16px 0 0;">
-            <div class="switch-grid">
-              <label class="switch">
-                <input type="checkbox" name="commissionAccepted" value="Sí" required>
-                <span><strong>Acepto que el puesto es 100% a comisión</strong><span>Sí, entiendo que el pago depende de las ventas cerradas.</span></span>
-              </label>
-              <label class="switch">
-                <input type="checkbox" name="startNow" value="Sí" required>
-                <span><strong>Puedo empezar pronto</strong><span>Me puedo organizar para comenzar en breve.</span></span>
-              </label>
-              <label class="switch">
-                <input type="checkbox" name="hasOwnEquipment" value="Sí" required>
-                <span><strong>Tengo ordenador y conexión</strong><span>Dispongo de lo necesario para trabajar con normalidad.</span></span>
-              </label>
-              <label class="switch">
-                <input type="checkbox" name="salesMindset" value="Sí" required>
-                <span><strong>Me siento cómodo vendiendo</strong><span>Me gusta hablar con clientes y cerrar oportunidades.</span></span>
-              </label>
-            </div>
-          </div>
-
-          <div class="section" style="padding:16px 0 0;">
-            <div class="field">
-              <label for="cv">Subir CV</label>
-              <div class="file-row">
-                <label class="file-pill" for="cv">
-                  <input id="cv" name="cv" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
-                  Elegir archivo
-                </label>
-                <span class="file-name" id="fileName">Ningún archivo seleccionado</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="section" style="padding:16px 0 0;">
-            <label class="consent">
-              <input type="checkbox" name="consent" value="true" required>
-              <span>Acepto que mis datos se utilicen para gestionar esta candidatura, recibir respuesta automática por correo y revisar mi CV conforme a la política de privacidad.</span>
-            </label>
-          </div>
-          <input type="hidden" id="vacancyId" name="vacancyId" value="">
-
-          <div class="actions">
-            <button class="btn primary" id="submitBtn" type="submit">Enviar candidatura</button>
-            <a class="btn" href="privacy-policy.html" target="_blank" rel="noopener noreferrer">Ver privacidad</a>
-          </div>
-
-          <p class="status" id="formStatus" aria-live="polite"></p>
-          <input type="text" id="company" name="company" tabindex="-1" aria-hidden="true" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;pointer-events:none;">
-        </form>
+          <p>Abre la vacante que te interese y tendrás su detalle y formulario en el mismo bloque. Así la candidatura queda ligada a la oferta exacta desde el principio.</p>
+        </div>
+        <div id="careerVacancySections" class="vacancy-sections"></div>
       </div>
     </section>
 
@@ -1083,6 +1005,7 @@
     const careerSideTitle = document.getElementById('careerSideTitle');
     const careerSideList = document.getElementById('careerSideList');
     const vacancyGrid = document.getElementById('careerVacancyGrid');
+    const vacancySections = document.getElementById('careerVacancySections');
     const vacancyDetailBadge = document.getElementById('careerVacancyBadge');
     const vacancyDetailTitle = document.getElementById('careerVacancyDetailTitle');
     const vacancyDetailDescription = document.getElementById('careerVacancyDetailDescription');
@@ -1174,6 +1097,16 @@
       return String((vacancy && vacancy.title) || '').trim() || 'Vacante abierta';
     }
 
+    function getVacancySectionId(vacancy) {
+      const base = normalizeText(getVacancyId(vacancy) || getVacancyTitle(vacancy) || 'vacancy');
+      return 'vacancy-section-' + (base || 'vacancy');
+    }
+
+    function getVacancyFormPrefix(vacancy, index) {
+      const base = normalizeText(getVacancyId(vacancy) || getVacancyTitle(vacancy) || ('vacancy-' + String(index + 1)));
+      return 'vacancy-form-' + (base || String(index + 1));
+    }
+
     function formatVacancyChips(vacancy) {
       const chips = [];
       if (vacancy.location) chips.push(vacancy.location);
@@ -1193,10 +1126,6 @@
     }
 
     function setCareerVacancyInForm(vacancy) {
-      const vacancyIdField = document.getElementById('vacancyId');
-      if (vacancyIdField) {
-        vacancyIdField.value = getVacancyId(vacancy);
-      }
       if (vacancyFormHint) {
         if (vacancy) {
           vacancyFormHint.textContent = `Vas a postularte a: ${getVacancyTitle(vacancy)}.`;
@@ -1204,6 +1133,178 @@
           vacancyFormHint.textContent = 'Selecciona una vacante arriba para enlazar esta candidatura.';
         }
       }
+    }
+
+    function buildVacancyFormFieldId(prefix, field) {
+      return prefix + '-' + field;
+    }
+
+    function buildVacancySectionHtml(vacancy, index) {
+      const vacancyId = getVacancyId(vacancy) || 'vacancy-' + String(index + 1);
+      const sectionId = getVacancySectionId(vacancy);
+      const prefix = getVacancyFormPrefix(vacancy, index);
+      const title = getVacancyTitle(vacancy);
+      const bullets = formatVacancyBullets(vacancy);
+      const chips = formatVacancyChips(vacancy);
+      const statusText = normalizeVacancyStatus(vacancy.status) === 'closed'
+        ? 'Vacante cerrada'
+        : (vacancy.featured ? 'Vacante destacada' : 'Vacante activa');
+      return '' +
+        '<article class="vacancy-section reveal show" id="' + escapeHtml(sectionId) + '" data-vacancy-id="' + escapeHtml(vacancyId) + '">' +
+          '<div class="vacancy-section-grid">' +
+            '<div class="vacancy-detail">' +
+              '<div class="vacancy-detail-head">' +
+                '<div>' +
+                  '<span class="badge">' + escapeHtml(statusText) + '</span>' +
+                  '<h3>' + escapeHtml(title) + '</h3>' +
+                '</div>' +
+                '<div class="vacancy-detail-actions">' +
+                  '<a class="btn-outline" href="#' + escapeHtml(prefix + '-form') + '">Ir al formulario</a>' +
+                '</div>' +
+              '</div>' +
+              '<div class="vacancy-detail-body">' +
+                '<div class="vacancy-panel">' +
+                  '<h4>Descripción</h4>' +
+                  '<p>' + escapeHtml(vacancy.description || 'Selecciona esta vacante para revisar el detalle completo.') + '</p>' +
+                  '<ul class="vacancy-bullets">' + bullets.map((item) => '<li>' + escapeHtml(item) + '</li>').join('') + '</ul>' +
+                '</div>' +
+                '<div class="vacancy-panel">' +
+                  '<h4>Datos rápidos</h4>' +
+                  '<div class="vacancy-chip-row">' + chips.map((chip) => '<span class="vacancy-chip">' + escapeHtml(chip) + '</span>').join('') + '</div>' +
+                  '<p>' + escapeHtml([
+                    vacancy.location ? 'Ubicación: ' + vacancy.location : '',
+                    vacancy.employmentType ? 'Tipo de empleo: ' + vacancy.employmentType : '',
+                    vacancy.compensationText ? 'Compensación: ' + vacancy.compensationText : '',
+                    vacancy.applicationUrl ? 'Enlace: ' + vacancy.applicationUrl : ''
+                  ].filter(Boolean).join(' · ') || 'Revisa los datos de esta vacante y postúlate desde su formulario.') + '</p>' +
+                  '<div class="vacancy-detail-actions">' +
+                    '<button class="btn primary" type="button" data-scroll-form="' + escapeHtml(prefix + '-form') + '">Quiero postularme</button>' +
+                  '</div>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+            '<form class="form-card vacancy-section-form" id="' + escapeHtml(prefix + '-form') + '" data-vacancy-id="' + escapeHtml(vacancyId) + '">' +
+              '<div class="form-head">' +
+                '<div>' +
+                  '<span class="badge">Candidatura</span>' +
+                  '<h2 style="font-size:clamp(28px,3.8vw,42px);margin-top:12px;">' + escapeHtml(title) + '</h2>' +
+                  '<p>Postúlate para esta vacante concreta. La candidatura quedará vinculada automáticamente a esta oferta.</p>' +
+                '</div>' +
+                '<div class="pill-link">100% comisión por venta</div>' +
+              '</div>' +
+              '<div class="form-grid">' +
+                '<div class="field">' +
+                  '<label for="' + escapeHtml(buildVacancyFormFieldId(prefix, 'name')) + '">Nombre y apellidos</label>' +
+                  '<input id="' + escapeHtml(buildVacancyFormFieldId(prefix, 'name')) + '" name="name" type="text" placeholder="Tu nombre completo" required>' +
+                '</div>' +
+                '<div class="field">' +
+                  '<label for="' + escapeHtml(buildVacancyFormFieldId(prefix, 'email')) + '">Correo electrónico</label>' +
+                  '<input id="' + escapeHtml(buildVacancyFormFieldId(prefix, 'email')) + '" name="email" type="email" placeholder="tu@email.com" required>' +
+                '</div>' +
+                '<div class="field">' +
+                  '<label for="' + escapeHtml(buildVacancyFormFieldId(prefix, 'phone')) + '">Número de teléfono</label>' +
+                  '<input id="' + escapeHtml(buildVacancyFormFieldId(prefix, 'phone')) + '" name="phone" type="tel" placeholder="+34 600 000 000" required>' +
+                '</div>' +
+                '<div class="field">' +
+                  '<label for="' + escapeHtml(buildVacancyFormFieldId(prefix, 'birthDate')) + '">Fecha de nacimiento</label>' +
+                  '<input id="' + escapeHtml(buildVacancyFormFieldId(prefix, 'birthDate')) + '" name="birthDate" type="date" required>' +
+                '</div>' +
+                '<div class="field">' +
+                  '<label for="' + escapeHtml(buildVacancyFormFieldId(prefix, 'city')) + '">Ciudad / Provincia</label>' +
+                  '<input id="' + escapeHtml(buildVacancyFormFieldId(prefix, 'city')) + '" name="city" type="text" placeholder="Barcelona, Madrid..." required>' +
+                '</div>' +
+                '<div class="field">' +
+                  '<label for="' + escapeHtml(buildVacancyFormFieldId(prefix, 'availability')) + '">Disponibilidad</label>' +
+                  '<select id="' + escapeHtml(buildVacancyFormFieldId(prefix, 'availability')) + '" name="availability" required>' +
+                    '<option value="" selected disabled>Selecciona una opción</option>' +
+                    '<option value="Inmediata">Inmediata</option>' +
+                    '<option value="Esta semana">Esta semana</option>' +
+                    '<option value="En 2 semanas">En 2 semanas</option>' +
+                    '<option value="Más adelante">Más adelante</option>' +
+                  '</select>' +
+                '</div>' +
+                '<div class="field">' +
+                  '<label for="' + escapeHtml(buildVacancyFormFieldId(prefix, 'experienceLevel')) + '">Experiencia general</label>' +
+                  '<select id="' + escapeHtml(buildVacancyFormFieldId(prefix, 'experienceLevel')) + '" name="experienceLevel" required>' +
+                    '<option value="" selected disabled>Selecciona una opción</option>' +
+                    '<option value="Sin experiencia">Sin experiencia</option>' +
+                    '<option value="Experiencia básica">Experiencia básica</option>' +
+                    '<option value="Experiencia media">Experiencia media</option>' +
+                    '<option value="Experiencia alta">Experiencia alta</option>' +
+                  '</select>' +
+                '</div>' +
+                '<div class="field">' +
+                  '<label for="' + escapeHtml(buildVacancyFormFieldId(prefix, 'salesExperience')) + '">Experiencia en ventas</label>' +
+                  '<select id="' + escapeHtml(buildVacancyFormFieldId(prefix, 'salesExperience')) + '" name="salesExperience" required>' +
+                    '<option value="" selected disabled>Selecciona una opción</option>' +
+                    '<option value="Sí">Sí</option>' +
+                    '<option value="Algo">Algo</option>' +
+                    '<option value="No">No</option>' +
+                  '</select>' +
+                '</div>' +
+                '<div class="field full">' +
+                  '<label for="' + escapeHtml(buildVacancyFormFieldId(prefix, 'message')) + '">Mensaje breve</label>' +
+                  '<textarea id="' + escapeHtml(buildVacancyFormFieldId(prefix, 'message')) + '" name="message" maxlength="1200" placeholder="Cuéntanos por qué te interesa el puesto y qué puedes aportar." required></textarea>' +
+                '</div>' +
+              '</div>' +
+              '<div class="section" style="padding:16px 0 0;">' +
+                '<div class="switch-grid">' +
+                  '<label class="switch">' +
+                    '<input type="checkbox" name="commissionAccepted" value="Sí" required>' +
+                    '<span><strong>Acepto que el puesto es 100% a comisión</strong><span>Sí, entiendo que el pago depende de las ventas cerradas.</span></span>' +
+                  '</label>' +
+                  '<label class="switch">' +
+                    '<input type="checkbox" name="startNow" value="Sí" required>' +
+                    '<span><strong>Puedo empezar pronto</strong><span>Me puedo organizar para comenzar en breve.</span></span>' +
+                  '</label>' +
+                  '<label class="switch">' +
+                    '<input type="checkbox" name="hasOwnEquipment" value="Sí" required>' +
+                    '<span><strong>Tengo ordenador y conexión</strong><span>Dispongo de lo necesario para trabajar con normalidad.</span></span>' +
+                  '</label>' +
+                  '<label class="switch">' +
+                    '<input type="checkbox" name="salesMindset" value="Sí" required>' +
+                    '<span><strong>Me siento cómodo vendiendo</strong><span>Me gusta hablar con clientes y cerrar oportunidades.</span></span>' +
+                  '</label>' +
+                '</div>' +
+              '</div>' +
+              '<div class="section" style="padding:16px 0 0;">' +
+                '<div class="field">' +
+                  '<label for="' + escapeHtml(buildVacancyFormFieldId(prefix, 'cv')) + '">Subir CV</label>' +
+                  '<div class="file-row">' +
+                    '<label class="file-pill" for="' + escapeHtml(buildVacancyFormFieldId(prefix, 'cv')) + '">' +
+                      '<input id="' + escapeHtml(buildVacancyFormFieldId(prefix, 'cv')) + '" name="cv" type="file" data-role="cv" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>' +
+                      'Elegir archivo' +
+                    '</label>' +
+                    '<span class="file-name" data-role="file-name">Ningún archivo seleccionado</span>' +
+                  '</div>' +
+                '</div>' +
+              '</div>' +
+              '<div class="section" style="padding:16px 0 0;">' +
+                '<label class="consent">' +
+                  '<input type="checkbox" name="consent" value="true" required>' +
+                  '<span>Acepto que mis datos se utilicen para gestionar esta candidatura, recibir respuesta automática por correo y revisar mi CV conforme a la política de privacidad.</span>' +
+                '</label>' +
+              '</div>' +
+              '<input type="hidden" name="vacancyId" value="' + escapeHtml(vacancyId) + '">' +
+              '<input type="text" name="company" data-role="company" tabindex="-1" aria-hidden="true" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;pointer-events:none;">' +
+              '<div class="actions">' +
+                '<button class="btn primary" type="submit">Enviar candidatura</button>' +
+                '<a class="btn" href="privacy-policy.html" target="_blank" rel="noopener noreferrer">Ver privacidad</a>' +
+              '</div>' +
+              '<p class="status" data-role="status" aria-live="polite"></p>' +
+            '</form>' +
+          '</div>' +
+        '</article>';
+    }
+
+    function renderCareerVacancySections(vacancies) {
+      if (!vacancySections) return;
+      const list = Array.isArray(vacancies) ? vacancies : [];
+      if (!list.length) {
+        vacancySections.innerHTML = '<p class="empty-state">No hay vacantes activas ahora mismo.</p>';
+        return;
+      }
+      vacancySections.innerHTML = list.map((vacancy, index) => buildVacancySectionHtml(vacancy, index)).join('');
     }
 
     function renderCareerVacancyDetail(vacancy) {
@@ -1299,7 +1400,7 @@
       renderCareerVacancyGrid(careerVacanciesCache);
       renderCareerVacancyDetail(selected);
       if (options.scroll !== false && selected) {
-        const target = document.getElementById('formulario');
+        const target = document.getElementById(getVacancySectionId(selected));
         if (target) {
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
@@ -1318,6 +1419,7 @@
           || null;
         careerSelectedVacancyId = activeVacancy ? getVacancyId(activeVacancy) : '';
         renderCareerVacancyGrid(careerVacanciesCache);
+        renderCareerVacancySections(careerVacanciesCache);
         renderCareerVacancyDetail(activeVacancy);
         if (careerHeroTitle && activeVacancy) {
           careerHeroTitle.textContent = getVacancyTitle(activeVacancy);
@@ -1414,6 +1516,96 @@
       });
     }
 
+    function setFormStatus(form, message, type) {
+      if (!form) return;
+      const statusEl = form.querySelector('[data-role="status"]');
+      if (!statusEl) return;
+      statusEl.textContent = message || '';
+      statusEl.className = `status ${type || ''}`.trim();
+    }
+
+    function updateFileLabel(form) {
+      if (!form) return;
+      const fileInputEl = form.querySelector('input[type="file"][data-role="cv"]');
+      const label = form.querySelector('[data-role="file-name"]');
+      if (!fileInputEl || !label) return;
+      const file = fileInputEl.files && fileInputEl.files[0] ? fileInputEl.files[0] : null;
+      label.textContent = file ? `${file.name} · ${(file.size / (1024 * 1024)).toFixed(1)} MB` : 'Ningún archivo seleccionado';
+    }
+
+    function resetVacancyForm(form) {
+      if (!form) return;
+      const vacancyId = String(form.getAttribute('data-vacancy-id') || '').trim();
+      form.reset();
+      if (vacancyId) {
+        const hidden = form.querySelector('input[name="vacancyId"]');
+        if (hidden) hidden.value = vacancyId;
+      }
+      updateFileLabel(form);
+      setFormStatus(form, 'Candidatura enviada. Revisa tu correo: te llegará confirmación automática.', 'ok');
+    }
+
+    async function submitVacancyForm(form) {
+      const fileInputEl = form.querySelector('input[type="file"][data-role="cv"]');
+      const submitButton = form.querySelector('button[type="submit"]');
+      const file = fileInputEl && fileInputEl.files ? fileInputEl.files[0] : null;
+      if (!file) {
+        setFormStatus(form, 'Necesitamos tu CV para revisar la candidatura.', 'err');
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        setFormStatus(form, 'El CV es demasiado grande. Sube un archivo de hasta 5 MB.', 'err');
+        return;
+      }
+
+      try {
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.textContent = 'Enviando...';
+        }
+        setFormStatus(form, 'Enviando candidatura...', '');
+
+        const cvBase64 = await fileToDataUrl(file);
+        const data = new FormData(form);
+        const payload = {
+          action: 'careerapplication',
+          responseMode: 'postMessage',
+          name: String(data.get('name') || '').trim(),
+          email: String(data.get('email') || '').trim(),
+          phone: String(data.get('phone') || '').trim(),
+          birthDate: String(data.get('birthDate') || '').trim(),
+          city: String(data.get('city') || '').trim(),
+          availability: String(data.get('availability') || '').trim(),
+          experienceLevel: String(data.get('experienceLevel') || '').trim(),
+          salesExperience: String(data.get('salesExperience') || '').trim(),
+          commissionAccepted: data.get('commissionAccepted') ? 'Sí' : 'No',
+          startNow: data.get('startNow') ? 'Sí' : 'No',
+          hasOwnEquipment: data.get('hasOwnEquipment') ? 'Sí' : 'No',
+          salesMindset: data.get('salesMindset') ? 'Sí' : 'No',
+          message: String(data.get('message') || '').trim(),
+          consent: data.get('consent') ? 'true' : 'false',
+          originUrl: window.location.href,
+          vacancyId: String(data.get('vacancyId') || '').trim(),
+          cvName: file.name,
+          cvType: file.type || 'application/octet-stream',
+          cvBase64,
+        };
+
+        const result = await postCareerApplication(payload);
+        if (!result || !result.success) {
+          throw new Error((result && result.message) || (result && result.error) || 'SEND_FAILED');
+        }
+        resetVacancyForm(form);
+      } catch (error) {
+        setFormStatus(form, 'No hemos podido enviar tu candidatura. Revisa los datos e inténtalo otra vez.', 'err');
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = 'Enviar candidatura';
+        }
+      }
+    }
+
     if (fileInput && fileName) {
       fileInput.addEventListener('change', () => {
         const file = fileInput.files && fileInput.files[0];
@@ -1438,68 +1630,10 @@
       revealItems.forEach((item) => item.classList.add('show'));
     }
 
-    if (careerForm) {
-      careerForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const file = fileInput && fileInput.files ? fileInput.files[0] : null;
-        if (!file) {
-          showStatus('Necesitamos tu CV para revisar la candidatura.', 'err');
-          return;
-        }
-        if (file.size > 5 * 1024 * 1024) {
-          showStatus('El CV es demasiado grande. Sube un archivo de hasta 5 MB.', 'err');
-          return;
-        }
-        try {
-          submitBtn.disabled = true;
-          submitBtn.textContent = 'Enviando...';
-          showStatus('Enviando candidatura...', '');
-
-          const cvBase64 = await fileToDataUrl(file);
-          const data = new FormData(careerForm);
-          const payload = {
-            action: 'careerapplication',
-            responseMode: 'postMessage',
-            name: String(data.get('name') || '').trim(),
-            email: String(data.get('email') || '').trim(),
-            phone: String(data.get('phone') || '').trim(),
-            birthDate: String(data.get('birthDate') || '').trim(),
-            city: String(data.get('city') || '').trim(),
-            availability: String(data.get('availability') || '').trim(),
-            experienceLevel: String(data.get('experienceLevel') || '').trim(),
-            salesExperience: String(data.get('salesExperience') || '').trim(),
-            commissionAccepted: data.get('commissionAccepted') ? 'Sí' : 'No',
-            startNow: data.get('startNow') ? 'Sí' : 'No',
-            hasOwnEquipment: data.get('hasOwnEquipment') ? 'Sí' : 'No',
-            salesMindset: data.get('salesMindset') ? 'Sí' : 'No',
-            message: String(data.get('message') || '').trim(),
-            consent: data.get('consent') ? 'true' : 'false',
-            originUrl: window.location.href,
-            vacancyId: String(data.get('vacancyId') || '').trim(),
-            cvName: file.name,
-            cvType: file.type || 'application/octet-stream',
-            cvBase64,
-          };
-
-          const result = await postCareerApplication(payload);
-          if (!result || !result.success) {
-            throw new Error((result && result.message) || (result && result.error) || 'SEND_FAILED');
-          }
-          careerForm.reset();
-          if (fileName) fileName.textContent = 'Ningún archivo seleccionado';
-          showStatus('Candidatura enviada. Revisa tu correo: te llegará confirmación automática.', 'ok');
-        } catch (error) {
-          showStatus('No hemos podido enviar tu candidatura. Revisa los datos e inténtalo otra vez.', 'err');
-        } finally {
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Enviar candidatura';
-        }
-      });
-    }
-
     if (vacancyDetailApplyBtn) {
       vacancyDetailApplyBtn.addEventListener('click', () => {
-        const target = document.getElementById('formulario');
+        const firstForm = vacancySections && vacancySections.querySelector('.vacancy-section-form');
+        const target = firstForm || document.getElementById('formulario');
         if (target) {
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
@@ -1513,6 +1647,32 @@
         const vacancyId = String(card.getAttribute('data-vacancy-id') || '').trim();
         if (!vacancyId) return;
         selectCareerVacancy(vacancyId, { scroll: true });
+      });
+    }
+
+    if (vacancySections) {
+      vacancySections.addEventListener('click', (event) => {
+        const scrollBtn = event.target.closest('[data-scroll-form]');
+        if (!scrollBtn) return;
+        const formId = String(scrollBtn.getAttribute('data-scroll-form') || '').trim();
+        const form = formId ? document.getElementById(formId) : null;
+        if (form) {
+          form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+
+      vacancySections.addEventListener('change', (event) => {
+        const fileInputEl = event.target.closest('input[type="file"][data-role="cv"]');
+        if (!fileInputEl) return;
+        const form = fileInputEl.closest('form');
+        updateFileLabel(form);
+      });
+
+      vacancySections.addEventListener('submit', (event) => {
+        const form = event.target.closest('.vacancy-section-form');
+        if (!form) return;
+        event.preventDefault();
+        submitVacancyForm(form);
       });
     }
 
