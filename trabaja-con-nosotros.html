@@ -617,8 +617,8 @@
       <div class="wrap hero-grid">
         <article class="hero-copy reveal">
           <span class="kicker">Trabaja con nosotros</span>
-          <h1>Captador de clientes a comisión.</h1>
-          <p class="lead">Ahora mismo buscamos una única posición: una persona con buen trato, iniciativa y mentalidad comercial para captar clientes de LuckyBase. El trabajo es 100% a comisión por venta cerrada. Sin salario fijo, sin vueltas y con una propuesta clara desde el principio.</p>
+          <h1 id="careerHeroTitle">Captador de clientes a comisión.</h1>
+          <p class="lead" id="careerHeroLead">Ahora mismo buscamos una única posición: una persona con buen trato, iniciativa y mentalidad comercial para captar clientes de LuckyBase. El trabajo es 100% a comisión por venta cerrada. Sin salario fijo, sin vueltas y con una propuesta clara desde el principio.</p>
           <div class="hero-points">
             <div class="point"><b>Modelo</b><span>100% comisión por venta cerrada.</span></div>
             <div class="point"><b>Ritmo</b><span>Flexible, con objetivos medibles y seguimiento claro.</span></div>
@@ -627,9 +627,9 @@
         </article>
 
         <aside class="hero-side reveal">
-          <span class="badge">Solo esta vacante</span>
-          <h2>Lo que ofrecemos</h2>
-          <ul class="side-list">
+          <span class="badge" id="careerVacancyBadge">Solo esta vacante</span>
+          <h2 id="careerSideTitle">Lo que ofrecemos</h2>
+          <ul class="side-list" id="careerSideList">
             <li>Colaboración orientada a resultados y comisión.</li>
             <li>Producto y servicios reales que ya están en marcha.</li>
             <li>Proceso rápido: envías la candidatura, revisamos CV y contestamos por correo.</li>
@@ -772,6 +772,7 @@
               <span>Acepto que mis datos se utilicen para gestionar esta candidatura, recibir respuesta automática por correo y revisar mi CV conforme a la política de privacidad.</span>
             </label>
           </div>
+          <input type="hidden" id="vacancyId" name="vacancyId" value="">
 
           <div class="actions">
             <button class="btn primary" id="submitBtn" type="submit">Enviar candidatura</button>
@@ -849,6 +850,15 @@
       formStatus.className = `status ${type || ''}`.trim();
     }
 
+    function escapeHtml(value) {
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
     function fileToDataUrl(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -856,6 +866,74 @@
         reader.onerror = () => reject(new Error('FILE_READ_FAILED'));
         reader.readAsDataURL(file);
       });
+    }
+
+    function jsonpRequest(url, params = {}, timeoutMs = 12000) {
+      return new Promise((resolve, reject) => {
+        const callbackName = 'careerJobsCb_' + Math.random().toString(36).slice(2);
+        const script = document.createElement('script');
+        const query = new URLSearchParams({ ...params, callback: callbackName });
+        const timer = window.setTimeout(() => {
+          cleanup();
+          reject(new Error('TIMEOUT'));
+        }, timeoutMs);
+
+        function cleanup() {
+          window.clearTimeout(timer);
+          try { delete window[callbackName]; } catch (err) { window[callbackName] = undefined; }
+          if (script.parentNode) script.parentNode.removeChild(script);
+        }
+
+        window[callbackName] = (data) => {
+          cleanup();
+          resolve(data || {});
+        };
+
+        script.onerror = () => {
+          cleanup();
+          reject(new Error('JSONP_LOAD_FAILED'));
+        };
+
+        script.src = `${url}?${query.toString()}`;
+        document.head.appendChild(script);
+      });
+    }
+
+    async function loadCareerVacancy() {
+      try {
+        const result = await jsonpRequest(CAREERS_API_URL, { action: 'careerjobs' });
+        const vacancy = result && result.vacancy ? result.vacancy : null;
+        const vacancyIdField = document.getElementById('vacancyId');
+        if (vacancyIdField && vacancy && (vacancy.vacancyId || vacancy.slug)) {
+          vacancyIdField.value = vacancy.vacancyId || vacancy.slug || '';
+        }
+        if (!vacancy) {
+          return;
+        }
+
+        const badge = document.getElementById('careerVacancyBadge');
+        const heroTitle = document.getElementById('careerHeroTitle');
+        const heroLead = document.getElementById('careerHeroLead');
+        const sideTitle = document.getElementById('careerSideTitle');
+        const sideList = document.getElementById('careerSideList');
+        const title = vacancy.title || 'Captador de clientes a comisión';
+
+        if (badge) badge.textContent = vacancy.featured ? 'Vacante destacada' : 'Vacante activa';
+        if (heroTitle) heroTitle.textContent = title;
+        if (heroLead && vacancy.description) heroLead.textContent = vacancy.description;
+        if (sideTitle) sideTitle.textContent = 'Lo que buscamos';
+        if (sideList) {
+          const items = [
+            vacancy.location ? `Ubicación: ${vacancy.location}` : '',
+            vacancy.compensationText ? `Compensación: ${vacancy.compensationText}` : '',
+            vacancy.benefits || '',
+            vacancy.requirements || ''
+          ].filter(Boolean);
+          sideList.innerHTML = items.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
+        }
+      } catch (error) {
+        console.warn('career vacancy load failed', error);
+      }
     }
 
     function createHiddenFrame() {
@@ -980,6 +1058,7 @@
             message: String(data.get('message') || '').trim(),
             consent: data.get('consent') ? 'true' : 'false',
             originUrl: window.location.href,
+            vacancyId: String(data.get('vacancyId') || '').trim(),
             cvName: file.name,
             cvType: file.type || 'application/octet-stream',
             cvBase64,
@@ -1000,6 +1079,8 @@
         }
       });
     }
+
+    loadCareerVacancy();
   </script>
 </body>
 </html>
