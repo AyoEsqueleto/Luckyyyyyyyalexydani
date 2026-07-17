@@ -1299,28 +1299,31 @@
       try {
         const result = await jsonpRequest(CAREERS_API_URL, { action: 'careerjobs' });
         const vacancies = Array.isArray(result && result.vacancies) ? result.vacancies : [];
-        const fallbackVacancy = result && result.vacancy ? result.vacancy : null;
-        const normalizedVacancies = (vacancies.length ? vacancies : (fallbackVacancy ? [fallbackVacancy] : [])).filter(Boolean);
+        const normalizedVacancies = vacancies.filter(Boolean);
         careerVacanciesCache = normalizedVacancies;
-        const activeVacancy = normalizedVacancies.find((vacancy) => normalizeVacancyStatus(vacancy.status) === 'active')
-          || normalizedVacancies[0]
-          || null;
         careerSelectedVacancyId = '';
         renderCareerVacancyGrid(careerVacanciesCache);
         renderCareerDetailScreen(null);
-        if (careerHeroTitle && activeVacancy) {
-          careerHeroTitle.textContent = getVacancyTitle(activeVacancy);
+        const activeVacancy = normalizedVacancies.find((vacancy) => normalizeVacancyStatus(vacancy.status) === 'active') || null;
+        if (careerHeroTitle) {
+          careerHeroTitle.textContent = activeVacancy
+            ? getVacancyTitle(activeVacancy)
+            : 'No hay vacantes publicadas ahora mismo.';
         }
         if (careerHeroLead && activeVacancy && activeVacancy.description) {
           careerHeroLead.textContent = activeVacancy.description;
+        } else if (careerHeroLead && !activeVacancy) {
+          careerHeroLead.textContent = 'En este momento no hay vacantes activas. Cuando publiquemos una nueva, aparecerá aquí y podrás verla en su propia pantalla con formulario.';
         }
         if (careerHeroBadge) {
-          careerHeroBadge.textContent = normalizedVacancies.length > 1
-            ? `${normalizedVacancies.length} vacantes publicadas`
-            : 'Vacante principal';
+          careerHeroBadge.textContent = normalizedVacancies.length
+            ? (normalizedVacancies.length > 1 ? `${normalizedVacancies.length} vacantes publicadas` : '1 vacante publicada')
+            : 'Sin vacantes activas';
         }
         if (careerSideTitle && activeVacancy) {
           careerSideTitle.textContent = 'Lo que ofrece esta vacante';
+        } else if (careerSideTitle && !activeVacancy) {
+          careerSideTitle.textContent = 'Vacantes cerradas o pendientes';
         }
         if (careerSideList && activeVacancy) {
           const items = [
@@ -1331,6 +1334,12 @@
             activeVacancy.benefits || ''
           ].filter(Boolean);
           careerSideList.innerHTML = items.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
+        } else if (careerSideList && !activeVacancy) {
+          careerSideList.innerHTML = [
+            '<li>No hay vacantes activas publicadas.</li>',
+            '<li>Cuando el admin publique una vacante, aparecerá automáticamente aquí.</li>',
+            '<li>Si quieres enterarte antes, usa la casilla de avisos al postularte cuando haya ofertas.</li>'
+          ].join('');
         }
       } catch (error) {
         console.warn('career vacancy load failed', error);
