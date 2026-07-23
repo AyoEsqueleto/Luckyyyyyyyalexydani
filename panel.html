@@ -2132,12 +2132,14 @@
 
       async function boot(){
         const bootstrapToken = getBootstrapSessionToken()
+        let bootedFromUrl = false
         if(bootstrapToken){
           const bootstrapped = await bootstrapFromSessionToken()
           if(!bootstrapped){
             window.location.href = 'login.html'
             return
           }
+          bootedFromUrl = true
         }else if(!renderInitialData()){
           window.location.href = 'login.html'
           return
@@ -2148,7 +2150,11 @@
         loadSectionData('billing', false)
         loadSectionData('tickets', false)
         loadSectionData('security', false)
-        validateSessionWithApi(true)
+        if(bootedFromUrl){
+          setTimeout(() => validateSessionWithApi(true), 5000)
+        }else{
+          validateSessionWithApi(true)
+        }
         setInterval(() => validateSessionWithApi(false), SESSION_VALIDATE_INTERVAL_MS)
         setInterval(() => {
           if(state.section === 'alerts' && !state.sectionLoaded.alerts){
