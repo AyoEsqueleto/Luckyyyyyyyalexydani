@@ -908,6 +908,47 @@ const themeToggle=document.getElementById("themeToggle")
 const sunIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="5"></line><line x1="12" y1="19" x2="12" y2="22"></line><line x1="2" y1="12" x2="5" y2="12"></line><line x1="19" y1="12" x2="22" y2="12"></line><line x1="4.9" y1="4.9" x2="7" y2="7"></line><line x1="17" y1="17" x2="19.1" y2="19.1"></line><line x1="17" y1="7" x2="19.1" y2="4.9"></line><line x1="4.9" y1="19.1" x2="7" y2="17"></line></svg>'
 const moonIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 1 0 9.8 9.8z"></path></svg>'
 
+function getStorageArea(){
+  try{
+    if(window.localStorage){
+      const testKey = '__luckybase_storage_test__'
+      window.localStorage.setItem(testKey, '1')
+      window.localStorage.removeItem(testKey)
+      return window.localStorage
+    }
+  }catch(_){}
+  try{
+    if(window.sessionStorage){
+      const testKey = '__luckybase_storage_test__'
+      window.sessionStorage.setItem(testKey, '1')
+      window.sessionStorage.removeItem(testKey)
+      return window.sessionStorage
+    }
+  }catch(_){}
+  return null
+}
+
+function readStoredValue(key){
+  const storage = getStorageArea()
+  if(!storage) return null
+  try{
+    return storage.getItem(key)
+  }catch(_){
+    return null
+  }
+}
+
+function writeStoredValue(key, value){
+  const storage = getStorageArea()
+  if(!storage) return false
+  try{
+    storage.setItem(key, value)
+    return true
+  }catch(_){
+    return false
+  }
+}
+
 function updateThemeLabel(){
 const isDarkMode=document.body.classList.contains("dark-mode")
 if(themeToggle){
@@ -917,18 +958,18 @@ themeToggle.setAttribute("title",isDarkMode?"Modo oscuro":"Modo claro")
 }
 }
 
-if(localStorage.getItem("theme")==="dark"){
+if(readStoredValue("theme")==="dark"){
 document.body.classList.add("dark-mode")
 }
 updateThemeLabel()
 
 if(themeToggle){
-themeToggle.addEventListener("click",()=>{
-document.body.classList.toggle("dark-mode")
-const currentTheme=document.body.classList.contains("dark-mode")?"dark":"light"
-localStorage.setItem("theme",currentTheme)
-updateThemeLabel()
-})
+  themeToggle.addEventListener("click",()=>{
+    document.body.classList.toggle("dark-mode")
+    const currentTheme=document.body.classList.contains("dark-mode")?"dark":"light"
+    writeStoredValue("theme",currentTheme)
+    updateThemeLabel()
+  })
 }
 
 const mainNav=document.getElementById("mainNav")
@@ -1185,7 +1226,14 @@ function handleLoginResponse(datos, user){
       totalPlanes: Number(sourceData.totalPlanes || 0),
       activePlanId: String(sourceData.activePlanId || sourceData.npedido || '').trim()
     })
-    localStorage.setItem('clientData', JSON.stringify(payload))
+    if(!writeStoredValue('clientData', JSON.stringify(payload))){
+      if(sessionToken){
+        window.location.href = "panel.html?sessionToken=" + encodeURIComponent(sessionToken)
+        return
+      }
+      showLoginBanner("No se pudo guardar la sesión en este navegador. Prueba a abrir la página desde el sitio publicado, no desde el archivo local.")
+      return
+    }
     window.location.href = "panel.html"
   } else {
     clearTwoFactorState()

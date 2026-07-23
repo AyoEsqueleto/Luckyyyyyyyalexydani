@@ -989,6 +989,72 @@
         logoutBtn: document.getElementById('logoutBtn')
       }
 
+      function getStorageArea(){
+        try{
+          if(window.localStorage){
+            const testKey = '__luckybase_storage_test__'
+            window.localStorage.setItem(testKey, '1')
+            window.localStorage.removeItem(testKey)
+            return window.localStorage
+          }
+        }catch(_){}
+        try{
+          if(window.sessionStorage){
+            const testKey = '__luckybase_storage_test__'
+            window.sessionStorage.setItem(testKey, '1')
+            window.sessionStorage.removeItem(testKey)
+            return window.sessionStorage
+          }
+        }catch(_){}
+        return null
+      }
+
+      function readStoredValue(key){
+        const storage = getStorageArea()
+        if(!storage) return null
+        try{
+          return storage.getItem(key)
+        }catch(_){
+          return null
+        }
+      }
+
+      function writeStoredValue(key, value){
+        const storage = getStorageArea()
+        if(!storage) return false
+        try{
+          storage.setItem(key, value)
+          return true
+        }catch(_){
+          return false
+        }
+      }
+
+      function removeStoredValue(key){
+        const storage = getStorageArea()
+        if(!storage) return false
+        try{
+          storage.removeItem(key)
+          return true
+        }catch(_){
+          return false
+        }
+      }
+
+      function getBootstrapSessionToken(){
+        const params = new URLSearchParams(window.location.search)
+        return String(params.get('sessionToken') || params.get('session') || '').trim()
+      }
+
+      function clearBootstrapSessionToken(){
+        try{
+          const url = new URL(window.location.href)
+          url.searchParams.delete('sessionToken')
+          url.searchParams.delete('session')
+          window.history.replaceState({}, document.title, url.pathname + url.search + url.hash)
+        }catch(_){}
+      }
+
       function apiPostRequest(payload, timeoutMs){
         const controller = new AbortController()
         const timer = setTimeout(() => controller.abort(), timeoutMs || 12000)
@@ -1125,7 +1191,7 @@
       }
 
       function readClientData(){
-        const raw = localStorage.getItem(STORAGE_KEY)
+        const raw = readStoredValue(STORAGE_KEY)
         if(!raw){
           return { raw:null, data:null }
         }
@@ -1138,7 +1204,7 @@
 
       function persistClientData(data){
         const next = normalizePortfolio(data)
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
+        writeStoredValue(STORAGE_KEY, JSON.stringify(next))
         state.data = next
         state.activePlanId = next.activePlanId || ''
         return next
@@ -1150,7 +1216,7 @@
         if(sessionToken){
           apiPostRequest({ action:'logout', sessionToken }, 5000).catch(()=>{})
         }
-        localStorage.removeItem(STORAGE_KEY)
+        removeStoredValue(STORAGE_KEY)
         if(redirectToLogin){
           window.location.href = reason === 'logout' ? 'login.html' : 'login.html?expired=1'
         }
@@ -1229,7 +1295,7 @@
 
       function readTicketSeenMap(){
         try{
-          const raw = localStorage.getItem(TICKET_SEEN_KEY)
+          const raw = readStoredValue(TICKET_SEEN_KEY)
           if(!raw) return {}
           const parsed = JSON.parse(raw)
           return parsed && typeof parsed === 'object' ? parsed : {}
@@ -1240,7 +1306,7 @@
 
       function writeTicketSeenMap(map){
         try{
-          localStorage.setItem(TICKET_SEEN_KEY, JSON.stringify(map || {}))
+          writeStoredValue(TICKET_SEEN_KEY, JSON.stringify(map || {}))
         }catch(_){}
       }
 
@@ -1694,14 +1760,13 @@
           activePlanId: String(planId || '').trim()
         })
         persistClientData(next)
-        try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(next)) }catch(_){}
         renderAll()
       }
 
       function setSection(section, force){
         const allowed = ['overview','alerts','billing','tickets','security']
         state.section = allowed.includes(section) ? section : 'overview'
-        try{ localStorage.setItem(SECTION_KEY, state.section) }catch(_){}
+        writeStoredValue(SECTION_KEY, state.section)
         if(force){
           loadSectionData(state.section, true)
         }else{
@@ -2000,13 +2065,42 @@
       function renderInitialData(){
         const stored = readClientData()
         if(!stored.data){
-          window.location.href = 'login.html'
           return false
         }
         persistClientData(stored.data)
         state.activePlanId = state.data.activePlanId || ''
-        state.section = ['overview','alerts','billing','tickets','security'].includes(localStorage.getItem(SECTION_KEY)) ? localStorage.getItem(SECTION_KEY) : 'overview'
+        const savedSection = readStoredValue(SECTION_KEY)
+        state.section = ['overview','alerts','billing','tickets','security'].includes(savedSection) ? savedSection : 'overview'
         return true
+      }
+
+      async function bootstrapFromSessionToken(){
+        const sessionToken = getBootstrapSessionToken()
+        if(!sessionToken){
+          return false
+        }
+        try{
+          const response = await apiPostRequest({ action:'validate', sessionToken }, 12000)
+          if(!response || response.success !== true){
+            clearBootstrapSessionToken()
+            window.location.href = 'login.html?expired=1'
+            return false
+          }
+          const apiData = response.data && typeof response.data === 'object' ? response.data : {}
+          const sessionExpiresAt = parseSessionExpiry(response.sessionExpiresAt || apiData.sessionExpiresAt)
+          const next = normalizePortfolio({
+            ...apiData,
+            sessionToken,
+            sessionExpiresAt: Number.isFinite(sessionExpiresAt) ? sessionExpiresAt : Date.now() + 8 * 60 * 60 * 1000
+          })
+          persistClientData(next)
+          clearBootstrapSessionToken()
+          return true
+        }catch(_){
+          clearBootstrapSessionToken()
+          window.location.href = 'login.html?expired=1'
+          return false
+        }
       }
 
       function loadCurrentSection(){
@@ -2036,9 +2130,13 @@
         bindSectionNav()
       }
 
-      function boot(){
+      async function boot(){
         if(!renderInitialData()){
-          return
+          const bootstrapped = await bootstrapFromSessionToken()
+          if(!bootstrapped){
+            window.location.href = 'login.html'
+            return
+          }
         }
         bindGlobalActions()
         renderAll()
