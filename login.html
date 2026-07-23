@@ -781,7 +781,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a href="index.html#about">Nosotros</a>
 <a href="index.html#faq">FAQ</a>
 <a href="index.html#contacto">Contacto</a>
-<a class="nav-login" href="panel.html">Panel Cliente</a>
+<a class="nav-login" href="./panel.html">Panel Cliente</a>
 </nav>
 <button id="navToggle" class="nav-toggle" type="button" aria-label="Abrir menú">
 <span class="bar"></span>
@@ -884,7 +884,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <li><a href="index.html#faq">FAQ</a></li>
 <li><a href="index.html#contacto">Contacto</a></li>
           <li><a href="trabaja-con-nosotros.html">Trabaja con nosotros</a></li>
-<li><a href="panel.html">Panel Cliente</a></li>
+<li><a href="./panel.html">Panel Cliente</a></li>
 </ul>
 </div>
 <div class="footer-col">
@@ -1021,6 +1021,59 @@ const SESSION_DURATION_MS = 8 * 60 * 60 * 1000
 const REQUIRE_SERVER_SESSION = true
 let pendingLoginChallenge = null
 
+function isAppsScriptUrl_(url){
+  return /^https:\/\/script\.google\.com\/macros\/s\//.test(String(url || ""))
+}
+
+function buildApiGetUrl_(payload){
+  const url = new URL(URL_API, window.location.href)
+  const params = new URLSearchParams(url.search)
+  Object.entries(payload || {}).forEach(([key, value])=>{
+    if(value === undefined || value === null){
+      return
+    }
+    params.set(key, String(value))
+  })
+  url.search = params.toString()
+  return url.toString()
+}
+
+async function readJsonResponse_(response){
+  const text = await response.text()
+  try{
+    return JSON.parse(text)
+  }catch(error){
+    const snippet = text.replace(/\s+/g, " ").trim().slice(0, 160)
+    const parseError = new Error("INVALID_JSON_RESPONSE")
+    parseError.responseSnippet = snippet
+    throw parseError
+  }
+}
+
+async function apiGetRequest(payload, timeoutMs=12000){
+  const controller = new AbortController()
+  const timeoutId = setTimeout(()=>controller.abort(), timeoutMs)
+  try{
+    const response = await fetch(buildApiGetUrl_(payload), {
+      method: "GET",
+      mode: "cors",
+      cache: "no-store",
+      signal: controller.signal
+    })
+    if(!response.ok){
+      throw new Error("HTTP_" + response.status)
+    }
+    return await readJsonResponse_(response)
+  }catch(error){
+    if(error && error.name === "AbortError"){
+      throw new Error("TIMEOUT")
+    }
+    throw error
+  }finally{
+    clearTimeout(timeoutId)
+  }
+}
+
 async function apiPostRequest(payload, timeoutMs=12000){
   const controller = new AbortController()
   const timeoutId = setTimeout(()=>controller.abort(), timeoutMs)
@@ -1036,10 +1089,13 @@ async function apiPostRequest(payload, timeoutMs=12000){
     if(!response.ok){
       throw new Error("HTTP_" + response.status)
     }
-    return await response.json()
+    return await readJsonResponse_(response)
   }catch(error){
     if(error && error.name === "AbortError"){
       throw new Error("TIMEOUT")
+    }
+    if(isAppsScriptUrl_(URL_API)){
+      return await apiGetRequest(payload, timeoutMs)
     }
     throw error
   }finally{
@@ -1228,16 +1284,16 @@ function handleLoginResponse(datos, user){
     })
     if(!writeStoredValue('clientData', JSON.stringify(payload))){
       if(sessionToken){
-        window.location.href = "panel.html?sessionToken=" + encodeURIComponent(sessionToken)
+        window.location.href = "./panel.html?sessionToken=" + encodeURIComponent(sessionToken)
         return
       }
       showLoginBanner("No se pudo guardar la sesión en este navegador. Prueba a abrir la página desde el sitio publicado, no desde el archivo local.")
       return
     }
     if(sessionToken){
-      window.location.href = "panel.html?sessionToken=" + encodeURIComponent(sessionToken)
+      window.location.href = "./panel.html?sessionToken=" + encodeURIComponent(sessionToken)
     }else{
-      window.location.href = "panel.html"
+      window.location.href = "./panel.html"
     }
   } else {
     clearTwoFactorState()
