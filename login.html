@@ -1116,7 +1116,18 @@ async function apiGetRequest(payload, timeoutMs=12000){
 
 async function apiPostRequest(payload, timeoutMs=12000){
   if(isAppsScriptUrl_(URL_API)){
-    return await apiJsonpRequest(payload, timeoutMs)
+    try{
+      return await apiJsonpRequest(payload, timeoutMs)
+    }catch(jsonpError){
+      try{
+        return await apiGetRequest(payload, timeoutMs)
+      }catch(getError){
+        getError.message = getError && getError.message
+          ? (getError.message + " / " + String(jsonpError && jsonpError.message || "JSONP_FAILED"))
+          : String(jsonpError && jsonpError.message || "JSONP_FAILED")
+        throw getError
+      }
+    }
   }
 
   const controller = new AbortController()
@@ -1431,7 +1442,7 @@ async function verificarCodigo2fa(e){
       status.classList.remove("status-loading")
       status.textContent = error && error.message === "TIMEOUT"
         ? "Tiempo de espera agotado."
-        : "No se pudo conectar con el servidor."
+        : "No se pudo conectar con el servidor (" + String(error && error.message || "ERROR") + ")."
     }
     setTimeout(()=>{ if(status) status.textContent = "" }, 5000)
   }
@@ -1510,7 +1521,7 @@ function ejecutarLogin(e){
         status.classList.remove("status-loading")
         status.textContent = error && error.message === "TIMEOUT"
           ? "Tiempo de espera agotado."
-          : "No se pudo conectar con el servidor."
+          : "No se pudo conectar con el servidor (" + String(error && error.message || "ERROR") + ")."
       }
       setTimeout(()=>{ if(status) status.textContent = "" }, 5000)
     })
