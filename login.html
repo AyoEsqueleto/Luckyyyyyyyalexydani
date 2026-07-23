@@ -1234,7 +1234,11 @@ function handleLoginResponse(datos, user){
       showLoginBanner("No se pudo guardar la sesión en este navegador. Prueba a abrir la página desde el sitio publicado, no desde el archivo local.")
       return
     }
-    window.location.href = "panel.html"
+    if(sessionToken){
+      window.location.href = "panel.html?sessionToken=" + encodeURIComponent(sessionToken)
+    }else{
+      window.location.href = "panel.html"
+    }
   } else {
     clearTwoFactorState()
     if(status) status.textContent = ""

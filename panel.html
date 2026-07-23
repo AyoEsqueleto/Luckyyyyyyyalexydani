@@ -2131,12 +2131,16 @@
       }
 
       async function boot(){
-        if(!renderInitialData()){
+        const bootstrapToken = getBootstrapSessionToken()
+        if(bootstrapToken){
           const bootstrapped = await bootstrapFromSessionToken()
           if(!bootstrapped){
             window.location.href = 'login.html'
             return
           }
+        }else if(!renderInitialData()){
+          window.location.href = 'login.html'
+          return
         }
         bindGlobalActions()
         renderAll()
