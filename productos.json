@@ -1,14 +1,85 @@
 {
-  "generated_at": "2026-09-07T08:42:37.384133+00:00",
-  "total_items": 0,
-  "items": [],
+  "generated_at": "2026-09-14T09:20:17.117034+00:00",
+  "total_items": 10,
+  "items": [
+    {
+      "source": "vinted",
+      "title": "Maglietta Levi’s, Marca: Levi's, Estado: Muy bueno, Tamaño: M, 20.00 €, 21.70 €",
+      "price": "",
+      "image": "",
+      "link": "https://www.vinted.es/items/9991224255-maglietta-levis?referrer=catalog"
+    },
+    {
+      "source": "vinted",
+      "title": "Levi's Felpa con Cappuccio S Giallo Pastello Hoodie Logo Rosso Tasca Kangaroo, Marca: Levi's, Estado: Muy bueno, Tamaño: S, 49.90 €, 53.10 €",
+      "price": "",
+      "image": "",
+      "link": "https://www.vinted.es/items/9974294765-levis-felpa-con-cappuccio-s-giallo-pastello-hoodie-logo-rosso-tasca-kangaroo?referrer=catalog"
+    },
+    {
+      "source": "vinted",
+      "title": "Felpa Jordan, Marca: Jordan, Estado: Muy bueno, Tamaño: XL, 6.00 €, 7.00 €",
+      "price": "",
+      "image": "",
+      "link": "https://www.vinted.es/items/9970943944-felpa-jordan?referrer=catalog"
+    },
+    {
+      "source": "vinted",
+      "title": "Felpa Under Armour coldgear, Marca: Under Armour, Estado: Muy bueno, Tamaño: S, 35.00 €, 37.45 €",
+      "price": "",
+      "image": "",
+      "link": "https://www.vinted.es/items/9967820012-felpa-under-armour-coldgear?referrer=catalog"
+    },
+    {
+      "source": "vinted",
+      "title": "Felpa Jordan nera uomo S Hoodie sweatshirt Nike Air Jordan streetwear casual sportiva urban, Marca: Jordan, Estado: Muy bueno, Tamaño: S, 20.90 €, 22.65 €",
+      "price": "",
+      "image": "",
+      "link": "https://www.vinted.es/items/9964824049-felpa-jordan-nera-uomo-s-hoodie-sweatshirt-nike-air-jordan-streetwear-casual-sportiva-urban?referrer=catalog"
+    },
+    {
+      "source": "vinted",
+      "title": "Levi's Felpa Grigia Unisex taglia S/Oversize Ottime Condizioni, Marca: Levi's, Estado: Muy bueno, Tamaño: S, 15.00 €, 16.45 €",
+      "price": "",
+      "image": "",
+      "link": "https://www.vinted.es/items/9964033124-levis-felpa-grigia-unisex-taglia-soversize-ottime-condizioni?referrer=catalog"
+    },
+    {
+      "source": "vinted",
+      "title": "Under Armour Hoodie L, Marca: Under Armour, Estado: Muy bueno, Tamaño: L, 19.90 €, 21.60 €",
+      "price": "",
+      "image": "",
+      "link": "https://www.vinted.es/items/9952710238-under-armour-hoodie-l?referrer=catalog"
+    },
+    {
+      "source": "vinted",
+      "title": "Adidas Yeezy Boost 350 V2 Beluga / Sply-350, Marca: Yeezy, Estado: Satisfactorio, Tamaño: 41, 20.00 €, 21.70 €",
+      "price": "",
+      "image": "",
+      "link": "https://www.vinted.es/items/9959660613-adidas-yeezy-boost-350-v2-beluga-sply-350?referrer=catalog"
+    },
+    {
+      "source": "vinted",
+      "title": "Felpa Jordan, Marca: Jordan, Estado: Bueno, Tamaño: 13 años / 158 cm, 20.00 €, 21.70 €",
+      "price": "",
+      "image": "",
+      "link": "https://www.vinted.es/items/9955394703-felpa-jordan?referrer=catalog"
+    },
+    {
+      "source": "vinted",
+      "title": "Tuta Completa Nike Jordan Junior Elevated Classics - Felpa e Pantaloni Neri/Rossi, Marca: Jordan, Estado: Bueno, Tamaño: 13 años / 158 cm, 20.00 €, 21.70 €",
+      "price": "",
+      "image": "",
+      "link": "https://www.vinted.es/items/9947674020-tuta-completa-nike-jordan-junior-elevated-classics-felpa-e-pantaloni-nerirossi?referrer=catalog"
+    }
+  ],
   "sources": {
     "vinted": {
       "profile_url": "https://www.vinted.es/member/3140332927",
       "effective_url": "https://www.vinted.es/catalog?search_text=luckyyshopp&order=newest_first",
       "login": "luckyyshopp",
-      "count": 0,
-      "error": "Esta cuenta de Vinted no tiene anuncios activos en este momento."
+      "count": 10,
+      "error": ""
     }
   }
 }
