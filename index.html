@@ -3133,9 +3133,11 @@ padding-top:52px;
      crossorigin="anonymous"></script>
 <link rel="preload" href="premium.css" as="style">
 <link rel="stylesheet" href="premium.css" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="premium.css"></noscript></head>
+<noscript><link rel="stylesheet" href="premium.css"></noscript><link rel="stylesheet" href="sales-home.css">
+</head>
 
-<body>
+<body class="sales-home">
+<a class="sales-skip" href="#inicio">Saltar al contenido</a>
 
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K96JRDLJ"
@@ -3153,25 +3155,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <header>
 
-<div class="logo">
-<img loading="eager" fetchpriority="high" decoding="async" src="LUCKYBASE logo letras.png" alt="Logo Lucky Base">
-</div>
+<a class="logo" href="#inicio" aria-label="LuckyBase, inicio">
+<img loading="eager" fetchpriority="high" decoding="async" src="LUCKYBASE logo letras.png" alt="LuckyBase">
+</a>
 
-<nav id="mainNav">
-<a href="index.html#inicio">Inicio</a>
-<a href="index.html#servicios">Servicios</a>
-<a href="luckyweb.html">LuckyWeb</a>
-<a href="luckybuilder/">LuckyBuilder</a>
-<a href="apps.html">Apps</a>
-<a href="automatizaciones.html">LuckyAuto</a>
-<a href="planes.html">Planes</a>
-<a href="index.html#about">Nosotros</a>
-<a href="index.html#faq">FAQ</a>
-<a href="index.html#contacto">Contacto</a>
-<a class="nav-login" href="https://panel.luckybase.es">Área cliente</a>
+<nav id="mainNav" aria-label="Navegación principal">
+<a href="#servicios">Servicios</a><a href="#como-trabajamos">Cómo trabajamos</a><a href="#plan-saas">Plan SaaS</a><a href="planes.html">Planes</a><a href="luckybuilder/">LuckyBuilder</a><a href="#about">Nosotros</a><a href="https://panel.luckybase.es">Área cliente ↗</a><a class="nav-login" href="#contacto">Pedir propuesta ↗</a>
 </nav>
 
-<button id="navToggle" class="nav-toggle" type="button" aria-label="Abrir menú">
+<button id="navToggle" class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mainNav">
 <span class="bar"></span>
 <span class="bar"></span>
 <span class="bar"></span>
@@ -3231,49 +3223,13 @@ Soluciones digitales modernas para empresas que quieren destacar en internet.
 </div>
 
 </section>
-<section id="quehacemos">
-
-<h2 style="text-align:center">Qué hacemos en LuckyBase</h2>
-<p style="text-align:center;max-width:680px;margin:0 auto 18px;">Combinamos diseño, tecnología y estrategia para que tu negocio crezca en internet.</p>
-
-<div class="services">
-
-<a class="card" href="automatizaciones.html">
-<div class="card-icon" aria-hidden="true">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="M8 12l2 2 4-4"/></svg>
-</div>
-<h3>Automatizaciones</h3>
-<p>Bots, integraciones y flujos que eliminan tareas manuales y ahorran tiempo real a tu equipo.</p>
-<span class="card-link">Ver automatizaciones →</span>
-</a>
-
-<a class="card" href="luckyweb.html">
-<div class="card-icon" aria-hidden="true">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="14" rx="3"/><path d="M7 21h10M12 17v4"/></svg>
-</div>
-<h3>Páginas web</h3>
-<p>Diseñamos webs modernas, rápidas y orientadas a convertir visitas en clientes desde el primer día.</p>
-<span class="card-link">Ver LuckyWeb →</span>
-</a>
-
-<a class="card" href="apps.html">
-<div class="card-icon" aria-hidden="true">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/><path d="M5 6h2M17 6h2"/></svg>
-</div>
-<h3>Apps a medida</h3>
-<p>Creamos apps móviles y web apps para digitalizar procesos, vender más y ofrecer una experiencia más directa a tus clientes.</p>
-<span class="card-link">Ver servicio de apps →</span>
-</a>
-
-</div>
-
-</section>
-
-
+<section id="quehacemos" class="sales-goals"><div><span class="sales-kicker">EMPIEZA POR TU OBJETIVO</span><h2>¿Qué quieres conseguir?</h2></div><div class="sales-goal-links"><a href="#servicio-web">Captar clientes <span>↗</span></a><a href="#servicio-apps">Digitalizar mi negocio <span>↗</span></a><a href="#servicio-auto">Ahorrar tiempo <span>↗</span></a><a href="#servicio-branding">Potenciar mi marca <span>↗</span></a></div></section>
+<section id="servicios" class="sales-services"><div class="sales-section-head"><div><span class="sales-kicker">SOLUCIONES QUE TRABAJAN JUNTAS</span><h2>Todo lo que tu negocio necesita.<br><span>Con una sola dirección.</span></h2></div><p>Puedes empezar por un servicio o combinar varios. Te ayudamos a priorizar lo que tiene sentido para tu negocio.</p></div><div class="sales-service-grid"><article class="sales-service" id="servicio-web"><div class="sales-service-top"><span class="sales-service-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01M6 13h5m-5 3h8"/></svg></span><span>LUCKYWEB</span><b>01</b></div><h3>Tu mejor comercial.<br>Disponible cada día.</h3><p>Webs y tiendas online pensadas para presentar tu negocio y facilitar el siguiente paso: reservar, consultar o comprar.</p><ul><li>Diseño adaptable a móvil</li><li>Web corporativa, landing o ecommerce</li><li>SEO técnico y estructura de conversión</li></ul><a class="sales-service-link" href="luckyweb.html">Ver planes web <span>↗</span></a></article><article class="sales-service" id="servicio-apps"><div class="sales-service-top"><span class="sales-service-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M10 5h4m-3 14h2"/></svg></span><span>APPS A MEDIDA</span><b>02</b></div><h3>Tu idea, convertida<br>en una herramienta útil.</h3><p>Apps móviles y web apps que acercan tu servicio a tus clientes y ordenan la operativa de tu equipo.</p><ul><li>Definición funcional y prototipo</li><li>Paneles de gestión</li><li>Integración con APIs y sistemas</li></ul><a class="sales-service-link" href="apps.html">Descubrir apps <span>↗</span></a></article><article class="sales-service" id="servicio-auto"><div class="sales-service-top"><span class="sales-service-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="6" height="6" rx="1.5"/><rect x="15" y="15" width="6" height="6" rx="1.5"/><rect x="15" y="3" width="6" height="6" rx="1.5"/><rect x="3" y="15" width="6" height="6" rx="1.5"/><path d="M9 6h6M18 9v6m-3 3H9M6 9v6"/></svg></span><span>LUCKYAUTO</span><b>03</b></div><h3>Tu tiempo vale más<br>que una tarea repetida.</h3><p>Conectamos formularios, CRM y herramientas para que la información fluya sin tener que moverla a mano.</p><ul><li>Flujos e integraciones</li><li>Bots y asistentes de IA</li><li>Seguimiento y avisos automáticos</li></ul><a class="sales-service-link" href="automatizaciones.html">Explorar automatizaciones <span>↗</span></a></article><article class="sales-service" id="servicio-uiux"><div class="sales-service-top"><span class="sales-service-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="m8 16 2.5-6.5L13 16m-4.5-2h5m3-4v6m0-8h.01"/></svg></span><span>DISEÑO UI/UX</span><b>04</b></div><h3>Que se vea bien.<br>Que se use aún mejor.</h3><p>Diseñamos experiencias que hacen más fácil entender tu producto, navegar y completar una acción.</p><ul><li>Wireframes y prototipos</li><li>Interfaces para web y apps</li><li>Revisión de usabilidad</li></ul><a class="sales-service-link" href="index.html?servicio=uiux#contacto">Quiero mejorar mi experiencia <span>↗</span></a></article><article class="sales-service" id="servicio-marketing"><div class="sales-service-top"><span class="sales-service-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18 10 12l4 3 6-8"/><path d="M14 7h6v6M4 21V3"/></svg></span><span>MARKETING DIGITAL</span><b>05</b></div><h3>Haz que te encuentren.<br>Dales motivos para elegirte.</h3><p>Trabajamos la visibilidad y el contenido para atraer visitas relevantes y medir qué está funcionando.</p><ul><li>SEO on-page y técnico</li><li>Estrategia de contenidos</li><li>Analítica y seguimiento</li></ul><a class="sales-service-link" href="index.html?servicio=marketing#contacto">Hablemos de mi estrategia <span>↗</span></a></article><article class="sales-service" id="servicio-branding"><div class="sales-service-top"><span class="sales-service-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2m0-14.2L4.9 19.1"/><circle cx="12" cy="12" r="3"/></svg></span><span>BRANDING Y DISEÑO</span><b>06</b></div><h3>Una marca reconocible.<br>En cada punto de contacto.</h3><p>Damos coherencia a cómo se ve y se presenta tu negocio, desde el logotipo hasta tus redes sociales.</p><ul><li>Logotipo y universo visual</li><li>Paleta y guía de estilo</li><li>Piezas y activos para redes</li></ul><a class="sales-service-link" href="index.html?servicio=branding#contacto">Quiero potenciar mi marca <span>↗</span></a></article></div><div class="sales-guidance"><div><strong>¿No sabes por dónde empezar?</strong><p>Cuéntanos qué frena a tu negocio. Te ayudamos a definir el siguiente paso.</p></div><a class="sales-btn" href="#contacto">Orientadme con mi proyecto <span>↗</span></a></div></section>
+<section class="saas-offer-section" id="plan-saas"><div class="saas-offer-card"><div class="saas-offer-copy"><span class="saas-kicker">PLAN PERSONALIZADO · SAAS PARA NEGOCIOS</span><h2>Tu negocio merece<br>una solución propia.</h2><p>Lanza una primera solución SaaS a la medida de tu negocio y evolúcionala según lo que tus clientes necesiten.</p><div class="saas-price"><span>Desde</span><strong>200 €</strong></div><p class="saas-maintenance">Mantenimiento y soporte se presupuestan aparte, según el alcance.</p><a class="saas-cta" href="index.html?servicio=apps&amp;plan=custom&amp;tipo=SaaS#contacto">Quiero mi propuesta SaaS <span aria-hidden="true">↗</span></a><small>Precio inicial sujeto al alcance definido para el proyecto.</small></div><div class="saas-includes"><span class="saas-includes-label">UN PLAN, TRES PIEZAS CONECTADAS</span><article><span>01</span><div><strong>Panel de administración</strong><small>Gestiona la información de tu plataforma.</small></div><b aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 13h3m-3 3h7"/></svg></b></article><article><span>02</span><div><strong>App móvil</strong><small>Una experiencia pensada para tus usuarios.</small></div><b aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M10 5h4m-3 14h2"/></svg></b></article><article><span>03</span><div><strong>Aplicación web</strong><small>Tu servicio disponible desde el navegador.</small></div><b aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 22h8m-4-4v4m-6-14h4m-4 4h8"/></svg></b></article></div></div></section>
 <section id="planes-destacados">
 
-<h2 style="text-align:center">Planes destacados</h2>
-<p style="text-align:center;max-width:680px;margin:0 auto 18px;">Sin permanencia. Sin sorpresas. Solo resultados.</p>
+<h2 style="text-align:center">Elige tu punto de partida</h2>
+<p style="text-align:center;max-width:680px;margin:0 auto 18px;">Web, apps o automatizaciones: consulta el alcance de cada plan y encuentra la base para tu proyecto.</p>
 
 <div class="services">
 
@@ -3300,7 +3256,7 @@ Soluciones digitales modernas para empresas que quieren destacar en internet.
 </div>
 <a class="platform-btn" href="luckyweb-ecommerce.html" style="margin-top:16px;display:inline-flex;">Ver detalles</a>
 </div>
-
+<div class="card premium-card"><span class="premium-type">APPS A MEDIDA</span><span class="premium-badge">MVP</span><h3>MVP Rápido</h3><p>Empieza por lo esencial: una primera versión de tu app para poner en marcha tu idea y seguir evolucionando.</p><div class="plan-price-box"><strong>Desde 1.400 €</strong><span>Precio base · Consulta alcance y condiciones</span></div><a class="platform-btn" href="plan-mvp-rapido.html" style="margin-top:16px;display:inline-flex;">Explorar el plan de apps ↗</a></div>
 </div>
 
 <div class="plans-cta">
@@ -3308,148 +3264,9 @@ Soluciones digitales modernas para empresas que quieren destacar en internet.
 </div>
 
 </section>
-<section id="servicios">
-
-<h2>Nuestros Servicios</h2>
-<p style="text-align:center;max-width:680px;margin:0 auto 18px;">Todo lo que necesitas para crecer en digital, bajo un mismo techo.</p>
-
-<div class="services">
-
-<div class="card">
-<div class="card-icon" aria-hidden="true">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="14" rx="3"/><path d="M7 21h10M12 17v4"/></svg>
-</div>
-<h3>Desarrollo Web</h3>
-<p>Webs modernas, rápidas y optimizadas para negocios que quieren resultados reales en buscadores y con los usuarios.</p>
-<ul class="card-features">
-<li>HTML/CSS/JS limpio y semántico</li>
-<li>Responsive y optimizado para móvil</li>
-<li>SEO técnico incluido</li>
-</ul>
-</div>
-
-<div class="card">
-<div class="card-icon" aria-hidden="true">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l2.5 2.5L16 9"/></svg>
-</div>
-<h3>Diseño UI/UX</h3>
-<p>Interfaces que guían al usuario de forma natural hacia la acción, con estética cuidada y experiencia fluida.</p>
-<ul class="card-features">
-<li>Wireframes y prototipos</li>
-<li>Diseño mobile-first</li>
-<li>Tests de usabilidad</li>
-</ul>
-</div>
-
-<div class="card">
-<div class="card-icon" aria-hidden="true">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M10 6h4"/><path d="M10 17h4"/><path d="M7 12h10"/></svg>
-</div>
-<h3>Creación y Desarrollo de Apps</h3>
-<p>Desarrollamos apps móviles y web apps conectadas con tu operativa real para que puedas escalar sin fricción.</p>
-<ul class="card-features">
-<li>Apps nativas y multiplataforma</li>
-<li>Panel de administración y analítica</li>
-<li>Integración con APIs y sistemas internos</li>
-</ul>
-</div>
-
-<div class="card">
-<div class="card-icon" aria-hidden="true">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-</div>
-<h3>Marketing Digital</h3>
-<p>Estrategias orientadas a resultados: más visibilidad, más tráfico y más conversiones para tu negocio.</p>
-<ul class="card-features">
-<li>SEO on-page y técnico</li>
-<li>Estrategia de contenidos</li>
-<li>Análisis y métricas</li>
-</ul>
-</div>
-
-<div class="card">
-<div class="card-icon" aria-hidden="true">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-</div>
-<h3>Branding</h3>
-<p>Identidad visual coherente y memorable para que tu empresa conecte con su audiencia desde el primer vistazo.</p>
-<ul class="card-features">
-<li>Logotipos y paleta de color</li>
-<li>Guía de estilo de marca</li>
-<li>Activos para redes sociales</li>
-</ul>
-</div>
-
-</div>
-
-<div class="luckyweb-highlight" id="luckyweb-highlight">
-  <h2>LuckyWeb: web premium lista para convertir</h2>
-  <p>Tu web como si fuera un lanzamiento: narrativa clara, visuales propios y rendimiento real para captar clientes desde el primer día.</p>
-
-  <div class="luckyweb-grid">
-    <div class="luckyweb-copy">
-      <span class="luckyweb-pill">Servicio destacado</span>
-      <h3>Diseño, conversión y velocidad en un solo servicio.</h3>
-      <p>LuckyWeb combina estrategia, diseño visual y desarrollo optimizado para negocios que quieren crecer online con una web que vende.</p>
-      <ul class="luckyweb-list">
-        <li>Diseño a medida con estilo de keynote.</li>
-        <li>Optimización para móviles y Core Web Vitals.</li>
-        <li>Estructura enfocada a reservas, ventas o leads.</li>
-      </ul>
-      <div class="luckyweb-actions">
-        <a class="platform-btn" href="luckyweb.html">Ver LuckyWeb</a>
-        <a class="ghost-btn" href="comparador-planes-web.html">Comparar planes</a>
-      </div>
-    </div>
-  <div class="luckyweb-visual">
-    <div class="luckyweb-preview" aria-hidden="true">
-      <div class="preview-top">
-        <span></span><span></span><span></span>
-      </div>
-      <iframe class="preview-frame" src="mini-webs/luckyweb-preview.html" title="Vista previa LuckyWeb" loading="lazy"></iframe>
-    </div>
-  </div>
-</div>
-</div>
-
-<div class="app-dev-highlight" id="app-dev-highlight">
-  <h2>Apps a medida para procesos reales</h2>
-  <p>Creamos y lanzamos tu app con una ruta clara de producto, diseño y desarrollo para que salga al mercado con lógica de negocio.</p>
-
-  <div class="app-dev-grid">
-    <div class="app-dev-copy">
-      <span class="app-dev-pill">Nuevo servicio</span>
-      <h3>Cómo lo implementamos, desde hoy</h3>
-      <p>En lugar de vender solo código, empaquetamos el servicio para que cada fase tenga entregables y plazos concretos.</p>
-      <ul class="luckyweb-list">
-        <li>Fase 1: definición funcional + arquitectura de producto.</li>
-        <li>Fase 2: diseño UX/UI + prototipo navegable.</li>
-        <li>Fase 3: desarrollo + QA + publicación.</li>
-      </ul>
-      <div class="app-dev-actions">
-        <a class="platform-btn" href="index.html#contacto">Solicitar propuesta</a>
-        <a class="ghost-btn" href="automatizaciones.html">Combinar con LuckyAuto</a>
-      </div>
-    </div>
-    <div class="app-dev-bundles">
-      <div class="app-dev-bundle">
-        <strong>Pack recomendado: App + UI/UX</strong>
-        <p>Ideal cuando quieres una experiencia cuidada y validada antes de programar.</p>
-      </div>
-      <div class="app-dev-bundle">
-        <strong>Pack negocio: App + Automatizaciones</strong>
-        <p>Conecta tu app con flujos internos, CRM y tareas repetitivas para ahorrar tiempo.</p>
-      </div>
-      <div class="app-dev-bundle">
-        <strong>Pack completo: App + Web + Analítica</strong>
-        <p>Canal de captación con LuckyWeb, app operativa y métricas para escalar con datos.</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-</section>
-
+<section class="sales-tools" id="integraciones"><span class="sales-kicker">TUS HERRAMIENTAS, MEJOR CONECTADAS</span><h2>Tu negocio ya tiene herramientas.<br>Hagamos que trabajen juntas.</h2><div class="sales-tool-logos"><div><img src="assets/tool-logos/whatsapp-business.png" alt="" width="40" height="40" loading="lazy"><span>WhatsApp Business</span></div><div><img src="assets/tool-logos/google-sheets.png" alt="" width="40" height="40" loading="lazy"><span>Google Sheets</span></div><div><img src="assets/tool-logos/stripe.png" alt="" width="40" height="40" loading="lazy"><span>Stripe</span></div><div><img src="assets/tool-logos/shopify.png" alt="" width="40" height="40" loading="lazy"><span>Shopify</span></div><div><img src="assets/tool-logos/hubspot.png" alt="" width="40" height="40" loading="lazy"><span>HubSpot</span></div><div><img src="assets/tool-logos/make.png" alt="" width="40" height="40" loading="lazy"><span>Make</span></div><div><img src="assets/tool-logos/notion.png" alt="" width="40" height="40" loading="lazy"><span>Notion</span></div><div><img src="assets/tool-logos/openai.png" alt="" width="40" height="40" loading="lazy"><span>OpenAI</span></div></div><p>Ejemplos de herramientas que podemos integrar. Revisamos la viabilidad, los permisos y los costes de cada conexión en tu propuesta.</p><a href="index.html?servicio=automatizaciones#contacto">Quiero conectar mis herramientas ↗</a></section>
+<section class="sales-builder" id="crea-con-ia"><div class="sales-builder-copy"><span class="sales-kicker">OTRA FORMA DE EMPEZAR · LUCKYBUILDER</span><h2>Tu web empieza con una idea.<br><span>La IA te ayuda a darle forma.</span></h2><p>Si prefieres hacerlo tú, genera una primera versión, edítala visualmente, guarda tus proyectos y publica desde LuckyBuilder.</p><div class="sales-builder-actions"><a class="sales-btn sales-btn-white" href="https://builder.luckybase.es/">Entrar en LuckyBuilder <span>↗</span></a><a href="luckybuilder/">Ver funciones →</a></div></div><div class="sales-builder-visual"><img src="logoluckyblancosinfondo.png" alt="LuckyBase Builder" width="130" height="130" loading="lazy"><div class="sales-builder-flow"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4m0 10v4M3 12h4m10 0h4m-12.4-5.4 2.8 2.8m5.2 5.2 2.8 2.8m0-10.8-2.8 2.8m-5.2 5.2-2.8 2.8"/><circle cx="12" cy="12" r="3"/></svg> Genera con IA</span><b>↓</b><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM8 9h8M8 12h5m-5 4h3"/></svg> Edita a tu manera</span><b>↓</b><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V3m-5 5 5-5 5 5M4 14v6h16v-6"/></svg> Publica tu web</span></div></div></section>
+<section class="sales-process" id="como-trabajamos"><span class="sales-kicker">DEL OBJETIVO AL LANZAMIENTO</span><h2>Un proyecto claro.<br>Un siguiente paso en cada fase.</h2><div><article><b>01</b><h3>Definimos contigo</h3><p>Entendemos tu objetivo y concretamos alcance, presupuesto y plazos antes de empezar.</p></article><article><b>02</b><h3>Diseñamos y construimos</h3><p>Damos forma a la solución y revisamos contigo los avances para afinar lo que importa.</p></article><article><b>03</b><h3>Entregamos y acompañamos</h3><p>Probamos, publicamos y te explicamos cómo usar tu proyecto. Acordamos el soporte que necesitas.</p></article></div><a class="sales-btn" href="#contacto">Hablemos de mi proyecto <span>↗</span></a></section>
 <section id="about">
 
 <div class="about">
@@ -3487,9 +3304,9 @@ Soluciones digitales modernas para empresas que quieren destacar en internet.
 </div>
 
 <div class="about-metrics">
-<div class="about-metric"><strong>+40</strong><span>Proyectos</span></div>
+<div class="about-metric"><strong>A medida</strong><span>Cada proyecto</span></div>
 <div class="about-metric"><strong>24h</strong><span>Respuesta</span></div>
-<div class="about-metric"><strong>100%</strong><span>Satisfacción</span></div>
+<div class="about-metric"><strong>Directo</strong><span>Trato contigo</span></div>
 </div>
 
 </div>
@@ -3504,6 +3321,8 @@ Soluciones digitales modernas para empresas que quieren destacar en internet.
 <p style="text-align:center;max-width:680px;margin:0 auto 18px;">Todo lo que necesitas saber antes de empezar con LuckyBase.</p>
 
 <div class="faq-container">
+<div class="faq-item"><button class="faq-question-btn" aria-expanded="false"><span>¿Qué incluye el plan SaaS desde 200 €?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-answer-body"><p>Parte de una solución personalizada para tu negocio con panel de administración, app móvil y aplicación web. Los 200 € son un precio de partida sujeto al alcance acordado. El mantenimiento y el soporte se presupuestan aparte.</p></div></div>
+
 
 <div class="faq-item">
 <button class="faq-question-btn" aria-expanded="false">
@@ -3567,16 +3386,16 @@ Soluciones digitales modernas para empresas que quieren destacar en internet.
 
 <section id="contacto">
 
-<h2 style="text-align:center">Contacto</h2>
+<h2 style="text-align:center">Tu próximo paso empieza aquí.</h2>
 
-<p class="contact-note">Plazo de respuesta estimado: 24 horas.</p>
+<p class="contact-note">No necesitas tenerlo todo definido. Empezamos por entender tu negocio.</p>
 
 <div class="contact-box">
 
 <div class="contact-intro">
 <span class="contact-pill">Respuesta en 24h</span>
-<h3>Cuéntanos tu consulta</h3>
-<p>Te respondemos rápido y con claridad en menos de 24 horas.</p>
+<h3>Cuéntanos qué quieres conseguir</h3>
+<p>Te ayudamos a elegir los servicios adecuados y a definir una propuesta. Respuesta en hasta 24 horas hábiles.</p>
 </div>
 
 <div class="contact-badges">
@@ -3606,6 +3425,9 @@ Soluciones digitales modernas para empresas que quieren destacar en internet.
   <option value="web">LuckyWeb (Páginas Web)</option>
   <option value="automatizaciones">LuckyAuto (Automatizaciones)</option>
   <option value="branding">Branding / Diseño</option>
+<option value="uiux">Diseño UI/UX</option>
+<option value="marketing">Marketing Digital</option>
+<option value="builder">LuckyBuilder / Web con IA</option>
   <option value="otro">Otro</option>
 </select>
 <div class="field-meta">Nos ayuda a responderte más rápido y con propuesta ajustada.</div>
@@ -3711,7 +3533,7 @@ Soluciones digitales modernas para empresas que quieren destacar en internet.
 <div class="footer-col">
 <h4>LuckyBase</h4>
 <ul>
-<li><a href="trabaja-con-nosotros.html">Trabaja con Nosotros</a></li>
+<li><a href="#como-trabajamos">Cómo trabajamos</a></li>
 <li><a href="index.html#about">Nosotros</a></li>
 <li><a href="index.html#faq">FAQ</a></li>
 <li><a href="index.html#contacto">Contacto</a></li>
@@ -3733,21 +3555,6 @@ Soluciones digitales modernas para empresas que quieren destacar en internet.
 <span style="display:block;margin:0;padding-bottom:0;">&copy; 2026 LuckyBase. Todos los derechos reservados.</span>
 </div>
 </footer>
-
-<div class="vinted-support-strip" aria-label="Apoyo en Vinted">
-<div class="vinted-support-inner">
-<div class="vinted-support-copy">
-<span class="vinted-support-kicker">Vinted</span>
-<p>Apoya este proyecto comprando en nuestro perfil de Vinted.</p>
-<br>
-<div>
-  <p>15% de descuento si nos dices el código "LuckyCloth".</p>
-</div>
-</div>
-<a class="vinted-support-btn" href="https://www.vinted.es/member/159037584" target="_blank" rel="noopener noreferrer">Ver perfil</a>
-</div>
-</div>
-
 
 <div id="helpMsg">¿Necesitas ayuda?</div>
 <button id="helpBtn" onclick="goToContact()" aria-label="Ayuda y contacto" title="Ayuda y contacto">
@@ -3801,6 +3608,7 @@ if(navToggle && mainNav){
     const isOpen=mainNav.classList.toggle("is-open")
     navToggle.classList.toggle("is-open",isOpen)
     navToggle.setAttribute("aria-label",isOpen?"Cerrar menú":"Abrir menú")
+    navToggle.setAttribute("aria-expanded",String(isOpen))
   })
 
   mainNav.querySelectorAll("a").forEach((link)=>{
@@ -3809,6 +3617,7 @@ if(navToggle && mainNav){
         mainNav.classList.remove("is-open")
         navToggle.classList.remove("is-open")
         navToggle.setAttribute("aria-label","Abrir menú")
+      navToggle.setAttribute("aria-expanded","false")
       }
     })
   })
@@ -3818,6 +3627,7 @@ if(navToggle && mainNav){
       mainNav.classList.remove("is-open")
       navToggle.classList.remove("is-open")
       navToggle.setAttribute("aria-label","Abrir menú")
+      navToggle.setAttribute("aria-expanded","false")
     }
   })
 }
@@ -3894,7 +3704,7 @@ let lastKnownScrollY=0
 let ticking=false
 
 function applyHeroParallax(){
-if(!hero||!heroContent||prefersReducedMotion) return
+if(!hero||!heroContent||prefersReducedMotion||hero.classList.contains("sales-hero")) return
 const scrollY=lastKnownScrollY
 const progress=Math.min(scrollY/560,1)
 
@@ -4035,6 +3845,9 @@ apps:"Creación y Desarrollo de Apps",
 web:"LuckyWeb (Páginas Web)",
 automatizaciones:"LuckyAuto (Automatizaciones)",
 branding:"Branding / Diseño",
+uiux:"Diseño UI/UX",
+marketing:"Marketing Digital",
+builder:"LuckyBuilder / Web con IA",
 otro:"Otro"
 }
 
@@ -4193,6 +4006,11 @@ if (promoClose && promoBanner) {
   })
 }
 
+document.addEventListener("keydown",(event)=>{
+  if(event.key==="Escape"&&mainNav&&mainNav.classList.contains("is-open")){
+    mainNav.classList.remove("is-open");navToggle.classList.remove("is-open");navToggle.setAttribute("aria-expanded","false");navToggle.setAttribute("aria-label","Abrir menú");navToggle.focus()
+  }
+})
 // ── FAQ ACCORDION ──
 document.querySelectorAll('.faq-question-btn').forEach(btn => {
   btn.addEventListener('click', () => {
