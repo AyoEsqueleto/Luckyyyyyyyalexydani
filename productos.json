@@ -1,85 +1,14 @@
 {
-  "generated_at": "2026-10-26T09:27:04.179510+00:00",
-  "total_items": 10,
-  "items": [
-    {
-      "source": "vinted",
-      "title": "Air Jordan 4 Sashiko – Taglia 40.5, Marca: Jordan, Estado: Muy bueno, Tamaño: 40.5, 159.00 €, 167.65 €",
-      "price": "",
-      "image": "",
-      "link": "https://www.vinted.es/items/10538710166-air-jordan-4-sashiko-taglia-405?referrer=catalog"
-    },
-    {
-      "source": "vinted",
-      "title": "t shirt champion youth, Marca: Champion, Estado: Muy bueno, Tamaño: S, 24.00 €, 25.90 €",
-      "price": "",
-      "image": "",
-      "link": "https://www.vinted.es/items/10534243929-t-shirt-champion-youth?referrer=catalog"
-    },
-    {
-      "source": "vinted",
-      "title": "Levi's Felpa Camo con cappuccio - Nero - S, Marca: Levi's, Estado: Bueno, Tamaño: S, 15.00 €, 16.45 €",
-      "price": "",
-      "image": "",
-      "link": "https://www.vinted.es/items/10534055288-levis-felpa-camo-con-cappuccio-nero-s?referrer=catalog"
-    },
-    {
-      "source": "vinted",
-      "title": "Diesel Industry Vintage Luster 90s Denim Jeans Regular Straight Fit Dark Wash Mens Retro Y2K, Marca: Diesel, Estado: Muy bueno, Tamaño: M, 19.90 €, 21.60 €",
-      "price": "",
-      "image": "",
-      "link": "https://www.vinted.es/items/10527857630-diesel-industry-vintage-luster-90s-denim-jeans-regular-straight-fit-dark-wash-mens-retro-y2k?referrer=catalog"
-    },
-    {
-      "source": "vinted",
-      "title": "Scarpe yeezy, Marca: Yeezy, Estado: Muy bueno, Tamaño: 42, 60.00 €, 63.70 €",
-      "price": "",
-      "image": "",
-      "link": "https://www.vinted.es/items/10529799533-scarpe-yeezy?referrer=catalog"
-    },
-    {
-      "source": "vinted",
-      "title": "Felpa Champion Vintage Y2K Rara Gorpcore Vintage Retro Archive, Marca: Champion, Estado: Muy bueno, Tamaño: M, 20.00 €, 21.70 €",
-      "price": "",
-      "image": "",
-      "link": "https://www.vinted.es/items/10523223905-felpa-champion-vintage-y2k-rara-gorpcore-vintage-retro-archive?referrer=catalog"
-    },
-    {
-      "source": "vinted",
-      "title": "Felpa Nike Jordan rossa con cappuccio e logo Jumpman bianco (Taglia XL), Marca: Jordan, Estado: Muy bueno, Tamaño: XL, 38.99 €, 41.64 €",
-      "price": "",
-      "image": "",
-      "link": "https://www.vinted.es/items/10521175181-felpa-nike-jordan-rossa-con-cappuccio-e-logo-jumpman-bianco-taglia-xl?referrer=catalog"
-    },
-    {
-      "source": "vinted",
-      "title": "Felpa Jordan rossa e nera con cappuccio - Ragazzo 12-13 anni (147-163 cm), Marca: Jordan, Estado: Satisfactorio, Tamaño: L, 8.00 €, 9.10 €",
-      "price": "",
-      "image": "",
-      "link": "https://www.vinted.es/items/10521023193-felpa-jordan-rossa-e-nera-con-cappuccio-ragazzo-12-13-anni-147-163-cm?referrer=catalog"
-    },
-    {
-      "source": "vinted",
-      "title": "Polo Ralph Lauren Custom Fit - Gialla con Numero 3 - Taglia M, Marca: Polo Ralph Lauren, Estado: Muy bueno, Tamaño: M, 35.00 €, 37.45 €",
-      "price": "",
-      "image": "",
-      "link": "https://www.vinted.es/items/10516082459-polo-ralph-lauren-custom-fit-gialla-con-numero-3-taglia-m?referrer=catalog"
-    },
-    {
-      "source": "vinted",
-      "title": "Felpa Diesel Nera Girocollo \"For Successful Living / Only The Brave\", Marca: Diesel, Estado: Muy bueno, Tamaño: S, 20.00 €, 21.70 €",
-      "price": "",
-      "image": "",
-      "link": "https://www.vinted.es/items/10425673914-felpa-diesel-nera-girocollo-for-successful-living-only-the-brave?referrer=catalog"
-    }
-  ],
+  "generated_at": "2026-11-02T11:45:56.630307+00:00",
+  "total_items": 0,
+  "items": [],
   "sources": {
     "vinted": {
       "profile_url": "https://www.vinted.es/member/3140332927",
       "effective_url": "https://www.vinted.es/catalog?search_text=luckyyshopp&order=newest_first",
       "login": "luckyyshopp",
-      "count": 10,
-      "error": ""
+      "count": 0,
+      "error": "Esta cuenta de Vinted no tiene anuncios activos en este momento."
     }
   }
 }
